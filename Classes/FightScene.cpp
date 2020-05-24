@@ -23,11 +23,12 @@
  ****************************************************************************/
 
 #include "FightScene.h"
-#include <iostream>
+#include "Character.h"
 
-using namespace std;
 USING_NS_CC;
 USING_NS_CC_EXT;
+
+float FightScene::UNIT_SIZE = -1;
 
 Scene* FightScene::createScene()
 {
@@ -51,11 +52,10 @@ bool FightScene::init()
         return false;
     }
 
-	auto sprite = Sprite::create("WhiteCircle.png");
-	sprite->setColor(Color3B::RED);
+	auto sprite = Character::createCharacter();
 	this->addChild(sprite);
-	sprite->setPosition(Vec2(200, 200));
-
+	sprite->setName("sprite");
+	
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(FightScene::OnTouch, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
@@ -63,8 +63,8 @@ bool FightScene::init()
     return true;
 }   
 
-bool FightScene::OnTouch(Touch*, Event*) {
-	CCLOG("asdf");
-
+bool FightScene::OnTouch(Touch* t, Event* e) {
+	auto sprite = (Character*)this->getChildByName("sprite");
+	sprite->move(t->getLocation());
 	return true;
 }

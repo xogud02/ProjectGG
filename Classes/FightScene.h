@@ -31,6 +31,7 @@
 class FightScene : public cocos2d::Scene
 {
 public:
+	static float UNIT_SIZE;
     static cocos2d::Scene* createScene();
 
     virtual bool init();
