@@ -105,45 +105,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setContentScaleFactor(MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width));
     }
 
-    register_all_packages();
 
-	auto unitSize = designResolutionSize.width / 32 / 2;
-	FightScene::UNIT_SIZE = unitSize;
+    register_all_packages();
 
     // create a scene. it's an autorelease object
     auto scene = FightScene::createScene();
 
-	showGrid(scene, unitSize);
-	
     // run
     director->runWithScene(scene);
 
     return true;
-}
-
-void AppDelegate::showGrid(Scene* scene, float unitSize) {
-	int zOrder = -1;
-	float thick = 4.f;
-	for (int r = 1; r < designResolutionSize.height / unitSize; ++r) {
-		Sprite* horizontalLine = createGridSquare();
-		horizontalLine->setContentSize(Size(designResolutionSize.width, thick));
-		scene->addChild(horizontalLine, zOrder);
-		horizontalLine->setPosition(Vec2(designResolutionSize.width / 2, r*unitSize));
-	}
-
-	for (int c = 1; c < designResolutionSize.width / unitSize; ++c) {
-		Sprite* verticalLine = createGridSquare();
-		verticalLine->setContentSize(Size(thick, designResolutionSize.height));
-		scene->addChild(verticalLine, zOrder);
-		verticalLine->setPosition(Vec2(c*unitSize, designResolutionSize.height / 2));
-	}
-}
-
-Sprite* AppDelegate::createGridSquare() {
-	Sprite* ret = Sprite::create("WhiteSquare.png");
-	ret->setOpacity(128);
-	ret->setColor(Color3B::GREEN);
-	return ret;
 }
 
 // This function will be called when the app is inactive. Note, when receiving a phone call it is invoked.

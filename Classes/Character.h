@@ -10,5 +10,9 @@ class Character : public cocos2d::Sprite {
 public:
 	void move(cocos2d::Vec2);
 
-	static Character* createCharacter();
+	const int SCALE;
+
+	static Character* createCharacter(int scale = 2);
+
+	Character(int scale);
 };

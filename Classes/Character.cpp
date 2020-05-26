@@ -4,8 +4,8 @@
 
 USING_NS_CC;
 
-Character* Character::createCharacter() {
-	Character* ret = new Character();
+Character* Character::createCharacter(int scale) {
+	Character* ret = new Character(scale);
 	if (!ret || !ret->initWithFile("WhiteCircle.png")) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
@@ -13,7 +13,7 @@ Character* Character::createCharacter() {
 
 	ret->autorelease();
 	ret->setColor(Color3B::RED);
-	float unitSize = FightScene::UNIT_SIZE * 2;
+	float unitSize = FightScene::UNIT_SIZE * ret->SCALE;
 	ret->setContentSize(Size(unitSize, unitSize));
 	HPBar* hpBar = HPBar::createWithColor(Color3B::GREEN);
 
@@ -24,6 +24,10 @@ Character* Character::createCharacter() {
 	hpBar->setPosition(Vec2(width / 2,0));
 	ret->addChild(hpBar);
 	return ret;
+}
+
+Character::Character(int scale):SCALE(scale)
+{
 }
 
 void Character::tick(float dt) {

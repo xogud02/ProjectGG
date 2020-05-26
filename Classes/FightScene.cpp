@@ -27,8 +27,7 @@
 
 USING_NS_CC;
 USING_NS_CC_EXT;
-
-float FightScene::UNIT_SIZE = -1;
+using namespace std;
 
 Scene* FightScene::createScene()
 {
@@ -52,18 +51,27 @@ bool FightScene::init()
         return false;
     }
 
-	auto sprite = Character::createCharacter();
+
+	auto sprite = Character::createCharacter(3);
 	this->addChild(sprite);
 	sprite->setName("sprite");
+	const auto winSize = Director::getInstance()->getWinSize();
+	sprite->setPosition(winSize / 2);
+
+	grid = new Grid(Director::getInstance()->getWinSize().width / 32 / 2);
+	grid->autorelease();
 	
 	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = CC_CALLBACK_2(FightScene::OnTouch, this);
+	listener->onTouchBegan = CC_CALLBACK_2(FightScene::onTouch, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) {
+		grid->showGrid(this);
+	}
 
     return true;
 }   
 
-bool FightScene::OnTouch(Touch* t, Event* e) {
+bool FightScene::onTouch(Touch* t, Event* e) {
 	auto sprite = (Character*)this->getChildByName("sprite");
 	sprite->move(t->getLocation());
 	return true;
