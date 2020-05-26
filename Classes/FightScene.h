@@ -27,19 +27,22 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include "Grid.h"
 
 class FightScene : public cocos2d::Scene
 {
 public:
-	static float UNIT_SIZE;
     static cocos2d::Scene* createScene();
 
     virtual bool init();
     
-	bool OnTouch(cocos2d::Touch*, cocos2d::Event*);
+	bool onTouch(cocos2d::Touch*, cocos2d::Event*);
 
     // implement the "static create()" method manually
-    CREATE_FUNC(FightScene);
+	CREATE_FUNC(FightScene);
+	
+private:
+	Grid* grid;
 };
 
 #endif // __FIGHT_SCENE_H__

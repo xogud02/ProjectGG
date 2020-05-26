@@ -59,9 +59,6 @@ public:
     */
     virtual void applicationWillEnterForeground();
 
-private:
-	void showGrid(cocos2d::Scene* scene, float unitSize);
-	cocos2d::Sprite* createGridSquare();
 };
 
 #endif // _APP_DELEGATE_H_
