@@ -13,7 +13,7 @@ Character* Character::createCharacter(int scale) {
 
 	ret->autorelease();
 	ret->setColor(Color3B::RED);
-	float unitSize = FightScene::UNIT_SIZE * ret->SCALE;
+	float unitSize = Grid::UNIT_SIZE * ret->SCALE;
 	ret->setContentSize(Size(unitSize, unitSize));
 	HPBar* hpBar = HPBar::createWithColor(Color3B::GREEN);
 

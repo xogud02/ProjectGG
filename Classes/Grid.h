@@ -6,8 +6,7 @@
 class Grid :public cocos2d::Ref{
 	std::vector<std::vector<bool>> movableGrid;
 public:
-	const float UNIT_SIZE;
-	Grid(float unitSize);
+	static float UNIT_SIZE;
+	Grid();
 	void showGrid(cocos2d::Scene* scene);
-	cocos2d::Sprite * createGridSquare();
 };

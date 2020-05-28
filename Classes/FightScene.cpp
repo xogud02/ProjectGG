@@ -51,16 +51,16 @@ bool FightScene::init()
         return false;
     }
 
-
+	Grid::UNIT_SIZE = Director::getInstance()->getWinSize().width / 32 / 2;
+	grid = new Grid();
+	grid->autorelease();
+	
 	auto sprite = Character::createCharacter(3);
 	this->addChild(sprite);
 	sprite->setName("sprite");
 	const auto winSize = Director::getInstance()->getWinSize();
 	sprite->setPosition(winSize / 2);
 
-	grid = new Grid(Director::getInstance()->getWinSize().width / 32 / 2);
-	grid->autorelease();
-	
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(FightScene::onTouch, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
