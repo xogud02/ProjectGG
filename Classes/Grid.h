@@ -1,13 +1,29 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "cocos-ext.h"
+#include "Character.h"
 #include <vector>
 
-class Grid :public cocos2d::Ref{
+using GridPosition = std::pair<int, int>;
+
+class Grid :public cocos2d::LayerColor{
 	std::vector<std::vector<bool>> movableGrid;
-public:
 	const float UNIT_SIZE;
-	Grid(float unitSize);
-	void showGrid(cocos2d::Scene* scene);
-	cocos2d::Sprite * createGridSquare();
+	Character* player;
+
+	bool isMovable(int row, int col);
+
+	void movePlayer(int row, int col);
+	void setPlayer(Character* character);
+
+	GridPosition vecToGrid(cocos2d::Vec2 position, bool isOddScale);
+	cocos2d::Vec2 gridToPosition(GridPosition gridPosition, bool isOddScale);
+public:
+	int getRows();
+	int getCols();
+	static Grid* createGrid(int rows, int cols);
+	Grid(int rows, int cols, float unitSize);
+	void showGrid();
+	bool onTouch(cocos2d::Touch* t, cocos2d::Event* e);
 };
