@@ -4,7 +4,7 @@
 
 USING_NS_CC;
 
-Character* Character::createCharacter(int scale) {
+Character* Character::createCharacter(float unitSize, int scale) {
 	Character* ret = new Character(scale);
 	if (!ret || !ret->initWithFile("WhiteCircle.png")) {
 		CC_SAFE_DELETE(ret);
@@ -13,8 +13,8 @@ Character* Character::createCharacter(int scale) {
 
 	ret->autorelease();
 	ret->setColor(Color3B::RED);
-	float unitSize = Grid::UNIT_SIZE * ret->SCALE;
-	ret->setContentSize(Size(unitSize, unitSize));
+	float characterSize = unitSize * ret->SCALE;
+	ret->setContentSize(Size(characterSize, characterSize));
 	HPBar* hpBar = HPBar::createWithColor(Color3B::GREEN);
 
 	Size size = ret->getContentSize();
@@ -42,7 +42,6 @@ void Character::tick(float dt) {
 		CCLOG("arrive at (%f, %f)", currentPos.x, currentPos.y);
 		return;
 	}
-
 	setPosition(currentPos + normalized * moveDist);
 }
 

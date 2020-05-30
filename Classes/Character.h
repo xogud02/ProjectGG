@@ -5,6 +5,7 @@
 class Character : public cocos2d::Sprite {
 	int speed = 100;
 	cocos2d::Vec2 nextPos;
+	
 
 	void tick(float);
 public:
@@ -12,7 +13,7 @@ public:
 
 	const int SCALE;
 
-	static Character* createCharacter(int scale = 2);
+	static Character* createCharacter(float unitSize, int scale = 2);
 
 	Character(int scale);
 };
