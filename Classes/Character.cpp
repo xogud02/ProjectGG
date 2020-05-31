@@ -6,13 +6,12 @@ USING_NS_CC;
 
 Character* Character::createCharacter(float unitSize, int scale) {
 	Character* ret = new Character(scale);
-	if (!ret || !ret->initWithFile("WhiteCircle.png")) {
+	if (!ret || !ret->initWithFile("Characters/Warrior.png",Rect(0,0,16,16))) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
 	}
 
 	ret->autorelease();
-	ret->setColor(Color3B::RED);
 	float characterSize = unitSize * ret->SCALE;
 	ret->setContentSize(Size(characterSize, characterSize));
 	HPBar* hpBar = HPBar::createWithColor(Color3B::GREEN);
