@@ -15,13 +15,20 @@ Character* Character::createCharacter(float unitSize, int scale) {
 	float characterSize = unitSize * ret->SCALE;
 	ret->setContentSize(Size(characterSize, characterSize));
 	HPBar* hpBar = HPBar::createWithColor(Color3B::GREEN);
-
+	
 	Size size = ret->getContentSize();
 	float width = size.width;
 	hpBar->setContentSize(Size(width, width / 6));
 	hpBar->setHP(1);
 	hpBar->setPosition(Vec2(width / 2,0));
 	ret->addChild(hpBar);
+
+
+	auto draw = DrawNode::create();
+	//draw->setContentSize(ret->getContentSize());
+	draw->drawRect(Vec2::ZERO, Vec2(size.width, size.height), Color4F::RED);
+	ret->addChild(draw);
+
 	return ret;
 }
 
