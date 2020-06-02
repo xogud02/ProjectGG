@@ -14,11 +14,10 @@ class Grid :public cocos2d::LayerColor{
 
 	bool isMovable(int row, int col);
 
-	void movePlayer(int row, int col);
 	void setPlayer(Character* character);
 
-	GridPosition vecToGrid(cocos2d::Vec2 position, bool isOddScale);
-	cocos2d::Vec2 gridToPosition(GridPosition gridPosition, bool isOddScale);
+	GridPosition vecToGrid(cocos2d::Vec2 position);
+	cocos2d::Vec2 gridToPosition(GridPosition gridPosition);
 public:
 	int getRows();
 	int getCols();

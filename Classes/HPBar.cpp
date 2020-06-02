@@ -5,13 +5,13 @@ USING_NS_CC;
 HPBar * HPBar::createWithColor(Color3B color)
 {
 	auto ret = new HPBar();
-	if (!ret || !ret->initWithFile("WhiteSquare.png")) {
+	if (!ret) {
 		CC_SAFE_DELETE(ret);
 		return ret;
 	}
 	ret->autorelease();
 
-	ret->fill = Sprite::create("WhiteSquare.png");
+	ret->fill = Sprite::create();
 	ret->fill->setColor(color);
 	ret->fill->setAnchorPoint(Vec2::ZERO);
 	ret->addChild(ret->fill);

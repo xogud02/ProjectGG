@@ -33,20 +33,18 @@ void Grid::setPlayer(Character* player) {
 	player->setPosition(getContentSize() / 2);
 }
 
-GridPosition Grid::vecToGrid(Vec2 position, bool isOddScale)
+GridPosition Grid::vecToGrid(Vec2 position)
 {
-	int row = (position.y + (isOddScale ? 0 : 0.5f)) / UNIT_SIZE;
-	int col = (position.x + (isOddScale ? 0 : 0.5f)) / UNIT_SIZE;
+	int row = (int)position.y / (int)UNIT_SIZE;
+	int col = (int)position.x / (int)UNIT_SIZE;
 	return GridPosition(row, col);
 }
 
-Vec2 Grid::gridToPosition(GridPosition rowCol, bool isOddScale)
+Vec2 Grid::gridToPosition(GridPosition rowCol)
 {
-	Vec2 ret = Vec2(rowCol.second, rowCol.first) * (UNIT_SIZE);
-	if (isOddScale) {
-		ret += Vec2::ONE * (UNIT_SIZE / 2);
-	}
-	return ret;
+	float x = (rowCol.second + 0.5f) * UNIT_SIZE;
+	float y = (rowCol.first + 0.5f) * UNIT_SIZE;
+	return Vec2(x, y);
 }
 
 int Grid::getRows()
@@ -92,10 +90,6 @@ bool Grid::isMovable(int row, int col)
 	return movableGrid[row][col];
 }
 
-void Grid::movePlayer(int row, int col) {
-
-}
-
 bool Grid::onTouch(Touch * t, Event * e)
 {
 	if (!getBoundingBox().containsPoint(t->getLocation())) {
@@ -103,23 +97,16 @@ bool Grid::onTouch(Touch * t, Event * e)
 	}
 
 	int scale = player->SCALE;
-	bool isOddScale = scale % 2 == 1;
 
 	Vec2 touchedPosition = t->getLocation();
-	Vec2 movePosition;
-	if (isOddScale) {
-		int row = touchedPosition.y / UNIT_SIZE;
-		int col = touchedPosition.x / UNIT_SIZE;
-		movePosition = Vec2(col, row) * (UNIT_SIZE)+Vec2::ONE * (UNIT_SIZE / 2);
-	}
-	else {
-		int newX = (int)(touchedPosition.x + UNIT_SIZE / 2) / (int)UNIT_SIZE * UNIT_SIZE;
-		int newY = (int)(touchedPosition.y + UNIT_SIZE / 2) / (int)UNIT_SIZE * UNIT_SIZE;
-		movePosition = Vec2(newX, newY);
-	}
-	
-	Vect offset = -getPosition() / 2;
-	player->move(movePosition + offset);
+	Vec2 leftBottomOffset = Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
+	Vec2 vLeftBottom = touchedPosition - leftBottomOffset;
 
+	GridPosition gLeftBottom = vecToGrid(vLeftBottom);
+	vLeftBottom = gridToPosition(gLeftBottom);
+	Vec2 movePosition = vLeftBottom + leftBottomOffset;
+	
+	Vec2 offset = -getPosition() / 2;
+	player->move(movePosition + offset);
 	return true;
 }
