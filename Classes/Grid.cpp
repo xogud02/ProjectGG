@@ -100,7 +100,6 @@ bool Grid::onTouch(Touch * t, Event * e)
 
 	Vec2 touchedPosition = t->getLocation();
 	Vec2 leftBottomOffset = Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
-	CCLOG("offset %f %f ", leftBottomOffset.x, leftBottomOffset.y);
 	Vec2 vLeftBottom = touchedPosition - leftBottomOffset;
 
 	GridPosition gLeftBottom = vecToGrid(vLeftBottom);
