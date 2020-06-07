@@ -99,3 +99,15 @@ void Character::moveTo(Vec2 position)
 	nextPos = position;
 	this->schedule(CC_SCHEDULE_SELECTOR(Character::move));
 }
+
+void Character::tryToMove(Vec2 touchedPosition)
+{
+	auto grid = (Grid*)getParent();
+	Vec2 leftBottomOffset = Vec2::ONE * (SCALE / 2.f - 0.5f) * grid->UNIT_SIZE;
+	Vec2 vLeftBottom = touchedPosition - leftBottomOffset;
+
+	GridPosition gLeftBottom = grid->vecToGrid(vLeftBottom);
+	vLeftBottom = grid->gridToPosition(gLeftBottom);
+	Vec2 movePosition = vLeftBottom + leftBottomOffset;
+	moveTo(movePosition - grid->getPosition() / 2);
+}
