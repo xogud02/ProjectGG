@@ -5,7 +5,6 @@
 #include <vector>
 #include <array>
 
-
 using GridPosition = std::pair<int, int>;//TODO ¡Æ©ø¨ù¡¾
 using UINT = unsigned int;
 
