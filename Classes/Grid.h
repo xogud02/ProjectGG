@@ -7,6 +7,36 @@
 
 using GridPosition = std::pair<int, int>;
 
+enum class TileTypes : std::uint8_t {
+	Default = 0,
+	Water,
+	Max
+};
+
+struct Tile {
+public:
+	Tile(
+		const uint16_t xval,
+		const uint16_t yval,
+		bool isblocked = false,
+		TileTypes type = TileTypes::Default) :
+		X(xval),
+		Y(yval),
+		m_IsBlocked(isblocked),
+		m_Type(type)
+	{}
+
+	bool IsBlocked()		{ return m_IsBlocked; }
+	TileTypes GetType()		{ return m_Type; }
+
+	const uint16_t X;
+	const uint16_t Y;
+
+private:
+	bool m_IsBlocked = false;
+	TileTypes m_Type;
+};
+
 class Grid :public cocos2d::LayerColor{
 	std::vector<std::vector<bool>> movableGrid;
 	Character* player;
