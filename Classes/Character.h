@@ -3,9 +3,10 @@
 #include "cocos2d.h"
 #include <vector>
 #include <functional>
-#include "Grid.h"
+
 
 using GridPosition = std::pair<int, int>;
+class Grid;
 
 class Character : public cocos2d::Sprite {
 	int speed = 100;
@@ -14,6 +15,8 @@ class Character : public cocos2d::Sprite {
 
 	std::vector<std::pair<std::function<bool(float)>, cocos2d::Action*>> directions;
 	GridPosition currentGridPosition;
+
+	Grid* getGrid();
 
 	void move(float);
 public:

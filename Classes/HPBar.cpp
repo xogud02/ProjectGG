@@ -10,7 +10,7 @@ HPBar * HPBar::createWithColor(Color3B color)
 		return ret;
 	}
 	ret->autorelease();
-
+	
 	ret->fill = Sprite::create();
 	ret->fill->setColor(color);
 	ret->fill->setAnchorPoint(Vec2::ZERO);

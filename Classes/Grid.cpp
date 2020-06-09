@@ -1,5 +1,6 @@
 #include "Grid.h"
 #include "FightScene.h"
+#include "Character.h"
 
 using namespace std;
 USING_NS_CC;
@@ -13,16 +14,16 @@ Grid * Grid::createGrid(int rows, int cols)
 	ret->setIgnoreAnchorPointForPosition(false);
 	ret->setAnchorPoint(Vec2::ONE / 2);
 	ret->autorelease();
-	auto player = Character::create(unitSize);
+	auto player = Character::create(unitSize);//TODO ºÐ¸®
 	ret->setPlayer(player);
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, ret);
 	ret->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, ret);
 
-	if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) {
+	//if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) {
 		ret->showGrid();
-	}
+	//}
 
 	return ret;
 }
@@ -31,6 +32,11 @@ void Grid::setPlayer(Character* player) {
 	this->player = player;
 	addChild(player);
 	player->setPosition(getContentSize() / 2);
+}
+
+Vec2 Grid::getPositionOffset()
+{
+	return -getPosition()/2;
 }
 
 GridPosition Grid::vecToGrid(Vec2 position)
@@ -57,33 +63,32 @@ int Grid::getCols()
 	return movableGrid[0].size();
 }
 
-Grid::Grid(int rows, int cols, float unitSize) :UNIT_SIZE(unitSize)
+Grid::Grid(int rows, int cols, float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols)
 {
 	movableGrid = vector<vector<bool>>(rows, vector<bool>(cols, true));
 }
 
 void Grid::showGrid() {
-	int rows = movableGrid.size();
-	int cols = movableGrid[0].size();
+	int rows = getRows();
+	int cols = getCols();
 
-	auto draw = DrawNode::create();
-	addChild(draw, -1);
+	debugGrid = DrawNode::create();
+	addChild(debugGrid, -1);
 	Color4F gridColor = Color4F(0, 1, 0, 0.5f);
 	Size contentSize = getContentSize();
 	for (int r = 1; r < rows; ++r) {
-		draw->drawLine(Vec2(0, r*UNIT_SIZE), Vec2(contentSize.width, r*UNIT_SIZE), gridColor);
+		debugGrid->drawLine(Vec2(0, r*UNIT_SIZE), Vec2(contentSize.width, r*UNIT_SIZE), gridColor);
 	}
 
 	float height = getContentSize().height;
 	for (int c = 1; c < cols; ++c) {
-		draw->drawLine(Vec2(c*UNIT_SIZE, 0), Vec2(c*UNIT_SIZE, contentSize.height), gridColor);
+		debugGrid->drawLine(Vec2(c*UNIT_SIZE, 0), Vec2(c*UNIT_SIZE, contentSize.height), gridColor);
 	}
 }
 
 bool Grid::isMovable(int row, int col)
 {
-	int rows = getRows(), cols = getCols();
-	if (row < 0 || row >= rows || col < 0 || col >= cols) {
+	if (row < 0 || row >= getRows() || col < 0 || col >= getCols()) {
 		return false;
 	}
 
@@ -100,4 +105,25 @@ bool Grid::onTouch(Touch * t, Event * e)
 
 	player->tryToMove(t->getLocation());
 	return true;
+}
+
+void Grid::occupyArea(const GridPosition position, const int size)
+{
+	const int row = position.first;
+	const int col = position.second;
+	for (int r = row; r < row + size; ++r) {
+		for (int c = col; c < col + size; ++c) {
+			if (r< 0 || r>= getRows() || c < 0 || c >= getCols()) {
+				CCLOG("invalid rowcol : %d %d", r, c);
+			}
+			else {
+			movableGrid[r][c] = false;
+
+			}
+		}
+	}
+	auto child = DrawNode::create();
+	child->drawSolidRect(Vec2::ZERO, Vec2::ONE * UNIT_SIZE * size, Color4F::RED);
+	child->setPosition(gridToPosition(position) - Vec2::ONE * UNIT_SIZE / 2 );
+	debugGrid->addChild(child, 0);
 }

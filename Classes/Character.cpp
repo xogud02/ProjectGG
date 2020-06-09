@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "HpBar.h"
+#include "Grid.h"
 
 USING_NS_CC;
 using namespace std;
@@ -65,6 +66,11 @@ Character::~Character()
 	}
 }
 
+Grid * Character::getGrid()
+{
+	return (Grid*)getParent();
+}
+
 void Character::move(float dt) {
 	auto currentPos = getPosition();
 	auto direction = (nextPos - currentPos);
@@ -89,6 +95,8 @@ void Character::moveTo(Vec2 position)
 	}
 
 	float angle = CC_RADIANS_TO_DEGREES(direction.getAngle());
+
+
 	for (auto direction : directions) {
 		if (direction.first(angle)) {
 			currentAction = runAction(direction.second);
@@ -97,17 +105,20 @@ void Character::moveTo(Vec2 position)
 	}
 
 	nextPos = position;
+	getGrid()->occupyArea(currentGridPosition, SCALE);
+
 	this->schedule(CC_SCHEDULE_SELECTOR(Character::move));
 }
 
 void Character::tryToMove(Vec2 touchedPosition)
 {
-	auto grid = (Grid*)getParent();
+	auto grid = getGrid();
 	Vec2 leftBottomOffset = Vec2::ONE * (SCALE / 2.f - 0.5f) * grid->UNIT_SIZE;
 	Vec2 vLeftBottom = touchedPosition - leftBottomOffset;
 
 	GridPosition gLeftBottom = grid->vecToGrid(vLeftBottom);
 	vLeftBottom = grid->gridToPosition(gLeftBottom);
+	currentGridPosition = grid->vecToGrid(vLeftBottom + grid->getPositionOffset());
 	Vec2 movePosition = vLeftBottom + leftBottomOffset;
-	moveTo(movePosition - grid->getPosition() / 2);
+	moveTo(movePosition + grid->getPositionOffset());
 }
