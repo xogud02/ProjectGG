@@ -5,11 +5,41 @@
 #include <vector>
 #include <array>
 
-using GridPosition = std::pair<int, int>;//TODO °³¼±
+using GridPosition = std::pair<int, int>;//TODO ¡Æ©ø¨ù¡¾
 using UINT = unsigned int;
 
+enum class TileTypes : std::uint8_t {
+	Default = 0,
+	Water,
+	Max
+};
+
+struct Tile {
+public:
+	Tile(
+		const uint16_t xval,
+		const uint16_t yval,
+		bool isblocked = false,
+		TileTypes type = TileTypes::Default) :
+		X(xval),
+		Y(yval),
+		m_IsBlocked(isblocked),
+		m_Type(type)
+	{}
+
+	bool IsBlocked()		{ return m_IsBlocked; }
+	TileTypes GetType()		{ return m_Type; }
+
+	const uint16_t X;
+	const uint16_t Y;
+
+private:
+	bool m_IsBlocked = false;
+	TileTypes m_Type;
+};
+
 class Character;
-class Grid : public cocos2d::LayerColor{
+class Grid : public cocos2d::LayerColor {
 public:
 	const float UNIT_SIZE;
 
