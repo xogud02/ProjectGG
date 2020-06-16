@@ -14,7 +14,7 @@ Grid * Grid::createGrid(int rows, int cols)
 	ret->setIgnoreAnchorPointForPosition(false);
 	ret->setAnchorPoint(Vec2::ONE / 2);
 	ret->autorelease();
-	auto player = Character::create(unitSize);//TODO ºÐ¸®
+	auto player = Character::create(unitSize);//TODO ë¶„ë¦¬
 	ret->setPlayer(player);
 
 	auto listener = EventListenerTouchOneByOne::create();
@@ -103,7 +103,11 @@ bool Grid::onTouch(Touch * t, Event * e)
 
 	int scale = player->SCALE;
 
-	player->tryToMove(t->getLocation());
+
+	Vec2 leftBottomOffset = Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
+	Vec2 vLeftBottom = t->getLocation() - leftBottomOffset;
+	player->tryToMove(vecToGrid(vLeftBottom));
+
 	return true;
 }
 
