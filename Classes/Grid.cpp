@@ -48,8 +48,8 @@ GridPosition Grid::vecToGrid(Vec2 position)
 
 Vec2 Grid::gridToPosition(GridPosition rowCol)
 {
-	float x = (rowCol.second + 0.5f) * UNIT_SIZE;
-	float y = (rowCol.first + 0.5f) * UNIT_SIZE;
+	float x = (rowCol.second) * UNIT_SIZE;
+	float y = (rowCol.first) * UNIT_SIZE;
 	return Vec2(x, y);
 }
 
@@ -97,16 +97,19 @@ bool Grid::isMovable(int row, int col)
 
 bool Grid::onTouch(Touch * t, Event * e)
 {
-	if (!getBoundingBox().containsPoint(t->getLocation())) {
+	auto&& touchedPosition = t->getLocation();
+	if (!getBoundingBox().containsPoint(touchedPosition)) {
 		return false;
 	}
 
+	touchedPosition += getPositionOffset();
+
 	int scale = player->SCALE;
 
-
-	Vec2 leftBottomOffset = Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
-	Vec2 vLeftBottom = t->getLocation() - leftBottomOffset;
-	player->tryToMove(vecToGrid(vLeftBottom));
+	Vec2 leftBottomOffset = -Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
+	Vec2 vLeftBottom = touchedPosition + leftBottomOffset;
+	auto gridPosition = vecToGrid(vLeftBottom);
+	player->tryToMove(gridPosition);
 
 	return true;
 }
@@ -126,8 +129,9 @@ void Grid::occupyArea(const GridPosition position, const int size)
 			}
 		}
 	}
+
 	auto child = DrawNode::create();
 	child->drawSolidRect(Vec2::ZERO, Vec2::ONE * UNIT_SIZE * size, Color4F::RED);
-	child->setPosition(gridToPosition(position) - Vec2::ONE * UNIT_SIZE / 2 );
+	child->setPosition(gridToPosition(position));
 	debugGrid->addChild(child, 0);
 }

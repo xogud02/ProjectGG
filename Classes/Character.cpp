@@ -12,6 +12,8 @@ Character* Character::create(float unitSize, int scale) {
 		return nullptr;
 	}
 
+	ret->setAnchorPoint(Vec2::ZERO);
+
 	string img = "Characters/Warrior.png";
 	ret->directions.push_back(make_pair([](float angle) {return -135 < angle && angle <= -45; }, createMoveAction(img, 0)));//downWard
 	ret->directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, createMoveAction(img, 1)));//leftWard
@@ -112,10 +114,6 @@ void Character::moveTo(Vec2 position)
 
 void Character::tryToMove(GridPosition position)
 {
-	auto grid = getGrid();
-	Vec2 leftBottomOffset = Vec2::ONE * (SCALE / 2.f - 0.5f) * grid->UNIT_SIZE;
-	auto vLeftBottom = grid->gridToPosition(position);
-	currentGridPosition = grid->vecToGrid(vLeftBottom + grid->getPositionOffset());
-	Vec2 movePosition = vLeftBottom + leftBottomOffset;
-	moveTo(movePosition + grid->getPositionOffset());
+	currentGridPosition = position;
+	moveTo(getGrid()->gridToPosition(position));
 }
