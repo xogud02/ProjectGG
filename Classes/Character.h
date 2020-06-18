@@ -21,7 +21,7 @@ class Character : public cocos2d::Sprite {
 	void move(float);
 public:
 	void moveTo(cocos2d::Vec2);
-	void tryToMove(cocos2d::Vec2);
+	void tryToMove(GridPosition);
 
 	const int SCALE;
 

@@ -5,7 +5,7 @@
 #include <vector>
 #include <array>
 
-using GridPosition = std::pair<int, int>;//TODO ¡Æ©ø¨ù¡¾
+using GridPosition = std::pair<int, int>;//TODO Â°Â³Â¼Â±
 using UINT = unsigned int;
 
 enum class TileTypes : std::uint8_t {
