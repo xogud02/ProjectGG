@@ -12,6 +12,7 @@ class Character : public cocos2d::Sprite {
 	int speed = 100;
 	cocos2d::Vec2 nextPos;
 	cocos2d::Action* currentAction;
+	std::queue<GridPosition> path;
 
 	std::vector<std::pair<std::function<bool(float)>, cocos2d::Action*>> directions;
 	GridPosition currentGridPosition;
@@ -19,6 +20,7 @@ class Character : public cocos2d::Sprite {
 	Grid* getGrid();
 
 	void move(float);
+	void movePath(float);
 public:
 	void moveTo(cocos2d::Vec2);
 	void tryToMove(GridPosition);

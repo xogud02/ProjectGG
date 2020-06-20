@@ -82,25 +82,39 @@ void Character::move(float dt) {
 
 	if (direction.length() < moveDist) {
 		unschedule(CC_SCHEDULE_SELECTOR(Character::move));
-		stopAction(currentAction);
-		currentAction = nullptr;
 		return;
 	}
 	setPosition(currentPos + normalized * moveDist);
 }
 
+void Character::movePath(float){
+	if (path.empty()) {
+		unschedule(CC_SCHEDULE_SELECTOR(Character::movePath));
+		return;
+	}
+	if (isScheduled(CC_SCHEDULE_SELECTOR(Character::move))) {
+		return;
+	}
+	auto&& nextGridPosition = path.front();
+	auto&& grid = getGrid();
+	grid->occupyArea(currentGridPosition, SCALE, false);
+	currentGridPosition = nextGridPosition;
+	moveTo(grid->gridToPosition(nextGridPosition));
+	path.pop();
+}
+
 void Character::moveTo(Vec2 position)
 {
 	Vec2 direction = position - getPosition();
-	if (currentAction != nullptr) {
-		stopAction(currentAction);
-	}
-
+	
 	float angle = CC_RADIANS_TO_DEGREES(direction.getAngle());
 
 
 	for (auto direction : directions) {
-		if (direction.first(angle)) {
+		if (direction.first(angle) && currentAction != direction.second) {
+			if (currentAction) {
+				stopAction(currentAction);
+			}
 			currentAction = runAction(direction.second);
 			break;
 		}
@@ -114,6 +128,26 @@ void Character::moveTo(Vec2 position)
 
 void Character::tryToMove(GridPosition position)
 {
-	currentGridPosition = position;
-	moveTo(getGrid()->gridToPosition(position));
+	GridPosition tmp = currentGridPosition;
+	path.swap(queue<GridPosition>());
+	while (tmp.first != position.first || tmp.second != position.second) {// temporary path finding
+		int deltaRow = position.first - tmp.first;
+		int deltaCol = position.second - tmp.second;
+		int absDeltaRow = abs(deltaRow);
+		int absDeltaCol = abs(deltaCol);
+		int rowDirection = deltaRow == 0 ? 0 : deltaRow / absDeltaRow;
+		int colDirection = deltaCol == 0 ? 0 : deltaCol / absDeltaCol;
+		if (absDeltaRow > absDeltaCol) {
+			tmp.first += rowDirection;
+		}
+		else if (absDeltaRow < absDeltaCol) {
+			tmp.second += colDirection;
+		}
+		else {
+			tmp.first += rowDirection;
+			tmp.second += colDirection;
+		}
+		path.push(tmp);
+	}
+	schedule(CC_SCHEDULE_SELECTOR(Character::movePath));
 }

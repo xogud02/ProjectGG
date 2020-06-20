@@ -84,6 +84,8 @@ void Grid::showGrid() {
 	for (int c = 1; c < cols; ++c) {
 		debugGrid->drawLine(Vec2(c*UNIT_SIZE, 0), Vec2(c*UNIT_SIZE, contentSize.height), gridColor);
 	}
+
+
 }
 
 bool Grid::isMovable(int row, int col)
@@ -114,7 +116,7 @@ bool Grid::onTouch(Touch * t, Event * e)
 	return true;
 }
 
-void Grid::occupyArea(const GridPosition position, const int size)
+void Grid::occupyArea(const GridPosition position, const int size, bool occupy)
 {
 	const int row = position.first;
 	const int col = position.second;
@@ -124,14 +126,20 @@ void Grid::occupyArea(const GridPosition position, const int size)
 				CCLOG("invalid rowcol : %d %d", r, c);
 			}
 			else {
-			movableGrid[r][c] = false;
-
+			movableGrid[r][c] = !occupy;
 			}
 		}
 	}
 
+	debugGrid->removeAllChildren();
 	auto child = DrawNode::create();
-	child->drawSolidRect(Vec2::ZERO, Vec2::ONE * UNIT_SIZE * size, Color4F::RED);
-	child->setPosition(gridToPosition(position));
+	for (int r = 0; r < getRows(); ++r) {
+		for (int c = 0; c < getCols(); ++c) {
+			if (!isMovable(r, c)) {
+				auto&& rectOrigin = gridToPosition(GridPosition(r, c));
+				child->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED);
+			}
+		}
+	}
 	debugGrid->addChild(child, 0);
 }
