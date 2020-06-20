@@ -52,7 +52,7 @@ public:
 	void showGrid();
 	bool onTouch(cocos2d::Touch* t, cocos2d::Event* e);
 	cocos2d::Vec2 getPositionOffset();
-	void occupyArea(const GridPosition, const int size = 1);
+	void occupyArea(const GridPosition, const int size = 1, bool occupy = true);
 
 	static Grid* createGrid(int rows, int cols);
 
