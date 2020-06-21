@@ -4,8 +4,8 @@
 #include "cocos-ext.h"
 #include <vector>
 #include <array>
+#include "GridPosition.h"
 
-using GridPosition = std::pair<int, int>;//TODO °³¼±
 using UINT = unsigned int;
 
 enum class TileTypes : std::uint8_t {
@@ -13,6 +13,7 @@ enum class TileTypes : std::uint8_t {
 	Water,
 	Max
 };
+
 
 struct Tile {
 public:
@@ -44,6 +45,7 @@ public:
 	const float UNIT_SIZE;
 
 	bool isMovable(int row, int col);
+	bool isMovable(GridPosition gridPosition);
 	GridPosition vecToGrid(cocos2d::Vec2 position);
 	cocos2d::Vec2 gridToPosition(GridPosition gridPosition);
 	int getRows();

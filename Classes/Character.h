@@ -1,11 +1,10 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "GridPosition.h"
 #include <vector>
 #include <functional>
 
-
-using GridPosition = std::pair<int, int>;
 class Grid;
 
 class Character : public cocos2d::Sprite {
