@@ -48,8 +48,8 @@ GridPosition Grid::vecToGrid(Vec2 position)
 
 Vec2 Grid::gridToPosition(GridPosition rowCol)
 {
-	float x = (rowCol.second) * UNIT_SIZE;
-	float y = (rowCol.first) * UNIT_SIZE;
+	float x = (rowCol.col) * UNIT_SIZE;
+	float y = (rowCol.row) * UNIT_SIZE;
 	return Vec2(x, y);
 }
 
@@ -97,6 +97,11 @@ bool Grid::isMovable(int row, int col)
 	return movableGrid[row][col];
 }
 
+bool Grid::isMovable(GridPosition gridPosition)
+{
+	return isMovable(gridPosition.row, gridPosition.col);
+}
+
 bool Grid::onTouch(Touch * t, Event * e)
 {
 	auto&& touchedPosition = t->getLocation();
@@ -118,8 +123,8 @@ bool Grid::onTouch(Touch * t, Event * e)
 
 void Grid::occupyArea(const GridPosition position, const int size, bool occupy)
 {
-	const int row = position.first;
-	const int col = position.second;
+	const int row = position.row;
+	const int col = position.col;
 	for (int r = row; r < row + size; ++r) {
 		for (int c = col; c < col + size; ++c) {
 			if (r< 0 || r>= getRows() || c < 0 || c >= getCols()) {

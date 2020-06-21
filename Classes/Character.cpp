@@ -130,22 +130,22 @@ void Character::tryToMove(GridPosition position)
 {
 	GridPosition tmp = currentGridPosition;
 	path.swap(queue<GridPosition>());
-	while (tmp.first != position.first || tmp.second != position.second) {// temporary path finding
-		int deltaRow = position.first - tmp.first;
-		int deltaCol = position.second - tmp.second;
+	while (tmp.row != position.row || tmp.col != position.col) {// temporary path finding
+		int deltaRow = position.row - tmp.row;
+		int deltaCol = position.col - tmp.col;
 		int absDeltaRow = abs(deltaRow);
 		int absDeltaCol = abs(deltaCol);
 		int rowDirection = deltaRow == 0 ? 0 : deltaRow / absDeltaRow;
 		int colDirection = deltaCol == 0 ? 0 : deltaCol / absDeltaCol;
 		if (absDeltaRow > absDeltaCol) {
-			tmp.first += rowDirection;
+			tmp.row += rowDirection;
 		}
 		else if (absDeltaRow < absDeltaCol) {
-			tmp.second += colDirection;
+			tmp.col += colDirection;
 		}
 		else {
-			tmp.first += rowDirection;
-			tmp.second += colDirection;
+			tmp.row += rowDirection;
+			tmp.col += colDirection;
 		}
 		path.push(tmp);
 	}
