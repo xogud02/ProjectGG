@@ -3,32 +3,101 @@
 #include <unordered_set>
 using namespace std;
 
+
+namespace std {
+	template <>
+	struct hash<SPNode> {
+		size_t operator()(const SPNode& val) const {
+			auto pos = val->gridPosition;
+			return hash<int>()(pos.row * 100000 + pos.col);
+		}
+	};
+	
+	template<>
+	struct greater<SPNode> {
+		bool operator()(const SPNode& lhs, const SPNode& rhs) const {
+			return lhs->f > rhs->f;
+		}
+	};
+
+	template<>
+	struct equal_to<SPNode> {
+		bool operator()(const SPNode& lhs, const SPNode& rhs) const {
+			return lhs->gridPosition == rhs->gridPosition;
+		}
+	};
+}
+
 queue<GridPosition> GridPathFinder::findPath(Grid* grid, GridPosition from, GridPosition to) {
-	priority_queue<shared_ptr<AstarNode>> open;
-	unordered_set<shared_ptr<AstarNode>> closed;
-	AstarNode start(from, 0, from.distance(to));
+	priority_queue<SPNode,vector<SPNode>,greater<SPNode>> pq;
+	unordered_set<SPNode> open;
+	unordered_set<SPNode> closed;
+
+	auto start = make_shared<AstarNode>(from, 0, from.distance(to));
 	const float diagonal = sqrtf(2);
 	int dr[] = { -1,-1,-1,0,0,1,1,1 };
 	int dc[] = { -1,0,1,-1,1,-1,0,1 };
-	shared_ptr<AstarNode> last;
-	while (!open.empty()) {
-		auto current = open.top(); open.pop();
+	pq.push(start);
+	open.insert(start);
+
+
+	SPNode last;
+	while (!pq.empty()) {
+		auto current = pq.top(); pq.pop();
+		open.erase(current);
 		closed.insert(current);
+		auto currentPosition = current->gridPosition;
+		if (currentPosition == to) {
+			last = current;
+
+			break;
+		}
 		for (int i = 0; i < 8; ++i) {
-			auto currentPosition = current->gridPosition;
 			GridPosition adjPosition = currentPosition + GridPosition(dr[i], dc[i]);
 			if (!grid->isMovable(adjPosition)) {
 				continue;
 			}
 
+			float nextG = current->g + dr[i] * dc[i] == 0 ? 1 : diagonal;
+			auto next = make_shared<AstarNode>(adjPosition, nextG, adjPosition.distance(to), current);
+			if (closed.find(next) != closed.end()) {
+				continue;
+			}
+
+			auto result = open.insert(next);
+			if (result.second) {
+				pq.push(next);
+			}
+			else {
+				auto beforeNext = result.first;
+				if ((*beforeNext)->g > nextG) {
+					open.erase(beforeNext);
+					open.insert(next);
+					pq.push(next);
+				}
+			}
 		}
+		
 	}
 
 	queue<GridPosition> ret;
 
+
+	if (last) {
+		stack<GridPosition> s;
+		while (last) {
+			s.push(last->gridPosition);
+			last = last->parent;
+		}
+		while (!s.empty()) {
+			ret.push(s.top());
+			s.pop();
+		}
+ 	}
+
 	return ret;
 }
 
-AstarNode::AstarNode(GridPosition gridPosition, float g, float h, shared_ptr<AstarNode> before)
-	:gridPosition(gridPosition), f(g + h), g(g), h(h), before(before) {}
+AstarNode::AstarNode(GridPosition gridPosition, float g, float h, SPNode before)
+	:gridPosition(gridPosition), f(g + h), g(g), h(h), parent(before) {}
 
