@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "HpBar.h"
 #include "Grid.h"
+#include "GridPathFinder.h"
 
 USING_NS_CC;
 using namespace std;
@@ -128,26 +129,7 @@ void Character::moveTo(Vec2 position)
 
 void Character::tryToMove(GridPosition position)
 {
-	GridPosition tmp = currentGridPosition;
-	path.swap(queue<GridPosition>());
-	while (tmp.row != position.row || tmp.col != position.col) {// temporary path finding
-		int deltaRow = position.row - tmp.row;
-		int deltaCol = position.col - tmp.col;
-		int absDeltaRow = abs(deltaRow);
-		int absDeltaCol = abs(deltaCol);
-		int rowDirection = deltaRow == 0 ? 0 : deltaRow / absDeltaRow;
-		int colDirection = deltaCol == 0 ? 0 : deltaCol / absDeltaCol;
-		if (absDeltaRow > absDeltaCol) {
-			tmp.row += rowDirection;
-		}
-		else if (absDeltaRow < absDeltaCol) {
-			tmp.col += colDirection;
-		}
-		else {
-			tmp.row += rowDirection;
-			tmp.col += colDirection;
-		}
-		path.push(tmp);
-	}
+	getGrid()->occupyArea(currentGridPosition, SCALE, false);
+	path.swap(GridPathFinder().findPath(getGrid(), currentGridPosition, position));
 	schedule(CC_SCHEDULE_SELECTOR(Character::movePath));
 }
