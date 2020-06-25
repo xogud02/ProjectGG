@@ -9,11 +9,29 @@ Grid * Grid::createGrid(int rows, int cols)
 {
 	auto unitSize = Director::getInstance()->getWinSize().width / 32 / 2;
 	Grid* ret = new Grid(rows, cols, unitSize);
-	ret->initWithColor(Color4B(255, 255, 255, 128));
+	ret->initWithColor(Color4B(255, 255, 255, 64));
 	ret->setContentSize(Size(unitSize * cols, unitSize * rows));
 	ret->setIgnoreAnchorPointForPosition(false);
 	ret->setAnchorPoint(Vec2::ONE / 2);
 	ret->autorelease();
+
+
+
+
+
+
+	for (int r = 0; r < rows; ++r) {
+		for (int c = 0; c < cols; ++c) {
+			Sprite* s = Sprite::create("Tiles/Floor.png", CC_RECT_PIXELS_TO_POINTS(Rect(5 * 16, 6 * 16, 16, 16)));
+			s->getTexture()->setAliasTexParameters();
+			s->setScale(unitSize / (16.f / CC_CONTENT_SCALE_FACTOR()));
+			s->setAnchorPoint(Vec2::ZERO);
+			ret->addChild(s);
+			s->setPosition(ret->gridToPosition(GridPosition(r, c)));
+		}
+	}
+
+
 	auto player = Character::create(unitSize);//TODO 분리
 	ret->setPlayer(player);
 
@@ -21,8 +39,11 @@ Grid * Grid::createGrid(int rows, int cols)
 	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, ret);
 	ret->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, ret);
 
+
+	
+
 	//if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) {
-		ret->showGrid();
+		//ret->showGrid();
 	//}
 
 	return ret;
@@ -63,7 +84,7 @@ int Grid::getCols()
 	return movableGrid[0].size();
 }
 
-Grid::Grid(int rows, int cols, float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols)
+Grid::Grid(int rows, int cols, float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols), debugGrid(nullptr)
 {
 	movableGrid = vector<vector<bool>>(rows, vector<bool>(cols, true));
 }
@@ -84,7 +105,6 @@ void Grid::showGrid() {
 	for (int c = 1; c < cols; ++c) {
 		debugGrid->drawLine(Vec2(c*UNIT_SIZE, 0), Vec2(c*UNIT_SIZE, contentSize.height), gridColor);
 	}
-
 
 }
 
@@ -136,13 +156,17 @@ void Grid::occupyArea(const GridPosition position, const int size, bool occupy)
 		}
 	}
 
+	if (debugGrid == nullptr) {
+		return;
+	}
+
 	debugGrid->removeAllChildren();
 	auto child = DrawNode::create();
 	for (int r = 0; r < getRows(); ++r) {
 		for (int c = 0; c < getCols(); ++c) {
 			if (!isMovable(r, c)) {
 				auto&& rectOrigin = gridToPosition(GridPosition(r, c));
-				child->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED);
+				child->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED - Color4F(0, 0, 0, 0.5f));
 			}
 		}
 	}
