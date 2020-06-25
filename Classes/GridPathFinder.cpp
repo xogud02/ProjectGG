@@ -58,7 +58,7 @@ queue<GridPosition> GridPathFinder::findPath(Grid* grid, GridPosition from, Grid
 				continue;
 			}
 
-			float nextG = current->g + dr[i] * dc[i] == 0 ? 1 : diagonal;
+			float nextG = current->g + (dr[i] * dc[i] == 0 ? 1 : diagonal);
 			auto next = make_shared<AstarNode>(adjPosition, nextG, adjPosition.distance(to), current);
 			if (closed.find(next) != closed.end()) {
 				continue;

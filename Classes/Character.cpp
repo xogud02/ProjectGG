@@ -24,7 +24,7 @@ Character* Character::create(float unitSize, int scale) {
 	ret->autorelease();
 	float characterSize = unitSize * ret->SCALE;
 
-	ret->setScale(characterSize / 16.f);
+	ret->setScale(characterSize / (16.f / CC_CONTENT_SCALE_FACTOR()));
 	HPBar* hpBar = HPBar::createWithColor(Color3B::GREEN);
 
 	Size size = ret->getContentSize();
