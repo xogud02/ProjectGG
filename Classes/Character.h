@@ -28,8 +28,6 @@ public:
 
 	static Character* create(float unitSize, int scale = 2);
 
-	static cocos2d::Action* createMoveAction(std::string file, int r);
-
 	Character(int scale);
 	virtual ~Character();
 };

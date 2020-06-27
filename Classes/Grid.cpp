@@ -1,30 +1,26 @@
 #include "Grid.h"
 #include "FightScene.h"
 #include "Character.h"
+#include "SpriteFactory.h"
 
 using namespace std;
 USING_NS_CC;
 
 Grid * Grid::createGrid(int rows, int cols)
 {
-	auto unitSize = Director::getInstance()->getWinSize().width / 32 / 2;
-	Grid* ret = new Grid(rows, cols, unitSize);
+	auto gridUnitSize = Director::getInstance()->getWinSize().width / 32 / 2;
+	Grid* ret = new Grid(rows, cols, gridUnitSize);
 	ret->initWithColor(Color4B(255, 255, 255, 64));
-	ret->setContentSize(Size(unitSize * cols, unitSize * rows));
+	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
 	ret->setIgnoreAnchorPointForPosition(false);
 	ret->setAnchorPoint(Vec2::ONE / 2);
 	ret->autorelease();
-
-
-
-
-
-
+	
 	for (int r = 0; r < rows; ++r) {
 		for (int c = 0; c < cols; ++c) {
-			Sprite* s = Sprite::create("Tiles/Floor.png", CC_RECT_PIXELS_TO_POINTS(Rect(5 * 16, 6 * 16, 16, 16)));
+			Sprite* s = Sprite::createWithSpriteFrame(SpriteFactory::grassFrame());
 			s->getTexture()->setAliasTexParameters();
-			s->setScale(unitSize / (16.f / CC_CONTENT_SCALE_FACTOR()));
+			s->setScale(SpriteFactory::getUnitScale(gridUnitSize));
 			s->setAnchorPoint(Vec2::ZERO);
 			ret->addChild(s);
 			s->setPosition(ret->gridToPosition(GridPosition(r, c)));
@@ -32,7 +28,7 @@ Grid * Grid::createGrid(int rows, int cols)
 	}
 
 
-	auto player = Character::create(unitSize);//TODO 분리
+	auto player = Character::create(gridUnitSize);//TODO 분리
 	ret->setPlayer(player);
 
 	auto listener = EventListenerTouchOneByOne::create();

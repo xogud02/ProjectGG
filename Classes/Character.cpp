@@ -2,29 +2,29 @@
 #include "HpBar.h"
 #include "Grid.h"
 #include "GridPathFinder.h"
+#include "SpriteFactory.h"
 
 USING_NS_CC;
 using namespace std;
 
 Character* Character::create(float unitSize, int scale) {
 	Character* ret = new Character(scale);
-	if (!ret || !ret->initWithFile("Characters/Warrior.png", CC_RECT_PIXELS_TO_POINTS(Rect(0, 0, 16, 16)))) {
+	if (!ret || !ret->initWithSpriteFrame(SpriteFactory::worriorFrame())) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
 	}
 
 	ret->setAnchorPoint(Vec2::ZERO);
 
-	string img = "Characters/Warrior.png";
-	ret->directions.push_back(make_pair([](float angle) {return -135 < angle && angle <= -45; }, createMoveAction(img, 0)));//downWard
-	ret->directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, createMoveAction(img, 1)));//leftWard
-	ret->directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, createMoveAction(img, 2)));//rightWard
-	ret->directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, createMoveAction(img, 3)));//upWard
+	ret->directions.push_back(make_pair([](float angle) {return -135 < angle && angle <= -45; }, SpriteFactory::worriorMoveAction(CharacterDirection::DOWN)));
+	ret->directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, SpriteFactory::worriorMoveAction(CharacterDirection::LEFT)));
+	ret->directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, SpriteFactory::worriorMoveAction(CharacterDirection::RIGHT)));
+	ret->directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::worriorMoveAction(CharacterDirection::UP)));
 
 	ret->autorelease();
 	float characterSize = unitSize * ret->SCALE;
 
-	ret->setScale(characterSize / (16.f / CC_CONTENT_SCALE_FACTOR()));
+	ret->setScale(SpriteFactory::getUnitScale(characterSize));
 	HPBar* hpBar = HPBar::createWithColor(Color3B::GREEN);
 
 	Size size = ret->getContentSize();
@@ -36,25 +36,9 @@ Character* Character::create(float unitSize, int scale) {
 	ret->currentAction = nullptr;
 
 	auto draw = DrawNode::create();
-	//draw->setContentSize(ret->getContentSize());
 	draw->drawRect(Vec2::ZERO, Vec2(size.width, size.height), Color4F::RED);
 	ret->addChild(draw);
 
-	return ret;
-}
-
-Action* Character::createMoveAction(string file, int r)
-{
-	auto anim = Animation::create();
-	anim->setDelayPerUnit(0.3f);
-	for (int i = 0; i < 4; ++i) {
-		auto frame = SpriteFrame::create(file, CC_RECT_PIXELS_TO_POINTS(Rect(16 * i, 16 * r, 16, 16)));
-		anim->addSpriteFrame(frame);
-	}
-
-
-	auto ret = RepeatForever::create(Animate::create(anim));
-	ret->retain();
 	return ret;
 }
 

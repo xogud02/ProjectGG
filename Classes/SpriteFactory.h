@@ -1,0 +1,49 @@
+#pragma once
+#include "cocos2d.h";
+
+enum class CharacterDirection {
+	DOWN = 0,
+	LEFT,
+	RIGHT,
+	UP
+};
+
+class SpriteFactory {
+	SpriteFactory() = default;
+	static const std::string WARRIOR;
+	static const std::string FLOOR;
+
+	static cocos2d::SpriteFrame* createFrame(const std::string& fileName, int x, int y) {
+		return cocos2d::SpriteFrame::create(fileName, CC_RECT_PIXELS_TO_POINTS(cocos2d::Rect(x * unitSize, y*unitSize, unitSize, unitSize)));
+	}
+public:
+	static const int unitSize = 16;
+
+	static float getUnitScale(float scale) {
+		return scale * CC_CONTENT_SCALE_FACTOR() / unitSize;
+	}
+
+	static cocos2d::SpriteFrame* worriorFrame() {
+		return createFrame(WARRIOR, 0, 0);
+	}
+
+	static cocos2d::SpriteFrame* grassFrame() {
+		return createFrame(FLOOR, 8, 7);
+	}
+
+
+	static cocos2d::Action* worriorMoveAction(CharacterDirection characterDirection)
+	{
+		auto anim = cocos2d::Animation::create();
+		anim->setDelayPerUnit(0.3f);
+		for (int i = 0; i < 4; ++i) {
+			auto frame = cocos2d::SpriteFrame::create(WARRIOR, CC_RECT_PIXELS_TO_POINTS(cocos2d::Rect(unitSize * i, unitSize * (int)characterDirection, unitSize, unitSize)));
+			anim->addSpriteFrame(frame);
+		}
+
+		auto ret = cocos2d::RepeatForever::create(cocos2d::Animate::create(anim));
+		ret->retain();
+		return ret;
+	}
+};
+
