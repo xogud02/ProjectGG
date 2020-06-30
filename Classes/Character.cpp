@@ -55,7 +55,7 @@ Character::~Character()
 
 Grid * Character::getGrid()
 {
-	return (Grid*)getParent();
+	return dynamic_cast<Grid*>(getParent());
 }
 
 void Character::move(float dt) {
@@ -63,13 +63,17 @@ void Character::move(float dt) {
 	auto direction = (nextPos - currentPos);
 	auto normalized = direction.getNormalized();
 
-	float moveDist = speed * dt;
+	auto grid = getGrid();
+	float moveDist = speed * dt * grid->UNIT_SIZE;
 
 	if (direction.length() < moveDist) {
 		unschedule(CC_SCHEDULE_SELECTOR(Character::move));
 		return;
 	}
 	setPosition(currentPos + normalized * moveDist);
+	auto center = Director::getInstance()->getWinSize() / 2;
+	auto centerOffset = Vec2(center) - grid->convertToWorldSpace(getPosition());
+	grid->setPosition(grid->getPosition() + centerOffset);
 }
 
 void Character::movePath(float){

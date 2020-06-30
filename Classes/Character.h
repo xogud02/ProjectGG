@@ -8,7 +8,7 @@
 class Grid;
 
 class Character : public cocos2d::Sprite {
-	int speed = 100;
+	int speed = 5;
 	cocos2d::Vec2 nextPos;
 	cocos2d::Action* currentAction;
 	std::queue<GridPosition> path;

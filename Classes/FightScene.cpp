@@ -1,4 +1,4 @@
-﻿/****************************************************************************
+/****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
@@ -51,11 +51,8 @@ bool FightScene::init()
         return false;
     }
 
-	const auto winSize = Director::getInstance()->getWinSize();
-	float unitSize = winSize.width / 32 / 2;
-	grid = Grid::createGrid(36 / 2, 64 / 2);
+	grid = Grid::createGrid(20, 20);
 	addChild(grid);
-	grid->setPosition(winSize / 2);
 
     return true;
 }   

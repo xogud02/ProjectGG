@@ -8,12 +8,12 @@ USING_NS_CC;
 
 Grid * Grid::createGrid(int rows, int cols)
 {
-	auto gridUnitSize = Director::getInstance()->getWinSize().width / 32 / 2;
+	auto gridUnitSize = Director::getInstance()->getWinSize().width / 32;
 	Grid* ret = new Grid(rows, cols, gridUnitSize);
 	ret->initWithColor(Color4B(255, 255, 255, 64));
 	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
-	ret->setIgnoreAnchorPointForPosition(false);
-	ret->setAnchorPoint(Vec2::ONE / 2);
+	//ret->setIgnoreAnchorPointForPosition(false);
+	//ret->setAnchorPoint(Vec2::ZERO);
 	ret->autorelease();
 	
 	for (int r = 0; r < rows; ++r) {
@@ -48,12 +48,11 @@ Grid * Grid::createGrid(int rows, int cols)
 void Grid::setPlayer(Character* player) {
 	this->player = player;
 	addChild(player);
-	player->setPosition(getContentSize() / 2);
 }
 
 Vec2 Grid::getPositionOffset()
 {
-	return -getPosition()/2;
+	return -getPosition();
 }
 
 GridPosition Grid::vecToGrid(Vec2 position)
