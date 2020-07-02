@@ -16,6 +16,7 @@ class Character : public cocos2d::Sprite {
 	std::vector<std::pair<std::function<bool(float)>, cocos2d::Action*>> directions;
 	GridPosition currentGridPosition;
 
+	Grid* grid = nullptr;
 	Grid* getGrid();
 
 	void move(float);

@@ -12,8 +12,6 @@ Grid * Grid::createGrid(int rows, int cols)
 	Grid* ret = new Grid(rows, cols, gridUnitSize);
 	ret->initWithColor(Color4B(255, 255, 255, 64));
 	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
-	//ret->setIgnoreAnchorPointForPosition(false);
-	//ret->setAnchorPoint(Vec2::ZERO);
 	ret->autorelease();
 	
 	for (int r = 0; r < rows; ++r) {

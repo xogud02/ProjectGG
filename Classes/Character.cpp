@@ -55,7 +55,10 @@ Character::~Character()
 
 Grid * Character::getGrid()
 {
-	return dynamic_cast<Grid*>(getParent());
+	if (!grid) {
+		grid = dynamic_cast<Grid*>(getParent());
+	}
+	return grid;
 }
 
 void Character::move(float dt) {
@@ -71,12 +74,20 @@ void Character::move(float dt) {
 		return;
 	}
 	setPosition(currentPos + normalized * moveDist);
-	auto center = Director::getInstance()->getWinSize() / 2;
-	auto centerOffset = Vec2(center) - grid->convertToWorldSpace(getPosition());
-	grid->setPosition(grid->getPosition() + centerOffset);
+	auto winSize = Director::getInstance()->getWinSize();
+	auto centerOffset = Vec2(winSize / 2) - grid->convertToWorldSpace(getPosition());
+	auto newPosition = grid->getPosition() + centerOffset;
+	auto gridSize = grid->getContentSize();
+
+	auto dw = winSize.width - gridSize.width;
+	newPosition.x = clampf(newPosition.x, min(0.f, dw), max(0.f, dw));
+	auto dh = winSize.height - gridSize.height;
+	newPosition.y = clampf(newPosition.y, min(0.f, dh), max(0.f, dh));
+
+	grid->setPosition(newPosition);
 }
 
-void Character::movePath(float){
+void Character::movePath(float) {
 	if (path.empty()) {
 		unschedule(CC_SCHEDULE_SELECTOR(Character::movePath));
 		return;
@@ -95,7 +106,7 @@ void Character::movePath(float){
 void Character::moveTo(Vec2 position)
 {
 	Vec2 direction = position - getPosition();
-	
+
 	float angle = CC_RADIANS_TO_DEGREES(direction.getAngle());
 
 

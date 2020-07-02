@@ -51,7 +51,7 @@ bool FightScene::init()
         return false;
     }
 
-	grid = Grid::createGrid(20, 20);
+	grid = Grid::createGrid(30, 30);
 	addChild(grid);
 
     return true;
