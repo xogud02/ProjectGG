@@ -12,6 +12,7 @@ class SpriteFactory {
 	SpriteFactory() = default;
 	static const std::string WARRIOR;
 	static const std::string FLOOR;
+	static const std::string TREE[2];
 
 	static cocos2d::SpriteFrame* createFrame(const std::string& fileName, int x, int y) {
 		return cocos2d::SpriteFrame::create(fileName, CC_RECT_PIXELS_TO_POINTS(cocos2d::Rect(x * unitSize, y*unitSize, unitSize, unitSize)));
@@ -31,13 +32,25 @@ public:
 		return createFrame(FLOOR, 8, 7);
 	}
 
+	static cocos2d::Action* tree() {
+		auto anim = cocos2d::Animation::create();
+		anim->setDelayPerUnit(0.3f);
+		for (int i = 0; i < 2; ++i) {
+			auto frame = createFrame(TREE[i], 9, 6);
+			anim->addSpriteFrame(frame);
+		}
+
+		auto ret = cocos2d::RepeatForever::create(cocos2d::Animate::create(anim));
+		ret->retain();
+		return ret;
+	}
 
 	static cocos2d::Action* worriorMoveAction(CharacterDirection characterDirection)
 	{
 		auto anim = cocos2d::Animation::create();
 		anim->setDelayPerUnit(0.3f);
 		for (int i = 0; i < 4; ++i) {
-			auto frame = cocos2d::SpriteFrame::create(WARRIOR, CC_RECT_PIXELS_TO_POINTS(cocos2d::Rect(unitSize * i, unitSize * (int)characterDirection, unitSize, unitSize)));
+			auto frame = createFrame(WARRIOR, i, static_cast<int>(characterDirection));
 			anim->addSpriteFrame(frame);
 		}
 

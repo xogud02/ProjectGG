@@ -25,6 +25,12 @@ Grid * Grid::createGrid(int rows, int cols)
 		}
 	}
 
+	Sprite* s = Sprite::create();
+	s->runAction(SpriteFactory::tree());
+	ret->addChild(s);
+	s->setAnchorPoint(Vec2::ZERO);
+	s->setPosition(ret->gridToPosition(GridPosition(rows / 2, cols / 2)));
+	s->setScale(SpriteFactory::getUnitScale(gridUnitSize));
 
 	auto player = Character::create(gridUnitSize);//TODO 분리
 	ret->setPlayer(player);
