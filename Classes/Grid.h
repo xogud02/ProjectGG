@@ -8,35 +8,10 @@
 
 using UINT = unsigned int;
 
-enum class TileTypes : std::uint8_t {
-	Default = 0,
+enum class TileType : std::uint8_t {
+	Floor = 0,
 	Water,
-	Max
-};
-
-
-struct Tile {
-public:
-	Tile(
-		const uint16_t xval,
-		const uint16_t yval,
-		bool isblocked = false,
-		TileTypes type = TileTypes::Default) :
-		X(xval),
-		Y(yval),
-		m_IsBlocked(isblocked),
-		m_Type(type)
-	{}
-
-	bool IsBlocked()		{ return m_IsBlocked; }
-	TileTypes GetType()		{ return m_Type; }
-
-	const uint16_t X;
-	const uint16_t Y;
-
-private:
-	bool m_IsBlocked = false;
-	TileTypes m_Type;
+	Block
 };
 
 class Character;
@@ -44,8 +19,8 @@ class Grid : public cocos2d::LayerColor {
 public:
 	const float UNIT_SIZE;
 
-	bool isMovable(int row, int col);
-	bool isMovable(GridPosition gridPosition);
+	bool isMovable(int row, int col,int size = 1);
+	bool isMovable(GridPosition gridPosition, int size = 1);
 	GridPosition vecToGrid(cocos2d::Vec2 position);
 	cocos2d::Vec2 gridToPosition(GridPosition gridPosition);
 	int getRows();
@@ -59,7 +34,8 @@ public:
 	static Grid* createGrid(int rows, int cols);
 
 private:
-	std::vector<std::vector<bool>> movableGrid;
+	std::vector<std::vector<bool>> occupiedGrid;
+	std::unordered_map<GridPosition, TileType> tiles;
 
 	const UINT row;
 	const UINT coloum;

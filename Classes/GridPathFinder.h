@@ -27,5 +27,5 @@ struct AstarNode {
 class GridPathFinder{
 	
 public:
-	std::queue<GridPosition> findPath(Grid* grid, GridPosition from, GridPosition to);
+	std::queue<GridPosition> findPath(Grid* grid, GridPosition from, GridPosition to,int size = 1);
 };

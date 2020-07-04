@@ -29,8 +29,11 @@ Grid * Grid::createGrid(int rows, int cols)
 	s->runAction(SpriteFactory::tree());
 	ret->addChild(s);
 	s->setAnchorPoint(Vec2::ZERO);
-	s->setPosition(ret->gridToPosition(GridPosition(rows / 2, cols / 2)));
+	auto treeGPosition = GridPosition(rows / 2, cols / 2);
+	s->setPosition(ret->gridToPosition(treeGPosition));
 	s->setScale(SpriteFactory::getUnitScale(gridUnitSize));
+
+	ret->tiles[treeGPosition] = TileType::Block;
 
 	auto player = Character::create(gridUnitSize);//TODO 분리
 	ret->setPlayer(player);
@@ -42,9 +45,9 @@ Grid * Grid::createGrid(int rows, int cols)
 
 	
 
-	//if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) {
-		//ret->showGrid();
-	//}
+	if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) {
+		ret->showGrid();
+	}
 
 	return ret;
 }
@@ -75,17 +78,17 @@ Vec2 Grid::gridToPosition(GridPosition rowCol)
 
 int Grid::getRows()
 {
-	return movableGrid.size();
+	return occupiedGrid.size();
 }
 
 int Grid::getCols()
 {
-	return movableGrid[0].size();
+	return occupiedGrid[0].size();
 }
 
 Grid::Grid(int rows, int cols, float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols), debugGrid(nullptr)
 {
-	movableGrid = vector<vector<bool>>(rows, vector<bool>(cols, true));
+	occupiedGrid = vector<vector<bool>>(rows, vector<bool>(cols, false));
 }
 
 void Grid::showGrid() {
@@ -93,7 +96,7 @@ void Grid::showGrid() {
 	int cols = getCols();
 
 	debugGrid = DrawNode::create();
-	addChild(debugGrid, -1);
+	addChild(debugGrid, 1);
 	Color4F gridColor = Color4F(0, 1, 0, 0.5f);
 	Size contentSize = getContentSize();
 	for (int r = 1; r < rows; ++r) {
@@ -107,18 +110,31 @@ void Grid::showGrid() {
 
 }
 
-bool Grid::isMovable(int row, int col)
+bool Grid::isMovable(int row, int col, int size)
 {
+	if (size > 1) {
+		for (int r = row; r < row + size; ++r) {
+			for (int c = col; c < col + size; ++c) {
+				if (!isMovable(r, c)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	if (row < 0 || row >= getRows() || col < 0 || col >= getCols()) {
 		return false;
 	}
 
-	return movableGrid[row][col];
+	const auto tileItr = tiles.find(GridPosition(row, col));
+
+	return !occupiedGrid[row][col] && (tileItr == tiles.cend() || (*tileItr).second == TileType::Floor);
 }
 
-bool Grid::isMovable(GridPosition gridPosition)
+bool Grid::isMovable(GridPosition gridPosition, int size)
 {
-	return isMovable(gridPosition.row, gridPosition.col);
+	return isMovable(gridPosition.row, gridPosition.col, size);
 }
 
 bool Grid::onTouch(Touch * t, Event * e)
@@ -150,7 +166,7 @@ void Grid::occupyArea(const GridPosition position, const int size, bool occupy)
 				CCLOG("invalid rowcol : %d %d", r, c);
 			}
 			else {
-			movableGrid[r][c] = !occupy;
+				occupiedGrid[r][c] = occupy;
 			}
 		}
 	}
@@ -169,5 +185,5 @@ void Grid::occupyArea(const GridPosition position, const int size, bool occupy)
 			}
 		}
 	}
-	debugGrid->addChild(child, 0);
+	debugGrid->addChild(child, -1);
 }

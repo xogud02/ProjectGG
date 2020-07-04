@@ -32,3 +32,12 @@ public:
 		return sqrt(pow(to.row - row, 2) + pow(to.col - col, 2));
 	}
 };
+
+namespace std {
+	template<>
+	struct hash<GridPosition> {
+		size_t operator()(const GridPosition& g) const {
+			return hash<int>()(g.row * 1000 + g.col);
+		}
+	};
+}

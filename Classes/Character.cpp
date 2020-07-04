@@ -129,6 +129,6 @@ void Character::moveTo(Vec2 position)
 void Character::tryToMove(GridPosition position)
 {
 	getGrid()->occupyArea(currentGridPosition, SCALE, false);
-	path.swap(GridPathFinder().findPath(getGrid(), currentGridPosition, position));
+	path.swap(GridPathFinder().findPath(getGrid(), currentGridPosition, position, SCALE));
 	schedule(CC_SCHEDULE_SELECTOR(Character::movePath));
 }

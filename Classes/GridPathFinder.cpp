@@ -8,8 +8,7 @@ namespace std {
 	template <>
 	struct hash<SPNode> {
 		size_t operator()(const SPNode& val) const {
-			auto pos = val->gridPosition;
-			return hash<int>()(pos.row * 100000 + pos.col);
+			return hash<GridPosition>()(val->gridPosition);
 		}
 	};
 	
@@ -28,7 +27,7 @@ namespace std {
 	};
 }
 
-queue<GridPosition> GridPathFinder::findPath(Grid* grid, GridPosition from, GridPosition to) {
+queue<GridPosition> GridPathFinder::findPath(Grid* grid, GridPosition from, GridPosition to,int size) {
 	priority_queue<SPNode,vector<SPNode>,greater<SPNode>> pq;
 	unordered_set<SPNode> open;
 	unordered_set<SPNode> closed;
@@ -54,7 +53,8 @@ queue<GridPosition> GridPathFinder::findPath(Grid* grid, GridPosition from, Grid
 		}
 		for (int i = 0; i < 8; ++i) {
 			GridPosition adjPosition = currentPosition + GridPosition(dr[i], dc[i]);
-			if (!grid->isMovable(adjPosition)) {
+			
+			if (!grid->isMovable(adjPosition, size)) {
 				continue;
 			}
 
