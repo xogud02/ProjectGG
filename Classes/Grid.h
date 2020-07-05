@@ -19,19 +19,18 @@ class Grid : public cocos2d::LayerColor {
 public:
 	const float UNIT_SIZE;
 
-	bool isMovable(int row, int col,int size = 1);
-	bool isMovable(GridPosition gridPosition, int size = 1);
-	GridPosition vecToGrid(cocos2d::Vec2 position);
-	cocos2d::Vec2 gridToPosition(GridPosition gridPosition);
-	int getRows();
-	int getCols();
-	Grid(int rows, int cols, float unitSize);
+	bool isMovable(const int row, const int col, const int size = 1) const;
+	bool isMovable(const GridPosition gridPosition, const int size = 1) const;
+	GridPosition vecToGrid(const cocos2d::Vec2 position) const;
+	cocos2d::Vec2 gridToPosition(const GridPosition gridPosition) const;
+	int getRows() const;
+	int getCols() const;
+	Grid(const int rows, const int cols, const float unitSize);
 	void showGrid();
-	bool onTouch(cocos2d::Touch* t, cocos2d::Event* e);
-	cocos2d::Vec2 getPositionOffset();
-	void occupyArea(const GridPosition, const int size = 1, bool occupy = true);
+	bool onTouch(const cocos2d::Touch* t, const cocos2d::Event* e);
+	void occupyArea(const GridPosition, const int size = 1, const bool occupy = true);
 
-	static Grid* createGrid(int rows, int cols);
+	static Grid* create(const int rows, const int cols);
 
 private:
 	std::vector<std::vector<bool>> occupiedGrid;
@@ -43,5 +42,7 @@ private:
 
 	cocos2d::DrawNode* debugGrid;
 
+	bool isValidPosition(const GridPosition position) const;
+	bool isValidPosition(const int row, const int col) const;
 	void setPlayer(Character* character);
 };
