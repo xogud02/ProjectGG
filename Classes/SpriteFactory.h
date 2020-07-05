@@ -10,12 +10,28 @@ enum class CharacterDirection {
 
 class SpriteFactory {
 	SpriteFactory() = default;
+
+	static const std::string EXT;
 	static const std::string WARRIOR;
 	static const std::string FLOOR;
-	static const std::string TREE[2];
+	static const std::string TREE;
+	static const std::string SLIME;
 
 	static cocos2d::SpriteFrame* createFrame(const std::string& fileName, int x, int y) {
-		return cocos2d::SpriteFrame::create(fileName, CC_RECT_PIXELS_TO_POINTS(cocos2d::Rect(x * unitSize, y*unitSize, unitSize, unitSize)));
+		return cocos2d::SpriteFrame::create(fileName + EXT, CC_RECT_PIXELS_TO_POINTS(cocos2d::Rect(x * unitSize, y*unitSize, unitSize, unitSize)));
+	}
+
+	static cocos2d::Action* createAction(const std::string& path, int x, int y) {
+		auto anim = cocos2d::Animation::create();
+		anim->setDelayPerUnit(0.3f);
+		for (char i = '0'; i < '2'; ++i) {
+			auto frame = createFrame(path + i, x, y);
+			anim->addSpriteFrame(frame);
+		}
+
+		auto ret = cocos2d::RepeatForever::create(cocos2d::Animate::create(anim));
+		ret->retain();
+		return ret;
 	}
 public:
 	static const int unitSize = 16;
@@ -33,16 +49,11 @@ public:
 	}
 
 	static cocos2d::Action* tree() {
-		auto anim = cocos2d::Animation::create();
-		anim->setDelayPerUnit(0.3f);
-		for (int i = 0; i < 2; ++i) {
-			auto frame = createFrame(TREE[i], 9, 6);
-			anim->addSpriteFrame(frame);
-		}
+		return createAction(TREE, 9,6);
+	}
 
-		auto ret = cocos2d::RepeatForever::create(cocos2d::Animate::create(anim));
-		ret->retain();
-		return ret;
+	static cocos2d::Action* slime() {
+		return createAction(SLIME, 0, 4);
 	}
 
 	static cocos2d::Action* worriorMoveAction(CharacterDirection characterDirection)
