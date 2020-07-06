@@ -1,6 +1,6 @@
 #include "Grid.h"
 #include "FightScene.h"
-#include "Character.h"
+#include "Player.h"
 #include "SpriteFactory.h"
 
 using namespace std;
@@ -35,7 +35,7 @@ Grid * Grid::create(const int rows, const int cols)
 
 	ret->tiles[treeGPosition] = TileType::Block;
 
-	auto player = Character::create(gridUnitSize);//TODO 분리
+	auto player = Player::create(gridUnitSize);//TODO 분리
 	ret->setPlayer(player);
 
 	auto listener = EventListenerTouchOneByOne::create();
