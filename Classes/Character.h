@@ -8,6 +8,7 @@
 class Grid;
 
 class Character : public cocos2d::Sprite {
+protected:
 	int speed = 5;
 	cocos2d::Vec2 nextPos;
 	std::queue<GridPosition> path;
@@ -19,7 +20,6 @@ class Character : public cocos2d::Sprite {
 
 	void move(float);
 	void movePath(float);
-protected:
 	virtual bool initCharacter(float unitSize);
 public:
 	virtual void moveTo(cocos2d::Vec2);

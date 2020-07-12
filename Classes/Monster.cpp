@@ -14,6 +14,7 @@ bool Monster::initCharacter(float unitSize)
 		return false;
 	}
 	runAction(SpriteFactory::slime());
+	schedule(CC_SCHEDULE_SELECTOR(Monster::moveRandom), 1.0f);
 	return true;
 }
 
@@ -27,5 +28,10 @@ Monster * Monster::create(float unitSize, float scale)
 
 	return ret;
 }
+
+void Monster::moveRandom(float dt){
+	tryToMove(currentGridPosition + GridPosition(random() % 3 - 1, random() % 3 - 1));
+}
+
 
 
