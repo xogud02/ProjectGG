@@ -2,6 +2,7 @@
 #include "FightScene.h"
 #include "Player.h"
 #include "SpriteFactory.h"
+#include "Monster.h"
 
 using namespace std;
 USING_NS_CC;
@@ -25,6 +26,8 @@ Grid * Grid::create(const int rows, const int cols)
 		}
 	}
 
+
+
 	Sprite* s = Sprite::create();
 	s->runAction(SpriteFactory::tree());
 	ret->addChild(s);
@@ -37,6 +40,9 @@ Grid * Grid::create(const int rows, const int cols)
 
 	auto player = Player::create(gridUnitSize);//TODO 분리
 	ret->setPlayer(player);
+
+	auto monster = Monster::create(gridUnitSize, 1);
+	ret->addChild(monster);
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, ret);

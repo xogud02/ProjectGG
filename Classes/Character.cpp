@@ -9,32 +9,38 @@ using namespace std;
 
 Character* Character::create(float unitSize, int scale) {
 	Character* ret = new Character(scale);
-	if (!ret || !ret->initWithSpriteFrame(SpriteFactory::worriorFrame())) {
+	if (!ret || !ret->initCharacter(unitSize)) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
 	}
+	return ret;
+}
 
-	ret->setAnchorPoint(Vec2::ZERO);
 
-	ret->autorelease();
-	float characterSize = unitSize * ret->SCALE;
+bool Character::initCharacter(float unitSize)
+{
+	setAnchorPoint(Vec2::ZERO);
+	autorelease();
 
-	ret->setScale(SpriteFactory::getUnitScale(characterSize));
+	float characterSize = unitSize * SCALE;
+
+	setScale(SpriteFactory::getUnitScale(characterSize));
 	HPBar* hpBar = HPBar::createWithColor(Color3B::GREEN);
 
-	Size size = ret->getContentSize();
+	Size size = getContentSize();
 	float width = size.width;
 	hpBar->setContentSize(Size(width, width / 6));
 	hpBar->setHP(1);
 	hpBar->setPosition(Vec2(width / 2, 0));
-	ret->addChild(hpBar);
+	addChild(hpBar);
 
 	auto draw = DrawNode::create();
 	draw->drawRect(Vec2::ZERO, Vec2(size.width, size.height), Color4F::RED);
-	ret->addChild(draw);
+	addChild(draw);
 
-	return ret;
+	return true;
 }
+
 
 Character::Character(int scale) :SCALE(scale)
 {
@@ -94,6 +100,7 @@ void Character::movePath(float) {
 	moveTo(grid->gridToPosition(nextGridPosition));
 	path.pop();
 }
+
 
 void Character::moveTo(Vec2 position)
 {

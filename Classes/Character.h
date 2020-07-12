@@ -19,6 +19,8 @@ class Character : public cocos2d::Sprite {
 
 	void move(float);
 	void movePath(float);
+protected:
+	virtual bool initCharacter(float unitSize);
 public:
 	virtual void moveTo(cocos2d::Vec2);
 	void tryToMove(GridPosition);
