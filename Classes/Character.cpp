@@ -19,9 +19,11 @@ Character* Character::create(float unitSize, int scale) {
 
 bool Character::initCharacter(float unitSize)
 {
+	if (!init()) {
+		return false;
+	}
 	setAnchorPoint(Vec2::ZERO);
 	autorelease();
-
 	float characterSize = unitSize * SCALE;
 
 	setScale(SpriteFactory::getUnitScale(characterSize));
@@ -32,11 +34,11 @@ bool Character::initCharacter(float unitSize)
 	hpBar->setContentSize(Size(width, width / 6));
 	hpBar->setHP(1);
 	hpBar->setPosition(Vec2(width / 2, 0));
-	addChild(hpBar);
+	addChild(hpBar,1);
 
 	auto draw = DrawNode::create();
-	draw->drawRect(Vec2::ZERO, Vec2(size.width, size.height), Color4F::RED);
-	addChild(draw);
+	draw->drawRect(Vec2::ZERO, Vec2(width, size.height), Color4F::RED);
+	addChild(draw,1);
 
 	return true;
 }

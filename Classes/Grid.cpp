@@ -26,8 +26,6 @@ Grid * Grid::create(const int rows, const int cols)
 		}
 	}
 
-
-
 	Sprite* s = Sprite::create();
 	s->runAction(SpriteFactory::tree());
 	ret->addChild(s);
@@ -67,7 +65,7 @@ bool Grid::isValidPosition(const int row, const int col) const
 
 void Grid::setPlayer(Character* player) {
 	this->player = player;
-	addChild(player);
+	addChild(player,1);
 }
 
 GridPosition Grid::vecToGrid(Vec2 position) const

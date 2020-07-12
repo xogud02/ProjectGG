@@ -5,33 +5,26 @@
 using namespace std;
 USING_NS_CC;
 
+bool Player::initCharacter(float unitSize)
+{
+	if (!Character::initCharacter(unitSize)) {
+		return false;
+	}
+    directions.push_back(make_pair([](float angle) {return -135 < angle && angle <= -45; }, SpriteFactory::worriorMoveAction(CharacterDirection::DOWN)));
+	directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, SpriteFactory::worriorMoveAction(CharacterDirection::LEFT)));
+	directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, SpriteFactory::worriorMoveAction(CharacterDirection::RIGHT)));
+	directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::worriorMoveAction(CharacterDirection::UP)));
+
+	return true;
+}
+
 Player * Player::create(float unitSize, int scale)
 {
 	Player* ret = new Player(scale);
-	if (!ret || !ret->initWithSpriteFrame(SpriteFactory::worriorFrame())) {
+	if (!ret || !ret->initCharacter(unitSize)) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
 	}
-
-	ret->setAnchorPoint(Vec2::ZERO);
-
-	ret->directions.push_back(make_pair([](float angle) {return -135 < angle && angle <= -45; }, SpriteFactory::worriorMoveAction(CharacterDirection::DOWN)));
-	ret->directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, SpriteFactory::worriorMoveAction(CharacterDirection::LEFT)));
-	ret->directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, SpriteFactory::worriorMoveAction(CharacterDirection::RIGHT)));
-	ret->directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::worriorMoveAction(CharacterDirection::UP)));
-
-	ret->autorelease();
-	float characterSize = unitSize * ret->SCALE;
-
-	ret->setScale(SpriteFactory::getUnitScale(characterSize));
-	
-	Size size = ret->getContentSize();
-	float width = size.width;
-	
-	auto draw = DrawNode::create();
-	draw->drawRect(Vec2::ZERO, Vec2(size.width, size.height), Color4F::RED);
-	ret->addChild(draw);
-
 	return ret;
 }
 
