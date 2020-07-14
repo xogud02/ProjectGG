@@ -26,20 +26,18 @@ bool Character::initCharacter(float unitSize)
 	autorelease();
 	float characterSize = unitSize * SCALE;
 
+	Size size(CC_SIZE_PIXELS_TO_POINTS(Size(16, 16)));//Temporary code
+	setContentSize(size);
 	setScale(SpriteFactory::getUnitScale(characterSize));
-	HPBar* hpBar = HPBar::createWithColor(Color3B::GREEN);
+	HPBar* hpBar = HPBar::create(Size(size.width, size.height / 6));
 
-	Size size = getContentSize();
 	float width = size.width;
 	hpBar->setContentSize(Size(width, width / 6));
 	hpBar->setHP(1);
+	hpBar->setAnchorPoint(Vec2::ONE / 2.f);
 	hpBar->setPosition(Vec2(width / 2, 0));
 	addChild(hpBar,1);
-
-	auto draw = DrawNode::create();
-	draw->drawRect(Vec2::ZERO, Vec2(width, size.height), Color4F::RED);
-	addChild(draw,1);
-
+	
 	return true;
 }
 

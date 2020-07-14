@@ -2,9 +2,9 @@
 
 #include "cocos2d.h"
 
-class HPBar : public cocos2d::Sprite {
-	cocos2d::Sprite* fill;
+class HPBar : public cocos2d::DrawNode {
+	cocos2d::DrawNode* fill;
 public:
-	static HPBar* createWithColor(cocos2d::Color3B color);
+	static HPBar* create(cocos2d::Size size);
 	void setHP(float ratio);
 };
