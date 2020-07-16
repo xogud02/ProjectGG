@@ -13,7 +13,9 @@ bool Player::initCharacter(float unitSize) {
 	directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, SpriteFactory::worriorMoveAction(CharacterDirection::LEFT)));
 	directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, SpriteFactory::worriorMoveAction(CharacterDirection::RIGHT)));
 	directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::worriorMoveAction(CharacterDirection::UP)));
-
+	
+	auto weapon = Sprite::createWithSpriteFrame(SpriteFactory::sword());//temporary code
+	addChild(weapon, 1);
 	return true;
 }
 

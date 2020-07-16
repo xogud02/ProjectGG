@@ -17,6 +17,7 @@ class SpriteFactory {
 	static const std::string FLOOR;
 	static const std::string TREE;
 	static const std::string SLIME;
+	static const std::string MELEE_WEAPON;
 
 
 
@@ -61,6 +62,10 @@ public:
 
 	static cocos2d::Action* slime() {
 		return createAction(SLIME, 0, 4);
+	}
+
+	static cocos2d::SpriteFrame* sword() {
+		return createFrame(MELEE_WEAPON, 0, 0);
 	}
 
 	static cocos2d::Action* worriorMoveAction(CharacterDirection characterDirection)
