@@ -18,7 +18,7 @@ protected:
 	Grid* grid = nullptr;
 	Grid* getGrid();
 
-	void move(float);
+	virtual void move(float);
 	void movePath(float);
 	virtual bool initCharacter(float unitSize);
 public:

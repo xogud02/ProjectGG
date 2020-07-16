@@ -8,6 +8,7 @@ class Player : public Character {
 	cocos2d::Action* currentAction;
 protected:
 	bool initCharacter(float unitSize) override;
+	virtual void move(float) override;
 public:
 	static Player* create(const float unitSize, const int scale = 2);
 	virtual void moveTo(cocos2d::Vec2) override;

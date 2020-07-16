@@ -194,3 +194,16 @@ void Grid::occupyArea(const GridPosition position, const int size, const bool oc
 	}
 	debugGrid->addChild(child, -1);
 }
+
+void Grid::focusTo(Vec2 position){
+	auto winSize = Director::getInstance()->getWinSize();
+	auto centerOffset = Vec2(winSize / 2) - convertToWorldSpace(position);
+	auto newPosition = getPosition() + centerOffset;
+	auto gridSize = getContentSize();
+
+	auto dw = winSize.width - gridSize.width;
+	newPosition.x = clampf(newPosition.x, min(0.f, dw), max(0.f, dw));
+	auto dh = winSize.height - gridSize.height;
+	newPosition.y = clampf(newPosition.y, min(0.f, dh), max(0.f, dh));
+	setPosition(newPosition);
+}

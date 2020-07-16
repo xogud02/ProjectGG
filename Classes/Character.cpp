@@ -72,17 +72,6 @@ void Character::move(float dt) {
 		return;
 	}
 	setPosition(currentPos + normalized * moveDist);
-	auto winSize = Director::getInstance()->getWinSize();
-	auto centerOffset = Vec2(winSize / 2) - grid->convertToWorldSpace(getPosition());
-	auto newPosition = grid->getPosition() + centerOffset;
-	auto gridSize = grid->getContentSize();
-
-	auto dw = winSize.width - gridSize.width;
-	newPosition.x = clampf(newPosition.x, min(0.f, dw), max(0.f, dw));
-	auto dh = winSize.height - gridSize.height;
-	newPosition.y = clampf(newPosition.y, min(0.f, dh), max(0.f, dh));
-
-	grid->setPosition(newPosition);
 }
 
 void Character::movePath(float) {
