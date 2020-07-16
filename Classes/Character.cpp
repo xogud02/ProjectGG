@@ -26,7 +26,7 @@ bool Character::initCharacter(float unitSize)
 	autorelease();
 	float characterSize = unitSize * SCALE;
 
-	Size size(CC_SIZE_PIXELS_TO_POINTS(Size(16, 16)));//Temporary code
+	Size size(SpriteFactory::getUnitSizeInPoints());
 	setContentSize(size);
 	setScale(SpriteFactory::getUnitScale(characterSize));
 	HPBar* hpBar = HPBar::create(Size(size.width, size.height / 6));

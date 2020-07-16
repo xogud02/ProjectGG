@@ -10,6 +10,7 @@ enum class CharacterDirection {
 
 class SpriteFactory {
 	SpriteFactory() = default;
+	static const int iUnitSize = 16;
 
 	static const std::string EXT;
 	static const std::string WARRIOR;
@@ -17,8 +18,10 @@ class SpriteFactory {
 	static const std::string TREE;
 	static const std::string SLIME;
 
+
+
 	static cocos2d::SpriteFrame* createFrame(const std::string& fileName, int x, int y) {
-		return cocos2d::SpriteFrame::create(fileName + EXT, CC_RECT_PIXELS_TO_POINTS(cocos2d::Rect(x * unitSize, y*unitSize, unitSize, unitSize)));
+		return cocos2d::SpriteFrame::create(fileName + EXT, CC_RECT_PIXELS_TO_POINTS(cocos2d::Rect(x * iUnitSize, y*iUnitSize, iUnitSize, iUnitSize)));
 	}
 
 	static cocos2d::Action* createAction(const std::string& path, int x, int y) {
@@ -34,10 +37,14 @@ class SpriteFactory {
 		return ret;
 	}
 public:
-	static const int unitSize = 16;
+	static const cocos2d::Size unitSize;
 
-	static float getUnitScale(float scale) {
-		return scale * CC_CONTENT_SCALE_FACTOR() / unitSize;
+	static float getUnitScale(float sizeInPoints) {
+		return sizeInPoints * CC_CONTENT_SCALE_FACTOR() / iUnitSize;
+	}
+
+	static cocos2d::Size getUnitSizeInPoints() {
+		return CC_SIZE_PIXELS_TO_POINTS(unitSize);
 	}
 
 	static cocos2d::SpriteFrame* worriorFrame() {
