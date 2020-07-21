@@ -15,24 +15,24 @@ Grid * Grid::create(const int rows, const int cols)
 	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
 	ret->autorelease();
 
+
 	for (int r = 0; r < rows; ++r) {
 		for (int c = 0; c < cols; ++c) {
 			Sprite* s = Sprite::createWithSpriteFrame(SpriteFactory::grassFrame());
 			s->getTexture()->setAliasTexParameters();
-			s->setScale(SpriteFactory::getUnitScale(gridUnitSize));
 			s->setAnchorPoint(Vec2::ZERO);
 			ret->addChild(s);
 			s->setPosition(ret->gridToPosition(GridPosition(r, c)));
 		}
 	}
 
-	Sprite* s = Sprite::create();
+	Sprite* s = Sprite::createWithSpriteFrame(SpriteFactory::worriorFrame());
+
 	s->runAction(SpriteFactory::tree());
 	ret->addChild(s);
 	s->setAnchorPoint(Vec2::ZERO);
 	auto treeGPosition = GridPosition(rows / 2, cols / 2);
 	s->setPosition(ret->gridToPosition(treeGPosition));
-	s->setScale(SpriteFactory::getUnitScale(gridUnitSize));
 
 	ret->tiles[treeGPosition] = TileType::Block;
 
@@ -206,4 +206,15 @@ void Grid::focusTo(Vec2 position){
 	auto dh = winSize.height - gridSize.height;
 	newPosition.y = clampf(newPosition.y, min(0.f, dh), max(0.f, dh));
 	setPosition(newPosition);
+}
+
+void Grid::addChild(cocos2d::Node * node)
+{
+	addChild(node, 0);
+}
+
+void Grid::addChild(cocos2d::Node * node, int zOrder)
+{
+	LayerColor::addChild(node, zOrder);
+	node->setScale(4);//tmp code
 }

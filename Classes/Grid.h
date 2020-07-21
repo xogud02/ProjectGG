@@ -32,6 +32,9 @@ public:
 
 	void focusTo(cocos2d::Vec2 position);
 
+	void addChild(cocos2d::Node* node) override;
+	void addChild(cocos2d::Node* node, int zOrder) override;
+
 	static Grid* create(const int rows, const int cols);
 
 private:
