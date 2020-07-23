@@ -24,12 +24,10 @@ bool Character::initCharacter(float unitSize)
 	}
 	setAnchorPoint(Vec2::ZERO);
 	autorelease();
-	float characterSize = unitSize * SCALE;
 
 	Size size(SpriteFactory::getUnitSizeInPoints());
 	setContentSize(size);
-	//setScale(SpriteFactory::getUnitScale(characterSize));
-	CCLOG("Character scale %f", getScale());
+	setScale(SCALE);
 	HPBar* hpBar = HPBar::create(Size(size.width, size.height / 6));
 
 	float width = size.width;

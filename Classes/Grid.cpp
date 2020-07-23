@@ -103,7 +103,7 @@ void Grid::showGrid() {
 	int cols = getCols();
 
 	debugGrid = DrawNode::create();
-	addChild(debugGrid, 1);
+	LayerColor::addChild(debugGrid, 1);
 	Color4F gridColor = Color4F(0, 1, 0, 0.5f);
 	Size contentSize = getContentSize();
 	for (int r = 1; r < rows; ++r) {
@@ -208,13 +208,14 @@ void Grid::focusTo(Vec2 position){
 	setPosition(newPosition);
 }
 
-void Grid::addChild(cocos2d::Node * node)
+void Grid::addChild(Sprite* sprite)
 {
-	addChild(node, 0);
+	addChild(sprite, 0);
 }
 
-void Grid::addChild(cocos2d::Node * node, int zOrder)
+void Grid::addChild(Sprite* sprite, int zOrder)
 {
-	LayerColor::addChild(node, zOrder);
-	node->setScale(4);//tmp code
+	LayerColor::addChild(sprite, zOrder);
+
+	sprite->setScale(sprite->getScale() * SpriteFactory::getUnitScale(UNIT_SIZE));
 }
