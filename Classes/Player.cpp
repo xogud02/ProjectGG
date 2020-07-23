@@ -13,7 +13,6 @@ bool Player::initCharacter(float unitSize) {
 	directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, SpriteFactory::worriorMoveAction(CharacterDirection::LEFT)));
 	directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, SpriteFactory::worriorMoveAction(CharacterDirection::RIGHT)));
 	directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::worriorMoveAction(CharacterDirection::UP)));
-	
 
 	weapon = Sprite::createWithSpriteFrame(SpriteFactory::sword());
 	addChild(weapon, 1);
@@ -40,12 +39,13 @@ void Player::moveTo(Vec2 position) {
 
 	Vec2 delta = position - getPosition();
 	float angle = CC_RADIANS_TO_DEGREES(delta.getAngle());
+	weapon->setRotation(-angle + 45);
+	weapon->setPosition((delta.getNormalized() +Vec2::ONE )* getContentSize().width / 2);
 	for (auto direction : directions) {
 		if (direction.first(angle) && currentAction != direction.second) {
 			if (currentAction) {
 				stopAction(currentAction);
 			}
-
 			currentAction = runAction(direction.second);
 			break;
 		}
