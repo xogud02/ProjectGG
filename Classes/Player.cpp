@@ -14,7 +14,9 @@ bool Player::initCharacter(float unitSize) {
 	directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, SpriteFactory::worriorMoveAction(CharacterDirection::RIGHT)));
 	directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::worriorMoveAction(CharacterDirection::UP)));
 
+	setName("player");
 	weapon = Sprite::createWithSpriteFrame(SpriteFactory::sword());
+	weapon->setName("weapon");
 	addChild(weapon, 1);
 	weapon->setAnchorPoint(Vec2(1, 0));
 	schedule([this](float f) { weapon->runAction(RotateBy::create(0.25f, Vec3(0, 0, 360))); }, 1.f, "tmpSwing");

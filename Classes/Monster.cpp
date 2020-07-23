@@ -13,6 +13,7 @@ bool Monster::initCharacter(float unitSize)
 	if (!Character::initCharacter(unitSize)) {
 		return false;
 	}
+	setName("monster");
 	runAction(SpriteFactory::slime());
 	schedule(CC_SCHEDULE_SELECTOR(Monster::moveRandom), 1.0f);
 	return true;

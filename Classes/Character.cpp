@@ -3,8 +3,10 @@
 #include "Grid.h"
 #include "GridPathFinder.h"
 #include "SpriteFactory.h"
+#include "cocos-ext.h"
 
 USING_NS_CC;
+USING_NS_CC_EXT;
 using namespace std;
 
 Character* Character::create(float unitSize, int scale) {
@@ -36,7 +38,20 @@ bool Character::initCharacter(float unitSize)
 	hpBar->setAnchorPoint(Vec2::ONE / 2.f);
 	hpBar->setPosition(Vec2(width / 2, 0));
 	addChild(hpBar,1);
-	
+
+	setName("character");
+	CCLOG("character maxx %f", getBoundingBox().getMaxX());
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = [this](auto e, auto) ->bool {
+		
+		if (!getBoundingBox().containsPoint(e->getLocation())) {
+			return false;
+		}
+		CCLOG("%s touched", getName().c_str());
+			return true;
+	};
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
 	return true;
 }
 
