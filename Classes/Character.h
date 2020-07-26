@@ -20,14 +20,14 @@ protected:
 
 	virtual void move(float);
 	void movePath(float);
-	virtual bool initCharacter(float unitSize);
+	bool init() override;
 public:
 	virtual void moveTo(cocos2d::Vec2);
 	void tryToMove(GridPosition);
 
 	const int SCALE;
 
-	static Character* create(float unitSize, int scale = 2);
+	static Character* create(int scale = 1);
 
 	Character(int scale);
 	virtual ~Character();

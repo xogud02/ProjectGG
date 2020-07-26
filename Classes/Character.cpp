@@ -9,9 +9,9 @@ USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace std;
 
-Character* Character::create(float unitSize, int scale) {
+Character* Character::create(int scale) {
 	Character* ret = new Character(scale);
-	if (!ret || !ret->initCharacter(unitSize)) {
+	if (!ret || !ret->init()) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
 	}
@@ -19,16 +19,17 @@ Character* Character::create(float unitSize, int scale) {
 }
 
 
-bool Character::initCharacter(float unitSize)
+bool Character::init()
 {
-	if (!init()) {
+	if (!Sprite::init()) {
 		return false;
 	}
+	
 	setAnchorPoint(Vec2::ZERO);
 	autorelease();
 
 	Size size(SpriteFactory::getUnitSizeInPoints());
-	setContentSize(size);
+	//setContentSize(size);
 	setScale(SCALE);
 	HPBar* hpBar = HPBar::create(Size(size.width, size.height / 6));
 
@@ -39,17 +40,19 @@ bool Character::initCharacter(float unitSize)
 	hpBar->setPosition(Vec2(width / 2, 0));
 	addChild(hpBar,1);
 
-	auto bound = getBoundingBox();
-
 	setName("character");
+	
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = [this](Touch* e, auto) ->bool {
-		
-		if (!getBoundingBox().containsPoint(e->getLocation())) {
+
+		if (!getBoundingBox().containsPoint(getGrid()->convertToNodeSpace(e->getLocation()))) {
 			return false;
 		}
-			return true;
+
+		CCLOG("%s called", getName().c_str());
+		return true;
 	};
+
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	return true;

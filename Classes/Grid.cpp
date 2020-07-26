@@ -36,15 +36,17 @@ Grid * Grid::create(const int rows, const int cols)
 
 	ret->tiles[treeGPosition] = TileType::Block;
 
-	auto player = Player::create(gridUnitSize);//TODO 분리
+	auto player = Player::create();//TODO 분리
 	ret->setPlayer(player);
 
-	auto monster = Monster::create(gridUnitSize, 1);
+
+	auto monster = Monster::create(1);
 	ret->addChild(monster);
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, ret);
 	ret->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, ret);
+
 
 	if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) {
 		ret->showGrid();
@@ -116,7 +118,7 @@ void Grid::showGrid() {
 		gridLines->drawLine(Vec2(c*UNIT_SIZE, 0), Vec2(c*UNIT_SIZE, contentSize.height), gridColor);
 	}
 	debugGrid->addChild(gridLines, 1);
-	Director::getInstance()->getScheduler()->schedule([debugGrid, this](float) {
+	schedule([debugGrid, this](float) {
 		debugGrid->clear();
 		const int rows = getRows();
 		const int cols = getCols();
@@ -131,7 +133,7 @@ void Grid::showGrid() {
 		auto bounding = player->getBoundingBox();
 		auto minX = bounding.getMinX(), minY = bounding.getMinY();
 		debugGrid->drawRect(Vec2(minX, minY), Vec2(bounding.getMaxX(), bounding.getMaxY()), Color4F::BLUE);
-	}, this, 0, false, "debug");
+	}, "debug");
 }
 
 bool Grid::isMovable(int row, int col, int size) const
@@ -218,4 +220,5 @@ void Grid::addChild(Sprite* sprite, int zOrder)
 	LayerColor::addChild(sprite, zOrder);
 
 	sprite->setScale(sprite->getScale() * SpriteFactory::getUnitScale(UNIT_SIZE));
+
 }

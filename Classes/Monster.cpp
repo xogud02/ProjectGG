@@ -8,9 +8,9 @@ Monster::Monster(float scale) : Character(scale)
 {
 }
 
-bool Monster::initCharacter(float unitSize)
+bool Monster::init()
 {
-	if (!Character::initCharacter(unitSize)) {
+	if (!Character::init()) {
 		return false;
 	}
 	setName("monster");
@@ -19,10 +19,10 @@ bool Monster::initCharacter(float unitSize)
 	return true;
 }
 
-Monster * Monster::create(float unitSize, float scale)
+Monster * Monster::create(float scale)
 {
 	Monster* ret = new Monster(scale);
-	if (!ret || !ret->initCharacter(unitSize)) {
+	if (!ret || !ret->init()) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
 	}

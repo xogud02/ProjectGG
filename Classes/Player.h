@@ -8,10 +8,10 @@ class Player : public Character {
 	cocos2d::Action* currentAction;
 	cocos2d::Sprite* weapon;
 protected:
-	bool initCharacter(float unitSize) override;
+	bool init() override;
 	virtual void move(float) override;
 public:
-	static Player* create(const float unitSize, const int scale = 2);
+	static Player* create(const int scale = 2);
 	virtual void moveTo(cocos2d::Vec2) override;
 	Player(int scale);
 	~Player();

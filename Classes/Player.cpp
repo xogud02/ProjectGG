@@ -5,8 +5,8 @@
 using namespace std;
 USING_NS_CC;
 
-bool Player::initCharacter(float unitSize) {
-	if (!Character::initCharacter(unitSize)) {
+bool Player::init() {
+	if (!Character::init()) {
 		return false;
 	}
 	directions.push_back(make_pair([](float angle) {return -135 < angle && angle <= -45; }, SpriteFactory::worriorMoveAction(CharacterDirection::DOWN)));
@@ -28,12 +28,13 @@ void Player::move(float dt) {
 	getGrid()->focusTo(getPosition());
 }
 
-Player * Player::create(float unitSize, int scale) {
+Player * Player::create(int scale) {
 	Player* ret = new Player(scale);
-	if (!ret || !ret->initCharacter(unitSize)) {
+	if (!ret || !ret->init()) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
 	}
+
 	return ret;
 }
 
