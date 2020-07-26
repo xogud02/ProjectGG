@@ -55,6 +55,12 @@ Grid * Grid::create(const int rows, const int cols)
 	return ret;
 }
 
+void Grid::touched(Character * who){
+	if (who != player) {
+		player->attack(who);
+	}
+}
+
 bool Grid::isValidPosition(const GridPosition position) const
 {
 	return isValidPosition(position.row, position.col);
@@ -65,7 +71,7 @@ bool Grid::isValidPosition(const int row, const int col) const
 	return 0 <= row && row < getRows() && 0 <= col && col < getCols();
 }
 
-void Grid::setPlayer(Character* player) {
+void Grid::setPlayer(Player* player) {
 	this->player = player;
 	addChild(player,1);
 }

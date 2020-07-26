@@ -29,7 +29,6 @@ bool Character::init()
 	autorelease();
 
 	Size size(SpriteFactory::getUnitSizeInPoints());
-	//setContentSize(size);
 	setScale(SCALE);
 	HPBar* hpBar = HPBar::create(Size(size.width, size.height / 6));
 
@@ -45,11 +44,12 @@ bool Character::init()
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = [this](Touch* e, auto) ->bool {
 
-		if (!getBoundingBox().containsPoint(getGrid()->convertToNodeSpace(e->getLocation()))) {
+		auto grid = getGrid();
+		if (!getBoundingBox().containsPoint(grid->convertToNodeSpace(e->getLocation()))) {
 			return false;
 		}
 
-		CCLOG("%s called", getName().c_str());
+		grid->touched(this);
 		return true;
 	};
 

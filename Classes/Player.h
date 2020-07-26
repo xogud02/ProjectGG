@@ -13,6 +13,9 @@ protected:
 public:
 	static Player* create(const int scale = 2);
 	virtual void moveTo(cocos2d::Vec2) override;
+
+	void attack(Character* c);
 	Player(int scale);
+
 	~Player();
 };

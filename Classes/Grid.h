@@ -15,6 +15,7 @@ enum class TileType : std::uint8_t {
 };
 
 class Character;
+class Player;
 class Grid : public cocos2d::LayerColor {
 public:
 	const float UNIT_SIZE;
@@ -37,15 +38,17 @@ public:
 
 	static Grid* create(const int rows, const int cols);
 
+	void touched(Character* who);
+
 private:
 	std::vector<std::vector<bool>> occupiedGrid;
 	std::unordered_map<GridPosition, TileType> tiles;
 
 	const UINT row;
 	const UINT coloum;
-	Character* player;
+	Player* player;
 
 	bool isValidPosition(const GridPosition position) const;
 	bool isValidPosition(const int row, const int col) const;
-	void setPlayer(Character* character);
+	void setPlayer(Player* character);
 };

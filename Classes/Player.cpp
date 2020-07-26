@@ -19,7 +19,6 @@ bool Player::init() {
 	weapon->setName("weapon");
 	addChild(weapon, 1);
 	weapon->setAnchorPoint(Vec2(1, 0));
-	schedule([this](float f) { weapon->runAction(RotateBy::create(0.25f, Vec3(0, 0, 360))); }, 1.f, "tmpSwing");
 	return true;
 }
 
@@ -54,6 +53,14 @@ void Player::moveTo(Vec2 position) {
 		}
 	}
 	Character::moveTo(position);
+}
+
+void Player::attack(Character * c)
+{
+	auto bounding = getBoundingBox();//TODO implement attack range
+	if (c->getPosition().distance(getPosition()) < bounding.getMaxX() - bounding.getMinX()) {
+		weapon->runAction(RotateBy::create(0.5f, Vec3(0, 0, 360)));
+	}
 }
 
 Player::Player(int scale) :Character(scale), currentAction(nullptr) {
