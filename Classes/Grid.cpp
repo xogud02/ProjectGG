@@ -102,8 +102,9 @@ void Grid::showGrid() {
 	int rows = getRows();
 	int cols = getCols();
 
-	debugGrid = DrawNode::create();
-	LayerColor::addChild(debugGrid, 1);
+	this->debugGrid = DrawNode::create();
+	auto debugGrid = DrawNode::create();
+	LayerColor::addChild(this->debugGrid, 1);
 	Color4F gridColor = Color4F(0, 1, 0, 0.5f);
 	Size contentSize = getContentSize();
 	for (int r = 1; r < rows; ++r) {
@@ -114,7 +115,23 @@ void Grid::showGrid() {
 	for (int c = 1; c < cols; ++c) {
 		debugGrid->drawLine(Vec2(c*UNIT_SIZE, 0), Vec2(c*UNIT_SIZE, contentSize.height), gridColor);
 	}
-
+	this->debugGrid->addChild(debugGrid, 1);
+	Director::getInstance()->getScheduler()->schedule([this](float) {
+		this->debugGrid->clear();
+		const int rows = getRows();
+		const int cols = getCols();
+		for (int r = 0; r < rows; ++r) {
+			for (int c = 0; c < cols; ++c) {
+				if (!isMovable(r, c)) {
+					auto&& rectOrigin = gridToPosition(GridPosition(r, c));
+					this->debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED - Color4F(0, 0, 0, 0.5f));
+				}
+			}
+		}
+		auto bounding = player->getBoundingBox();
+		auto minX = bounding.getMinX(), minY = bounding.getMinY();
+		this->debugGrid->drawRect(Vec2(minX, minY), Vec2(bounding.getMaxX(), bounding.getMaxY()), Color4F::BLUE);
+	}, this, 0, false, "debug");
 }
 
 bool Grid::isMovable(int row, int col, int size) const
@@ -176,23 +193,6 @@ void Grid::occupyArea(const GridPosition position, const int size, const bool oc
 		}
 	}
 
-	if (debugGrid == nullptr) {
-		return;
-	}
-
-	debugGrid->removeAllChildren();
-	const auto child = DrawNode::create();
-	const int rows = getRows();
-	const int cols = getCols();
-	for (int r = 0; r < rows; ++r) {
-		for (int c = 0; c < cols; ++c) {
-			if (!isMovable(r, c)) {
-				auto&& rectOrigin = gridToPosition(GridPosition(r, c));
-				child->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED - Color4F(0, 0, 0, 0.5f));
-			}
-		}
-	}
-	debugGrid->addChild(child, -1);
 }
 
 void Grid::focusTo(Vec2 position){

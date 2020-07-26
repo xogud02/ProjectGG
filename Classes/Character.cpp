@@ -39,15 +39,15 @@ bool Character::initCharacter(float unitSize)
 	hpBar->setPosition(Vec2(width / 2, 0));
 	addChild(hpBar,1);
 
+	auto bound = getBoundingBox();
+
 	setName("character");
-	CCLOG("character maxx %f", getBoundingBox().getMaxX());
 	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = [this](auto e, auto) ->bool {
+	listener->onTouchBegan = [this](Touch* e, auto) ->bool {
 		
 		if (!getBoundingBox().containsPoint(e->getLocation())) {
 			return false;
 		}
-		CCLOG("%s touched", getName().c_str());
 			return true;
 	};
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
