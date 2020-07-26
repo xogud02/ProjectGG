@@ -45,8 +45,6 @@ private:
 	const UINT coloum;
 	Character* player;
 
-	cocos2d::DrawNode* debugGrid;
-
 	bool isValidPosition(const GridPosition position) const;
 	bool isValidPosition(const int row, const int col) const;
 	void setPlayer(Character* character);

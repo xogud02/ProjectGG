@@ -93,7 +93,7 @@ int Grid::getCols() const
 	return occupiedGrid[0].size();
 }
 
-Grid::Grid(const int rows, const int cols, const float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols), debugGrid(nullptr)
+Grid::Grid(const int rows, const int cols, const float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols)
 {
 	occupiedGrid = vector<vector<bool>>(rows, vector<bool>(cols, false));
 }
@@ -102,35 +102,35 @@ void Grid::showGrid() {
 	int rows = getRows();
 	int cols = getCols();
 
-	this->debugGrid = DrawNode::create();
 	auto debugGrid = DrawNode::create();
-	LayerColor::addChild(this->debugGrid, 1);
+	auto gridLines = DrawNode::create();
+	LayerColor::addChild(debugGrid, 1);
 	Color4F gridColor = Color4F(0, 1, 0, 0.5f);
 	Size contentSize = getContentSize();
 	for (int r = 1; r < rows; ++r) {
-		debugGrid->drawLine(Vec2(0, r*UNIT_SIZE), Vec2(contentSize.width, r*UNIT_SIZE), gridColor);
+		gridLines->drawLine(Vec2(0, r*UNIT_SIZE), Vec2(contentSize.width, r*UNIT_SIZE), gridColor);
 	}
 
 	float height = getContentSize().height;
 	for (int c = 1; c < cols; ++c) {
-		debugGrid->drawLine(Vec2(c*UNIT_SIZE, 0), Vec2(c*UNIT_SIZE, contentSize.height), gridColor);
+		gridLines->drawLine(Vec2(c*UNIT_SIZE, 0), Vec2(c*UNIT_SIZE, contentSize.height), gridColor);
 	}
-	this->debugGrid->addChild(debugGrid, 1);
-	Director::getInstance()->getScheduler()->schedule([this](float) {
-		this->debugGrid->clear();
+	debugGrid->addChild(gridLines, 1);
+	Director::getInstance()->getScheduler()->schedule([debugGrid, this](float) {
+		debugGrid->clear();
 		const int rows = getRows();
 		const int cols = getCols();
 		for (int r = 0; r < rows; ++r) {
 			for (int c = 0; c < cols; ++c) {
 				if (!isMovable(r, c)) {
 					auto&& rectOrigin = gridToPosition(GridPosition(r, c));
-					this->debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED - Color4F(0, 0, 0, 0.5f));
+					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED - Color4F(0, 0, 0, 0.5f));
 				}
 			}
 		}
 		auto bounding = player->getBoundingBox();
 		auto minX = bounding.getMinX(), minY = bounding.getMinY();
-		this->debugGrid->drawRect(Vec2(minX, minY), Vec2(bounding.getMaxX(), bounding.getMaxY()), Color4F::BLUE);
+		debugGrid->drawRect(Vec2(minX, minY), Vec2(bounding.getMaxX(), bounding.getMaxY()), Color4F::BLUE);
 	}, this, 0, false, "debug");
 }
 
