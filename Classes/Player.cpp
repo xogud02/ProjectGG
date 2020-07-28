@@ -60,6 +60,8 @@ void Player::attack(Character * c)
 	auto bounding = getBoundingBox();//TODO implement attack range
 	if (c->getPosition().distance(getPosition()) < bounding.getMaxX() - bounding.getMinX()) {
 		weapon->runAction(RotateBy::create(0.5f, Vec3(0, 0, 360)));
+		c->hit(random(10, 20));
+		
 	}
 }
 

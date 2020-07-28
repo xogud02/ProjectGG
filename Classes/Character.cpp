@@ -30,7 +30,7 @@ bool Character::init()
 
 	Size size(SpriteFactory::getUnitSizeInPoints());
 	setScale(SCALE);
-	HPBar* hpBar = HPBar::create(Size(size.width, size.height / 6));
+	hpBar = HPBar::create(Size(size.width, size.height / 6));
 
 	float width = size.width;
 	hpBar->setContentSize(Size(width, width / 6));
@@ -61,6 +61,25 @@ bool Character::init()
 
 Character::Character(int scale) :SCALE(scale)
 {
+}
+
+void Character::hit(int damage)
+{
+	auto grid = getGrid();
+	hp -= damage;
+	hpBar->setHP(static_cast<float>(hp) / maxHP);
+	if (hp <= 0) {
+		removeFromParent();
+		return;
+	}
+	auto text = Label::create();
+	text->setString(to_string(damage));
+	addChild(text, 1);
+	text->runAction(Sequence::create(
+		MoveBy::create(0.5f, Vec2(0, 30)),
+		RemoveSelf::create(),
+		nullptr
+		));
 }
 
 Character::~Character()

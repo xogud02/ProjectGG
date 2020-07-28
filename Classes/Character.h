@@ -6,10 +6,14 @@
 #include <functional>
 
 class Grid;
+class HPBar;
 
 class Character : public cocos2d::Sprite {
 protected:
 	int speed = 5;
+	int maxHP = 100;
+	int hp = 100;
+	HPBar* hpBar;
 	cocos2d::Vec2 nextPos;
 	std::queue<GridPosition> path;
 
@@ -30,5 +34,7 @@ public:
 	static Character* create(int scale = 1);
 
 	Character(int scale);
+
+	virtual void hit(int damage);
 	virtual ~Character();
 };
