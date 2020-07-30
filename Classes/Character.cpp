@@ -84,7 +84,7 @@ void Character::hit(int damage)
 
 Character::~Character()
 {
-
+	getGrid()->occupyArea(currentGridPosition, SCALE, false);
 }
 
 Grid * Character::getGrid()
@@ -129,7 +129,6 @@ void Character::movePath(float) {
 
 void Character::moveTo(Vec2 position)
 {
-
 	nextPos = position;
 	getGrid()->occupyArea(currentGridPosition, SCALE);
 
@@ -138,7 +137,13 @@ void Character::moveTo(Vec2 position)
 
 void Character::tryToMove(GridPosition position)
 {
-	getGrid()->occupyArea(currentGridPosition, SCALE, false);
+	auto grid = getGrid();
+	grid->occupyArea(currentGridPosition, SCALE, false);
 	path.swap(GridPathFinder().findPath(getGrid(), currentGridPosition, position, SCALE));
-	schedule(CC_SCHEDULE_SELECTOR(Character::movePath));
+	if (!path.empty()) {
+		schedule(CC_SCHEDULE_SELECTOR(Character::movePath));
+	}
+	else {
+		grid->occupyArea(currentGridPosition, SCALE);
+	}
 }
