@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "SpriteFactory.h"
 #include "Grid.h"
+#include "Weapon.h"
 
 using namespace std;
 USING_NS_CC;
@@ -15,10 +16,8 @@ bool Player::init() {
 	directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::worriorMoveAction(CharacterDirection::UP)));
 
 	setName("player");
-	weapon = Sprite::createWithSpriteFrame(SpriteFactory::sword());
-	weapon->setName("weapon");
+	weapon = Weapon::create();
 	addChild(weapon, 1);
-	weapon->setAnchorPoint(Vec2(1, 0));
 	return true;
 }
 
@@ -59,7 +58,7 @@ void Player::attack(Character * c)
 {
 	auto bounding = getBoundingBox();//TODO implement attack range
 	if (c->getPosition().distance(getPosition()) < bounding.getMaxX() - bounding.getMinX()) {
-		weapon->runAction(RotateBy::create(0.5f, Vec3(0, 0, 360)));
+		weapon->swing();
 		c->hit(random(10, 20));
 		
 	}

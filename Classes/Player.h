@@ -3,10 +3,11 @@
 #include "Character.h"
 #include <vector>
 
+class Weapon;
 class Player : public Character {
 	std::vector<std::pair<std::function<bool(float)>, cocos2d::Action*>> directions;
 	cocos2d::Action* currentAction;
-	cocos2d::Sprite* weapon;
+	Weapon* weapon;
 protected:
 	bool init() override;
 	virtual void move(float) override;
