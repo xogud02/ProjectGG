@@ -16,6 +16,7 @@ bool Player::init() {
 	directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::worriorMoveAction(CharacterDirection::UP)));
 
 	setName("player");
+	currentAction = runAction(directions[0].second);
 	weapon = Weapon::create();
 	addChild(weapon, 1);
 	return true;

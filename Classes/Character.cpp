@@ -142,6 +142,7 @@ void Character::tryToMove(GridPosition position)
 	path.swap(GridPathFinder().findPath(getGrid(), currentGridPosition, position, SCALE));
 	if (!path.empty()) {
 		schedule(CC_SCHEDULE_SELECTOR(Character::movePath));
+		path.pop();
 	}
 	else {
 		grid->occupyArea(currentGridPosition, SCALE);
