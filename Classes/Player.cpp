@@ -22,8 +22,8 @@ bool Player::init() {
 	return true;
 }
 
-void Player::move(float dt) {
-	Character::move(dt);
+void Player::moveSingleGrid(float dt) {
+	Character::moveSingleGrid(dt);
 	getGrid()->focusTo(getPosition());
 }
 

@@ -10,7 +10,7 @@ class Player : public Character {
 	Weapon* weapon;
 protected:
 	bool init() override;
-	virtual void move(float) override;
+	virtual void moveSingleGrid(float) override;
 public:
 	static Player* create(const int scale = 2);
 	virtual void moveTo(cocos2d::Vec2) override;

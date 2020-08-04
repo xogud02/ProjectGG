@@ -22,7 +22,7 @@ protected:
 	Grid* grid = nullptr;
 	Grid* getGrid();
 
-	virtual void move(float);
+	virtual void moveSingleGrid(float);
 	void movePath(float);
 	bool init() override;
 public:

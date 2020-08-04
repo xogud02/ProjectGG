@@ -95,7 +95,7 @@ Grid * Character::getGrid()
 	return grid;
 }
 
-void Character::move(float dt) {
+void Character::moveSingleGrid(float dt) {
 	auto currentPos = getPosition();
 	auto direction = (nextPos - currentPos);
 	auto normalized = direction.getNormalized();
@@ -104,7 +104,7 @@ void Character::move(float dt) {
 	float moveDist = speed * dt * grid->UNIT_SIZE;
 
 	if (direction.length() < moveDist) {
-		unschedule(CC_SCHEDULE_SELECTOR(Character::move));
+		unschedule(CC_SCHEDULE_SELECTOR(Character::moveSingleGrid));
 		return;
 	}
 	setPosition(currentPos + normalized * moveDist);
@@ -115,7 +115,7 @@ void Character::movePath(float) {
 		unschedule(CC_SCHEDULE_SELECTOR(Character::movePath));
 		return;
 	}
-	if (isScheduled(CC_SCHEDULE_SELECTOR(Character::move))) {
+	if (isScheduled(CC_SCHEDULE_SELECTOR(Character::moveSingleGrid))) {
 		return;
 	}
 	auto&& nextGridPosition = path.front();
@@ -132,7 +132,7 @@ void Character::moveTo(Vec2 position)
 	nextPos = position;
 	getGrid()->occupyArea(currentGridPosition, SCALE);
 
-	this->schedule(CC_SCHEDULE_SELECTOR(Character::move));
+	this->schedule(CC_SCHEDULE_SELECTOR(Character::moveSingleGrid));
 }
 
 void Character::tryToMove(GridPosition position)
