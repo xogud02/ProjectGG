@@ -7,14 +7,12 @@
 using namespace std;
 USING_NS_CC;
 
-Grid * Grid::create(const int rows, const int cols)
-{
+Grid * Grid::create(const int rows, const int cols){
 	auto gridUnitSize = Director::getInstance()->getWinSize().width / 32;
 	Grid* ret = new Grid(rows, cols, gridUnitSize);
 	ret->initWithColor(Color4B(255, 255, 255, 64));
 	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
 	ret->autorelease();
-
 
 	for (int r = 0; r < rows; ++r) {
 		for (int c = 0; c < cols; ++c) {
@@ -133,6 +131,9 @@ void Grid::showGrid() {
 				if (!isMovable(r, c)) {
 					auto&& rectOrigin = gridToPosition(GridPosition(r, c));
 					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED - Color4F(0, 0, 0, 0.5f));
+				}else if (occupiedGrid[r][c]) {
+					auto&& rectOrigin = gridToPosition(GridPosition(r, c));
+					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::BLUE - Color4F(0, 0, 0, 0.5f));
 				}
 			}
 		}
@@ -145,9 +146,9 @@ void Grid::showGrid() {
 bool Grid::isMovable(int row, int col, int size) const
 {
 	if (size > 1) {
-		for (int r = row; r < row + size; ++r) {
-			for (int c = col; c < col + size; ++c) {
-				if (!isMovable(r, c)) {
+		for (int dr = 0; dr < size; ++dr) {
+			for (int dc = 0; dc < size; ++dc) {
+				if (!isMovable(row + dr, col + dc)) {
 					return false;
 				}
 			}
@@ -161,7 +162,7 @@ bool Grid::isMovable(int row, int col, int size) const
 
 	const auto tileItr = tiles.find(GridPosition(row, col));
 
-	return !occupiedGrid[row][col] && (tileItr == tiles.cend() || (*tileItr).second == TileType::Floor);
+	return tileItr == tiles.cend() || tileItr->second == TileType::Floor;
 }
 
 bool Grid::isMovable(GridPosition gridPosition, int size) const
