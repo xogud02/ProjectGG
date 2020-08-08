@@ -4,7 +4,7 @@
 
 USING_NS_CC;
 
-Monster::Monster(float scale) : Character(scale)
+Monster::Monster(int scale) : Character(scale)
 {
 }
 

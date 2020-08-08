@@ -22,6 +22,8 @@ protected:
 	Grid* grid = nullptr;
 	Grid* getGrid();
 
+	cocos2d::Action* moving = nullptr;
+
 	virtual void moveSingleGrid(float);
 	void movePath(float);
 	bool init() override;

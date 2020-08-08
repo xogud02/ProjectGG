@@ -7,7 +7,7 @@
 
 class Grid;
 
-class AstarNode;
+struct AstarNode;
 using SPNode = std::shared_ptr<AstarNode>;
 
 struct AstarNode {

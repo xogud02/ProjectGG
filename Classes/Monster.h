@@ -4,7 +4,7 @@
 
 class Monster : public Character {
 
-	Monster(float scale);
+	Monster(int scale);
 protected:
 	bool init() override;
 public:

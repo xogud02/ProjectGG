@@ -30,7 +30,7 @@ public:
 	void showGrid();
 	bool onTouch(const cocos2d::Touch* t, const cocos2d::Event* e);
 	void occupyArea(const GridPosition, const int size = 1, const bool occupy = true);
-
+	bool isOccupied(const GridPosition, const int size = 1);
 	void focusTo(cocos2d::Vec2 position);
 
 	void addChild(cocos2d::Sprite* node);

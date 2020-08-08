@@ -7,7 +7,7 @@
 using namespace std;
 USING_NS_CC;
 
-Grid * Grid::create(const int rows, const int cols){
+Grid * Grid::create(const int rows, const int cols) {
 	auto gridUnitSize = Director::getInstance()->getWinSize().width / 32;
 	Grid* ret = new Grid(rows, cols, gridUnitSize);
 	ret->initWithColor(Color4B(255, 255, 255, 64));
@@ -53,54 +53,47 @@ Grid * Grid::create(const int rows, const int cols){
 	return ret;
 }
 
-void Grid::touched(Character * who){
+void Grid::touched(Character * who) {
 	if (who != player) {
 		player->attack(who);
 	}
 }
 
-bool Grid::isValidPosition(const GridPosition position) const
-{
+bool Grid::isValidPosition(const GridPosition position) const {
 	return isValidPosition(position.row, position.col);
 }
 
-bool Grid::isValidPosition(const int row, const int col) const
-{
+bool Grid::isValidPosition(const int row, const int col) const {
 	return 0 <= row && row < getRows() && 0 <= col && col < getCols();
 }
 
 void Grid::setPlayer(Player* player) {
 	this->player = player;
-	addChild(player,1);
+	addChild(player, 1);
 }
 
-GridPosition Grid::vecToGrid(Vec2 position) const
-{
+GridPosition Grid::vecToGrid(Vec2 position) const {
 	auto iunitSize = static_cast<int>(UNIT_SIZE);
 	int row = static_cast<int>(position.y) / iunitSize;
 	int col = static_cast<int>(position.x) / iunitSize;
 	return GridPosition(row, col);
 }
 
-Vec2 Grid::gridToPosition(const GridPosition rowCol) const
-{
+Vec2 Grid::gridToPosition(const GridPosition rowCol) const {
 	float x = (rowCol.col) * UNIT_SIZE;
 	float y = (rowCol.row) * UNIT_SIZE;
 	return Vec2(x, y);
 }
 
-int Grid::getRows() const
-{
+int Grid::getRows() const {
 	return occupiedGrid.size();
 }
 
-int Grid::getCols() const
-{
+int Grid::getCols() const {
 	return occupiedGrid[0].size();
 }
 
-Grid::Grid(const int rows, const int cols, const float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols)
-{
+Grid::Grid(const int rows, const int cols, const float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols) {
 	occupiedGrid = vector<vector<bool>>(rows, vector<bool>(cols, false));
 }
 
@@ -131,7 +124,7 @@ void Grid::showGrid() {
 				if (!isMovable(r, c)) {
 					auto&& rectOrigin = gridToPosition(GridPosition(r, c));
 					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED - Color4F(0, 0, 0, 0.5f));
-				}else if (occupiedGrid[r][c]) {
+				} else if (occupiedGrid[r][c]) {
 					auto&& rectOrigin = gridToPosition(GridPosition(r, c));
 					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::BLUE - Color4F(0, 0, 0, 0.5f));
 				}
@@ -143,35 +136,28 @@ void Grid::showGrid() {
 	}, "debug");
 }
 
-bool Grid::isMovable(int row, int col, int size) const
-{
-	if (size > 1) {
-		for (int dr = 0; dr < size; ++dr) {
-			for (int dc = 0; dc < size; ++dc) {
-				if (!isMovable(row + dr, col + dc)) {
-					return false;
-				}
+bool Grid::isMovable(int row, int col, int size) const {
+	for (int dr = 0; dr < size; ++dr) {
+		for (int dc = 0; dc < size; ++dc) {
+			auto current = GridPosition(row + dr, col + dc);
+			if (!isValidPosition(current)) {
+				return false;
+			}
+
+			const auto tileItr = tiles.find(current);
+			if (tileItr != tiles.cend() && tileItr->second != TileType::Floor) {
+				return false;
 			}
 		}
-		return true;
 	}
-
-	if (!isValidPosition(row, col)) {
-		return false;
-	}
-
-	const auto tileItr = tiles.find(GridPosition(row, col));
-
-	return tileItr == tiles.cend() || tileItr->second == TileType::Floor;
+	return true;
 }
 
-bool Grid::isMovable(GridPosition gridPosition, int size) const
-{
+bool Grid::isMovable(GridPosition gridPosition, int size) const {
 	return isMovable(gridPosition.row, gridPosition.col, size);
 }
 
-bool Grid::onTouch(const Touch * t, const Event * e)
-{
+bool Grid::onTouch(const Touch * t, const Event * e) {
 	auto&& touchedPosition = t->getLocation();
 	if (!getBoundingBox().containsPoint(touchedPosition)) {
 		return false;
@@ -187,24 +173,36 @@ bool Grid::onTouch(const Touch * t, const Event * e)
 	return true;
 }
 
-void Grid::occupyArea(const GridPosition position, const int size, const bool occupy)
-{
+void Grid::occupyArea(const GridPosition position, const int size, const bool occupy) {
 	const int row = position.row;
 	const int col = position.col;
-	for (int r = row; r < row + size; ++r) {
-		for (int c = col; c < col + size; ++c) {
-			if (isValidPosition(r, c)) {
-				occupiedGrid[r][c] = occupy;
+
+	for (int dr = 0; dr < size; ++dr) {
+		for (int dc = 0; dc < size; ++dc) {
+			int r = row + dr, c = col + dc;
+			if (!isValidPosition(r, c)) {
+				return;
 			}
-			else {
-				CCLOG("invalid rowcol : %d %d", r, c);
+			//CCASSERT(isValidPosition(r, c), "ccassert at void Grid::occupyArea() : position must be valid");
+			occupiedGrid[r][c] = occupy;
+		}
+	}
+}
+
+bool Grid::isOccupied(const GridPosition position, const int size) {
+	int r = position.row;
+	int c = position.col;
+	for (int dr = 0; dr < size; ++dr) {
+		for (int dc = 0; dc < size; ++dc) {
+			if (occupiedGrid[r + dr][c + dc]) {
+				return true;
 			}
 		}
 	}
-
+	return false;
 }
 
-void Grid::focusTo(Vec2 position){
+void Grid::focusTo(Vec2 position) {
 	auto winSize = Director::getInstance()->getWinSize();
 	auto centerOffset = Vec2(winSize / 2) - convertToWorldSpace(position);
 	auto newPosition = getPosition() + centerOffset;
@@ -217,13 +215,11 @@ void Grid::focusTo(Vec2 position){
 	setPosition(newPosition);
 }
 
-void Grid::addChild(Sprite* sprite)
-{
+void Grid::addChild(Sprite* sprite) {
 	addChild(sprite, 0);
 }
 
-void Grid::addChild(Sprite* sprite, int zOrder)
-{
+void Grid::addChild(Sprite* sprite, int zOrder) {
 	LayerColor::addChild(sprite, zOrder);
 
 	sprite->setScale(sprite->getScale() * SpriteFactory::getUnitScale(UNIT_SIZE));

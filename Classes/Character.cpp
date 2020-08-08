@@ -96,55 +96,56 @@ Grid * Character::getGrid()
 }
 
 void Character::moveSingleGrid(float dt) {
-	auto currentPos = getPosition();
-	auto direction = (nextPos - currentPos);
-	auto normalized = direction.getNormalized();
 
-	auto grid = getGrid();
-	float moveDist = speed * dt * grid->UNIT_SIZE;
-
-	if (direction.length() < moveDist) {
-		unschedule(CC_SCHEDULE_SELECTOR(Character::moveSingleGrid));
-		return;
-	}
-	setPosition(currentPos + normalized * moveDist);
 }
 
 void Character::movePath(float) {
 	if (path.empty()) {
-		unschedule(CC_SCHEDULE_SELECTOR(Character::movePath));
 		return;
 	}
-	if (isScheduled(CC_SCHEDULE_SELECTOR(Character::moveSingleGrid))) {
-		return;
-	}
-	auto&& nextGridPosition = path.front();
-	auto&& grid = getGrid();
+	auto next = path.front();
+	
+	auto grid = getGrid();
 	grid->occupyArea(currentGridPosition, SCALE, false);
-	currentGridPosition = nextGridPosition;
-	moveTo(grid->gridToPosition(nextGridPosition));
+	if (grid->isOccupied(next, SCALE)) {
+		grid->occupyArea(currentGridPosition, SCALE);
+		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 1);
+		return;
+	}
+
+	const int movingActionTag = 1;
+	if (getActionByTag(movingActionTag)) {
+		return;
+	}
+
 	path.pop();
+	auto delta = grid->gridToPosition(next) - grid->gridToPosition(currentGridPosition);
+	auto moveTo = MoveTo::create(delta.length() / static_cast<float>(speed * grid->UNIT_SIZE), grid->gridToPosition(next));
+	currentGridPosition = next;
+	grid->occupyArea(currentGridPosition, SCALE);
+
+
+	runAction(Sequence::create(
+		moveTo,
+		CallFunc::create([this]() {
+			setPosition(getGrid()->gridToPosition(currentGridPosition));
+			scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
+	}), nullptr))->setTag(movingActionTag);
 }
 
 
 void Character::moveTo(Vec2 position)
 {
 	nextPos = position;
-	getGrid()->occupyArea(currentGridPosition, SCALE);
 
 	this->schedule(CC_SCHEDULE_SELECTOR(Character::moveSingleGrid));
 }
 
 void Character::tryToMove(GridPosition position)
 {
-	auto grid = getGrid();
-	grid->occupyArea(currentGridPosition, SCALE, false);
 	path.swap(GridPathFinder().findPath(getGrid(), currentGridPosition, position, SCALE));
-	if (!path.empty()) {
-		schedule(CC_SCHEDULE_SELECTOR(Character::movePath));
-		path.pop();
-	}
-	else {
-		grid->occupyArea(currentGridPosition, SCALE);
+	string emptyPath = "emptyPath";
+	if (!isScheduled(CC_SCHEDULE_SELECTOR(Character::movePath))) {
+		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
 	}
 }

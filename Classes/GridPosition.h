@@ -14,6 +14,10 @@ public:
 		return row == rhs.row && col == rhs.col;
 	}
 
+	GridPosition operator -(const GridPosition& rhs) const {
+		return GridPosition(row - rhs.row, col - rhs.col);
+	}
+
 	GridPosition operator +(const GridPosition& rhs) const{
 		return GridPosition(row + rhs.row, col + rhs.col);
 	}
@@ -29,7 +33,7 @@ public:
 	}
 
 	float distance(GridPosition& to) const{
-		return sqrt(pow(to.row - row, 2) + pow(to.col - col, 2));
+		return sqrtf(powf(to.row - row, 2) + powf(to.col - col, 2));
 	}
 };
 
