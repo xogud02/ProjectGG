@@ -69,6 +69,11 @@ bool Grid::isValidPosition(const int row, const int col) const {
 
 void Grid::setPlayer(Player* player) {
 	this->player = player;
+	string tracePlayer = "tracePlayer";
+	if (isScheduled(tracePlayer)) {
+		unschedule(tracePlayer);
+	}
+	schedule([this, player](float) {focusTo(player->getPosition()); }, 0, tracePlayer);
 	addChild(player, 1);
 }
 
