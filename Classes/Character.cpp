@@ -42,7 +42,7 @@ bool Character::init()
 	setName("character");
 	
 	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = [this](Touch* e, auto) ->bool {
+	listener->onTouchBegan = [this](Touch* e, auto){
 
 		auto grid = getGrid();
 		if (!getBoundingBox().containsPoint(grid->convertToNodeSpace(e->getLocation()))) {
@@ -143,7 +143,8 @@ void Character::moveTo(Vec2 position)
 
 void Character::tryToMove(GridPosition position)
 {
-	path.swap(GridPathFinder().findPath(getGrid(), currentGridPosition, position, SCALE));
+	auto newPath = GridPathFinder().findPath(getGrid(), currentGridPosition, position, SCALE);
+	path.swap(newPath);
 	string emptyPath = "emptyPath";
 	if (!isScheduled(CC_SCHEDULE_SELECTOR(Character::movePath))) {
 		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);

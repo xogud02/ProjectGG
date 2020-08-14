@@ -31,7 +31,7 @@ Monster * Monster::create(float scale)
 }
 
 void Monster::moveRandom(float dt){
-	tryToMove(currentGridPosition + GridPosition(random() % 3 - 1, random() % 3 - 1));
+	tryToMove(currentGridPosition + GridPosition(cocos2d::random() % 3 - 1, cocos2d::random() % 3 - 1));
 }
 
 
