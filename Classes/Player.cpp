@@ -48,14 +48,13 @@ Player * Player::create(int scale) {
 	return ret;
 }
 
-void Player::attack(Character * c)
+bool Player::attack(Character * c)
 {
-	auto bounding = getBoundingBox();//TODO implement attack range
-	if (c->getPosition().distance(getPosition()) < bounding.getMaxX() - bounding.getMinX()) {
-		weapon->swing();
-		c->hit(random(10, 20));
-		
+	if (!Character::attack(c)) {
+		return false;
 	}
+	weapon->swing();
+	return true;
 }
 
 Player::Player(int scale) :Character(scale), currentAction(nullptr) {}

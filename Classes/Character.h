@@ -11,6 +11,7 @@ class HPBar;
 class Character : public cocos2d::Sprite {
 protected:
 	int speed = 5;
+	float attackInterval = 1;
 	int maxHP = 100;
 	int hp = 100;
 	HPBar* hpBar;
@@ -25,7 +26,6 @@ protected:
 	virtual void onMoveBegin(GridPosition nextPosition);
 	void movePath(float);
 	bool init() override;
-	
 public:
 	void tryToMove(GridPosition);
 
@@ -37,6 +37,7 @@ public:
 
 	void setTarget(Character* target);
 	virtual bool isInAttackRange(Character* who) const;
+	virtual bool attack(Character* c);
 
 	virtual void hit(int damage);
 	virtual ~Character();
