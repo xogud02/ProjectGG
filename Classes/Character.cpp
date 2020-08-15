@@ -66,7 +66,7 @@ void Character::setTarget(Character * target) {
 	}
 	const string chaseTarget = "chaseTarget";
 	schedule([target, lastPos = currentGridPosition, this, chaseTarget] (float) mutable {
-		if (!target) {
+		if (!target || isInAttackRange(target)) {
 			unschedule(chaseTarget);
 			return;
 		}
@@ -78,12 +78,17 @@ void Character::setTarget(Character * target) {
 	}, 0, chaseTarget);
 }
 
-bool Character::isInAttackRange(Character * who) const {//TODO IMPLEMENT
+bool Character::isInAttackRange(Character * who) const {
 	if (!who) {
 		return false;
 	}
-
-	return false;
+	const int minR = currentGridPosition.row - who->SCALE;
+	const int minC = currentGridPosition.col - who->SCALE;
+	const int maxR = currentGridPosition.row + SCALE;
+	const int maxC = currentGridPosition.col + SCALE;
+	const int targetRow = who->currentGridPosition.row;
+	const int targetCol = who->currentGridPosition.col;
+	return minR <= targetRow && targetRow <= maxR && minC <= targetCol && targetCol <= maxC;
 }
 
 void Character::hit(int damage) {
