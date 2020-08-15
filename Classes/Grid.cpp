@@ -55,7 +55,7 @@ Grid * Grid::create(const int rows, const int cols) {
 
 void Grid::touched(Character * who) {
 	if (who != player) {
-		player->attack(who);
+		player->setTarget(who);
 	}
 }
 

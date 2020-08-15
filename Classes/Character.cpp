@@ -19,12 +19,11 @@ Character* Character::create(int scale) {
 }
 
 
-bool Character::init()
-{
+bool Character::init() {
 	if (!Sprite::init()) {
 		return false;
 	}
-	
+
 	setAnchorPoint(Vec2::ZERO);
 	autorelease();
 
@@ -37,12 +36,12 @@ bool Character::init()
 	hpBar->setHP(1);
 	hpBar->setAnchorPoint(Vec2::ONE / 2.f);
 	hpBar->setPosition(Vec2(width / 2, 0));
-	addChild(hpBar,1);
+	addChild(hpBar, 1);
 
 	setName("character");
-	
+
 	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = [this](Touch* e, auto){
+	listener->onTouchBegan = [this](Touch* e, auto) {
 
 		auto grid = getGrid();
 		if (!getBoundingBox().containsPoint(grid->convertToNodeSpace(e->getLocation()))) {
@@ -59,12 +58,27 @@ bool Character::init()
 }
 
 
-Character::Character(int scale) :SCALE(scale)
-{
+Character::Character(int scale) :SCALE(scale) {}
+
+void Character::setTarget(Character * target) {
+	if (!target) {
+		return;
+	}
+	const string chaseTarget = "chaseTarget";
+	schedule([target, lastPos = currentGridPosition, this, chaseTarget] (float) mutable {
+		if (!target) {
+			unschedule(chaseTarget);
+			return;
+		}
+		if (lastPos == target->currentGridPosition) {
+			return;
+		}
+		lastPos = target->currentGridPosition;
+		tryToMove(lastPos);
+	}, 0, chaseTarget);
 }
 
-void Character::hit(int damage)
-{
+void Character::hit(int damage) {
 	auto grid = getGrid();
 	hp -= damage;
 	hpBar->setHP(static_cast<float>(hp) / maxHP);
@@ -79,16 +93,14 @@ void Character::hit(int damage)
 		MoveBy::create(0.5f, Vec2(0, 30)),
 		RemoveSelf::create(),
 		nullptr
-		));
+	));
 }
 
-Character::~Character()
-{
+Character::~Character() {
 	getGrid()->occupyArea(currentGridPosition, SCALE, false);
 }
 
-Grid * Character::getGrid()
-{
+Grid * Character::getGrid() {
 	if (!grid) {
 		grid = dynamic_cast<Grid*>(getParent());
 	}
@@ -102,7 +114,7 @@ void Character::movePath(float) {
 		return;
 	}
 	auto next = path.front();
-	
+
 	auto grid = getGrid();
 	grid->occupyArea(currentGridPosition, SCALE, false);
 	if (grid->isOccupied(next, SCALE)) {
@@ -127,16 +139,14 @@ void Character::movePath(float) {
 	runAction(Sequence::create(
 		moveTo,
 		CallFunc::create([this]() {
-			setPosition(getGrid()->gridToPosition(currentGridPosition));
-			scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
+		setPosition(getGrid()->gridToPosition(currentGridPosition));
+		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
 	}), nullptr))->setTag(movingActionTag);
 }
 
-void Character::tryToMove(GridPosition position)
-{
+void Character::tryToMove(GridPosition position) {
 	auto newPath = GridPathFinder().findPath(getGrid(), currentGridPosition, position, SCALE);
 	path.swap(newPath);
-	string emptyPath = "emptyPath";
 	if (!isScheduled(CC_SCHEDULE_SELECTOR(Character::movePath))) {
 		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
 	}

@@ -22,11 +22,10 @@ protected:
 	Grid* grid = nullptr;
 	Grid* getGrid();
 
-	cocos2d::Action* moving = nullptr;
-
 	virtual void onMoveBegin(GridPosition nextPosition);
 	void movePath(float);
 	bool init() override;
+	
 public:
 	void tryToMove(GridPosition);
 
@@ -35,6 +34,8 @@ public:
 	static Character* create(int scale = 1);
 
 	Character(int scale);
+
+	void setTarget(Character* target);
 
 	virtual void hit(int damage);
 	virtual ~Character();
