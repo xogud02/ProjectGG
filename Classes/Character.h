@@ -36,6 +36,7 @@ public:
 	Character(int scale);
 
 	void setTarget(Character* target);
+	virtual bool isInAttackRange(Character* who) const;
 
 	virtual void hit(int damage);
 	virtual ~Character();

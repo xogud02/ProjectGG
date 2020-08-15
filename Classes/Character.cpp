@@ -78,6 +78,14 @@ void Character::setTarget(Character * target) {
 	}, 0, chaseTarget);
 }
 
+bool Character::isInAttackRange(Character * who) const {//TODO IMPLEMENT
+	if (!who) {
+		return false;
+	}
+
+	return false;
+}
+
 void Character::hit(int damage) {
 	auto grid = getGrid();
 	hp -= damage;
