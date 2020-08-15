@@ -95,9 +95,7 @@ Grid * Character::getGrid()
 	return grid;
 }
 
-void Character::moveSingleGrid(float dt) {
-
-}
+void Character::onMoveBegin(GridPosition nextPosition) {}
 
 void Character::movePath(float) {
 	if (path.empty()) {
@@ -118,6 +116,7 @@ void Character::movePath(float) {
 		return;
 	}
 
+	onMoveBegin(next);
 	path.pop();
 	auto delta = grid->gridToPosition(next) - grid->gridToPosition(currentGridPosition);
 	auto moveTo = MoveTo::create(delta.length() / static_cast<float>(speed * grid->UNIT_SIZE), grid->gridToPosition(next));
@@ -131,14 +130,6 @@ void Character::movePath(float) {
 			setPosition(getGrid()->gridToPosition(currentGridPosition));
 			scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
 	}), nullptr))->setTag(movingActionTag);
-}
-
-
-void Character::moveTo(Vec2 position)
-{
-	nextPos = position;
-
-	this->schedule(CC_SCHEDULE_SELECTOR(Character::moveSingleGrid));
 }
 
 void Character::tryToMove(GridPosition position)

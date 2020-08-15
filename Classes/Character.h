@@ -24,11 +24,10 @@ protected:
 
 	cocos2d::Action* moving = nullptr;
 
-	virtual void moveSingleGrid(float);
+	virtual void onMoveBegin(GridPosition nextPosition);
 	void movePath(float);
 	bool init() override;
 public:
-	virtual void moveTo(cocos2d::Vec2);
 	void tryToMove(GridPosition);
 
 	const int SCALE;

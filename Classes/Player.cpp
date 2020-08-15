@@ -22,9 +22,20 @@ bool Player::init() {
 	return true;
 }
 
-void Player::moveSingleGrid(float dt) {
-	Character::moveSingleGrid(dt);
-	getGrid()->focusTo(getPosition());
+void Player::onMoveBegin(GridPosition next) {
+	Vec2 delta = getGrid()->gridToPosition(next) - getPosition();
+	float angle = CC_RADIANS_TO_DEGREES(delta.getAngle());
+	weapon->setRotation(-angle + 45);
+	weapon->setPosition((delta.getNormalized() + Vec2::ONE)* getContentSize().width / 2);
+	for (auto direction : directions) {
+		if (direction.first(angle) && currentAction != direction.second) {
+			if (currentAction) {
+				stopAction(currentAction);
+			}
+			currentAction = runAction(direction.second);
+			break;
+		}
+	}
 }
 
 Player * Player::create(int scale) {
@@ -37,24 +48,6 @@ Player * Player::create(int scale) {
 	return ret;
 }
 
-void Player::moveTo(Vec2 position) {
-
-	Vec2 delta = position - getPosition();
-	float angle = CC_RADIANS_TO_DEGREES(delta.getAngle());
-	weapon->setRotation(-angle + 45);
-	weapon->setPosition((delta.getNormalized() +Vec2::ONE )* getContentSize().width / 2);
-	for (auto direction : directions) {
-		if (direction.first(angle) && currentAction != direction.second) {
-			if (currentAction) {
-				stopAction(currentAction);
-			}
-			currentAction = runAction(direction.second);
-			break;
-		}
-	}
-	Character::moveTo(position);
-}
-
 void Player::attack(Character * c)
 {
 	auto bounding = getBoundingBox();//TODO implement attack range
@@ -65,9 +58,7 @@ void Player::attack(Character * c)
 	}
 }
 
-Player::Player(int scale) :Character(scale), currentAction(nullptr) {
-
-}
+Player::Player(int scale) :Character(scale), currentAction(nullptr) {}
 
 Player::~Player() {
 	for (auto direction : directions) {
