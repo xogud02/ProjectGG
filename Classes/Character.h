@@ -38,6 +38,7 @@ public:
 	void setTarget(Character* target);
 	virtual bool isInAttackRange(Character* who) const;
 	virtual bool attack(Character* c);
+	virtual void setPosition(const cocos2d::Vec2& v) override;
 
 	virtual void hit(int damage);
 	virtual ~Character();

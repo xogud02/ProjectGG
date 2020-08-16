@@ -65,7 +65,7 @@ void Character::setTarget(Character * target) {
 		return;
 	}
 	const string chaseTarget = "chaseTarget";
-	schedule([target, lastPos = currentGridPosition, this, chaseTarget, attackReady = true] (float) mutable {
+	schedule([target, lastPos = currentGridPosition, this, chaseTarget, attackReady = true](float) mutable {
 		if (!target) {
 			unschedule(chaseTarget);
 			return;
@@ -78,7 +78,7 @@ void Character::setTarget(Character * target) {
 		if (attackReady && isInAttackRange(target)) {
 			if (attack(target)) {
 				attackReady = false;
-				scheduleOnce([&attackReady](float){attackReady = true; }, attackInterval, "waitForAttack");
+				scheduleOnce([&attackReady](float) {attackReady = true; }, attackInterval, "waitForAttack");
 			}
 		}
 
@@ -104,6 +104,18 @@ bool Character::attack(Character * c) {
 	}
 	c->hit(random(10, 20));//TODO implement damage calculation
 	return true;
+}
+
+void Character::setPosition(const Vec2 & v) {
+	auto grid = getGrid();
+	if (!grid) {
+		Sprite::setPosition(v);
+		return;
+	}
+	if (grid) {
+		currentGridPosition = grid->vecToGrid(v);
+		Sprite::setPosition(grid->gridToPosition(currentGridPosition));
+	}
 }
 
 void Character::hit(int damage) {

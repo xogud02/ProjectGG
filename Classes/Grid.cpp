@@ -36,10 +36,12 @@ Grid * Grid::create(const int rows, const int cols) {
 
 	auto player = Player::create();//TODO 분리
 	ret->setPlayer(player);
-
+	auto size = ret->getContentSize();
+	player->setPosition(Vec2(size.width / 3, size.height / 2));
 
 	auto monster = Monster::create(1);
 	ret->addChild(monster);
+	monster->setPosition(Vec2(size.width * 2 / 3, size.height / 2));
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, ret);
