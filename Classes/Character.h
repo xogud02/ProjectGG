@@ -8,6 +8,14 @@
 class Grid;
 class HPBar;
 
+enum class AttackResult {
+	None,
+	Normal,
+	Die,
+	Block,
+	Dodgy,
+	Immune
+};
 class Character : public cocos2d::Sprite {
 protected:
 	int speed = 5;
@@ -37,7 +45,7 @@ public:
 
 	void setTarget(Character* target);
 	virtual bool isInAttackRange(Character* who) const;
-	virtual bool attack(Character* c);
+	virtual AttackResult attack(Character* c);
 	virtual void setPosition(const cocos2d::Vec2& v) override;
 
 	virtual void hit(int damage);

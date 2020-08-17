@@ -48,13 +48,13 @@ Player * Player::create(int scale) {
 	return ret;
 }
 
-bool Player::attack(Character * c)
+AttackResult Player::attack(Character * c)
 {
-	if (!Character::attack(c)) {
-		return false;
+	auto result = Character::attack(c);
+	if (result != AttackResult::None) {
+		weapon->swing();
 	}
-	weapon->swing();
-	return true;
+	return result;
 }
 
 Player::Player(int scale) :Character(scale), currentAction(nullptr) {}

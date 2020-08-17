@@ -14,7 +14,7 @@ protected:
 public:
 	static Player* create(const int scale = 2);
 
-	virtual bool attack(Character* c) override;
+	virtual AttackResult attack(Character* c) override;
 	Player(int scale);
 
 	~Player();

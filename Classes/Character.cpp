@@ -70,17 +70,21 @@ void Character::setTarget(Character * target) {
 			unschedule(chaseTarget);
 			return;
 		}
+		if (attackReady) {
+			AttackResult result = attack(target);
+			if (result == AttackResult::Die) {
+				unschedule(chaseTarget);
+				return;
+			}
+			attackReady = false;
+			scheduleOnce([&attackReady](float) {attackReady = true; }, attackInterval, "waitForAttack");
+			return;
+		}
 		if (lastPos == target->currentGridPosition) {
 			return;
 		}
 		lastPos = target->currentGridPosition;
 		tryToMove(lastPos);
-		if (attackReady && isInAttackRange(target)) {
-			if (attack(target)) {
-				attackReady = false;
-				scheduleOnce([&attackReady](float) {attackReady = true; }, attackInterval, "waitForAttack");
-			}
-		}
 
 	}, 0, chaseTarget);
 }
@@ -98,12 +102,15 @@ bool Character::isInAttackRange(Character * who) const {
 	return minR <= targetRow && targetRow <= maxR && minC <= targetCol && targetCol <= maxC;
 }
 
-bool Character::attack(Character * c) {
+AttackResult Character::attack(Character * c) {
 	if (!c || c == this || !isInAttackRange(c)) {
-		return false;
+		return AttackResult::None;
 	}
 	c->hit(random(10, 20));//TODO implement damage calculation
-	return true;
+	if (c->hp <= 0) {
+		return AttackResult::Die;
+	}
+	return AttackResult::Normal;
 }
 
 void Character::setPosition(const Vec2 & v) {
