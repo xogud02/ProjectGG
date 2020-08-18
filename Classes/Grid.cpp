@@ -8,6 +8,7 @@ using namespace std;
 USING_NS_CC;
 
 Grid * Grid::create(const int rows, const int cols) {
+
 	auto gridUnitSize = Director::getInstance()->getWinSize().width / 32;
 	Grid* ret = new Grid(rows, cols, gridUnitSize);
 	ret->initWithColor(Color4B(255, 255, 255, 64));
@@ -37,7 +38,7 @@ Grid * Grid::create(const int rows, const int cols) {
 	auto player = Player::create();//TODO 분리
 	ret->setPlayer(player);
 	auto size = ret->getContentSize();
-	player->setPosition(Vec2(size.width / 3, size.height / 2));
+	//player->setPosition(Vec2(size.width / 3, size.height / 2));
 
 	auto monster = Monster::create(1);
 	ret->addChild(monster);
@@ -46,7 +47,6 @@ Grid * Grid::create(const int rows, const int cols) {
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, ret);
 	ret->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, ret);
-
 
 	if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) {
 		ret->showGrid();
@@ -75,7 +75,16 @@ void Grid::setPlayer(Player* player) {
 	if (isScheduled(tracePlayer)) {
 		unschedule(tracePlayer);
 	}
-	schedule([this, player](float) {focusTo(player->getPosition()); }, 0, tracePlayer);
+	schedule(
+		[this, player, lastPos = Vec2::ZERO]
+	(float) mutable {
+		auto currentPos = player->getPosition() + player->SCALE * UNIT_SIZE * Vec2::ONE / 2;
+		if (currentPos == lastPos) {
+			return;
+		}
+		lastPos = currentPos;
+		focusTo(convertToWorldSpace(lastPos));
+	},0, tracePlayer);
 	addChild(player, 1);
 }
 
@@ -211,10 +220,10 @@ bool Grid::isOccupied(const GridPosition position, const int size) {
 
 void Grid::focusTo(Vec2 position) {
 	auto winSize = Director::getInstance()->getWinSize();
-	auto centerOffset = Vec2(winSize / 2) - convertToWorldSpace(position);
+	auto centerOffset = Vec2(winSize / 2) - position;
 	auto newPosition = getPosition() + centerOffset;
 	auto gridSize = getContentSize();
-
+	
 	auto dw = winSize.width - gridSize.width;
 	newPosition.x = clampf(newPosition.x, min(0.f, dw), max(0.f, dw));
 	auto dh = winSize.height - gridSize.height;

@@ -73,7 +73,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("ProjectGG", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height),0.5f);
+		glview = GLViewImpl::createWithRect("ProjectGG", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height), 0.5f);
 #else
         glview = GLViewImpl::create("ProjectGG");
 #endif
@@ -87,7 +87,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0f / 60);
 
     // Set the design resolution
-    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);//TODO implement grid logic with ResolutionPolicy::NO_BORDER
     auto frameSize = glview->getFrameSize();
     // if the frame's height is larger than the height of medium size.
     if (frameSize.height > mediumResolutionSize.height)
