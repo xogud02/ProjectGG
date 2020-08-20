@@ -9,7 +9,7 @@ USING_NS_CC;
 
 Grid * Grid::create(const int rows, const int cols) {
 
-	auto gridUnitSize = Director::getInstance()->getWinSize().width / 32;
+	auto gridUnitSize = Director::getInstance()->getOpenGLView()->getFrameSize().width / 32;
 	Grid* ret = new Grid(rows, cols, gridUnitSize);
 	ret->initWithColor(Color4B(255, 255, 255, 64));
 	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
@@ -48,7 +48,7 @@ Grid * Grid::create(const int rows, const int cols) {
 	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, ret);
 	ret->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, ret);
 
-	if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) {
+	if (COCOS2D_DEBUG) {
 		ret->showGrid();
 	}
 
@@ -78,7 +78,7 @@ void Grid::setPlayer(Player* player) {
 	schedule(
 		[this, player, lastPos = Vec2::ZERO]
 	(float) mutable {
-		auto currentPos = player->getPosition() + player->SCALE * UNIT_SIZE * Vec2::ONE / 2;
+		auto currentPos = player->getPosition();// +player->SCALE * UNIT_SIZE * Vec2::ONE / 2;
 		if (currentPos == lastPos) {
 			return;
 		}
@@ -219,11 +219,13 @@ bool Grid::isOccupied(const GridPosition position, const int size) {
 }
 
 void Grid::focusTo(Vec2 position) {
+
+
 	auto winSize = Director::getInstance()->getWinSize();
 	auto centerOffset = Vec2(winSize / 2) - position;
 	auto newPosition = getPosition() + centerOffset;
 	auto gridSize = getContentSize();
-	
+
 	auto dw = winSize.width - gridSize.width;
 	newPosition.x = clampf(newPosition.x, min(0.f, dw), max(0.f, dw));
 	auto dh = winSize.height - gridSize.height;
