@@ -175,7 +175,6 @@ void Character::movePath(float) {
 		return;
 	}
 
-	onMoveBegin(next);
 	path.pop();
 	auto delta = grid->gridToPosition(next) - grid->gridToPosition(currentGridPosition);
 	auto moveTo = MoveTo::create(delta.length() / static_cast<float>(speed * grid->UNIT_SIZE), grid->gridToPosition(next));
@@ -183,6 +182,7 @@ void Character::movePath(float) {
 	grid->occupyArea(currentGridPosition, SCALE);
 
 
+	onMoveBegin(next);
 	runAction(Sequence::create(
 		moveTo,
 		CallFunc::create([this]() {
@@ -193,7 +193,9 @@ void Character::movePath(float) {
 
 void Character::tryToMove(GridPosition position) {
 	auto newPath = GridPathFinder().findPath(getGrid(), currentGridPosition, position, SCALE);
+	newPath.pop();//remove start position
 	path.swap(newPath);
+
 	if (!isScheduled(CC_SCHEDULE_SELECTOR(Character::movePath))) {
 		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
 	}
