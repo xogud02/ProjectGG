@@ -60,12 +60,17 @@ bool Character::init() {
 
 Character::Character(int scale) :SCALE(scale) {}
 
+
+const string chaseTarget = "chaseTarget";
+
 void Character::setTarget(Character * target) {
 	if (!target) {
+		if (isScheduled(chaseTarget)) {
+			unschedule(chaseTarget);
+		}
 		return;
 	}
-	const string chaseTarget = "chaseTarget";
-	schedule([target, lastPos = currentGridPosition, this, chaseTarget, attackReady = true](float) mutable {
+	schedule([target, lastPos = currentGridPosition, this, attackReady = true](float) mutable {
 		if (!target) {
 			unschedule(chaseTarget);
 			return;
@@ -193,8 +198,11 @@ void Character::movePath(float) {
 
 void Character::tryToMove(GridPosition position) {
 	auto newPath = GridPathFinder().findPath(getGrid(), currentGridPosition, position, SCALE);
-	newPath.pop();//remove start position
+	if (!newPath.empty()) {
+		newPath.pop();//remove start position
+	}
 	path.swap(newPath);
+
 
 	if (!isScheduled(CC_SCHEDULE_SELECTOR(Character::movePath))) {
 		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);

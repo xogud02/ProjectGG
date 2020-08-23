@@ -184,6 +184,12 @@ bool Grid::onTouch(const Touch * t, const Event * e) {
 	Vec2 leftBottomOffset = -Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
 	Vec2 vLeftBottom = touchedPosition + leftBottomOffset - getPosition();
 	auto gridPosition = vecToGrid(vLeftBottom);
+
+	if (isOccupied(gridPosition, scale)) {
+		return false;
+	}
+
+	player->setTarget(nullptr);
 	player->tryToMove(gridPosition);
 
 	return true;
