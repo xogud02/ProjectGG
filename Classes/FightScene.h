@@ -1,4 +1,6 @@
-﻿/****************************************************************************
+#pragma once
+
+/****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
@@ -22,8 +24,6 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __FIGHT_SCENE_H__
-#define __FIGHT_SCENE_H__
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
@@ -32,11 +32,8 @@
 class FightScene : public cocos2d::Scene
 {
 public:
-    static cocos2d::Scene* createScene();
 
     virtual bool init();
-    
-	bool onTouch(cocos2d::Touch*, cocos2d::Event*);
 
     // implement the "static create()" method manually
 	CREATE_FUNC(FightScene);
@@ -45,4 +42,3 @@ private:
 	Grid* grid;
 };
 
-#endif // __FIGHT_SCENE_H__
