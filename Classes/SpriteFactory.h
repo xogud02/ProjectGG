@@ -1,5 +1,6 @@
 #pragma once
 #include "cocos2d.h"
+#include "Player.h"
 
 enum class CharacterDirection {
 	DOWN = 0,
@@ -8,18 +9,24 @@ enum class CharacterDirection {
 	UP
 };
 
+namespace std {
+	template<>
+	struct hash<CharacterType> {
+		size_t operator()(CharacterType characterType) const;
+	};
+}
+
 class SpriteFactory {
 	SpriteFactory() = default;
 	static const int iUnitSize = 16;
 
+
 	static const std::string EXT;
-	static const std::string WARRIOR;
+	static std::unordered_map<CharacterType, std::string> characterPaths;
 	static const std::string FLOOR;
 	static const std::string TREE;
 	static const std::string SLIME;
 	static const std::string MELEE_WEAPON;
-
-
 
 	static cocos2d::SpriteFrame* createFrame(const std::string& fileName, int x, int y) {
 		return cocos2d::SpriteFrame::create(fileName + EXT, CC_RECT_PIXELS_TO_POINTS(cocos2d::Rect(x * iUnitSize, y*iUnitSize, iUnitSize, iUnitSize)));
@@ -37,6 +44,7 @@ class SpriteFactory {
 		ret->retain();
 		return ret;
 	}
+	static void initCharacterPaths();
 public:
 	static const cocos2d::Size unitSize;
 
@@ -48,10 +56,8 @@ public:
 		return CC_SIZE_PIXELS_TO_POINTS(unitSize);
 	}
 
-	static cocos2d::SpriteFrame* worriorFrame() {
-		return createFrame(WARRIOR, 0, 0);
-	}
-
+	static cocos2d::SpriteFrame* characterFrame(CharacterType);
+	
 	static cocos2d::SpriteFrame* grassFrame() {
 		return createFrame(FLOOR, 8, 7);
 	}
@@ -68,18 +74,7 @@ public:
 		return createFrame(MELEE_WEAPON, 0, 0);
 	}
 
-	static cocos2d::Action* worriorMoveAction(CharacterDirection characterDirection)
-	{
-		auto anim = cocos2d::Animation::create();
-		anim->setDelayPerUnit(0.3f);
-		for (int i = 0; i < 4; ++i) {
-			auto frame = createFrame(WARRIOR, i, static_cast<int>(characterDirection));
-			anim->addSpriteFrame(frame);
-		}
+	static cocos2d::Action* characterMoveAction(CharacterType, CharacterDirection);
 
-		auto ret = cocos2d::RepeatForever::create(cocos2d::Animate::create(anim));
-		ret->retain();
-		return ret;
-	}
 };
 

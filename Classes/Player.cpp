@@ -10,10 +10,12 @@ bool Player::init() {
 	if (!Character::init()) {
 		return false;
 	}
-	directions.push_back(make_pair([](float angle) {return -135 < angle && angle <= -45; }, SpriteFactory::worriorMoveAction(CharacterDirection::DOWN)));
-	directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, SpriteFactory::worriorMoveAction(CharacterDirection::LEFT)));
-	directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, SpriteFactory::worriorMoveAction(CharacterDirection::RIGHT)));
-	directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::worriorMoveAction(CharacterDirection::UP)));
+
+	auto tmpCharacterType = CharacterType::Warrior;
+	directions.push_back(make_pair([](float angle) {return -135 < angle && angle <= -45; }, SpriteFactory::characterMoveAction(tmpCharacterType, CharacterDirection::DOWN)));
+	directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, SpriteFactory::characterMoveAction(tmpCharacterType, CharacterDirection::LEFT)));
+	directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, SpriteFactory::characterMoveAction(tmpCharacterType, CharacterDirection::RIGHT)));
+	directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::characterMoveAction(tmpCharacterType, CharacterDirection::UP)));
 
 	setName("player");
 	currentAction = runAction(directions[0].second);
@@ -48,8 +50,7 @@ Player * Player::create(int scale) {
 	return ret;
 }
 
-AttackResult Player::attack(Character * c)
-{
+AttackResult Player::attack(Character * c) {
 	auto result = Character::attack(c);
 	if (result != AttackResult::None) {
 		weapon->swing();

@@ -25,7 +25,7 @@ Grid * Grid::create(const int rows, const int cols) {
 		}
 	}
 
-	Sprite* s = Sprite::createWithSpriteFrame(SpriteFactory::worriorFrame());
+	Sprite* s = Sprite::createWithSpriteFrame(SpriteFactory::characterFrame(CharacterType::Warrior));
 
 	s->runAction(SpriteFactory::tree());
 	ret->addChild(s);
