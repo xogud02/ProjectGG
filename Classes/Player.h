@@ -14,6 +14,8 @@ enum class CharacterType {
 	Warrior
 };
 
+constexpr int CharacterTypeCount = static_cast<int>(CharacterType::Warrior) + 1;
+
 class Player : public Character {
 	std::vector<std::pair<std::function<bool(float)>, cocos2d::Action*>> directions;
 	cocos2d::Action* currentAction;
