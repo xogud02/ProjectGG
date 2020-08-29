@@ -11,11 +11,10 @@ bool Player::init() {
 		return false;
 	}
 
-	auto tmpCharacterType = CharacterType::Warrior;
-	directions.push_back(make_pair([](float angle) {return -135 < angle && angle <= -45; }, SpriteFactory::characterMoveAction(tmpCharacterType, CharacterDirection::DOWN)));
-	directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, SpriteFactory::characterMoveAction(tmpCharacterType, CharacterDirection::LEFT)));
-	directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, SpriteFactory::characterMoveAction(tmpCharacterType, CharacterDirection::RIGHT)));
-	directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::characterMoveAction(tmpCharacterType, CharacterDirection::UP)));
+	directions.push_back(make_pair([](float angle) {return -135 < angle && angle <= -45; }, SpriteFactory::characterMoveAction(characterType, CharacterDirection::DOWN)));
+	directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, SpriteFactory::characterMoveAction(characterType, CharacterDirection::LEFT)));
+	directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, SpriteFactory::characterMoveAction(characterType, CharacterDirection::RIGHT)));
+	directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::characterMoveAction(characterType, CharacterDirection::UP)));
 
 	setName("player");
 	currentAction = runAction(directions[0].second);
@@ -40,8 +39,8 @@ void Player::onMoveBegin(GridPosition next) {
 	}
 }
 
-Player * Player::create(int scale) {
-	Player* ret = new Player(scale);
+Player * Player::create(CharacterType characterType, int scale) {
+	Player* ret = new Player(characterType, scale);
 	if (!ret || !ret->init()) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
@@ -58,7 +57,7 @@ AttackResult Player::attack(Character * c) {
 	return result;
 }
 
-Player::Player(int scale) :Character(scale), currentAction(nullptr) {}
+Player::Player(CharacterType characterType, int scale) :Character(scale),characterType(characterType), currentAction(nullptr) {}
 
 Player::~Player() {
 	for (auto direction : directions) {

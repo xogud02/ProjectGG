@@ -24,6 +24,7 @@
 
 #include "FightScene.h"
 #include "Character.h"
+#include "Grid.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -42,9 +43,19 @@ bool FightScene::init() {
 	if (!Scene::init()) {
 		return false;
 	}
-
-	grid = Grid::create(30, 30);
-	addChild(grid);
-
+		
 	return true;
+}
+
+FightScene * FightScene::create(CharacterType characterType) {
+	auto ret = new FightScene();
+	if (!ret || !ret->init()) {
+		CC_SAFE_DELETE(ret);
+		return nullptr;
+	}
+
+	auto grid = Grid::create(30, 30);
+	ret->addChild(grid);
+	grid->setPlayer(Player::create(characterType));
+	return ret;
 }

@@ -39,6 +39,7 @@ public:
 	static Grid* create(const int rows, const int cols);
 
 	void touched(Character* who);
+	void setPlayer(Player* character);
 
 private:
 	std::vector<std::vector<bool>> occupiedGrid;
@@ -50,5 +51,4 @@ private:
 
 	bool isValidPosition(const GridPosition position) const;
 	bool isValidPosition(const int row, const int col) const;
-	void setPlayer(Player* character);
 };
