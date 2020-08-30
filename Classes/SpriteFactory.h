@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
-#include "Player.h"
+
+enum class CharacterType;
 
 enum class CharacterDirection {
 	DOWN = 0,
@@ -28,51 +29,26 @@ class SpriteFactory {
 	static const std::string SLIME;
 	static const std::string MELEE_WEAPON;
 
-	static cocos2d::SpriteFrame* createFrame(const std::string& fileName, int x, int y) {
-		return cocos2d::SpriteFrame::create(fileName + EXT, CC_RECT_PIXELS_TO_POINTS(cocos2d::Rect(x * iUnitSize, y*iUnitSize, iUnitSize, iUnitSize)));
-	}
+	static cocos2d::SpriteFrame* createFrame(const std::string& fileName, int x, int y);
 
-	static cocos2d::Action* createAction(const std::string& path, int x, int y) {
-		auto anim = cocos2d::Animation::create();
-		anim->setDelayPerUnit(0.3f);
-		for (char i = '0'; i < '2'; ++i) {
-			auto frame = createFrame(path + i, x, y);
-			anim->addSpriteFrame(frame);
-		}
-
-		auto ret = cocos2d::RepeatForever::create(cocos2d::Animate::create(anim));
-		ret->retain();
-		return ret;
-	}
+	static cocos2d::Action* createAction(const std::string& path, int x, int y);
 	static void initCharacterPaths();
 public:
 	static const cocos2d::Size unitSize;
 
-	static float getUnitScale(float sizeInPoints) {
-		return sizeInPoints * CC_CONTENT_SCALE_FACTOR() / iUnitSize;
-	}
+	static float getUnitScale(float sizeInPoints);
 
-	static cocos2d::Size getUnitSizeInPoints() {
-		return CC_SIZE_PIXELS_TO_POINTS(unitSize);
-	}
+	static cocos2d::Size getUnitSizeInPoints();
 
 	static cocos2d::SpriteFrame* characterFrame(CharacterType);
 	
-	static cocos2d::SpriteFrame* grassFrame() {
-		return createFrame(FLOOR, 8, 7);
-	}
+	static cocos2d::SpriteFrame* grassFrame();
 
-	static cocos2d::Action* tree() {
-		return createAction(TREE, 9,6);
-	}
+	static cocos2d::Action* tree();
 
-	static cocos2d::Action* slime() {
-		return createAction(SLIME, 0, 4);
-	}
+	static cocos2d::Action* slime();
 
-	static cocos2d::SpriteFrame* sword() {
-		return createFrame(MELEE_WEAPON, 0, 0);
-	}
+	static cocos2d::SpriteFrame* sword();
 
 	static cocos2d::Action* characterMoveAction(CharacterType, CharacterDirection);
 
