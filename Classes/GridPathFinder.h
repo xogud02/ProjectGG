@@ -2,8 +2,8 @@
 
 #include <queue>
 #include <memory>
-#include "GridPosition.h"
 #include <string>
+#include "GridPosition.h"
 
 class Grid;
 
@@ -19,9 +19,7 @@ struct AstarNode {
 
 	AstarNode(GridPosition gridPosition, float g, float h, SPNode before = nullptr);
 	
-	std::string toString() {
-		return gridPosition.toString() + "g : "+ std::to_string(g)+ ", h : " + std::to_string(h) + ", f : "+std::to_string(f);
-	}
+	std::string toString();
 };
 
 class GridPathFinder{

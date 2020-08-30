@@ -101,3 +101,7 @@ queue<GridPosition> GridPathFinder::findPath(Grid* grid, GridPosition from, Grid
 AstarNode::AstarNode(GridPosition gridPosition, float g, float h, SPNode before)
 	:gridPosition(gridPosition), f(g + h), g(g), h(h), parent(before) {}
 
+string AstarNode::toString() {
+	return gridPosition.toString() + "g : " + to_string(g) + ", h : " + to_string(h) + ", f : " + to_string(f);
+}
+

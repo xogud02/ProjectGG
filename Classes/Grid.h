@@ -2,9 +2,8 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include <vector>
-#include <array>
 #include "GridPosition.h"
+#include <vector>
 
 using UINT = unsigned int;
 
