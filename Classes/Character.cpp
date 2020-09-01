@@ -54,6 +54,15 @@ bool Character::init() {
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
+	schedule([this](float) {
+		for (auto* n : getParent()->getChildren()) {
+			auto* c = dynamic_cast<Character*>(n);
+			if (c && c != this && c->currentGridPosition.distance(currentGridPosition) <= noticeRange) {
+				CCLOG("%s noticed %s", getName().c_str(), c->getName().c_str());
+			}
+		}
+	}, 0.1f, "findOther");
+
 	return true;
 }
 
