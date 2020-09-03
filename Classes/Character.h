@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "GridPosition.h"
+#include "Status.h"
 #include <vector>
 #include <functional>
 
@@ -21,8 +22,7 @@ protected:
 	int speed = 5;
 	float noticeRange = 5;
 	float attackInterval = 1;
-	int maxHP = 100;
-	int hp = 100;
+	Status status;
 	HPBar* hpBar;
 	cocos2d::Vec2 nextPos;
 	std::queue<GridPosition> path;

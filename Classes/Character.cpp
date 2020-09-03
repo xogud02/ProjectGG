@@ -125,8 +125,8 @@ AttackResult Character::attack(Character * c) {
 	if (!c || c == this || !isInAttackRange(c)) {
 		return AttackResult::None;
 	}
-	c->hit(random(10, 20));//TODO implement damage calculation
-	if (c->hp <= 0) {
+	c->hit(status.getDamage());
+	if (c->status.getHP() <= 0) {
 		return AttackResult::Die;
 	}
 	return AttackResult::Normal;
@@ -146,9 +146,9 @@ void Character::setPosition(const Vec2 & v) {
 
 void Character::hit(int damage) {
 	auto grid = getGrid();
-	hp -= damage;
-	hpBar->setHP(static_cast<float>(hp) / maxHP);
-	if (hp <= 0) {
+	status.reduceHP(damage);
+	hpBar->setHP(static_cast<float>(status.getHP()) / status.getMaxHP());
+	if (status.getHP() <= 0) {
 		removeFromParent();
 		return;
 	}
