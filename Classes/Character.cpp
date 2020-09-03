@@ -144,10 +144,6 @@ void Character::setPosition(const Vec2 & v) {
 	}
 }
 
-void Character::addDestroyListener(function<void()> onDestroy) {
-	destroyListeners.push_back(onDestroy);
-}
-
 void Character::hit(int damage) {
 	auto grid = getGrid();
 	hp -= damage;
