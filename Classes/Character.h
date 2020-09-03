@@ -17,6 +17,7 @@ enum class AttackResult {
 	Immune
 };
 class Character : public cocos2d::Sprite {
+	std::vector<std::function<void()>> destroyListeners;
 protected:
 	int speed = 5;
 	float noticeRange = 5;
@@ -28,6 +29,9 @@ protected:
 	std::queue<GridPosition> path;
 
 	GridPosition currentGridPosition;
+
+	Character* target = nullptr;
+	void releaseTarget();
 
 	Grid* grid = nullptr;
 	Grid* getGrid();
@@ -48,6 +52,7 @@ public:
 	virtual bool isInAttackRange(Character* who) const;
 	virtual AttackResult attack(Character* c);
 	virtual void setPosition(const cocos2d::Vec2& v) override;
+	void addDestroyListener(std::function<void()>);
 
 	virtual void hit(int damage);
 	virtual ~Character();

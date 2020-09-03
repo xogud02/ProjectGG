@@ -9,6 +9,8 @@ USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace std;
 
+const string chaseTarget = "chaseTarget";
+
 Character* Character::create(int scale) {
 	Character* ret = new Character(scale);
 	if (!ret || !ret->init()) {
@@ -55,10 +57,14 @@ bool Character::init() {
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	schedule([this](float) {
+		if (isScheduled(chaseTarget)) {
+			return;
+		}
+
 		for (auto* n : getParent()->getChildren()) {
 			auto* c = dynamic_cast<Character*>(n);
 			if (c && c != this && c->currentGridPosition.distance(currentGridPosition) <= noticeRange) {
-				CCLOG("%s noticed %s", getName().c_str(), c->getName().c_str());
+				setTarget(c);
 			}
 		}
 	}, 0.1f, "findOther");
@@ -70,24 +76,23 @@ bool Character::init() {
 Character::Character(int scale) :SCALE(scale) {}
 
 
-const string chaseTarget = "chaseTarget";
 
-void Character::setTarget(Character * target) {
-	if (!target) {
-		if (isScheduled(chaseTarget)) {
-			unschedule(chaseTarget);
-		}
+void Character::setTarget(Character * newTarget) {
+	if (target == newTarget) {
 		return;
 	}
-	schedule([target, lastPos = currentGridPosition, this, attackReady = true](float) mutable {
-		if (!target) {
-			unschedule(chaseTarget);
-			return;
-		}
+
+	if (!newTarget) {
+		releaseTarget();
+		return;
+	}
+	target = newTarget;
+	target->retain();
+	schedule([lastPos = currentGridPosition, this, attackReady = true](float) mutable {
 		if (attackReady) {
 			AttackResult result = attack(target);
 			if (result == AttackResult::Die) {
-				unschedule(chaseTarget);
+				releaseTarget();
 				return;
 			}
 			attackReady = false;
@@ -139,6 +144,10 @@ void Character::setPosition(const Vec2 & v) {
 	}
 }
 
+void Character::addDestroyListener(function<void()> onDestroy) {
+	destroyListeners.push_back(onDestroy);
+}
+
 void Character::hit(int damage) {
 	auto grid = getGrid();
 	hp -= damage;
@@ -159,6 +168,17 @@ void Character::hit(int damage) {
 
 Character::~Character() {
 	getGrid()->occupyArea(currentGridPosition, SCALE, false);
+}
+
+void Character::releaseTarget() {
+	if (!target) {
+		return;
+	}
+	target->release();
+	target = nullptr;	
+	if (isScheduled(chaseTarget)) {
+		unschedule(chaseTarget);
+	}
 }
 
 Grid * Character::getGrid() {

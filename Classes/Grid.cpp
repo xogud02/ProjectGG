@@ -127,8 +127,12 @@ void Grid::showGrid() {
 	for (int c = 1; c < cols; ++c) {
 		gridLines->drawLine(Vec2(c*UNIT_SIZE, 0), Vec2(c*UNIT_SIZE, contentSize.height), gridColor);
 	}
+	const string debug = "debug";
 	debugGrid->addChild(gridLines, 1);
-	schedule([debugGrid, this](float) {
+	schedule([debugGrid, this, &debug](float) {
+		if (!player) {
+			unschedule(debug);
+		}
 		debugGrid->clear();
 		const int rows = getRows();
 		const int cols = getCols();
@@ -146,7 +150,7 @@ void Grid::showGrid() {
 		auto bounding = player->getBoundingBox();
 		auto minX = bounding.getMinX(), minY = bounding.getMinY();
 		debugGrid->drawRect(Vec2(minX, minY), Vec2(bounding.getMaxX(), bounding.getMaxY()), Color4F::BLUE);
-	}, "debug");
+	}, debug);
 }
 
 bool Grid::isMovable(int row, int col, int size) const {
