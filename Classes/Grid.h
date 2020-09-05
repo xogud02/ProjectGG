@@ -16,6 +16,7 @@ enum class TileType : std::uint8_t {
 class Character;
 class Player;
 class Grid : public cocos2d::LayerColor {
+	~Grid();
 public:
 	const float UNIT_SIZE;
 
@@ -46,7 +47,7 @@ private:
 
 	const UINT row;
 	const UINT coloum;
-	Player* player;
+	Player* player = nullptr;
 
 	bool isValidPosition(const GridPosition position) const;
 	bool isValidPosition(const int row, const int col) const;

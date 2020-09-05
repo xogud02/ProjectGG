@@ -66,14 +66,21 @@ bool Grid::isValidPosition(const int row, const int col) const {
 	return 0 <= row && row < getRows() && 0 <= col && col < getCols();
 }
 
-void Grid::setPlayer(Player* player) {
-	this->player = player;
+void Grid::setPlayer(Player* newPlayer) {
+	if (player) {
+		player->release();
+	}
+	player = newPlayer;
+	if (!player) {
+		return;
+	}
+	player->retain();
 	string tracePlayer = "tracePlayer";
 	if (isScheduled(tracePlayer)) {
 		unschedule(tracePlayer);
 	}
 	schedule(
-		[this, player, lastPos = Vec2::ZERO]
+		[this, lastPos = Vec2::ZERO]
 	(float) mutable {
 		auto currentPos = player->getPosition();// +player->SCALE * UNIT_SIZE * Vec2::ONE / 2;
 		if (currentPos == lastPos) {
@@ -151,6 +158,12 @@ void Grid::showGrid() {
 		auto minX = bounding.getMinX(), minY = bounding.getMinY();
 		debugGrid->drawRect(Vec2(minX, minY), Vec2(bounding.getMaxX(), bounding.getMaxY()), Color4F::BLUE);
 	}, debug);
+}
+
+Grid::~Grid() {
+	if (player) {
+		player->release();
+	}
 }
 
 bool Grid::isMovable(int row, int col, int size) const {
