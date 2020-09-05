@@ -1,15 +1,12 @@
 #include "Monster.h"
 #include "SpriteFactory.h"
-#include "HpBar.h"
 
 USING_NS_CC;
 
-Monster::Monster(int scale) : Character(scale)
-{
+Monster::Monster(int scale) : Character(scale) {
 }
 
-bool Monster::init()
-{
+bool Monster::init() {
 	if (!Character::init()) {
 		return false;
 	}
@@ -19,8 +16,7 @@ bool Monster::init()
 	return true;
 }
 
-Monster * Monster::create(float scale)
-{
+Monster * Monster::create(float scale) {
 	Monster* ret = new Monster(scale);
 	if (!ret || !ret->init()) {
 		CC_SAFE_DELETE(ret);
@@ -30,7 +26,7 @@ Monster * Monster::create(float scale)
 	return ret;
 }
 
-void Monster::moveRandom(float dt){
+void Monster::moveRandom(float dt) {
 	tryToMove(currentGridPosition + GridPosition(cocos2d::random() % 3 - 1, cocos2d::random() % 3 - 1));
 }
 

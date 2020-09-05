@@ -7,7 +7,7 @@
 #include <functional>
 
 class Grid;
-class HPBar;
+class GaugeBar;
 
 enum class AttackResult {
 	None,
@@ -23,7 +23,7 @@ protected:
 	float noticeRange = 5;
 	float attackInterval = 1;
 	Status status;
-	HPBar* hpBar;
+	GaugeBar* hpBar;
 	cocos2d::Vec2 nextPos;
 	std::queue<GridPosition> path;
 

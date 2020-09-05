@@ -1,5 +1,5 @@
 #include "Character.h"
-#include "HpBar.h"
+#include "GaugeBar.h"
 #include "Grid.h"
 #include "GridPathFinder.h"
 #include "SpriteFactory.h"
@@ -31,11 +31,9 @@ bool Character::init() {
 
 	Size size(SpriteFactory::getUnitSizeInPoints());
 	setScale(SCALE);
-	hpBar = HPBar::create(Size(size.width, size.height / 6));
+	hpBar = GaugeBar::create(Size(size.width, size.height / 6));
 
 	float width = size.width;
-	hpBar->setContentSize(Size(width, width / 6));
-	hpBar->setHP(1);
 	hpBar->setAnchorPoint(Vec2::ONE / 2.f);
 	hpBar->setPosition(Vec2(width / 2, 0));
 	addChild(hpBar, 1);
@@ -92,6 +90,9 @@ void Character::setTarget(Character * newTarget) {
 		if (attackReady) {
 			AttackResult result = attack(target);
 			if (result == AttackResult::Die) {
+				status.levelUp();
+				hpBar->setValue(status.getHP());
+				hpBar->setMaxValue(status.getMaxHP());
 				releaseTarget();
 				return;
 			}
@@ -147,7 +148,7 @@ void Character::setPosition(const Vec2 & v) {
 void Character::hit(int damage) {
 	auto grid = getGrid();
 	status.reduceHP(damage);
-	hpBar->setHP(static_cast<float>(status.getHP()) / status.getMaxHP());
+	hpBar->setValue(status.getHP());
 	if (status.getHP() <= 0) {
 		removeFromParent();
 		return;
