@@ -3,27 +3,20 @@
 #include "Player.h"
 #include "SpriteFactory.h"
 #include "Monster.h"
+#include "TileBuilder.h"
 
 using namespace std;
 USING_NS_CC;
 
 Grid * Grid::create(const int rows, const int cols) {
-
+	
 	auto gridUnitSize = Director::getInstance()->getOpenGLView()->getFrameSize().width / 32;
 	Grid* ret = new Grid(rows, cols, gridUnitSize);
 	ret->initWithColor(Color4B(255, 255, 255, 64));
 	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
 	ret->autorelease();
 
-	for (int r = 0; r < rows; ++r) {
-		for (int c = 0; c < cols; ++c) {
-			Sprite* s = Sprite::createWithSpriteFrame(SpriteFactory::grassFrame());
-			s->getTexture()->setAliasTexParameters();
-			s->setAnchorPoint(Vec2::ZERO);
-			ret->addChild(s);
-			s->setPosition(ret->gridToPosition(GridPosition(r, c)));
-		}
-	}
+	ret->LayerColor::addChild(TileBuilder::randomFloor(rows, cols, gridUnitSize, 0.6f));
 
 	Sprite* s = Sprite::createWithSpriteFrame(SpriteFactory::characterFrame(CharacterType::Warrior));
 
@@ -225,7 +218,7 @@ void Grid::occupyArea(const GridPosition position, const int size, const bool oc
 	}
 }
 
-bool Grid::isOccupied(const GridPosition position, const int size) {
+bool Grid::isOccupied(const GridPosition position, const int size) {//FIXME occurs out of range
 	int r = position.row;
 	int c = position.col;
 	for (int dr = 0; dr < size; ++dr) {

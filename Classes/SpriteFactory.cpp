@@ -51,6 +51,20 @@ Size SpriteFactory::getUnitSizeInPoints() {
 	return CC_SIZE_PIXELS_TO_POINTS(unitSize);
 }
 
+const pair<int, int> SpriteFactory::getTileOffset(SpriteTileType type) {
+	auto typeVal = static_cast<int>(type);
+	if (SpriteTileType::TopLeft <= type && type <= SpriteTileType::BottomRight) {
+		return pair<int, int>(typeVal % 3, typeVal / 3);
+	}
+	if (SpriteTileType::VirticalTop <= type && type <= SpriteTileType::VirticalBottom) {
+		return pair<int, int>(3, typeVal % 3);
+	}
+	if (SpriteTileType::HorizontalLeft <= type && type <= SpriteTileType::HorizontalRight) {
+		return pair<int, int>(4 + typeVal % 3, 1);
+	}
+	return pair<int, int>(5, 0);
+}
+
 SpriteFrame* SpriteFactory::createFrame(const string& fileName, int x, int y) {
 	auto ret =  SpriteFrame::create(fileName + EXT, CC_RECT_PIXELS_TO_POINTS(Rect(x * iUnitSize, y*iUnitSize, iUnitSize, iUnitSize)));
 	ret->getTexture()->setAliasTexParameters();
@@ -64,8 +78,14 @@ SpriteFrame * SpriteFactory::characterFrame(CharacterType characterType) {
 	return createFrame(characterPaths[characterType], 0, 0);
 }
 
-SpriteFrame * SpriteFactory::grassFrame() {
-	return createFrame(FLOOR, 8, 7);
+SpriteFrame * SpriteFactory::grassFrame(SpriteTileType type) {
+	auto offset = getTileOffset(type);
+	return createFrame(FLOOR, 7 + offset.first, 6 + offset.second);
+}
+
+SpriteFrame * SpriteFactory::dirtFrame(SpriteTileType type) {
+	auto offset = getTileOffset(type);
+	return createFrame(FLOOR, offset.first, 18 + offset.second);
 }
 
 Action * SpriteFactory::tree() {

@@ -3,6 +3,17 @@
 
 enum class CharacterType;
 
+enum class SpriteTileType {
+	TopLeft, Top, TopRight,
+	Left, Center, Right,
+	BottomLeft, Bottom, BottomRight,
+	VirticalTop,
+	VirticalCenter,
+	VirticalBottom,
+	HorizontalLeft, HorizontalCenter, HorizontalRight,
+	Single,
+};
+
 enum class CharacterDirection {
 	DOWN = 0,
 	LEFT,
@@ -21,6 +32,8 @@ class SpriteFactory {
 	SpriteFactory() = default;
 	static const int iUnitSize = 16;
 
+
+	static const std::pair<int, int> getTileOffset(SpriteTileType);
 
 	static const std::string EXT;
 	static std::unordered_map<CharacterType, std::string> characterPaths;
@@ -42,7 +55,9 @@ public:
 
 	static cocos2d::SpriteFrame* characterFrame(CharacterType);
 	
-	static cocos2d::SpriteFrame* grassFrame();
+	static cocos2d::SpriteFrame* grassFrame(SpriteTileType tileType = SpriteTileType::Center);
+	
+	static cocos2d::SpriteFrame* dirtFrame(SpriteTileType tileType = SpriteTileType::Center);
 
 	static cocos2d::Action* tree();
 
