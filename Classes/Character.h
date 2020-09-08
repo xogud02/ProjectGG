@@ -17,6 +17,7 @@ enum class AttackResult {
 	Dodgy,
 	Immune
 };
+
 class Character : public cocos2d::Sprite {
 protected:
 	int speed = 5;
@@ -26,7 +27,6 @@ protected:
 	GaugeBar* hpBar;
 	cocos2d::Vec2 nextPos;
 	std::queue<GridPosition> path;
-
 	GridPosition currentGridPosition;
 
 	Character* target = nullptr;
@@ -52,6 +52,6 @@ public:
 	virtual AttackResult attack(Character* c);
 	virtual void setPosition(const cocos2d::Vec2& v) override;
 
-	virtual void hit(int damage);
+	virtual void hit(Character* by, int damage);
 	virtual ~Character();
 };

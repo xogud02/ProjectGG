@@ -132,7 +132,7 @@ AttackResult Character::attack(Character * c) {
 	if (!c || c == this || !isInAttackRange(c)) {
 		return AttackResult::None;
 	}
-	c->hit(status.getDamage());
+	c->hit(this, status.getDamage());
 	if (c->status.getHP() <= 0) {
 		return AttackResult::Die;
 	}
@@ -151,7 +151,8 @@ void Character::setPosition(const Vec2 & v) {
 	}
 }
 
-void Character::hit(int damage) {
+void Character::hit(Character* by, int damage) {
+	CCLOG("Character::hit() - %s hit by %s, damage %d", getName().c_str(), by->getName().c_str(), damage);
 	auto grid = getGrid();
 	status.reduceHP(damage);
 	hpBar->setValue(status.getHP());
