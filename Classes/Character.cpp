@@ -33,6 +33,12 @@ bool Character::init() {
 	setScale(SCALE);
 	hpBar = GaugeBar::create(Size(size.width, size.height / 6));
 
+	status = Status();
+	
+	hpBar->setMaxValue(status.getMaxHP());
+	hpBar->setValue(status.getHP());
+
+
 	float width = size.width;
 	hpBar->setAnchorPoint(Vec2::ONE / 2.f);
 	hpBar->setPosition(Vec2(width / 2, 0));

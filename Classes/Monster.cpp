@@ -1,5 +1,6 @@
 #include "Monster.h"
 #include "SpriteFactory.h"
+#include "GaugeBar.h"
 
 USING_NS_CC;
 
@@ -11,6 +12,13 @@ bool Monster::init() {
 		return false;
 	}
 	setName("monster");
+
+	status = Status(10, 10, 1, 0);
+
+	hpBar->setMaxValue(status.getMaxHP());
+	hpBar->setValue(status.getHP());
+
+
 	runAction(SpriteFactory::slime());
 	schedule(CC_SCHEDULE_SELECTOR(Monster::moveRandom), 1.0f);
 	return true;

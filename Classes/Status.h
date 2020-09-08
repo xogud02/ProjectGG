@@ -7,7 +7,8 @@ private:
 	int hp = maxHP;
 	int power = 10;
 public:
-
+	Status() = default;
+	Status(int hp, int maxHp, int level, int power);
 	int getHP() const;
 	void reduceHP(int);
 	int getMaxHP() const;

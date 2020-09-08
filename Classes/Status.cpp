@@ -3,6 +3,10 @@
 
 USING_NS_CC;
 
+Status::Status(int hp, int maxHp, int level, int power): level(level),maxHP(maxHp), power(power){
+
+}
+
 int Status::getHP() const{
 	return hp;
 }
