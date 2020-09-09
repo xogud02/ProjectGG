@@ -18,6 +18,13 @@ enum class AttackResult {
 	Immune
 };
 
+enum class MoveType{
+	Stop,
+	Hold,
+	AttackOnNotice,
+	Move
+};
+
 class Character : public cocos2d::Sprite {
 protected:
 	int speed = 5;
@@ -27,6 +34,8 @@ protected:
 	GaugeBar* hpBar;
 	cocos2d::Vec2 nextPos;
 	std::queue<GridPosition> path;
+	MoveType currentMoveType = MoveType::Stop;
+
 	GridPosition currentGridPosition;
 
 	Character* target = nullptr;
@@ -48,6 +57,7 @@ public:
 	Character(int scale);
 
 	void setTarget(Character* target);
+	void setMoveType(MoveType moveType);
 	virtual bool isInAttackRange(Character* who) const;
 	virtual AttackResult attack(Character* c);
 	virtual void setPosition(const cocos2d::Vec2& v) override;

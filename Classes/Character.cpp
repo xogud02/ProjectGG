@@ -65,6 +65,10 @@ bool Character::init() {
 			return;
 		}
 
+		if (currentMoveType == MoveType::Move) {
+			return;
+		}
+
 		for (auto* n : getParent()->getChildren()) {
 			auto* c = dynamic_cast<Character*>(n);
 			if (c && c != this && c->currentGridPosition.distance(currentGridPosition) <= noticeRange) {
@@ -101,6 +105,8 @@ void Character::setTarget(Character * newTarget) {
 				hpBar->setMaxValue(status.getMaxHP());
 				releaseTarget();
 				return;
+			} else if (result == AttackResult::None) {
+				return;
 			}
 			attackReady = false;
 			scheduleOnce([&attackReady](float) {attackReady = true; }, attackInterval, "waitForAttack");
@@ -110,9 +116,17 @@ void Character::setTarget(Character * newTarget) {
 			return;
 		}
 		lastPos = target->currentGridPosition;
+		
+		if (currentMoveType == MoveType::Hold) {
+			return;
+		}
 		tryToMove(lastPos);
 
 	}, 0, chaseTarget);
+}
+
+void Character::setMoveType(MoveType moveType) {
+	currentMoveType = moveType;
 }
 
 bool Character::isInAttackRange(Character * who) const {
@@ -168,6 +182,7 @@ void Character::hit(Character* by, int damage) {
 		RemoveSelf::create(),
 		nullptr
 	));
+
 }
 
 Character::~Character() {

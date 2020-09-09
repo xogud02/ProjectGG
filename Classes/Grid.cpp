@@ -25,7 +25,6 @@ Grid * Grid::create(const int rows, const int cols) {
 	s->setAnchorPoint(Vec2::ZERO);
 	auto treeGPosition = GridPosition(rows / 2, cols / 2);
 	s->setPosition(ret->gridToPosition(treeGPosition));
-
 	ret->tiles[treeGPosition] = TileType::Block;
 
 	auto size = ret->getContentSize();
@@ -33,6 +32,11 @@ Grid * Grid::create(const int rows, const int cols) {
 	auto monster = Monster::create(1);
 	ret->addChild(monster);
 	monster->setPosition(Vec2(size.width * 2 / 3, size.height / 2));
+
+	auto monster2 = Monster::create(1);
+	monster2->setMoveType(MoveType::Hold);
+	ret->addChild(monster2);
+	monster->setPosition(Vec2(size.width * 1 / 3, size.height / 2));
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, ret);
@@ -73,7 +77,7 @@ void Grid::setPlayer(Player* newPlayer) {
 		unschedule(tracePlayer);
 	}
 	schedule(
-		[this, lastPos = Vec2::ZERO]
+		[this, lastPos = Vec2(-1,-1)]
 	(float) mutable {
 		auto currentPos = player->getPosition();// +player->SCALE * UNIT_SIZE * Vec2::ONE / 2;
 		if (currentPos == lastPos) {
