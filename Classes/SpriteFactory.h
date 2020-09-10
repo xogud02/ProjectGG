@@ -21,6 +21,13 @@ enum class CharacterDirection {
 	UP
 };
 
+enum class ArrowDirection {
+	Up,
+	Right,
+	Down,
+	Left
+};
+
 namespace std {
 	template<>
 	struct hash<CharacterType> {
@@ -41,6 +48,7 @@ class SpriteFactory {
 	static const std::string TREE;
 	static const std::string SLIME;
 	static const std::string MELEE_WEAPON;
+	static const std::string GUI;
 
 	static cocos2d::SpriteFrame* createFrame(const std::string& fileName, int x, int y);
 
@@ -58,6 +66,10 @@ public:
 	static cocos2d::SpriteFrame* grassFrame(SpriteTileType tileType = SpriteTileType::Center);
 	
 	static cocos2d::SpriteFrame* dirtFrame(SpriteTileType tileType = SpriteTileType::Center);
+
+	static cocos2d::SpriteFrame* GUIArrowFrame(ArrowDirection);
+
+	static cocos2d::SpriteFrame* GUIGreenButton();
 
 	static cocos2d::Action* tree();
 

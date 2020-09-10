@@ -17,6 +17,7 @@ const string SpriteFactory::FLOOR = "Tiles/Floor";
 const string SpriteFactory::TREE = "Tiles/Tree";
 const string SpriteFactory::SLIME = "Monsters/Slime";
 const string SpriteFactory::MELEE_WEAPON = "Items/MedWep";
+const string SpriteFactory::GUI = "GUIs/GUI";
 
 const Size SpriteFactory::unitSize(SpriteFactory::iUnitSize, SpriteFactory::iUnitSize);
 
@@ -86,6 +87,14 @@ SpriteFrame * SpriteFactory::grassFrame(SpriteTileType type) {
 SpriteFrame * SpriteFactory::dirtFrame(SpriteTileType type) {
 	auto offset = getTileOffset(type);
 	return createFrame(FLOOR, offset.first, 18 + offset.second);
+}
+
+SpriteFrame * SpriteFactory::GUIArrowFrame(ArrowDirection direction) {
+	return createFrame(GUI + '0', 5, 1 + static_cast<int>(direction));
+}
+
+SpriteFrame * SpriteFactory::GUIGreenButton() {
+	return createFrame(GUI + '0', 4, 13);
 }
 
 Action * SpriteFactory::tree() {

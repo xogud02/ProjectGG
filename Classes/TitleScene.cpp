@@ -1,6 +1,5 @@
 #include "TitleScene.h"
-#include "FightScene.h"
-#include "CharacterSelectScene.h"
+#include "StageSelectScene.h"
 
 USING_NS_CC;
 
@@ -26,8 +25,7 @@ bool TitleScene::init() {
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = [](auto, auto) {
-		//Director::getInstance()->replaceScene(FightScene::create());
-		Director::getInstance()->replaceScene(CharacterSelectScene::create());
+		Director::getInstance()->replaceScene(StageSelectScene::create());
 		return true; 
 	};
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
