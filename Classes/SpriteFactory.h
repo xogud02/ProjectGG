@@ -3,7 +3,7 @@
 
 enum class CharacterType;
 
-enum class SpriteTileType {
+enum class SpriteTilePosition {
 	TopLeft, Top, TopRight,
 	Left, Center, Right,
 	BottomLeft, Bottom, BottomRight,
@@ -12,6 +12,19 @@ enum class SpriteTileType {
 	VirticalBottom,
 	HorizontalLeft, HorizontalCenter, HorizontalRight,
 	Single,
+};
+
+enum class SpriteTileTheme {
+	Brighter,
+	Bright,
+	Dark,
+	Darker
+};
+
+enum class SpriteTileType {
+	BrickLoop,Grass,Bush,
+	Dirt,WoodFloor,Sand,
+	Mound
 };
 
 enum class CharacterDirection {
@@ -39,9 +52,6 @@ class SpriteFactory {
 	SpriteFactory() = default;
 	static const int iUnitSize = 16;
 
-
-	static const std::pair<int, int> getTileOffset(SpriteTileType);
-
 	static const std::string EXT;
 	static std::unordered_map<CharacterType, std::string> characterPaths;
 	static const std::string FLOOR;
@@ -63,9 +73,7 @@ public:
 
 	static cocos2d::SpriteFrame* characterFrame(CharacterType);
 	
-	static cocos2d::SpriteFrame* grassFrame(SpriteTileType tileType = SpriteTileType::Center);
-	
-	static cocos2d::SpriteFrame* dirtFrame(SpriteTileType tileType = SpriteTileType::Center);
+	static cocos2d::SpriteFrame* floorFrame(SpriteTileType, SpriteTileTheme, SpriteTilePosition);
 
 	static cocos2d::SpriteFrame* GUIArrowFrame(ArrowDirection);
 

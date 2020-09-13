@@ -10,7 +10,7 @@ using Pii = pair<int, int>;
 using GrassFloor = set<Pii>;
 
 
-SpriteTileType getTypeOfTile(const GrassFloor& grassFloor, int r, int c) {
+SpriteTilePosition getTypeOfTile(const GrassFloor& grassFloor, int r, int c) {
 	const auto cend = grassFloor.cend();
 	const auto top = grassFloor.find(Pii(r - 1, c)) == cend;
 	const auto bottom = grassFloor.find(Pii(r + 1, c)) == cend;
@@ -18,9 +18,9 @@ SpriteTileType getTypeOfTile(const GrassFloor& grassFloor, int r, int c) {
 	const auto right = grassFloor.find(Pii(r, c + 1)) == cend;
 	bitset<4> bits;
 	bits[3] = top, bits[2] = bottom, bits[1] = left, bits[0] = right;
-	using STT = SpriteTileType;
+	using STT = SpriteTilePosition;
 	//		__00					__01 :r					__10 : l			__11 : lr
-	SpriteTileType typeArr[] = {
+	SpriteTilePosition typeArr[] = {
 		STT::Center,			STT::Right,				STT::Left,			STT::VirticalCenter,//00__
 		STT::Bottom,			STT::BottomRight,		STT::BottomLeft,	STT::VirticalBottom,//01__ : b
 		STT::Top,				STT::TopRight,			STT::TopLeft,		STT::VirticalTop,	//10__ : t
@@ -45,9 +45,9 @@ Node * TileBuilder::randomFloor(int rows, int cols, float gridSize, float grassR
 			SpriteFrame* frame = nullptr;
 			auto itr = grassFloor.find(Pii(r, c));
 			if (itr == grassFloor.cend()) {
-				frame = SpriteFactory::dirtFrame();
+				frame = SpriteFactory::floorFrame(SpriteTileType::Dirt, SpriteTileTheme::Bright, SpriteTilePosition::Center);
 			} else {
-				frame = SpriteFactory::grassFrame(getTypeOfTile(grassFloor, r, c));
+				frame = SpriteFactory::floorFrame(SpriteTileType::Grass, SpriteTileTheme::Bright, getTypeOfTile(grassFloor, r, c));
 			}
 			auto s = Sprite::createWithSpriteFrame(frame);
 			ret->addChild(s);
