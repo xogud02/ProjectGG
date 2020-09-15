@@ -8,7 +8,7 @@
 using namespace std;
 USING_NS_CC;
 
-Grid * Grid::create(const int rows, const int cols) {
+Grid * Grid::create(const int rows, const int cols, SpriteTileTheme theme) {
 	
 	auto gridUnitSize = Director::getInstance()->getOpenGLView()->getFrameSize().width / 32;
 	Grid* ret = new Grid(rows, cols, gridUnitSize);
@@ -16,7 +16,7 @@ Grid * Grid::create(const int rows, const int cols) {
 	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
 	ret->autorelease();
 
-	ret->LayerColor::addChild(TileBuilder::randomFloor(rows, cols, gridUnitSize, 0.6f));
+	ret->LayerColor::addChild(TileBuilder::randomFloor(rows, cols, gridUnitSize,theme, 0.6f));
 
 	Sprite* s = Sprite::createWithSpriteFrame(SpriteFactory::characterFrame(CharacterType::Warrior));
 
@@ -250,13 +250,17 @@ void Grid::focusTo(Vec2 position) {
 	setPosition(newPosition);
 }
 
-void Grid::addChild(Sprite* sprite) {
-	addChild(sprite, 0);
+void Grid::addChild(Node* node) {
+	addChild(node, 0);
 }
 
-void Grid::addChild(Sprite* sprite, int zOrder) {
-	LayerColor::addChild(sprite, zOrder);
+void Grid::addChild(Node* node, int zOrder) {
+	LayerColor::addChild(node, zOrder);
 
+	auto sprite = dynamic_cast<Sprite*>(node);
+	if (!sprite) {
+		return;
+	}
 	sprite->setScale(sprite->getScale() * SpriteFactory::getUnitScale(UNIT_SIZE));
 
 }

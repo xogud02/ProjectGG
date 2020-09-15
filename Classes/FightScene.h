@@ -29,11 +29,13 @@
 #include "cocos-ext.h"
 #include "Player.h"
 
+enum class SpriteTileTheme;
+
 class FightScene : public cocos2d::Scene {
 public:
 
 	virtual bool init();
-	static FightScene* create(CharacterType);
+	static FightScene* create(SpriteTileTheme, CharacterType);
 
 private:
 };

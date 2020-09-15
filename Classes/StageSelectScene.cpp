@@ -144,9 +144,9 @@ bool StageSelectScene::init() {
 
 
 	auto sSelect = Sprite::createWithSpriteFrame(SpriteFactory::GUIGreenButton());
-	auto select = MenuItemSprite::create(sSelect, sSelect, [field](auto) {
+	auto select = MenuItemSprite::create(sSelect, sSelect, [field, label](auto) {
 		auto value = stoi(field->getString());//TODO do something with this value
-		Director::getInstance()->replaceScene(CharacterSelectScene::create());
+		Director::getInstance()->replaceScene(CharacterSelectScene::create(label->getItem()));
 	});
 	menu->addChild(select);
 	select->setScale(5);

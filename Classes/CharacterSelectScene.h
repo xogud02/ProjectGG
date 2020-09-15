@@ -1,10 +1,12 @@
 #pragma once
 #include "cocos2d.h"
 
+enum class SpriteTileTheme;
+
 class CharacterSelectScene : public cocos2d::Scene {
 private:
 	CharacterSelectScene() = default;
 public:
-	CREATE_FUNC(CharacterSelectScene);
+	static CharacterSelectScene* create(SpriteTileTheme);
 	virtual bool init() override;
 };

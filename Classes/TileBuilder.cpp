@@ -30,7 +30,7 @@ SpriteTilePosition getTypeOfTile(const GrassFloor& grassFloor, int r, int c) {
 	return typeArr[bits.to_ulong()];
 }
 
-Node * TileBuilder::randomFloor(int rows, int cols, float gridSize, float grassRatio) {
+Node * TileBuilder::randomFloor(int rows, int cols, float gridSize, SpriteTileTheme theme, float grassRatio) {
 	auto ret = Node::create();
 	auto grassFloor = GrassFloor();
 	for (int r = 0; r < rows; ++r) {
@@ -45,9 +45,9 @@ Node * TileBuilder::randomFloor(int rows, int cols, float gridSize, float grassR
 			SpriteFrame* frame = nullptr;
 			auto itr = grassFloor.find(Pii(r, c));
 			if (itr == grassFloor.cend()) {
-				frame = SpriteFactory::floorFrame(SpriteTileType::Dirt, SpriteTileTheme::Bright, SpriteTilePosition::Center);
+				frame = SpriteFactory::floorFrame(SpriteTileType::Dirt, theme, SpriteTilePosition::Center);
 			} else {
-				frame = SpriteFactory::floorFrame(SpriteTileType::Grass, SpriteTileTheme::Bright, getTypeOfTile(grassFloor, r, c));
+				frame = SpriteFactory::floorFrame(SpriteTileType::Grass, theme, getTypeOfTile(grassFloor, r, c));
 			}
 			auto s = Sprite::createWithSpriteFrame(frame);
 			ret->addChild(s);

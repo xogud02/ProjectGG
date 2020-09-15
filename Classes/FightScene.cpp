@@ -47,14 +47,14 @@ bool FightScene::init() {
 	return true;
 }
 
-FightScene * FightScene::create(CharacterType characterType) {
+FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterType) {
 	auto ret = new FightScene();
 	if (!ret || !ret->init()) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
 	}
 
-	auto grid = Grid::create(30, 30);
+	auto grid = Grid::create(30, 30, theme);//FIXME seperate theme stuff
 	ret->addChild(grid);
 	grid->setPlayer(Player::create(characterType));
 	return ret;
