@@ -97,16 +97,6 @@ SpriteFrame * SpriteFactory::floorFrame(SpriteTileType type, SpriteTileTheme the
 	return createFrame(FLOOR, pOffset.first + offset.first, pOffset.second + offset.second + 3);
 }
 
-SpriteFrame * SpriteFactory::grassFrame(SpriteTilePosition type) {
-	auto offset = getTileOffset(type);
-	return createFrame(FLOOR, 7 + offset.first, 6 + offset.second);
-}
-
-SpriteFrame * SpriteFactory::dirtFrame(SpriteTilePosition type) {
-	auto offset = getTileOffset(type);
-	return createFrame(FLOOR, offset.first, 18 + offset.second);
-}
-
 SpriteFrame * SpriteFactory::GUIArrowFrame(ArrowDirection direction) {
 	return createFrame(GUI + '0', 5, 1 + static_cast<int>(direction));
 }

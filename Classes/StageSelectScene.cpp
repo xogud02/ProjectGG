@@ -7,34 +7,43 @@ USING_NS_CC;
 using namespace ui;
 using namespace std;
 
-constexpr int minStage = 1;
-constexpr int maxStage = 99;
 
-int clampStage(int value) {
-	if (value < minStage) {
-		return minStage;
+
+class IndexRotator {
+public:
+	virtual void previous() = 0;
+	virtual void next() = 0;
+};
+
+class StageTextField : public TextField, public IndexRotator {
+	const int minStage = 1;
+	const int maxStage = 99;
+
+	int clampStage(int value) {
+		if (value < minStage) {
+			return minStage;
+		}
+
+		if (value > maxStage) {
+			return maxStage;
+		}
+
+		return value;
 	}
 
-	if (value > maxStage) {
-		return maxStage;
-	}
-
-	return value;
-}
-
-class StageTextField : public TextField {
 	int currentStage = 1;
 public:
 	CREATE_FUNC(StageTextField);
-	virtual bool init() {
+	virtual bool init() override {
 		if (!TextField::init()) {
 			return false;
 		}
+
 		setValue(1);
-		addEventListener([this](auto, auto) mutable{
+		addEventListener([this](auto, auto) mutable {
 			try {
 				int tmp = stoi(getString());
-				currentStage = clampStage(tmp);
+				currentStage = tmp;
 			} catch (...) {
 				auto currentText = getString();
 				CCLOG("StageSelectScene::value must be digits %d~%d (current value : %s)", minStage, maxStage, currentText.c_str());
@@ -48,21 +57,66 @@ public:
 		return true;
 	}
 	void setValue(int i) {
-		i = clampStage(i);
-		setString(to_string(i));
+		currentStage = clampStage(i);
+		setString(to_string(currentStage));
+	}
+
+	virtual void previous() override {
+		setValue(currentStage - 1);
+	}
+	virtual void next() override {
+		setValue(currentStage + 1);
 	}
 };
 
-MenuItemSprite* createArrowItem(ArrowDirection direction, int delta, StageTextField* field) {
+class StageThemeLabel : public Label, public IndexRotator {
+	int index = 0;
+	vector<string> texts;
+public:
+	CREATE_FUNC(StageThemeLabel);
+
+	virtual bool init() override {
+		setString(texts[0]);
+		return true;
+	}
+
+	StageThemeLabel() {
+		texts = { "Easy","Normal","Hard","Hell" };
+	}
+
+	virtual void previous() override {
+		index += texts.size() - 1;
+		index %= texts.size();
+		setString(texts[index]);
+	}
+
+	virtual void next() override {
+		++index;
+		index %= texts.size();
+		setString(texts[index]);
+	}
+
+	SpriteTileTheme getItem() {
+		return static_cast<SpriteTileTheme>(index);
+	}
+
+};
+
+MenuItemSprite* createArrowItem(ArrowDirection direction, const ccMenuCallback& callback) {
 	auto sprite = Sprite::createWithSpriteFrame(SpriteFactory::GUIArrowFrame(direction));
-	auto ret = MenuItemSprite::create(sprite, sprite, [field, delta](auto) {
-		auto value = stoi(field->getString());
-		value += delta;
-		value = clampStage(value);
-		field->setString(to_string(value));
-	});
+	auto ret = MenuItemSprite::create(sprite, sprite, callback);
 	ret->setScale(5);
 	return ret;
+}
+
+void attatchArrows(Menu* menu, IndexRotator* ir,float xOffset, float yOffset) {
+	auto left = createArrowItem(ArrowDirection::Left, [ir](auto) {ir->previous(); });
+	left->setPosition(Vec2(-xOffset, yOffset));
+
+	auto right = createArrowItem(ArrowDirection::Right, [ir](auto) {ir->next(); });
+	right->setPosition(Vec2(xOffset, yOffset));
+	menu->addChild(left);
+	menu->addChild(right);
 }
 
 bool StageSelectScene::init() {
@@ -70,25 +124,24 @@ bool StageSelectScene::init() {
 		return false;
 	}
 
-
 	auto size = getContentSize();
 	auto field = StageTextField::create();
 	field->setFontSize(50);
 
-	field->setPosition(size / 2);
+	field->setPosition(Vec2(size.width / 2, size.height / 2));
 	addChild(field);
-
-	auto left = createArrowItem(ArrowDirection::Left, -1, field);
-	left->setPosition(Vec2(-size.width / 4, 0));
-
-	auto right = createArrowItem(ArrowDirection::Right, 1, field);
-	right->setPosition(Vec2(size.width / 4, 0));
 
 	auto menu = Menu::create();
 
-	menu->addChild(left);
-	menu->addChild(right);
+	attatchArrows(menu, field, size.width / 8, 0);
 	addChild(menu);
+
+	auto label = StageThemeLabel::create();
+	label->setPosition(Vec2(size.width / 2, size.height * 3 / 8));
+	label->setSystemFontSize(50);
+	addChild(label);
+	attatchArrows(menu, label, size.width / 8, -size.height / 8);
+
 
 	auto sSelect = Sprite::createWithSpriteFrame(SpriteFactory::GUIGreenButton());
 	auto select = MenuItemSprite::create(sSelect, sSelect, [field](auto) {
