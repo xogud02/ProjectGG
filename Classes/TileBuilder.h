@@ -1,7 +1,7 @@
 #pragma once
 #include "cocos2d.h"
+#include "SpriteTileEnums.h"
 
-enum class SpriteTileTheme;
 class TileBuilder {
 	TileBuilder() = default;
 public:
