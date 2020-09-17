@@ -3,20 +3,17 @@
 #include "Player.h"
 #include "SpriteFactory.h"
 #include "Monster.h"
-#include "TileBuilder.h"
 
 using namespace std;
 USING_NS_CC;
 
-Grid * Grid::create(const int rows, const int cols, SpriteTileTheme theme) {
+Grid * Grid::create(const int rows, const int cols) {
 	
 	auto gridUnitSize = Director::getInstance()->getOpenGLView()->getFrameSize().width / 32;
 	Grid* ret = new Grid(rows, cols, gridUnitSize);
 	ret->initWithColor(Color4B(255, 255, 255, 64));
 	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
 	ret->autorelease();
-
-	ret->LayerColor::addChild(TileBuilder::randomFloor(rows, cols, gridUnitSize,theme, 0.6f));
 
 	Sprite* s = Sprite::createWithSpriteFrame(SpriteFactory::characterFrame(CharacterType::Warrior));
 

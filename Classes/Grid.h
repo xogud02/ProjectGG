@@ -15,7 +15,6 @@ enum class TileType : std::uint8_t {
 
 class Character;
 class Player;
-enum class SpriteTileTheme;
 class Grid : public cocos2d::LayerColor {
 	~Grid();
 public:
@@ -37,7 +36,7 @@ public:
 	virtual void addChild(cocos2d::Node* node) override;
 	virtual void addChild(cocos2d::Node* node, int zOrder) override;
 
-	static Grid* create(const int rows, const int cols, SpriteTileTheme theme);
+	static Grid* create(const int rows, const int cols);
 
 	void touched(Character* who);
 	void setPlayer(Player* character);

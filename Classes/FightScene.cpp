@@ -25,6 +25,7 @@
 #include "FightScene.h"
 #include "Character.h"
 #include "Grid.h"
+#include "TileBuilder.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -54,7 +55,10 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 		return nullptr;
 	}
 
-	auto grid = Grid::create(30, 30, theme);//FIXME seperate theme stuff
+	int rows = 30, cols = 30;
+	auto grid = Grid::create(rows, cols);
+	grid->addChild(TileBuilder::randomFloor(rows, cols, grid->UNIT_SIZE, theme, 0.6f));
+
 	ret->addChild(grid);
 	grid->setPlayer(Player::create(characterType));
 	return ret;
