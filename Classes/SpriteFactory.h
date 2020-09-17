@@ -41,6 +41,31 @@ enum class ArrowDirection {
 	Left
 };
 
+enum class PitContentType {
+	Empty,
+	Skyblue,
+	Blue,
+	Green
+};
+
+enum class PitWallType {
+	Brick,
+	Dirt,
+	Solid
+};
+
+enum class PitPositionType {
+	TopLeft, Top, TopRight,
+	Left, CenterOrBottom, Right,
+	VirticalTop, BottomLeft, VirticalBottom, BottomRight, VirticalMiddle
+};
+
+enum class LiquidPitType {
+	Lava,
+	Ocean,
+	Swamp
+};
+
 namespace std {
 	template<>
 	struct hash<CharacterType> {
@@ -59,6 +84,7 @@ class SpriteFactory {
 	static const std::string SLIME;
 	static const std::string MELEE_WEAPON;
 	static const std::string GUI;
+	static const std::string PIT;
 
 	static cocos2d::SpriteFrame* createFrame(const std::string& fileName, int x, int y);
 
@@ -74,6 +100,10 @@ public:
 	static cocos2d::SpriteFrame* characterFrame(CharacterType);
 	
 	static cocos2d::SpriteFrame* floorFrame(SpriteTileType, SpriteTileTheme, SpriteTilePosition);
+
+	static cocos2d::SpriteFrame* pitFrame(PitContentType, PitWallType, PitPositionType);
+
+	static cocos2d::Action* liquidPitAction(LiquidPitType, PitPositionType);
 
 	static cocos2d::SpriteFrame* GUIArrowFrame(ArrowDirection);
 
