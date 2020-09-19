@@ -7,10 +7,9 @@ using namespace std;
 USING_NS_CC;
 
 using Pii = pair<int, int>;
-using GrassFloor = set<Pii>;
+using PSet = set<Pii>;
 
-
-SpriteTilePosition getTypeOfTile(const GrassFloor& grassFloor, int r, int c) {
+unsigned long getPositionArrIndex(const PSet& grassFloor, int r, int c) {
 	const auto cend = grassFloor.cend();
 	const auto top = grassFloor.find(Pii(r - 1, c)) == cend;
 	const auto bottom = grassFloor.find(Pii(r + 1, c)) == cend;
@@ -18,21 +17,42 @@ SpriteTilePosition getTypeOfTile(const GrassFloor& grassFloor, int r, int c) {
 	const auto right = grassFloor.find(Pii(r, c + 1)) == cend;
 	bitset<4> bits;
 	bits[3] = top, bits[2] = bottom, bits[1] = left, bits[0] = right;
-	using STT = SpriteTilePosition;
-	//		__00					__01 :r					__10 : l			__11 : lr
-	SpriteTilePosition typeArr[] = {
-		STT::Center,			STT::Right,				STT::Left,			STT::VirticalCenter,//00__
-		STT::Bottom,			STT::BottomRight,		STT::BottomLeft,	STT::VirticalBottom,//01__ : b
-		STT::Top,				STT::TopRight,			STT::TopLeft,		STT::VirticalTop,	//10__ : t
-		STT::HorizontalCenter,	STT::HorizontalRight,	STT::HorizontalLeft,STT::Single			//11__ : tb
-	};
+	return bits.to_ulong();
+}
 
-	return typeArr[bits.to_ulong()];
+SpriteTilePosition getSpriteTilePosition(const PSet& grassFloor, int r, int c) {
+	using STP = SpriteTilePosition;
+	//		__00					__01 :r					__10 : l			__11 : lr
+	STP typeArr[] = {
+		STP::Center,			STP::Right,				STP::Left,			STP::VirticalCenter,//00__
+		STP::Bottom,			STP::BottomRight,		STP::BottomLeft,	STP::VirticalBottom,//01__ : b
+		STP::Top,				STP::TopRight,			STP::TopLeft,		STP::VirticalTop,	//10__ : t
+		STP::HorizontalCenter,	STP::HorizontalRight,	STP::HorizontalLeft,STP::Single			//11__ : tb
+	};
+	return typeArr[getPositionArrIndex(grassFloor,r,c)];
+}
+
+PitPositionType getPitPosition(const PSet& liquidPit, int r, int c) {
+	using PPT = PitPositionType;
+	//		__00					__01 :r					__10 : l			__11 : lr
+	PPT typeArr[] = {
+		PPT::CenterOrBottom,	PPT::Right,				PPT::Left,			PPT::VirticalMiddle,//00__
+		PPT::CenterOrBottom,	PPT::BottomRight,		PPT::BottomLeft,	PPT::VirticalBottom,//01__ : b
+		PPT::Top,				PPT::TopRight,			PPT::TopLeft,		PPT::VirticalTop,	//10__ : t
+		PPT::Top,				PPT::TopRight,			PPT::TopLeft,		PPT::CenterOrBottom	//11__ : tb
+	};
+	return typeArr[getPositionArrIndex(liquidPit, r, c)];
+}
+
+void initSingleTile(Sprite* s, int r, int c, int rows, float gridSize) {
+	s->setPosition(Vec2(c*gridSize, (rows - r - 1) * gridSize));
+	s->setScale(s->getScale() * SpriteFactory::getUnitScale(gridSize));
+	s->setAnchorPoint(Vec2::ZERO);
 }
 
 Node * TileBuilder::randomFloor(int rows, int cols, float gridSize, SpriteTileTheme theme, float grassRatio) {
 	auto ret = Node::create();
-	auto grassFloor = GrassFloor();
+	auto grassFloor = PSet();
 	for (int r = 0; r < rows; ++r) {
 		for (int c = 0; c < cols; ++c) {
 			if (rand_0_1() < grassRatio) {
@@ -47,14 +67,75 @@ Node * TileBuilder::randomFloor(int rows, int cols, float gridSize, SpriteTileTh
 			if (itr == grassFloor.cend()) {
 				frame = SpriteFactory::floorFrame(SpriteTileType::Dirt, theme, SpriteTilePosition::Center);
 			} else {
-				frame = SpriteFactory::floorFrame(SpriteTileType::Grass, theme, getTypeOfTile(grassFloor, r, c));
+				frame = SpriteFactory::floorFrame(SpriteTileType::Grass, theme, getSpriteTilePosition(grassFloor, r, c));
 			}
 			auto s = Sprite::createWithSpriteFrame(frame);
 			ret->addChild(s);
-			s->setPosition(Vec2(c*gridSize, (rows - r - 1) * gridSize));
-			s->setScale(s->getScale() * SpriteFactory::getUnitScale(gridSize));
-			s->setAnchorPoint(Vec2::ZERO);
+			initSingleTile(s, r, c, rows, gridSize);
 		}
+	}
+	return ret;
+}
+
+bool inRange(int val, int inMin, int exMax) {
+	return inMin <= val && val < exMax;
+}
+
+PSet buildPit(int maxRows, int maxCols) {
+	PSet visited, ret;
+	queue<Pii> check;
+	const int cRow = maxRows / 2, cCol = maxCols / 2;
+	Pii center(cRow, cCol);
+	check.push(center);
+	int dr[] = { -1,1,0,0 }, dc[] = { 0,0,-1,1 };
+	while (!check.empty()) {
+		Pii current = check.front(); check.pop();
+		int r = current.first, c = current.second;
+		if (inRange(r, 0, maxRows) && inRange(c, 0, maxCols)) {} else {
+			continue;
+		}
+
+		if (!visited.insert(current).second) {
+			continue;
+		}
+
+		float rDist = abs(cRow - r), cDist = abs(cCol - c);
+		float farFromCenterRatio = (rDist / cRow + cDist / cCol) / 2;
+		if (rand_0_1() * 3 > farFromCenterRatio) {
+			ret.insert(current);
+			for (int i = 0; i < 4; ++i) {
+				check.push(Pii(r + dr[i], c + dc[i]));
+			}
+		}
+	}
+	return ret;
+}
+
+Node * TileBuilder::randomLiquidPit(int maxRows, int maxCols, float gridSize, LiquidPitType type) {
+	PSet liquidPit = buildPit(maxRows, maxCols);
+
+	auto ret = Node::create();
+	for (auto pii : liquidPit) {
+		auto s = Sprite::create();
+		int r = pii.first, c = pii.second;
+		s->runAction(SpriteFactory::liquidPitAction(type, getPitPosition(liquidPit, r, c)));
+		ret->addChild(s);
+		initSingleTile(s, r, c, maxRows, gridSize);
+	}
+
+	return ret;
+}
+
+Node * TileBuilder::randomPit(int maxRows, int maxCols, float gridSize, PitContentType content, PitWallType wall) {
+	PSet pit = buildPit(maxRows, maxCols);
+
+	auto ret = Node::create();
+	for (auto pii : pit) {
+		int r = pii.first, c = pii.second;
+		auto s = Sprite::create();
+		s->runAction(SpriteFactory::pitAction(content, wall, getPitPosition(pit, r, c)));
+		ret->addChild(s);
+		initSingleTile(s, r, c, maxRows, gridSize);
 	}
 	return ret;
 }

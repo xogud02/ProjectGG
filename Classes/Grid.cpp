@@ -15,10 +15,10 @@ Grid * Grid::create(const int rows, const int cols) {
 	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
 	ret->autorelease();
 
-	Sprite* s = Sprite::createWithSpriteFrame(SpriteFactory::characterFrame(CharacterType::Warrior));
+	Sprite* s = Sprite::create();
 
 	s->runAction(SpriteFactory::tree());
-	ret->addChild(s);
+	ret->addChild(s, 1);
 	s->setAnchorPoint(Vec2::ZERO);
 	auto treeGPosition = GridPosition(rows / 2, cols / 2);
 	s->setPosition(ret->gridToPosition(treeGPosition));
@@ -27,13 +27,13 @@ Grid * Grid::create(const int rows, const int cols) {
 	auto size = ret->getContentSize();
 	
 	auto monster = Monster::create(1);
-	ret->addChild(monster);
+	ret->addChild(monster,1);
 	monster->setPosition(Vec2(size.width * 2 / 3, size.height / 2));
 
 	auto monster2 = Monster::create(1);
 	monster2->setMoveType(MoveType::Hold);
-	ret->addChild(monster2);
-	monster->setPosition(Vec2(size.width * 1 / 3, size.height / 2));
+	ret->addChild(monster2,1);
+	monster2->setPosition(Vec2(size.width * 1 / 3, size.height / 2));
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, ret);

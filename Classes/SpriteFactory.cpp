@@ -107,11 +107,11 @@ const pair<int, int> getPitPositionOffset(PitPositionType position) {
 	return make_pair(val % 4 + 4, val / 4);
 }
 
-SpriteFrame* SpriteFactory::pitFrame(PitContentType content, PitWallType wall, PitPositionType position) {
+Action* SpriteFactory::pitAction(PitContentType content, PitWallType wall, PitPositionType position) {
 	auto cv = static_cast<int>(content);
 	auto wv = static_cast<int>(wall);
 	auto pOffset = getPitPositionOffset(position);
-	return createFrame(PIT + '0', pOffset.first, pOffset.second + 2 + 6 * cv + 2 * wv);
+	return createAction(PIT , pOffset.first, pOffset.second + 2 + 6 * cv + 2 * wv);
 }
 
 Action* SpriteFactory::liquidPitAction(LiquidPitType liquid, PitPositionType position) {
