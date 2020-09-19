@@ -25,6 +25,8 @@
 #include "FightScene.h"
 #include "Character.h"
 #include "Grid.h"
+#include "SpriteFactory.h"
+#include "Monster.h"
 #include "TileBuilder.h"
 
 USING_NS_CC;
@@ -69,6 +71,28 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 	auto tmpPit = TileBuilder::randomPit(rows / 3, cols / 3, grid->UNIT_SIZE, PitContentType::Green, PitWallType::Dirt);
 	grid->addChild(tmpPit);
 	tmpPit->setPosition(cols * 7 / 12 * grid->UNIT_SIZE, rows / 3 * grid->UNIT_SIZE);
+
+
+	Sprite* tmpTree = Sprite::create();
+
+	tmpTree->runAction(SpriteFactory::tree());
+	grid->addChild(tmpTree, 1);
+	tmpTree->setAnchorPoint(Vec2::ZERO);
+	auto treeGPosition = GridPosition(rows / 2, cols / 2);
+	tmpTree->setPosition(grid->gridToPosition(treeGPosition));
+	grid->addObject(treeGPosition);
+
+	auto size = grid->getContentSize();
+
+	auto monster = Monster::create(1);
+	grid->addChild(monster, 1);
+	monster->setPosition(Vec2(size.width * 2 / 3, size.height / 2));
+
+	auto monster2 = Monster::create(1);
+	monster2->setMoveType(MoveType::Hold);
+	grid->addChild(monster2, 1);
+	monster2->setPosition(Vec2(size.width * 1 / 3, size.height / 2));
+
 
 	return ret;
 }

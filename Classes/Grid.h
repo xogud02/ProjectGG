@@ -41,6 +41,8 @@ public:
 	void touched(Character* who);
 	void setPlayer(Player* character);
 
+	void addObject(GridPosition, int size = 1);
+
 private:
 	std::vector<std::vector<bool>> occupiedGrid;
 	std::unordered_map<GridPosition, TileType> tiles;

@@ -2,7 +2,6 @@
 #include "FightScene.h"
 #include "Player.h"
 #include "SpriteFactory.h"
-#include "Monster.h"
 
 using namespace std;
 USING_NS_CC;
@@ -10,40 +9,20 @@ USING_NS_CC;
 Grid * Grid::create(const int rows, const int cols) {
 	
 	auto gridUnitSize = Director::getInstance()->getOpenGLView()->getFrameSize().width / 32;
-	Grid* ret = new Grid(rows, cols, gridUnitSize);
-	ret->initWithColor(Color4B(255, 255, 255, 64));
-	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
-	ret->autorelease();
-
-	Sprite* s = Sprite::create();
-
-	s->runAction(SpriteFactory::tree());
-	ret->addChild(s, 1);
-	s->setAnchorPoint(Vec2::ZERO);
-	auto treeGPosition = GridPosition(rows / 2, cols / 2);
-	s->setPosition(ret->gridToPosition(treeGPosition));
-	ret->tiles[treeGPosition] = TileType::Block;
-
-	auto size = ret->getContentSize();
-	
-	auto monster = Monster::create(1);
-	ret->addChild(monster,1);
-	monster->setPosition(Vec2(size.width * 2 / 3, size.height / 2));
-
-	auto monster2 = Monster::create(1);
-	monster2->setMoveType(MoveType::Hold);
-	ret->addChild(monster2,1);
-	monster2->setPosition(Vec2(size.width * 1 / 3, size.height / 2));
+	Grid* grid = new Grid(rows, cols, gridUnitSize);
+	grid->initWithColor(Color4B(255, 255, 255, 64));
+	grid->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
+	grid->autorelease();
 
 	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, ret);
-	ret->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, ret);
+	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, grid);
+	grid->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, grid);
 
 	if (COCOS2D_DEBUG) {
-		ret->showGrid();
+		grid->showGrid();
 	}
 
-	return ret;
+	return grid;
 }
 
 void Grid::touched(Character * who) {
@@ -84,6 +63,15 @@ void Grid::setPlayer(Player* newPlayer) {
 		focusTo(convertToWorldSpace(lastPos));
 	},0, tracePlayer);
 	addChild(player, 1);
+}
+
+void Grid::addObject(GridPosition position, int size) {
+	for (int dr = 0; dr < size; ++dr) {
+		for (int dc = 0; dc < size; ++dc) {
+			auto dp = GridPosition(dr, dc);
+			tiles[position + dp] = TileType::Block;
+		}
+	}
 }
 
 GridPosition Grid::vecToGrid(Vec2 position) const {
