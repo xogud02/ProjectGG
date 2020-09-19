@@ -1,4 +1,4 @@
-# TODO
+# Implement
 
 - UI
   - minimap
@@ -22,3 +22,4 @@
 # etc
 
 - create vs init method
+- write readme.md
