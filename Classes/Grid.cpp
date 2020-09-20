@@ -2,6 +2,7 @@
 #include "FightScene.h"
 #include "Player.h"
 #include "SpriteFactory.h"
+#include "GridObject.h"
 
 using namespace std;
 USING_NS_CC;
@@ -65,12 +66,12 @@ void Grid::setPlayer(Player* newPlayer) {
 	addChild(player, 1);
 }
 
-void Grid::addObject(GridPosition position, int size) {
-	for (int dr = 0; dr < size; ++dr) {
-		for (int dc = 0; dc < size; ++dc) {
-			auto dp = GridPosition(dr, dc);
-			tiles[position + dp] = TileType::Block;
-		}
+
+void Grid::addObject(GridObject * gridObject, GridPosition position) {
+	addChild(gridObject);
+	gridObject->setPosition(gridToPosition(position));
+	for (auto p : gridObject->getTiles()) {
+		tiles[position + p.first] = TileType::Block;
 	}
 }
 
@@ -243,9 +244,10 @@ void Grid::addChild(Node* node, int zOrder) {
 	LayerColor::addChild(node, zOrder);
 
 	auto sprite = dynamic_cast<Sprite*>(node);
-	if (!sprite) {
+	auto object = dynamic_cast<GridObject*>(node);
+	if (!sprite && !object) {
 		return;
 	}
-	sprite->setScale(sprite->getScale() * SpriteFactory::getUnitScale(UNIT_SIZE));
+	node->setScale(node->getScale() * SpriteFactory::getUnitScale(UNIT_SIZE));
 
 }

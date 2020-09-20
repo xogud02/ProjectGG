@@ -28,6 +28,7 @@
 #include "SpriteFactory.h"
 #include "Monster.h"
 #include "TileBuilder.h"
+#include "GridObject.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -65,8 +66,7 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 	grid->setPlayer(Player::create(characterType));
 
 	auto tmpLava = TileBuilder::randomLiquidPit(rows / 3, cols / 3, grid->UNIT_SIZE, LiquidPitType::Lava);
-	grid->addChild(tmpLava);
-	tmpLava->setPosition(cols / 12 * grid->UNIT_SIZE, rows / 3 * grid->UNIT_SIZE);
+	grid->addObject(tmpLava, GridPosition(rows / 3, cols / 12));
 
 	auto tmpPit = TileBuilder::randomPit(rows / 3, cols / 3, grid->UNIT_SIZE, PitContentType::Green, PitWallType::Dirt);
 	grid->addChild(tmpPit);
@@ -80,7 +80,7 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 	tmpTree->setAnchorPoint(Vec2::ZERO);
 	auto treeGPosition = GridPosition(rows / 2, cols / 2);
 	tmpTree->setPosition(grid->gridToPosition(treeGPosition));
-	grid->addObject(treeGPosition);
+	//grid->addObject(treeGPosition);
 
 	auto size = grid->getContentSize();
 

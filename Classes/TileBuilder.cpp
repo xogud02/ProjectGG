@@ -1,5 +1,6 @@
 #include "TileBuilder.h"
 #include "SpriteFactory.h"
+#include "GridObject.h"
 #include <unordered_set>
 #include <bitset>
 
@@ -111,16 +112,15 @@ PSet buildPit(int maxRows, int maxCols) {
 	return ret;
 }
 
-Node * TileBuilder::randomLiquidPit(int maxRows, int maxCols, float gridSize, LiquidPitType type) {
+GridObject * TileBuilder::randomLiquidPit(int maxRows, int maxCols, float gridSize, LiquidPitType type) {
 	PSet liquidPit = buildPit(maxRows, maxCols);
 
-	auto ret = Node::create();
+	auto ret = GridObject::create();
 	for (auto pii : liquidPit) {
 		auto s = Sprite::create();
 		int r = pii.first, c = pii.second;
 		s->runAction(SpriteFactory::liquidPitAction(type, getPitPosition(liquidPit, r, c)));
-		ret->addChild(s);
-		initSingleTile(s, r, c, maxRows, gridSize);
+		ret->addTile(s, GridPosition(r, c));
 	}
 
 	return ret;

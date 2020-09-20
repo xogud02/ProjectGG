@@ -14,6 +14,7 @@ enum class TileType : std::uint8_t {
 };
 
 class Character;
+class GridObject;
 class Player;
 class Grid : public cocos2d::LayerColor {
 	~Grid();
@@ -41,7 +42,7 @@ public:
 	void touched(Character* who);
 	void setPlayer(Player* character);
 
-	void addObject(GridPosition, int size = 1);
+	void addObject(GridObject*, GridPosition);
 
 private:
 	std::vector<std::vector<bool>> occupiedGrid;
