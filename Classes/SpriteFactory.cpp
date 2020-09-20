@@ -97,6 +97,7 @@ SpriteFrame* SpriteFactory::floorFrame(SpriteTileType type, SpriteTileTheme them
 	return createFrame(FLOOR, pOffset.first + offset.first, pOffset.second + offset.second + 3);
 }
 
+
 const pair<int, int> getPitPositionOffset(PitPositionType position) {
 	auto val = static_cast<int>(position);
 	if (position <= PitPositionType::Right) {
@@ -105,6 +106,20 @@ const pair<int, int> getPitPositionOffset(PitPositionType position) {
 
 	val -= static_cast<int>(PitPositionType::VirticalTop);
 	return make_pair(val % 4 + 4, val / 4);
+}
+
+SpriteFrame * SpriteFactory::testPitPosition(PitPositionType position) {
+
+	//exception for resource file
+	if (position == PitPositionType::BottomLeft) {
+		position = PitPositionType::BottomRight;
+	} else if (position == PitPositionType::BottomRight) {
+		position = PitPositionType::BottomLeft;
+	}
+
+	auto offset = getPitPositionOffset(position);
+
+	return createFrame(PIT + "0", offset.first, offset.second);
 }
 
 Action* SpriteFactory::pitAction(PitContentType content, PitWallType wall, PitPositionType position) {

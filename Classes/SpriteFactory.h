@@ -40,6 +40,8 @@ public:
 	
 	static cocos2d::SpriteFrame* floorFrame(SpriteTileType, SpriteTileTheme, SpriteTilePosition);
 
+	static cocos2d::SpriteFrame* testPitPosition(PitPositionType);
+
 	static cocos2d::Action* pitAction(PitContentType, PitWallType, PitPositionType);
 
 	static cocos2d::Action* liquidPitAction(LiquidPitType, PitPositionType);

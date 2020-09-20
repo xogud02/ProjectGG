@@ -65,7 +65,8 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 	ret->addChild(grid);
 	grid->setPlayer(Player::create(characterType));
 
-	auto tmpLava = TileBuilder::randomLiquidPit(rows / 3, cols / 3, grid->UNIT_SIZE, LiquidPitType::Lava);
+	auto tmpLava = TileBuilder::randomLiquidPit(rows / 3, cols / 3, LiquidPitType::Lava);
+	//auto tmpLava = TileBuilder::randomTestPit(rows / 3, cols / 3);
 	grid->addObject(tmpLava, GridPosition(rows / 3, cols / 12));
 
 	auto tmpPit = TileBuilder::randomPit(rows / 3, cols / 3, grid->UNIT_SIZE, PitContentType::Green, PitWallType::Dirt);

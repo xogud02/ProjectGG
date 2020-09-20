@@ -12,8 +12,8 @@ using PSet = set<Pii>;
 
 unsigned long getPositionArrIndex(const PSet& grassFloor, int r, int c) {
 	const auto cend = grassFloor.cend();
-	const auto top = grassFloor.find(Pii(r - 1, c)) == cend;
-	const auto bottom = grassFloor.find(Pii(r + 1, c)) == cend;
+	const auto top = grassFloor.find(Pii(r + 1, c)) == cend;
+	const auto bottom = grassFloor.find(Pii(r - 1, c)) == cend;
 	const auto left = grassFloor.find(Pii(r, c - 1)) == cend;
 	const auto right = grassFloor.find(Pii(r, c + 1)) == cend;
 	bitset<4> bits;
@@ -112,7 +112,20 @@ PSet buildPit(int maxRows, int maxCols) {
 	return ret;
 }
 
-GridObject * TileBuilder::randomLiquidPit(int maxRows, int maxCols, float gridSize, LiquidPitType type) {
+GridObject* TileBuilder::randomTestPit(int maxRows, int maxCols) {
+	PSet testPit = buildPit(maxRows, maxCols);
+	
+	auto ret = GridObject::create();
+	for (auto pii : testPit) {
+		int r = pii.first, c = pii.second;
+		auto s = Sprite::createWithSpriteFrame(SpriteFactory::testPitPosition(getPitPosition(testPit, r, c)));
+		ret->addTile(s, GridPosition(r, c));
+	}
+
+	return ret;
+}
+
+GridObject * TileBuilder::randomLiquidPit(int maxRows, int maxCols, LiquidPitType type) {
 	PSet liquidPit = buildPit(maxRows, maxCols);
 
 	auto ret = GridObject::create();
