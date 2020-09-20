@@ -242,12 +242,5 @@ void Grid::addChild(Node* node) {
 
 void Grid::addChild(Node* node, int zOrder) {
 	LayerColor::addChild(node, zOrder);
-
-	auto sprite = dynamic_cast<Sprite*>(node);
-	auto object = dynamic_cast<GridObject*>(node);
-	if (!sprite && !object) {
-		return;
-	}
 	node->setScale(node->getScale() * SpriteFactory::getUnitScale(UNIT_SIZE));
-
 }

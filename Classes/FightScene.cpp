@@ -60,7 +60,7 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 
 	int rows = 30, cols = 30;
 	auto grid = Grid::create(rows, cols);
-	grid->addChild(TileBuilder::randomFloor(rows, cols, grid->UNIT_SIZE, theme, 0.6f));
+	grid->addChild(TileBuilder::randomFloor(rows, cols, theme, 0.6f));
 
 	ret->addChild(grid);
 	grid->setPlayer(Player::create(characterType));
@@ -69,7 +69,7 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 	//auto tmpLava = TileBuilder::randomTestPit(rows / 3, cols / 3);
 	grid->addObject(tmpLava, GridPosition(rows / 3, cols / 12));
 
-	auto tmpPit = TileBuilder::randomPit(rows / 3, cols / 3, grid->UNIT_SIZE, PitContentType::Green, PitWallType::Dirt);
+	auto tmpPit = TileBuilder::randomPit(rows / 3, cols / 3, PitContentType::Green, PitWallType::Dirt);
 	grid->addObject(tmpPit, GridPosition(rows / 3, cols * 7 / 12));
 
 	Sprite* tmpTree = Sprite::create();
