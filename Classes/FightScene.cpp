@@ -70,12 +70,9 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 	grid->addObject(tmpLava, GridPosition(rows / 3, cols / 12));
 
 	auto tmpPit = TileBuilder::randomPit(rows / 3, cols / 3, grid->UNIT_SIZE, PitContentType::Green, PitWallType::Dirt);
-	grid->addChild(tmpPit);
-	tmpPit->setPosition(cols * 7 / 12 * grid->UNIT_SIZE, rows / 3 * grid->UNIT_SIZE);
-
+	grid->addObject(tmpPit, GridPosition(rows / 3, cols * 7 / 12));
 
 	Sprite* tmpTree = Sprite::create();
-
 	tmpTree->runAction(SpriteFactory::tree());
 	grid->addChild(tmpTree, 1);
 	tmpTree->setAnchorPoint(Vec2::ZERO);

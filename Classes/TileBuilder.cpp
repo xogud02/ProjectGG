@@ -46,7 +46,7 @@ PitPositionType getPitPosition(const PSet& liquidPit, int r, int c) {
 }
 
 void initSingleTile(Sprite* s, int r, int c, int rows, float gridSize) {
-	s->setPosition(Vec2(c*gridSize, (rows - r - 1) * gridSize));
+	s->setPosition(Vec2(c*gridSize, r * gridSize));
 	s->setScale(s->getScale() * SpriteFactory::getUnitScale(gridSize));
 	s->setAnchorPoint(Vec2::ZERO);
 }
@@ -125,30 +125,27 @@ GridObject* TileBuilder::randomTestPit(int maxRows, int maxCols) {
 	return ret;
 }
 
-GridObject * TileBuilder::randomLiquidPit(int maxRows, int maxCols, LiquidPitType type) {
-	PSet liquidPit = buildPit(maxRows, maxCols);
-
-	auto ret = GridObject::create();
-	for (auto pii : liquidPit) {
-		auto s = Sprite::create();
-		int r = pii.first, c = pii.second;
-		s->runAction(SpriteFactory::liquidPitAction(type, getPitPosition(liquidPit, r, c)));
-		ret->addTile(s, GridPosition(r, c));
-	}
-
-	return ret;
-}
-
-Node * TileBuilder::randomPit(int maxRows, int maxCols, float gridSize, PitContentType content, PitWallType wall) {
+GridObject * createPit(int maxRows, int maxCols, function<Action*(PitPositionType)> createPitTileAction) {
 	PSet pit = buildPit(maxRows, maxCols);
 
-	auto ret = Node::create();
+	auto ret = GridObject::create();
 	for (auto pii : pit) {
 		int r = pii.first, c = pii.second;
 		auto s = Sprite::create();
-		s->runAction(SpriteFactory::pitAction(content, wall, getPitPosition(pit, r, c)));
-		ret->addChild(s);
-		initSingleTile(s, r, c, maxRows, gridSize);
+		s->runAction(createPitTileAction(getPitPosition(pit, r, c)));
+		ret->addTile(s, GridPosition(r, c));
 	}
 	return ret;
+}
+
+GridObject * TileBuilder::randomLiquidPit(int maxRows, int maxCols, LiquidPitType type) {
+	return createPit(maxRows, maxCols, 
+		[type](auto position) {return SpriteFactory::liquidPitAction(type, position); 
+	});
+}
+
+GridObject* TileBuilder::randomPit(int maxRows, int maxCols, float gridSize, PitContentType content, PitWallType wall) {
+	return createPit(maxRows, maxCols, 
+		[content, wall](auto position) {return SpriteFactory::pitAction(content, wall, position); 
+	});
 }
