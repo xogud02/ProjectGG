@@ -23,3 +23,4 @@
 
 - create vs init method
 - write readme.md
+- setting desktop repository
