@@ -34,6 +34,7 @@ public:
 	bool isOccupied(const GridPosition, const int size = 1);
 	void focusTo(cocos2d::Vec2 position);
 
+	virtual void removeChild(cocos2d::Node* node, bool cleanup) override;
 	virtual void addChild(cocos2d::Node* node) override;
 	virtual void addChild(cocos2d::Node* node, int zOrder) override;
 
