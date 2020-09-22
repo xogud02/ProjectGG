@@ -254,10 +254,14 @@ void Character::movePath(float) {
 }
 
 void Character::tryToMove(GridPosition position) {
+	auto grid = getGrid();
+	grid->occupyArea(currentGridPosition, SCALE, false);
 	auto newPath = GridPathFinder().findPath(getGrid(), currentGridPosition, position, SCALE);
 	if (!newPath.empty()) {
 		newPath.pop();//remove start position
+	} else {
 	}
+	grid->occupyArea(currentGridPosition, SCALE);
 	path.swap(newPath);
 
 
