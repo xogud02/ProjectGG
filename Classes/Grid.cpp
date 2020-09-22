@@ -236,14 +236,6 @@ void Grid::focusTo(Vec2 position) {
 	setPosition(newPosition);
 }
 
-void Grid::removeChild(Node * node, bool cleanup) {
-	auto character = dynamic_cast<Character*>(node);
-	if (character) {
-		occupyArea(vecToGrid(character->getPosition()), character->SCALE, false);
-	}
-	LayerColor::removeChild(node, cleanup);
-}
-
 void Grid::addChild(Node* node) {
 	addChild(node, 0);
 }

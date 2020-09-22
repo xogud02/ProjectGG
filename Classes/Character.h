@@ -56,6 +56,7 @@ public:
 
 	Character(int scale);
 
+	virtual void removeFromParentAndCleanup(bool) override;
 	ChracterCondition getCondition();
 
 	void setTarget(Character* target);

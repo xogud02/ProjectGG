@@ -83,6 +83,11 @@ bool Character::init() {
 
 Character::Character(int scale) :SCALE(scale) {}
 
+void Character::removeFromParentAndCleanup(bool cleanup) {
+	getGrid()->occupyArea(currentGridPosition, SCALE, false);
+	Node::removeFromParentAndCleanup(cleanup);
+}
+
 ChracterCondition Character::getCondition() {
 	return status.getCondition();
 }
