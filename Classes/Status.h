@@ -1,5 +1,10 @@
 #pragma once
 
+enum class ChracterCondition {
+	Alive,
+	Dead
+};
+
 class Status {
 private:
 	int level = 1;
@@ -15,5 +20,5 @@ public:
 	int getLevel() const;
 	void levelUp();
 	int getDamage();
-
+	ChracterCondition getCondition();
 };

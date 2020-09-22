@@ -49,3 +49,11 @@ void Status::levelUp() {
 int Status::getDamage() {
 	return random(power * 0.5f, power * 1.5f);
 }
+
+ChracterCondition Status::getCondition() {
+	if (hp <= 0) {
+		return ChracterCondition::Dead;
+	}
+
+	return ChracterCondition::Alive;
+}

@@ -83,6 +83,10 @@ bool Character::init() {
 
 Character::Character(int scale) :SCALE(scale) {}
 
+ChracterCondition Character::getCondition() {
+	return status.getCondition();
+}
+
 
 
 void Character::setTarget(Character * newTarget) {

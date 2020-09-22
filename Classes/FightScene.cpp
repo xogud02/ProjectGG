@@ -78,19 +78,11 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 	tmpTree->setAnchorPoint(Vec2::ZERO);
 	auto treeGPosition = GridPosition(rows / 2, cols / 2);
 	tmpTree->setPosition(grid->gridToPosition(treeGPosition));
-	//grid->addObject(treeGPosition);
 
-	auto size = grid->getContentSize();
-
-	auto monster = Monster::create(1);
-	grid->addChild(monster, 1);
-	monster->setPosition(Vec2(size.width * 2 / 3, size.height / 2));
-
-	auto monster2 = Monster::create(1);
-	monster2->setMoveType(MoveType::Hold);
-	grid->addChild(monster2, 1);
-	monster2->setPosition(Vec2(size.width * 1 / 3, size.height / 2));
-
+	tmpTree->schedule([grid](float) {
+		auto tmp = Monster::create(1);
+		grid->addChild(tmp, 1);
+	},5.0f, "zen");
 
 	return ret;
 }

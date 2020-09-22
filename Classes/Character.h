@@ -56,6 +56,8 @@ public:
 
 	Character(int scale);
 
+	ChracterCondition getCondition();
+
 	void setTarget(Character* target);
 	void setMoveType(MoveType moveType);
 	virtual bool isInAttackRange(Character* who) const;
