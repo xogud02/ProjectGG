@@ -139,8 +139,24 @@ SpriteFrame* SpriteFactory::GUIArrowFrame(ArrowDirection direction) {
 	return createFrame(GUI + '0', 5, 1 + static_cast<int>(direction));
 }
 
-SpriteFrame* SpriteFactory::GUIGreenButton() {
-	return createFrame(GUI + '0', 4, 13);
+const pair<int, int> getGUIColorOffset(GUIFrameColor color, bool filled) {
+	auto val = static_cast<int>(color);
+	return make_pair((val % 2 * 2 + filled ? 1 : 0) * 4, val / 2 * 3);
+}
+
+const pair<int, int>getGUIPositionOffset(GUIFramePosition position) {
+	if (position == GUIFramePosition::Single) {
+		return make_pair(0, 0);
+	}
+	
+	auto val = static_cast<int>(position);
+	return make_pair(val % 3 + 1, val / 3);
+}
+
+SpriteFrame * SpriteFactory::GUIFrame(GUIFrameColor color, GUIFramePosition pos, bool filled) {
+	auto cOffset = getGUIColorOffset(color, filled);
+	auto pOffset = getGUIPositionOffset(pos);
+	return createFrame(GUI + "0", cOffset.first + pOffset.first, 7 + cOffset.second + pOffset.second);
 }
 
 Action* SpriteFactory::tree() {

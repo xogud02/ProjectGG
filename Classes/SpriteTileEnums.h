@@ -62,3 +62,17 @@ enum class LiquidPitType {
 	Ocean,
 	Swamp
 };
+
+enum class GUIFramePosition {
+	TopLeft, Top, TopRight,
+	Left, Center, Right,
+	BottomLeft, Bottom, BottomRight,
+	Single
+};
+
+enum class GUIFrameColor {
+	Red, Ivory,
+	Blue, Gray,
+	Green, Brown,
+	Yellow, DarkBrown
+};

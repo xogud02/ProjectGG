@@ -48,7 +48,7 @@ public:
 
 	static cocos2d::SpriteFrame* GUIArrowFrame(ArrowDirection);
 
-	static cocos2d::SpriteFrame* GUIGreenButton();
+	static cocos2d::SpriteFrame* GUIFrame(GUIFrameColor, GUIFramePosition, bool filled);
 
 	static cocos2d::Action* tree();
 
