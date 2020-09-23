@@ -12,6 +12,8 @@
   - spawning building
 - scene
   - theme select
+- performance
+  - reduce gl call
 
 
 
@@ -23,4 +25,3 @@
 
 - create vs init method
 - write readme.md
-- setting desktop repository
