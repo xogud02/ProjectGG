@@ -49,14 +49,6 @@ Player * Player::create(CharacterType characterType, int scale) {
 	return ret;
 }
 
-AttackResult Player::attack(Character * c) {
-	auto result = Character::attack(c);
-	if (result != AttackResult::None) {
-		weapon->swing();
-	}
-	return result;
-}
-
 Player::Player(CharacterType characterType, int scale) :Character(scale),characterType(characterType), currentAction(nullptr) {}
 
 Player::~Player() {

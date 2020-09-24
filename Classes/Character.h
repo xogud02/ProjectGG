@@ -9,15 +9,6 @@
 class Grid;
 class GaugeBar;
 
-enum class AttackResult {
-	None,
-	Normal,
-	Die,
-	Block,
-	Dodgy,
-	Immune
-};
-
 enum class MoveType{
 	Stop,
 	Hold,
@@ -62,7 +53,6 @@ public:
 	void setTarget(Character* target);
 	void setMoveType(MoveType moveType);
 	virtual bool isInAttackRange(Character* who) const;
-	virtual AttackResult attack(Character* c);
 	virtual void setPosition(const cocos2d::Vec2& v) override;
 
 	virtual void hit(Character* by, int damage);

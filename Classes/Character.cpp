@@ -107,15 +107,12 @@ void Character::setTarget(Character * newTarget) {
 	target->retain();
 	schedule([lastPos = currentGridPosition, this, attackReady = true](float) mutable {
 		if (attackReady) {
-			AttackResult result = attack(target);
-			if (result == AttackResult::Die) {
+			target->hit(this, status.getDamage());
+			if (target->getCondition() == ChracterCondition::Dead) {
 				status.levelUp();
 				hpBar->setValue(status.getHP());
 				hpBar->setMaxValue(status.getMaxHP());
 				releaseTarget();
-				return;
-			} else if (result == AttackResult::None) {
-				return;
 			}
 			attackReady = false;
 			scheduleOnce([&attackReady](float) {attackReady = true; }, attackInterval, "waitForAttack");
@@ -149,17 +146,6 @@ bool Character::isInAttackRange(Character * who) const {
 	const int targetRow = who->currentGridPosition.row;
 	const int targetCol = who->currentGridPosition.col;
 	return minR <= targetRow && targetRow <= maxR && minC <= targetCol && targetCol <= maxC;
-}
-
-AttackResult Character::attack(Character * c) {
-	if (!c || c == this || !isInAttackRange(c)) {
-		return AttackResult::None;
-	}
-	c->hit(this, status.getDamage());
-	if (c->status.getHP() <= 0) {
-		return AttackResult::Die;
-	}
-	return AttackResult::Normal;
 }
 
 void Character::setPosition(const Vec2 & v) {
