@@ -9,5 +9,4 @@ protected:
 	bool init() override;
 public:
 	static Monster* create(float scale);
-	void moveRandom(float dt);
 };

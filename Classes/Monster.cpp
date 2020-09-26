@@ -20,7 +20,11 @@ bool Monster::init() {
 
 
 	runAction(SpriteFactory::slime());
-	schedule(CC_SCHEDULE_SELECTOR(Monster::moveRandom), 1.0f);
+	schedule([this](float) {
+		if (currentMoveType != MoveType::Hold && !target) {
+			tryToMove(GridPosition(random(-1, 1), random(-1, 1)));
+		}
+	},1.0f, "move");
 	return true;
 }
 
@@ -33,10 +37,4 @@ Monster * Monster::create(float scale) {
 
 	return ret;
 }
-
-void Monster::moveRandom(float dt) {
-	tryToMove(currentGridPosition + GridPosition(cocos2d::random() % 3 - 1, cocos2d::random() % 3 - 1));
-}
-
-
 
