@@ -29,6 +29,18 @@ int Status::getLevel() const {
 	return level;
 }
 
+int Status::getSpeed() const {
+	return speed;
+}
+
+int Status::getNoticeRange() const {
+	return noticeRange;
+}
+
+float Status::getAttackInterval() const {
+	return attackInterval;
+}
+
 int upgrade(int value, float ratio) {
 	auto newValue = static_cast<int>(value * ratio);
 	if (newValue == value) {

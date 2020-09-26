@@ -71,7 +71,7 @@ bool Character::init() {
 
 		for (auto* n : getParent()->getChildren()) {
 			auto* c = dynamic_cast<Character*>(n);
-			if (c && c != this && c->currentGridPosition.distance(currentGridPosition) <= noticeRange) {
+			if (c && c != this && c->currentGridPosition.distance(currentGridPosition) <= status.getNoticeRange()) {
 				setTarget(c);
 			}
 		}
@@ -115,7 +115,7 @@ void Character::setTarget(Character * newTarget) {
 				releaseTarget();
 			}
 			attackReady = false;
-			scheduleOnce([&attackReady](float) {attackReady = true; }, attackInterval, "waitForAttack");
+			scheduleOnce([&attackReady](float) {attackReady = true; }, status.getAttackInterval(), "waitForAttack");
 			return;
 		}
 		if (lastPos == target->currentGridPosition) {
@@ -225,7 +225,7 @@ void Character::movePath(float) {
 
 	path.pop();
 	auto delta = grid->gridToPosition(next) - grid->gridToPosition(currentGridPosition);
-	auto moveTo = MoveTo::create(delta.length() / static_cast<float>(speed * grid->UNIT_SIZE), grid->gridToPosition(next));
+	auto moveTo = MoveTo::create(delta.length() / static_cast<float>(status.getSpeed() * grid->UNIT_SIZE), grid->gridToPosition(next));
 	currentGridPosition = next;
 	grid->occupyArea(currentGridPosition, SCALE);
 

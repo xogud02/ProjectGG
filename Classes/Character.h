@@ -18,9 +18,6 @@ enum class MoveType{
 
 class Character : public cocos2d::Sprite {
 protected:
-	int speed = 5;
-	float noticeRange = 5;
-	float attackInterval = 1;
 	Status status;
 	GaugeBar* hpBar;
 	cocos2d::Vec2 nextPos;

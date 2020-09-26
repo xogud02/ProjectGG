@@ -7,6 +7,10 @@ enum class ChracterCondition {
 
 class Status {
 private:
+	int speed = 5;
+	float noticeRange = 5;
+	float attackInterval = 1;
+
 	int level = 1;
 	int maxHP = 100;
 	int hp = maxHP;
@@ -18,6 +22,9 @@ public:
 	void reduceHP(int);
 	int getMaxHP() const;
 	int getLevel() const;
+	int getSpeed() const;
+	int getNoticeRange() const;
+	float getAttackInterval() const;
 	void levelUp();
 	int getDamage();
 	ChracterCondition getCondition();
