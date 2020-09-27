@@ -71,7 +71,7 @@ bool Character::init() {
 
 		for (auto* n : getParent()->getChildren()) {
 			auto* c = dynamic_cast<Character*>(n);
-			if (c && c != this && c->currentGridPosition.distance(currentGridPosition) <= status.getNoticeRange()) {
+			if (c && c != this && isEnemy(c) && c->currentGridPosition.distance(currentGridPosition) <= status.getNoticeRange()) {
 				setTarget(c);
 			}
 		}
@@ -90,6 +90,10 @@ void Character::removeFromParentAndCleanup(bool cleanup) {
 
 ChracterCondition Character::getCondition() {
 	return status.getCondition();
+}
+
+bool Character::isEnemy(Character *c) {
+	return team != c->team;
 }
 
 

@@ -12,7 +12,7 @@ bool Monster::init() {
 		return false;
 	}
 	setName("monster");
-
+	team = 1;
 	status = Status(10, 10, 1, 0);
 
 	hpBar->setMaxValue(status.getMaxHP());
@@ -22,7 +22,7 @@ bool Monster::init() {
 	runAction(SpriteFactory::slime());
 	schedule([this](float) {
 		if (currentMoveType != MoveType::Hold && !target) {
-			tryToMove(GridPosition(random(-1, 1), random(-1, 1)));
+			tryToMove(currentGridPosition + GridPosition(random(-1, 1), random(-1, 1)));
 		}
 	},1.0f, "move");
 	return true;

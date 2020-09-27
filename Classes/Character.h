@@ -18,6 +18,8 @@ enum class MoveType{
 
 class Character : public cocos2d::Sprite {
 protected:
+	int team = 0;
+
 	Status status;
 	GaugeBar* hpBar;
 	cocos2d::Vec2 nextPos;
@@ -46,6 +48,7 @@ public:
 
 	virtual void removeFromParentAndCleanup(bool) override;
 	ChracterCondition getCondition();
+	bool isEnemy(Character*);
 
 	void setTarget(Character* target);
 	void setMoveType(MoveType moveType);
