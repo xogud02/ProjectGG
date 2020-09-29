@@ -107,10 +107,11 @@ void Character::setTarget(Character * newTarget) {
 		releaseTarget();
 		return;
 	}
+
 	target = newTarget;
 	target->retain();
-	schedule([lastPos = currentGridPosition, this, attackReady = true](float) mutable {
-		if (attackReady) {
+	schedule([lastPos = currentGridPosition, this](float) mutable {
+		if (status.isAttackReady()) {
 			target->hit(this, status.getDamage());
 			if (target->getCondition() == ChracterCondition::Dead) {
 				status.levelUp();
@@ -118,8 +119,7 @@ void Character::setTarget(Character * newTarget) {
 				hpBar->setMaxValue(status.getMaxHP());
 				releaseTarget();
 			}
-			attackReady = false;
-			scheduleOnce([&attackReady](float) {attackReady = true; }, status.getAttackInterval(), "waitForAttack");
+			status.waitForAttack(this);
 			return;
 		}
 		if (lastPos == target->currentGridPosition) {

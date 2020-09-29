@@ -1,4 +1,6 @@
 #pragma once
+#include <functional>
+#include "cocos2d.h"
 
 enum class ChracterCondition {
 	Alive,
@@ -10,6 +12,7 @@ private:
 	int speed = 5;
 	float noticeRange = 5;
 	float attackInterval = 1;
+	bool _isAttackReady = true;
 
 	int level = 1;
 	int maxHP = 100;
@@ -25,6 +28,9 @@ public:
 	int getSpeed() const;
 	int getNoticeRange() const;
 	float getAttackInterval() const;
+	bool isAttackReady() const;
+	void waitForAttack(cocos2d::Node* caller, std::function<void()> onReady = nullptr);
+
 	void levelUp();
 	int getDamage();
 	ChracterCondition getCondition();

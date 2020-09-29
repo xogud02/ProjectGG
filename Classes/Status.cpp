@@ -1,7 +1,7 @@
 #include "Status.h"
-#include "cocos2d.h"
 
 USING_NS_CC;
+using namespace std;
 
 Status::Status(int hp, int maxHp, int level, int power): level(level),maxHP(maxHp), power(power){
 
@@ -39,6 +39,20 @@ int Status::getNoticeRange() const {
 
 float Status::getAttackInterval() const {
 	return attackInterval;
+}
+
+bool Status::isAttackReady() const {
+	return _isAttackReady;
+}
+
+void Status::waitForAttack(Node* caller, function<void()> onReady) {
+	_isAttackReady = false;
+	caller->scheduleOnce([this, onReady](float) {
+		_isAttackReady = true;
+		if (onReady) {
+			onReady();
+		}
+	}, attackInterval, "waiting");
 }
 
 int upgrade(int value, float ratio) {
