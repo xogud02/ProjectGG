@@ -5,6 +5,7 @@
 #include "Status.h"
 #include <vector>
 #include <functional>
+#include "SpriteTileEnums.h"
 
 class Grid;
 class GaugeBar;
@@ -26,6 +27,8 @@ protected:
 	std::queue<GridPosition> path;
 	MoveType currentMoveType = MoveType::Stop;
 
+	CharacterDirection currentDirection = CharacterDirection::DOWN;
+
 	GridPosition currentGridPosition;
 
 	Character* target = nullptr;
@@ -34,7 +37,8 @@ protected:
 	Grid* grid = nullptr;
 	Grid* getGrid();
 
-	virtual void onMoveBegin(GridPosition nextPosition);
+	CharacterDirection getNextDirection(GridPosition nextPosition);
+	virtual void onMoveBegin(GridPosition nextPosition, CharacterDirection nextDirection);
 	void movePath(float);
 	bool init() override;
 public:

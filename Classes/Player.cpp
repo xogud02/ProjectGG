@@ -11,32 +11,28 @@ bool Player::init() {
 		return false;
 	}
 
-	directions.push_back(make_pair([](float angle) {return -135 < angle && angle <= -45; }, SpriteFactory::characterMoveAction(characterType, CharacterDirection::DOWN)));
-	directions.push_back(make_pair([](float angle) {return 135 < angle || angle <= -135; }, SpriteFactory::characterMoveAction(characterType, CharacterDirection::LEFT)));
-	directions.push_back(make_pair([](float angle) {return -45 < angle && angle <= 45; }, SpriteFactory::characterMoveAction(characterType, CharacterDirection::RIGHT)));
-	directions.push_back(make_pair([](float angle) {return 45 < angle && angle <= 135; }, SpriteFactory::characterMoveAction(characterType, CharacterDirection::UP)));
+	for (int i = 0; i < 4; ++i) {
+		auto dir = static_cast<CharacterDirection>(i);
+		directions[dir] = SpriteFactory::characterMoveAction(characterType, dir);
+	}
 
 	setName("player");
-	currentAction = runAction(directions[0].second);
+	runAction(directions[currentDirection]);
 	weapon = Weapon::create();
 	addChild(weapon, 1);
 	return true;
 }
 
-void Player::onMoveBegin(GridPosition next) {
+void Player::onMoveBegin(GridPosition next, CharacterDirection nextDirection) {
+	if (nextDirection == currentDirection) {
+		return;
+	}
 	Vec2 delta = getGrid()->gridToPosition(next) - getPosition();
 	float angle = CC_RADIANS_TO_DEGREES(delta.getAngle());
 	weapon->setRotation(-angle + 45);
 	weapon->setPosition((delta.getNormalized() + Vec2::ONE)* getContentSize().width / 2);
-	for (auto direction : directions) {
-		if (direction.first(angle) && currentAction != direction.second) {
-			if (currentAction) {
-				stopAction(currentAction);
-			}
-			currentAction = runAction(direction.second);
-			break;
-		}
-	}
+	stopAction(directions[currentDirection]);
+	runAction(directions[nextDirection]);
 }
 
 Player * Player::create(CharacterType characterType, int scale) {
@@ -49,7 +45,7 @@ Player * Player::create(CharacterType characterType, int scale) {
 	return ret;
 }
 
-Player::Player(CharacterType characterType, int scale) :Character(scale),characterType(characterType), currentAction(nullptr) {}
+Player::Player(CharacterType characterType, int scale) :Character(scale),characterType(characterType){}
 
 Player::~Player() {
 	for (auto direction : directions) {

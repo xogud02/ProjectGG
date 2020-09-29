@@ -34,7 +34,7 @@ bool Character::init() {
 	hpBar = GaugeBar::create(Size(size.width, size.height / 6));
 
 	status = Status();
-	
+
 	hpBar->setMaxValue(status.getMaxHP());
 	hpBar->setValue(status.getHP());
 
@@ -126,7 +126,7 @@ void Character::setTarget(Character * newTarget) {
 			return;
 		}
 		lastPos = target->currentGridPosition;
-		
+
 		if (currentMoveType == MoveType::Hold) {
 			return;
 		}
@@ -193,7 +193,7 @@ void Character::releaseTarget() {
 		return;
 	}
 	target->release();
-	target = nullptr;	
+	target = nullptr;
 	if (isScheduled(chaseTarget)) {
 		unschedule(chaseTarget);
 	}
@@ -206,7 +206,53 @@ Grid * Character::getGrid() {
 	return grid;
 }
 
-void Character::onMoveBegin(GridPosition nextPosition) {}
+CharacterDirection Character::getNextDirection(GridPosition nextPosition) {
+	CCAssert(currentGridPosition != nextPosition, "invalid parameter");
+	auto delta = nextPosition - currentGridPosition;
+
+	bool downWard = delta.row < 0, upWard = delta.row > 0;
+	bool leftWard = delta.col < 0, rightWard = delta.col > 0;
+
+	auto abr = abs(delta.row), abc = abs(delta.col);
+	if (abr > abc) {
+		if (upWard) {
+			return CharacterDirection::UP;
+		}
+		return CharacterDirection::DOWN;
+	}
+
+	if (abr < abc) {
+		if (rightWard) {
+			return CharacterDirection::RIGHT;
+		}
+		return CharacterDirection::LEFT;
+	}
+	bool currentDown = currentDirection == CharacterDirection::DOWN;
+	bool currentUp = currentDirection == CharacterDirection::UP;
+	bool currentLeft = currentDirection == CharacterDirection::LEFT;
+	bool currentRight = currentDirection == CharacterDirection::RIGHT;
+	if ((currentDown && downWard) ||(currentUp && upWard) ||
+		(currentLeft && leftWard) ||(currentRight && rightWard)) {
+		return currentDirection;
+	}
+
+	bool currentVirtical = currentDown || currentUp;
+	bool currentHorizontal = currentLeft || currentRight;
+	if (currentVirtical && leftWard) {
+		return CharacterDirection::LEFT;
+	}
+	if (currentVirtical && rightWard) {
+		return CharacterDirection::RIGHT;
+	}
+	if (currentHorizontal && upWard) {
+		return CharacterDirection::UP;
+	}
+
+	//if (currentHorizontal && downWard)
+	return CharacterDirection::DOWN;
+}
+
+void Character::onMoveBegin(GridPosition nextPosition, CharacterDirection nextDirection) {}
 
 void Character::movePath(float) {
 	if (path.empty()) {
@@ -230,11 +276,16 @@ void Character::movePath(float) {
 	path.pop();
 	auto delta = grid->gridToPosition(next) - grid->gridToPosition(currentGridPosition);
 	auto moveTo = MoveTo::create(delta.length() / static_cast<float>(status.getSpeed() * grid->UNIT_SIZE), grid->gridToPosition(next));
+
+	auto nextDirection = getNextDirection(next);
+	onMoveBegin(next, nextDirection);
+
 	currentGridPosition = next;
+	currentDirection = nextDirection;
+
 	grid->occupyArea(currentGridPosition, SCALE);
 
 
-	onMoveBegin(next);
 	runAction(Sequence::create(
 		moveTo,
 		CallFunc::create([this]() {

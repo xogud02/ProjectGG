@@ -28,6 +28,19 @@ bool Monster::init() {
 	return true;
 }
 
+void Monster::onMoveBegin(GridPosition nextPosition, CharacterDirection nextDirection) {
+	auto delta = nextPosition - currentGridPosition;
+	if (delta.col < 0 && !isFlippedX()) {
+		setFlippedX(true);
+		return;
+	}
+
+	if (delta.col > 0 && isFlippedX()) {
+		setFlippedX(false);
+		return;
+	}
+}
+
 Monster * Monster::create(float scale) {
 	Monster* ret = new Monster(scale);
 	if (!ret || !ret->init()) {

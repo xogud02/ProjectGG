@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Character.h"
-#include <vector>
+#include <unordered_map>
 
 class Weapon;
 
@@ -17,13 +17,12 @@ enum class CharacterType {
 constexpr int CharacterTypeCount = static_cast<int>(CharacterType::Warrior) + 1;
 
 class Player : public Character {
-	std::vector<std::pair<std::function<bool(float)>, cocos2d::Action*>> directions;
+	std::unordered_map<CharacterDirection, cocos2d::Action*> directions;
 	const CharacterType characterType;
-	cocos2d::Action* currentAction;
 	Weapon* weapon;
 protected:
 	bool init() override;
-	virtual void onMoveBegin(GridPosition next) override;
+	virtual void onMoveBegin(GridPosition next, CharacterDirection nextDirection) override;
 public:
 	static Player* create(CharacterType, const int scale = 2);
 

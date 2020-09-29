@@ -9,6 +9,10 @@ bool GridPosition::operator==(const GridPosition & rhs) const {
 	return row == rhs.row && col == rhs.col;
 }
 
+bool GridPosition::operator!=(const GridPosition & rhs) const {
+	return !(*this == rhs);
+}
+
 GridPosition GridPosition::operator-(const GridPosition & rhs) const {
 	return GridPosition(row - rhs.row, col - rhs.col);
 }

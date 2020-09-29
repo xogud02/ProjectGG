@@ -10,6 +10,7 @@ public:
 	GridPosition(int row = 0, int col = 0);
 
 	bool operator ==(const GridPosition& rhs) const;
+	bool operator !=(const GridPosition& rhs) const;
 	GridPosition operator -(const GridPosition& rhs) const;
 
 	GridPosition operator +(const GridPosition& rhs) const;
