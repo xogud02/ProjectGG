@@ -3,6 +3,7 @@
 - UI
   - minimap
   - character info
+  - focus target
 - character
   - move pattern
   - status
@@ -25,3 +26,4 @@
 
 - create vs init method
 - write readme.md
+- trace sln file(for source filter)
