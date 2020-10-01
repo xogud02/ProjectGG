@@ -22,6 +22,7 @@ class Player : public Character {
 	Weapon* weapon;
 protected:
 	bool init() override;
+	virtual void onAttackBegin() override;
 	virtual void onMoveBegin(GridPosition next, CharacterDirection nextDirection) override;
 public:
 	static Player* create(CharacterType, const int scale = 2);

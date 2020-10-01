@@ -23,6 +23,10 @@ bool Player::init() {
 	return true;
 }
 
+void Player::onAttackBegin() {
+	weapon->runAction(RotateBy::create(status.getAttackInterval() / 2, Vec3(0, 0, 360)));
+}
+
 void Player::onMoveBegin(GridPosition next, CharacterDirection nextDirection) {
 	if (nextDirection == currentDirection) {
 		return;

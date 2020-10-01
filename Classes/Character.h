@@ -37,6 +37,8 @@ protected:
 	Grid* grid = nullptr;
 	Grid* getGrid();
 
+	virtual void onAttackBegin();
+
 	CharacterDirection getNextDirection(GridPosition nextPosition);
 	virtual void onMoveBegin(GridPosition nextPosition, CharacterDirection nextDirection);
 	void movePath(float);

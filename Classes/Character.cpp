@@ -112,6 +112,7 @@ void Character::setTarget(Character * newTarget) {
 	target->retain();
 	schedule([lastPos = currentGridPosition, this](float) mutable {
 		if (status.isAttackReady()) {
+			onAttackBegin();
 			target->hit(this, status.getDamage());
 			if (target->getCondition() == ChracterCondition::Dead) {
 				status.levelUp();
@@ -205,6 +206,8 @@ Grid * Character::getGrid() {
 	}
 	return grid;
 }
+
+void Character::onAttackBegin() {}
 
 CharacterDirection Character::getNextDirection(GridPosition nextPosition) {
 	CCAssert(currentGridPosition != nextPosition, "invalid parameter");
