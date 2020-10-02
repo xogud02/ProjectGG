@@ -24,17 +24,13 @@ bool Player::init() {
 }
 
 void Player::onAttackBegin() {
-	weapon->runAction(RotateBy::create(status.getAttackInterval() / 2, Vec3(0, 0, 360)));
+	weapon->swing(status.getAttackInterval() / 2);
 }
 
 void Player::onMoveBegin(GridPosition next, CharacterDirection nextDirection) {
 	if (nextDirection == currentDirection) {
 		return;
 	}
-	Vec2 delta = getGrid()->gridToPosition(next) - getPosition();
-	float angle = CC_RADIANS_TO_DEGREES(delta.getAngle());
-	weapon->setRotation(-angle + 45);
-	weapon->setPosition((delta.getNormalized() + Vec2::ONE)* getContentSize().width / 2);
 	stopAction(directions[currentDirection]);
 	runAction(directions[nextDirection]);
 }
@@ -47,6 +43,11 @@ Player * Player::create(CharacterType characterType, int scale) {
 	}
 
 	return ret;
+}
+
+void Player::setTarget(Character * target) {
+	Character::setTarget(target);
+	weapon->setTarget(target);
 }
 
 Player::Player(CharacterType characterType, int scale) :Character(scale),characterType(characterType){}

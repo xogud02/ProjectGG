@@ -54,9 +54,10 @@ public:
 
 	virtual void removeFromParentAndCleanup(bool) override;
 	ChracterCondition getCondition();
+	CharacterDirection getCurrentDirection();
 	bool isEnemy(Character*);
 
-	void setTarget(Character* target);
+	virtual void setTarget(Character* target);
 	void setMoveType(MoveType moveType);
 	virtual bool isInAttackRange(Character* who) const;
 	virtual void setPosition(const cocos2d::Vec2& v) override;

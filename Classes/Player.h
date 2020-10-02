@@ -26,6 +26,7 @@ protected:
 	virtual void onMoveBegin(GridPosition next, CharacterDirection nextDirection) override;
 public:
 	static Player* create(CharacterType, const int scale = 2);
+	virtual void setTarget(Character* target) override;
 
 	Player(CharacterType, int);
 

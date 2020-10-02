@@ -92,6 +92,10 @@ ChracterCondition Character::getCondition() {
 	return status.getCondition();
 }
 
+CharacterDirection Character::getCurrentDirection() {
+	return currentDirection;
+}
+
 bool Character::isEnemy(Character *c) {
 	return team != c->team;
 }
