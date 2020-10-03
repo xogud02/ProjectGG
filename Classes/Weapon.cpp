@@ -6,6 +6,8 @@
 USING_NS_CC;
 using namespace std;
 
+constexpr int swingTag = 123;
+
 Weapon * Weapon::create()
 {
 	auto ret = new Weapon();
@@ -34,6 +36,11 @@ bool Weapon::init() {
 		if (!getParent()) {
 			return;
 		}
+
+		if (getActionByTag(swingTag)) {
+			return;
+		}
+
 		Vec2 delta;
 		if (!target) {
 			auto owner = dynamic_cast<Character*>(getParent());
@@ -46,7 +53,7 @@ bool Weapon::init() {
 		float angle = CC_RADIANS_TO_DEGREES(delta.getAngle());
 		setRotation(-angle + 45);
 		setPosition((delta.getNormalized() + Vec2::ONE)* getContentSize().width / 2);
-	}, "findTarget");
+	}, "followTarget");
 }
 
 void Weapon::setTarget(Character* newTarget) {
@@ -63,5 +70,5 @@ void Weapon::setTarget(Character* newTarget) {
 }
 
 void Weapon::swing(float duration){
-	runAction(EaseInOut::create(RotateBy::create(duration, Vec3(0, 0, 360)), 2));
+	runAction(EaseInOut::create(RotateBy::create(duration, Vec3(0, 0, 360)), 2))->setTag(swingTag);
 }
