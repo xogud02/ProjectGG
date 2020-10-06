@@ -143,7 +143,7 @@ bool StageSelectScene::init() {
 	attatchArrows(menu, label, size.width / 8, -size.height / 8);
 
 
-	auto sSelect = Sprite::createWithSpriteFrame(SpriteFactory::GUIFrame(GUIFrameColor::Green, GUIFramePosition::Single, true));
+	auto sSelect = Sprite::createWithSpriteFrame(SpriteFactory::GUIFrame(GUIFrameColor::Green, GUIFramePart::Single, true));
 	auto select = MenuItemSprite::create(sSelect, sSelect, [field, label](auto) {
 		auto value = stoi(field->getString());//TODO do something with this value
 		Director::getInstance()->replaceScene(CharacterSelectScene::create(label->getItem()));

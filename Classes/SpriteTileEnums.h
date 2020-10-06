@@ -63,7 +63,7 @@ enum class LiquidPitType {
 	Swamp
 };
 
-enum class GUIFramePosition {
+enum class GUIFramePart {
 	TopLeft, Top, TopRight,
 	Left, Center, Right,
 	BottomLeft, Bottom, BottomRight,
