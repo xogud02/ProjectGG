@@ -55,8 +55,11 @@
     <ClCompile Include="C:\ProjectGG\Classes\GridPosition.cpp">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GUIBoxCreator.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\GridObject.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Classes\Grid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,8 +165,11 @@
     <ClInclude Include="C:\ProjectGG\Classes\GridPosition.h">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\GUIBoxCreator.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\GridObject.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -213,9 +219,6 @@
     </Filter>
     <Filter Include="Source Files\Classes\Grid">
       <UniqueIdentifier>{608be3d9-4e9a-4414-9291-035ab1376678}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\foo">
-      <UniqueIdentifier>{a7c7ed96-57ee-4ab4-bae1-efde051d784b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

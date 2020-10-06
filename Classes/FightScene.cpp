@@ -95,8 +95,12 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 	auto size = ret->getContentSize();
 
 	float thickness = 30;
-	GUIBoxCreator bottomUICreator(GUIFrameColor::Blue, true, thickness, Size(size.width, size.height / 5));
+	auto bottomUISize = Size(size.width, size.height / 5);
+	GUIBoxCreator bottomUICreator(GUIFrameColor::Blue, true, thickness, bottomUISize);
 	ret->addChild(bottomUICreator.create(), 50);
+
+	grid->setVisibleArea(Size(size.width, size.height - bottomUISize.height));
+	grid->setVisibleAreaOffset(Vec2(0, bottomUISize.height));
 
 	auto thumbNail = Sprite::createWithSpriteFrame(SpriteFactory::characterFrame(characterType));
 	ret->addChild(thumbNail, 100);

@@ -18,6 +18,20 @@ class GridObject;
 class Player;
 class Grid : public cocos2d::LayerColor {
 	~Grid();
+
+	std::vector<std::vector<bool>> occupiedGrid;
+	std::unordered_map<GridPosition, TileType> tiles;
+
+	const UINT row;
+	const UINT coloum;
+	Player* player = nullptr;
+
+	bool isValidPosition(const GridPosition position) const;
+	bool isValidPosition(const int row, const int col) const;
+
+	cocos2d::Size visibleArea;
+	cocos2d::Vec2 visibleAreaOffset;
+
 public:
 	const float UNIT_SIZE;
 
@@ -32,6 +46,9 @@ public:
 	bool onTouch(const cocos2d::Touch* t, const cocos2d::Event* e);
 	void occupyArea(const GridPosition, const int size = 1, const bool occupy = true);
 	bool isOccupied(const GridPosition, const int size = 1);
+
+	void setVisibleArea(cocos2d::Size area);
+	void setVisibleAreaOffset(cocos2d::Vec2 offset);
 	void focusTo(cocos2d::Vec2 position);
 
 	virtual void addChild(cocos2d::Node* node) override;
@@ -43,15 +60,4 @@ public:
 	void setPlayer(Player* character);
 
 	void addObject(GridObject*, GridPosition);
-
-private:
-	std::vector<std::vector<bool>> occupiedGrid;
-	std::unordered_map<GridPosition, TileType> tiles;
-
-	const UINT row;
-	const UINT coloum;
-	Player* player = nullptr;
-
-	bool isValidPosition(const GridPosition position) const;
-	bool isValidPosition(const int row, const int col) const;
 };

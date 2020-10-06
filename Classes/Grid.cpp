@@ -98,6 +98,8 @@ int Grid::getCols() const {
 
 Grid::Grid(const int rows, const int cols, const float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols) {
 	occupiedGrid = vector<vector<bool>>(rows, vector<bool>(cols, false));
+	visibleArea = Director::getInstance()->getWinSize();
+	visibleAreaOffset = Vec2::ZERO;
 }
 
 void Grid::showGrid() {
@@ -218,19 +220,25 @@ bool Grid::isOccupied(const GridPosition position, const int size) {//FIXME occu
 	return false;
 }
 
+void Grid::setVisibleArea(Size area) {
+	visibleArea = area;
+}
+
+void Grid::setVisibleAreaOffset(Vec2 offset) {
+	visibleAreaOffset = offset;
+}
+
 void Grid::focusTo(Vec2 position) {
 
-
-	auto winSize = Director::getInstance()->getWinSize();
-	auto centerOffset = Vec2(winSize / 2) - position;
+	auto centerOffset = Vec2(visibleArea / 2) - position;
 	auto newPosition = getPosition() + centerOffset;
 	auto gridSize = getContentSize();
 
-	auto dw = winSize.width - gridSize.width;
+	auto dw = visibleArea.width - gridSize.width;
 	newPosition.x = clampf(newPosition.x, min(0.f, dw), max(0.f, dw));
-	auto dh = winSize.height - gridSize.height;
+	auto dh = visibleArea.height - gridSize.height;
 	newPosition.y = clampf(newPosition.y, min(0.f, dh), max(0.f, dh));
-	setPosition(newPosition);
+	setPosition(newPosition + visibleAreaOffset);
 }
 
 void Grid::addChild(Node* node) {
