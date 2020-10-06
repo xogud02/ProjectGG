@@ -29,6 +29,8 @@
 #include "Monster.h"
 #include "TileBuilder.h"
 #include "GridObject.h"
+#include "SpriteTileEnums.h"
+#include "GUIBoxCreator.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -47,24 +49,11 @@ bool FightScene::init() {
 	if (!Scene::init()) {
 		return false;
 	}
-		
+
 	return true;
 }
 
-FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterType) {
-	auto ret = new FightScene();
-	if (!ret || !ret->init()) {
-		CC_SAFE_DELETE(ret);
-		return nullptr;
-	}
-
-	int rows = 30, cols = 30;
-	auto grid = Grid::create(rows, cols);
-	grid->addChild(TileBuilder::randomFloor(rows, cols, theme, 0.6f));
-
-	ret->addChild(grid);
-	grid->setPlayer(Player::create(characterType));
-
+void testTmps(FightScene* ret, Grid* grid, int rows, int cols) {
 	auto tmpLava = TileBuilder::randomLiquidPit(rows / 3, cols / 3, LiquidPitType::Lava);
 	//auto tmpLava = TileBuilder::randomTestPit(rows / 3, cols / 3);
 	grid->addObject(tmpLava, GridPosition(rows / 3, cols / 12));
@@ -82,7 +71,36 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 	tmpTree->schedule([grid](float) {
 		auto tmp = Monster::create(1);
 		grid->addChild(tmp, 1);
-	},5.0f, "zen");
+	}, 5.0f, "zen");
+}
+
+
+
+FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterType) {
+	auto ret = new FightScene();
+	if (!ret || !ret->init()) {
+		CC_SAFE_DELETE(ret);
+		return nullptr;
+	}
+
+	constexpr int rows = 30, cols = 30;
+	auto grid = Grid::create(rows, cols);
+	grid->addChild(TileBuilder::randomFloor(rows, cols, theme, 0.6f));
+
+	ret->addChild(grid);
+	grid->setPlayer(Player::create(characterType));
+
+	testTmps(ret, grid, rows, cols);
+
+	auto size = ret->getContentSize();
+
+	float thickness = 30;
+	GUIBoxCreator bottomUICreator(GUIFrameColor::Blue, true, thickness, Size(size.width, size.height / 5));
+	ret->addChild(bottomUICreator.create(), 50);
+
+	auto thumbNail = Sprite::createWithSpriteFrame(SpriteFactory::characterFrame(characterType));
+	ret->addChild(thumbNail, 100);
+	thumbNail->setPosition(size.width / 2, size.height / 3);
 
 	return ret;
 }

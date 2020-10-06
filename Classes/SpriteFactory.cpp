@@ -144,8 +144,8 @@ const pair<int, int> getGUIColorOffset(GUIFrameColor color, bool filled) {
 	return make_pair((val % 2 * 2 + filled ? 1 : 0) * 4, val / 2 * 3);
 }
 
-const pair<int, int>getGUIPositionOffset(GUIFramePosition position) {
-	if (position == GUIFramePosition::Single) {
+const pair<int, int>getGUIPositionOffset(GUIFramePart position) {
+	if (position == GUIFramePart::Single) {
 		return make_pair(0, 0);
 	}
 	
@@ -153,7 +153,7 @@ const pair<int, int>getGUIPositionOffset(GUIFramePosition position) {
 	return make_pair(val % 3 + 1, val / 3);
 }
 
-SpriteFrame * SpriteFactory::GUIFrame(GUIFrameColor color, GUIFramePosition pos, bool filled) {
+SpriteFrame * SpriteFactory::GUIFrame(GUIFrameColor color, GUIFramePart pos, bool filled) {
 	auto cOffset = getGUIColorOffset(color, filled);
 	auto pOffset = getGUIPositionOffset(pos);
 	return createFrame(GUI + "0", cOffset.first + pOffset.first, 7 + cOffset.second + pOffset.second);
