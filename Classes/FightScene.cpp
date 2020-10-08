@@ -163,7 +163,8 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 		thumbnail = Sprite::createWithSpriteFrame(newTarget->getSpriteFrame());
 
 		auto size = targetUI->getContentSize();
-		targetUI->addChild(thumbnail);
+
+		targetUI->addChild(thumbnail, 500);
 		thumbnail->setPosition(size / 2);
 		thumbnail->setScale(size.width * 0.9f / thumbnail->getContentSize().width);
 	}, "observePlayer");

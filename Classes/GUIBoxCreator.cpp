@@ -45,6 +45,8 @@ void GUIBoxCreator::attachFill() {
 
 Node * GUIBoxCreator::create() {
 	ret = Node::create();
+	ret->setContentSize(size);
+
 	const float rightX = size.width - edgeThickness;
 	const float topY = size.height - edgeThickness;
 	attachHorizontalEdge(GUIFramePart::Top, topY);
