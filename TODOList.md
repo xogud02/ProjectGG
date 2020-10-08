@@ -26,4 +26,3 @@
 
 - create vs init method
 - write readme.md
-- trace sln file(for source filter)
