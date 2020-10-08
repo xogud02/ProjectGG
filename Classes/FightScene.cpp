@@ -74,9 +74,51 @@ void testTmps(FightScene* ret, Grid* grid, int rows, int cols) {
 	}, 5.0f, "zen");
 }
 
+class BottomUICreator {
+	const Size size;
+	const float leftSize;
+	GUIBoxCreator boxCreator;
+	const CharacterType character;
+public:
+	BottomUICreator(Size size, CharacterType character) :
+		size(size),
+		leftSize(size.height),
+		boxCreator(GUIBoxCreator(GUIFrameColor::Blue, true, 30, size)),
+		character(character) {
+	}
 
+	Node* create() {
+		auto ret = Node::create();
+		ret->addChild(createLeftBox(), 1);
+		ret->addChild(createRightBox(), 1);
+		return ret;
+	}
 
-FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterType) {
+private:
+	Node* createLeftBox() {
+		boxCreator.size = Size(leftSize, leftSize);
+		auto left = boxCreator.create();
+		left->addChild(createThumbnail());
+		return left;
+	}
+
+	Sprite* createThumbnail() {
+		auto thumbNail = Sprite::createWithSpriteFrame(SpriteFactory::characterFrame(character));
+		thumbNail->setPosition(Vec2::ONE*leftSize / 2);
+		auto targetSize = leftSize - boxCreator.edgeThickness * 2;
+		thumbNail->setScale(targetSize / thumbNail->getContentSize().width);
+		return thumbNail;
+	}
+
+	Node* createRightBox() {
+		boxCreator.size = Size(size.width - leftSize, size.height);
+		auto right = boxCreator.create();
+		right->setPosition(Vec2(leftSize, 0));
+		return right;
+	}
+};
+
+FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) {
 	auto ret = new FightScene();
 	if (!ret || !ret->init()) {
 		CC_SAFE_DELETE(ret);
@@ -88,23 +130,17 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType characterTy
 	grid->addChild(TileBuilder::randomFloor(rows, cols, theme, 0.6f));
 
 	ret->addChild(grid);
-	grid->setPlayer(Player::create(characterType));
+	grid->setPlayer(Player::create(character));
 
 	testTmps(ret, grid, rows, cols);
 
 	auto size = ret->getContentSize();
 
-	float thickness = 30;
 	auto bottomUISize = Size(size.width, size.height / 5);
-	GUIBoxCreator bottomUICreator(GUIFrameColor::Blue, true, thickness, bottomUISize);
-	ret->addChild(bottomUICreator.create(), 50);
+	ret->addChild(BottomUICreator(bottomUISize, character).create());
 
 	grid->setVisibleArea(Size(size.width, size.height - bottomUISize.height));
 	grid->setVisibleAreaOffset(Vec2(0, bottomUISize.height));
-
-	auto thumbNail = Sprite::createWithSpriteFrame(SpriteFactory::characterFrame(characterType));
-	ret->addChild(thumbNail, 100);
-	thumbNail->setPosition(size.width / 2, size.height / 3);
 
 	return ret;
 }
