@@ -123,7 +123,9 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 	grid->addChild(TileBuilder::randomFloor(rows, cols, theme, 0.6f));
 
 	ret->addChild(grid);
-	grid->setPlayer(Player::create(character));
+	auto player = Player::create(character);
+	grid->setPlayer(player);
+
 
 	testTmps(ret, grid, rows, cols);
 
@@ -134,6 +136,38 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 
 	grid->setVisibleArea(Size(size.width, size.height - bottomUISize.height));
 	grid->setVisibleAreaOffset(Vec2(0, bottomUISize.height));
+
+	float targetUISize = size.height / 7;
+	Node* targetUI = GUIBoxCreator(GUIFrameColor::Blue, true, 30, Size(targetUISize, targetUISize)).create();
+	targetUI->setPosition(Vec2(0, size.height - targetUISize));
+	targetUI->setVisible(false);
+	ret->addChild(targetUI);
+	Sprite* thumbnail = Sprite::create();
+	targetUI->addChild(thumbnail);
+	ret->schedule([player, currentTarget = player->getTarget(), targetUI, thumbnail = thumbnail](float) mutable{
+		auto newTarget = player->getTarget();
+		if (newTarget == currentTarget) {
+			return;
+		}
+
+		currentTarget = newTarget;
+
+		if (!currentTarget) {
+			targetUI->setVisible(false);
+			return;
+		}
+
+		targetUI->setVisible(true);
+		targetUI->removeChild(thumbnail);
+		
+		thumbnail = Sprite::createWithSpriteFrame(newTarget->getSpriteFrame());
+
+		auto size = targetUI->getContentSize();
+		targetUI->addChild(thumbnail);
+		thumbnail->setPosition(size / 2);
+		thumbnail->setScale(size.width * 0.9f / thumbnail->getContentSize().width);
+	}, "observePlayer");
+
 
 	return ret;
 }

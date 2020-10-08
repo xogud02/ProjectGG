@@ -58,6 +58,7 @@ public:
 	bool isEnemy(Character*);
 
 	virtual void setTarget(Character* target);
+	Character* getTarget();
 	void setMoveType(MoveType moveType);
 	virtual bool isInAttackRange(Character* who) const;
 	virtual void setPosition(const cocos2d::Vec2& v) override;

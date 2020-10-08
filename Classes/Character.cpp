@@ -140,6 +140,10 @@ void Character::setTarget(Character * newTarget) {
 	}, 0, chaseTarget);
 }
 
+Character * Character::getTarget() {
+	return target;
+}
+
 void Character::setMoveType(MoveType moveType) {
 	currentMoveType = moveType;
 }
