@@ -47,6 +47,7 @@ bool Character::init() {
 	setName("character");
 
 	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
 	listener->onTouchBegan = [this](Touch* e, auto) {
 
 		auto grid = getGrid();
@@ -115,7 +116,7 @@ void Character::setTarget(Character * newTarget) {
 	target = newTarget;
 	target->retain();
 	schedule([lastPos = currentGridPosition, this](float) mutable {
-		if (status.isAttackReady()) {
+		if (status.isAttackReady() && isInAttackRange(target)) {
 			onAttackBegin();
 			target->hit(this, status.getDamage());
 			if (target->getCondition() == ChracterCondition::Dead) {
