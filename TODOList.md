@@ -15,6 +15,8 @@
   - theme select
 - performance
   - reduce gl call
+- design
+  - Grid class seems ambiguous(too big??)
 
 
 
