@@ -16,7 +16,7 @@
 - performance
   - reduce gl call
 - design
-  - Grid class seems ambiguous(too big??)
+  - GridLayer, Character class seems ambiguous(too big??)
 
 
 
