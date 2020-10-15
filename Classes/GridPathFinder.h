@@ -5,7 +5,7 @@
 #include <string>
 #include "GridPosition.h"
 
-class Grid;
+class GridLayer;
 
 struct AstarNode;
 using SPNode = std::shared_ptr<AstarNode>;
@@ -25,5 +25,5 @@ struct AstarNode {
 class GridPathFinder{
 	
 public:
-	std::queue<GridPosition> findPath(Grid* grid, GridPosition from, GridPosition to,int size = 1);
+	std::queue<GridPosition> findPath(GridLayer* grid, GridPosition from, GridPosition to,int size = 1);
 };

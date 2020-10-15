@@ -7,7 +7,7 @@
 #include <functional>
 #include "SpriteTileEnums.h"
 
-class Grid;
+class GridLayer;
 class GaugeBar;
 
 enum class MoveType{
@@ -34,8 +34,8 @@ protected:
 	Character* target = nullptr;
 	void releaseTarget();
 
-	Grid* grid = nullptr;
-	Grid* getGrid();
+	GridLayer* grid = nullptr;
+	GridLayer* getGrid();
 
 	virtual void onAttackBegin();
 

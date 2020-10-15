@@ -46,9 +46,6 @@
     <ClCompile Include="..\Classes\StageSelectScene.cpp">
       <Filter>Source Files\Classes\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="C:\ProjectGG\Classes\Grid.cpp">
-      <Filter>Source Files\Classes\Grid</Filter>
-    </ClCompile>
     <ClCompile Include="C:\ProjectGG\Classes\GridPathFinder.cpp">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClCompile>
@@ -59,6 +56,9 @@
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GridObject.cpp">
+      <Filter>Source Files\Classes\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GridLayer.cpp">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClCompile>
   </ItemGroup>
@@ -156,9 +156,6 @@
     <ClInclude Include="..\Classes\SpriteTileEnums.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Classes\Grid.h">
-      <Filter>Source Files\Classes\Grid</Filter>
-    </ClInclude>
     <ClInclude Include="C:\ProjectGG\Classes\GridPathFinder.h">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
@@ -169,6 +166,9 @@
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GridObject.h">
+      <Filter>Source Files\Classes\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GridLayer.h">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
   </ItemGroup>

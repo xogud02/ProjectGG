@@ -24,7 +24,7 @@
 
 #include "FightScene.h"
 #include "Character.h"
-#include "Grid.h"
+#include "GridLayer.h"
 #include "SpriteFactory.h"
 #include "Monster.h"
 #include "TileBuilder.h"
@@ -46,7 +46,7 @@ bool FightScene::init() {
 	return true;
 }
 
-void testTmps(FightScene* ret, Grid* grid, int rows, int cols) {
+void testTmps(FightScene* ret, GridLayer* grid, int rows, int cols) {
 	auto tmpLava = TileBuilder::randomLiquidPit(rows / 3, cols / 3, LiquidPitType::Lava);
 	//auto tmpLava = TileBuilder::randomTestPit(rows / 3, cols / 3);
 	grid->addObject(tmpLava, GridPosition(rows / 3, cols / 12));
@@ -119,7 +119,7 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 	}
 
 	constexpr int rows = 30, cols = 30;
-	auto grid = Grid::create(rows, cols);
+	auto grid = GridLayer::create(rows, cols);
 	grid->addChild(TileBuilder::randomFloor(rows, cols, theme, 0.6f));
 
 	ret->addChild(grid);

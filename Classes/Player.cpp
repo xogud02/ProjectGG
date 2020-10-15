@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "SpriteFactory.h"
-#include "Grid.h"
+#include "GridLayer.h"
 #include "Weapon.h"
 
 using namespace std;

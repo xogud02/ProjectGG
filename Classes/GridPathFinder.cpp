@@ -1,5 +1,5 @@
 #include "GridPathFinder.h"
-#include "Grid.h"
+#include "GridLayer.h"
 #include <unordered_set>
 using namespace std;
 
@@ -27,7 +27,7 @@ namespace std {
 	};
 }
 
-queue<GridPosition> GridPathFinder::findPath(Grid* grid, GridPosition from, GridPosition to,int size) {
+queue<GridPosition> GridPathFinder::findPath(GridLayer* grid, GridPosition from, GridPosition to,int size) {
 	priority_queue<SPNode,vector<SPNode>,greater<SPNode>> pq;
 	unordered_set<SPNode> open;
 	unordered_set<SPNode> closed;

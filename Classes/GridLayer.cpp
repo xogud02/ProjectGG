@@ -1,4 +1,4 @@
-#include "Grid.h"
+#include "GridLayer.h"
 #include "FightScene.h"
 #include "Player.h"
 #include "SpriteFactory.h"
@@ -7,16 +7,16 @@
 using namespace std;
 USING_NS_CC;
 
-Grid * Grid::create(const int rows, const int cols) {
+GridLayer * GridLayer::create(const int rows, const int cols) {
 	
 	auto gridUnitSize = Director::getInstance()->getOpenGLView()->getFrameSize().width / 32;
-	Grid* grid = new Grid(rows, cols, gridUnitSize);
+	GridLayer* grid = new GridLayer(rows, cols, gridUnitSize);
 	grid->initWithColor(Color4B(255, 255, 255, 64));
 	grid->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
 	grid->autorelease();
 
 	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = CC_CALLBACK_2(Grid::onTouch, grid);
+	listener->onTouchBegan = CC_CALLBACK_2(GridLayer::onTouch, grid);
 	grid->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, grid);
 
 	if (COCOS2D_DEBUG) {
@@ -26,21 +26,21 @@ Grid * Grid::create(const int rows, const int cols) {
 	return grid;
 }
 
-void Grid::touched(Character * who) {
+void GridLayer::touched(Character * who) {
 	if (who != player) {
 		player->setTarget(who);
 	}
 }
 
-bool Grid::isValidPosition(const GridPosition position) const {
+bool GridLayer::isValidPosition(const GridPosition position) const {
 	return isValidPosition(position.row, position.col);
 }
 
-bool Grid::isValidPosition(const int row, const int col) const {
+bool GridLayer::isValidPosition(const int row, const int col) const {
 	return 0 <= row && row < getRows() && 0 <= col && col < getCols();
 }
 
-void Grid::setPlayer(Player* newPlayer) {
+void GridLayer::setPlayer(Player* newPlayer) {
 	if (player) {
 		player->release();
 	}
@@ -67,7 +67,7 @@ void Grid::setPlayer(Player* newPlayer) {
 }
 
 
-void Grid::addObject(GridObject * gridObject, GridPosition position) {
+void GridLayer::addObject(GridObject * gridObject, GridPosition position) {
 	addChild(gridObject);
 	gridObject->setPosition(gridToPosition(position));
 	for (auto p : gridObject->getTiles()) {
@@ -75,34 +75,34 @@ void Grid::addObject(GridObject * gridObject, GridPosition position) {
 	}
 }
 
-GridPosition Grid::vecToGrid(Vec2 position) const {
+GridPosition GridLayer::vecToGrid(Vec2 position) const {
 	auto iunitSize = static_cast<int>(UNIT_SIZE);
 	int row = static_cast<int>(position.y) / iunitSize;
 	int col = static_cast<int>(position.x) / iunitSize;
 	return GridPosition(row, col);
 }
 
-Vec2 Grid::gridToPosition(const GridPosition rowCol) const {
+Vec2 GridLayer::gridToPosition(const GridPosition rowCol) const {
 	float x = (rowCol.col) * UNIT_SIZE;
 	float y = (rowCol.row) * UNIT_SIZE;
 	return Vec2(x, y);
 }
 
-int Grid::getRows() const {
+int GridLayer::getRows() const {
 	return occupiedGrid.size();
 }
 
-int Grid::getCols() const {
+int GridLayer::getCols() const {
 	return occupiedGrid[0].size();
 }
 
-Grid::Grid(const int rows, const int cols, const float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols) {
+GridLayer::GridLayer(const int rows, const int cols, const float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols) {
 	occupiedGrid = vector<vector<bool>>(rows, vector<bool>(cols, false));
 	visibleArea = Director::getInstance()->getWinSize();
 	visibleAreaOffset = Vec2::ZERO;
 }
 
-void Grid::showGrid() {
+void GridLayer::showGrid() {
 	int rows = getRows();
 	int cols = getCols();
 
@@ -145,13 +145,13 @@ void Grid::showGrid() {
 	}, debug);
 }
 
-Grid::~Grid() {
+GridLayer::~GridLayer() {
 	if (player) {
 		player->release();
 	}
 }
 
-bool Grid::isMovable(int row, int col, int size) const {
+bool GridLayer::isMovable(int row, int col, int size) const {
 	for (int dr = 0; dr < size; ++dr) {
 		for (int dc = 0; dc < size; ++dc) {
 			auto current = GridPosition(row + dr, col + dc);
@@ -168,11 +168,11 @@ bool Grid::isMovable(int row, int col, int size) const {
 	return true;
 }
 
-bool Grid::isMovable(GridPosition gridPosition, int size) const {
+bool GridLayer::isMovable(GridPosition gridPosition, int size) const {
 	return isMovable(gridPosition.row, gridPosition.col, size);
 }
 
-bool Grid::onTouch(const Touch * t, const Event * e) {
+bool GridLayer::onTouch(const Touch * t, const Event * e) {
 	auto&& touchedPosition = t->getLocation();
 	if (!getBoundingBox().containsPoint(touchedPosition)) {
 		return false;
@@ -190,7 +190,7 @@ bool Grid::onTouch(const Touch * t, const Event * e) {
 	return true;
 }
 
-void Grid::occupyArea(const GridPosition position, const int size, const bool occupy) {
+void GridLayer::occupyArea(const GridPosition position, const int size, const bool occupy) {
 	const int row = position.row;
 	const int col = position.col;
 
@@ -206,7 +206,7 @@ void Grid::occupyArea(const GridPosition position, const int size, const bool oc
 	}
 }
 
-bool Grid::isOccupied(const GridPosition position, const int size) {//FIXME occurs out of range
+bool GridLayer::isOccupied(const GridPosition position, const int size) {//FIXME occurs out of range
 	int r = position.row;
 	int c = position.col;
 	for (int dr = 0; dr < size; ++dr) {
@@ -219,15 +219,15 @@ bool Grid::isOccupied(const GridPosition position, const int size) {//FIXME occu
 	return false;
 }
 
-void Grid::setVisibleArea(Size area) {
+void GridLayer::setVisibleArea(Size area) {
 	visibleArea = area;
 }
 
-void Grid::setVisibleAreaOffset(Vec2 offset) {
+void GridLayer::setVisibleAreaOffset(Vec2 offset) {
 	visibleAreaOffset = offset;
 }
 
-void Grid::focusTo(Vec2 position) {
+void GridLayer::focusTo(Vec2 position) {
 
 	auto centerOffset = Vec2(visibleArea / 2) - position;
 	auto newPosition = getPosition() + centerOffset;
@@ -240,11 +240,11 @@ void Grid::focusTo(Vec2 position) {
 	setPosition(newPosition + visibleAreaOffset);
 }
 
-void Grid::addChild(Node* node) {
+void GridLayer::addChild(Node* node) {
 	addChild(node, 0);
 }
 
-void Grid::addChild(Node* node, int zOrder) {
+void GridLayer::addChild(Node* node, int zOrder) {
 	LayerColor::addChild(node, zOrder);
 	node->setScale(node->getScale() * SpriteFactory::getUnitScale(UNIT_SIZE));
 }

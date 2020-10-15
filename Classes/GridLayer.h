@@ -16,8 +16,8 @@ enum class TileType : std::uint8_t {
 class Character;
 class GridObject;
 class Player;
-class Grid : public cocos2d::LayerColor {
-	~Grid();
+class GridLayer : public cocos2d::LayerColor {
+	~GridLayer();
 
 	std::vector<std::vector<bool>> occupiedGrid;
 	std::unordered_map<GridPosition, TileType> tiles;
@@ -41,7 +41,7 @@ public:
 	cocos2d::Vec2 gridToPosition(const GridPosition gridPosition) const;
 	int getRows() const;
 	int getCols() const;
-	Grid(const int rows, const int cols, const float unitSize);
+	GridLayer(const int rows, const int cols, const float unitSize);
 	void showGrid();
 	bool onTouch(const cocos2d::Touch* t, const cocos2d::Event* e);
 	void occupyArea(const GridPosition, const int size = 1, const bool occupy = true);
@@ -54,7 +54,7 @@ public:
 	virtual void addChild(cocos2d::Node* node) override;
 	virtual void addChild(cocos2d::Node* node, int zOrder) override;
 
-	static Grid* create(const int rows, const int cols);
+	static GridLayer* create(const int rows, const int cols);
 
 	void touched(Character* who);
 	void setPlayer(Player* character);

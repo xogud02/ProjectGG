@@ -1,6 +1,6 @@
 #include "Character.h"
 #include "GaugeBar.h"
-#include "Grid.h"
+#include "GridLayer.h"
 #include "GridPathFinder.h"
 #include "SpriteFactory.h"
 #include "cocos-ext.h"
@@ -209,9 +209,9 @@ void Character::releaseTarget() {
 	}
 }
 
-Grid * Character::getGrid() {
+GridLayer * Character::getGrid() {
 	if (!grid) {
-		grid = dynamic_cast<Grid*>(getParent());
+		grid = dynamic_cast<GridLayer*>(getParent());
 	}
 	return grid;
 }
