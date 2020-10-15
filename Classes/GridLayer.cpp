@@ -7,37 +7,35 @@
 using namespace std;
 USING_NS_CC;
 
-GridLayer * GridLayer::create(const int rows, const int cols) {
+GridLayer* GridLayer::instance = nullptr;
+
+GridLayer* GridLayer::getInstance() {
+	return instance;
+}
+
+GridLayer* GridLayer::create(const int rows, const int cols) {
 	
 	auto gridUnitSize = Director::getInstance()->getOpenGLView()->getFrameSize().width / 32;
-	GridLayer* grid = new GridLayer(rows, cols, gridUnitSize);
-	grid->initWithColor(Color4B(255, 255, 255, 64));
-	grid->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
-	grid->autorelease();
+	GridLayer* ret = new GridLayer(rows, cols, gridUnitSize);
+	ret->initWithColor(Color4B(255, 255, 255, 64));
+	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
+	ret->autorelease();
 
 	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = CC_CALLBACK_2(GridLayer::onTouch, grid);
-	grid->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, grid);
+	listener->onTouchBegan = CC_CALLBACK_2(GridLayer::onTouch, ret);
+	ret->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, ret);
 
 	if (COCOS2D_DEBUG) {
-		grid->showGrid();
+		ret->showGrid();
 	}
 
-	return grid;
+	return ret;
 }
 
 void GridLayer::touched(Character * who) {
 	if (who != player) {
 		player->setTarget(who);
 	}
-}
-
-bool GridLayer::isValidPosition(const GridPosition position) const {
-	return isValidPosition(position.row, position.col);
-}
-
-bool GridLayer::isValidPosition(const int row, const int col) const {
-	return 0 <= row && row < getRows() && 0 <= col && col < getCols();
 }
 
 void GridLayer::setPlayer(Player* newPlayer) {
@@ -70,10 +68,9 @@ void GridLayer::setPlayer(Player* newPlayer) {
 void GridLayer::addObject(GridObject * gridObject, GridPosition position) {
 	addChild(gridObject);
 	gridObject->setPosition(gridToPosition(position));
-	for (auto p : gridObject->getTiles()) {
-		tiles[position + p.first] = TileType::Block;
-	}
+	grid.addObject(gridObject, position);
 }
+
 
 GridPosition GridLayer::vecToGrid(Vec2 position) const {
 	auto iunitSize = static_cast<int>(UNIT_SIZE);
@@ -88,35 +85,25 @@ Vec2 GridLayer::gridToPosition(const GridPosition rowCol) const {
 	return Vec2(x, y);
 }
 
-int GridLayer::getRows() const {
-	return occupiedGrid.size();
-}
-
-int GridLayer::getCols() const {
-	return occupiedGrid[0].size();
-}
-
-GridLayer::GridLayer(const int rows, const int cols, const float unitSize) :UNIT_SIZE(unitSize), row(rows), coloum(cols) {
-	occupiedGrid = vector<vector<bool>>(rows, vector<bool>(cols, false));
+GridLayer::GridLayer(const int rows, const int cols, const float unitSize) : grid(rows,cols), UNIT_SIZE(unitSize){
+	instance = this;
 	visibleArea = Director::getInstance()->getWinSize();
 	visibleAreaOffset = Vec2::ZERO;
 }
 
 void GridLayer::showGrid() {
-	int rows = getRows();
-	int cols = getCols();
-
+	
 	auto debugGrid = DrawNode::create();
 	auto gridLines = DrawNode::create();
 	LayerColor::addChild(debugGrid, 1);
 	Color4F gridColor = Color4F(0, 1, 0, 0.5f);
 	Size contentSize = getContentSize();
-	for (int r = 1; r < rows; ++r) {
+	for (int r = 1; r < grid.rows; ++r) {
 		gridLines->drawLine(Vec2(0, r*UNIT_SIZE), Vec2(contentSize.width, r*UNIT_SIZE), gridColor);
 	}
 
 	float height = getContentSize().height;
-	for (int c = 1; c < cols; ++c) {
+	for (int c = 1; c < grid.cols; ++c) {
 		gridLines->drawLine(Vec2(c*UNIT_SIZE, 0), Vec2(c*UNIT_SIZE, contentSize.height), gridColor);
 	}
 	const string debug = "debug";
@@ -126,15 +113,15 @@ void GridLayer::showGrid() {
 			unschedule(debug);
 		}
 		debugGrid->clear();
-		const int rows = getRows();
-		const int cols = getCols();
-		for (int r = 0; r < rows; ++r) {
-			for (int c = 0; c < cols; ++c) {
-				if (!isMovable(r, c)) {
-					auto&& rectOrigin = gridToPosition(GridPosition(r, c));
+
+		for (int r = 0; r < grid.rows; ++r) {
+			for (int c = 0; c < grid.cols; ++c) {
+				auto currentPosition = GridPosition(r, c);
+				if (!grid.isMovable(currentPosition)) {
+					auto&& rectOrigin = gridToPosition(currentPosition);
 					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED - Color4F(0, 0, 0, 0.5f));
-				} else if (occupiedGrid[r][c]) {
-					auto&& rectOrigin = gridToPosition(GridPosition(r, c));
+				} else if (grid.isOccupied(currentPosition)) {
+					auto&& rectOrigin = gridToPosition(currentPosition);
 					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::BLUE - Color4F(0, 0, 0, 0.5f));
 				}
 			}
@@ -149,27 +136,6 @@ GridLayer::~GridLayer() {
 	if (player) {
 		player->release();
 	}
-}
-
-bool GridLayer::isMovable(int row, int col, int size) const {
-	for (int dr = 0; dr < size; ++dr) {
-		for (int dc = 0; dc < size; ++dc) {
-			auto current = GridPosition(row + dr, col + dc);
-			if (!isValidPosition(current)) {
-				return false;
-			}
-
-			const auto tileItr = tiles.find(current);
-			if (tileItr != tiles.cend() && tileItr->second != TileType::Floor) {
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
-bool GridLayer::isMovable(GridPosition gridPosition, int size) const {
-	return isMovable(gridPosition.row, gridPosition.col, size);
 }
 
 bool GridLayer::onTouch(const Touch * t, const Event * e) {
@@ -188,35 +154,6 @@ bool GridLayer::onTouch(const Touch * t, const Event * e) {
 	player->tryToMove(gridPosition);
 
 	return true;
-}
-
-void GridLayer::occupyArea(const GridPosition position, const int size, const bool occupy) {
-	const int row = position.row;
-	const int col = position.col;
-
-	for (int dr = 0; dr < size; ++dr) {
-		for (int dc = 0; dc < size; ++dc) {
-			int r = row + dr, c = col + dc;
-			if (!isValidPosition(r, c)) {
-				return;
-			}
-			//CCASSERT(isValidPosition(r, c), "ccassert at void Grid::occupyArea() : position must be valid");
-			occupiedGrid[r][c] = occupy;
-		}
-	}
-}
-
-bool GridLayer::isOccupied(const GridPosition position, const int size) {//FIXME occurs out of range
-	int r = position.row;
-	int c = position.col;
-	for (int dr = 0; dr < size; ++dr) {
-		for (int dc = 0; dc < size; ++dc) {
-			if (occupiedGrid[r + dr][c + dc]) {
-				return true;
-			}
-		}
-	}
-	return false;
 }
 
 void GridLayer::setVisibleArea(Size area) {

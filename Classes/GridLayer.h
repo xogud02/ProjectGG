@@ -3,49 +3,33 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "GridPosition.h"
+#include "Grid.h"
 #include <vector>
 
 using UINT = unsigned int;
-
-enum class TileType : std::uint8_t {
-	Floor = 0,
-	Water,
-	Block
-};
 
 class Character;
 class GridObject;
 class Player;
 class GridLayer : public cocos2d::LayerColor {
+	static GridLayer* instance;
 	~GridLayer();
+	Grid grid;
 
-	std::vector<std::vector<bool>> occupiedGrid;
-	std::unordered_map<GridPosition, TileType> tiles;
-
-	const UINT row;
-	const UINT coloum;
 	Player* player = nullptr;
-
-	bool isValidPosition(const GridPosition position) const;
-	bool isValidPosition(const int row, const int col) const;
 
 	cocos2d::Size visibleArea;
 	cocos2d::Vec2 visibleAreaOffset;
 
 public:
+	static GridLayer* getInstance();
 	const float UNIT_SIZE;
 
-	bool isMovable(const int row, const int col, const int size = 1) const;
-	bool isMovable(const GridPosition gridPosition, const int size = 1) const;
 	GridPosition vecToGrid(const cocos2d::Vec2 position) const;
 	cocos2d::Vec2 gridToPosition(const GridPosition gridPosition) const;
-	int getRows() const;
-	int getCols() const;
 	GridLayer(const int rows, const int cols, const float unitSize);
 	void showGrid();
 	bool onTouch(const cocos2d::Touch* t, const cocos2d::Event* e);
-	void occupyArea(const GridPosition, const int size = 1, const bool occupy = true);
-	bool isOccupied(const GridPosition, const int size = 1);
 
 	void setVisibleArea(cocos2d::Size area);
 	void setVisibleAreaOffset(cocos2d::Vec2 offset);

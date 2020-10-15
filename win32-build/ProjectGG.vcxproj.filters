@@ -61,6 +61,9 @@
     <ClCompile Include="..\Classes\GridLayer.cpp">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Grid.cpp">
+      <Filter>Source Files\Classes\Grid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\ProjectGG\Classes\AppDelegate.h">
@@ -169,6 +172,9 @@
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GridLayer.h">
+      <Filter>Source Files\Classes\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Grid.h">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
   </ItemGroup>

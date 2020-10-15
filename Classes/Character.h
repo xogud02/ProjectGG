@@ -26,16 +26,11 @@ protected:
 	cocos2d::Vec2 nextPos;
 	std::queue<GridPosition> path;
 	MoveType currentMoveType = MoveType::Stop;
-
 	CharacterDirection currentDirection = CharacterDirection::DOWN;
-
 	GridPosition currentGridPosition;
 
 	Character* target = nullptr;
 	void releaseTarget();
-
-	GridLayer* grid = nullptr;
-	GridLayer* getGrid();
 
 	virtual void onAttackBegin();
 
