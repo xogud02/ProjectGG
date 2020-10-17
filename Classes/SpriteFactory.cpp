@@ -11,38 +11,40 @@ namespace std {
 	}
 }
 
-unordered_map<CharacterType, string> SpriteFactory::characterPaths;
+const string characters = "Characters/";
+const unordered_map<CharacterType, string> SpriteFactory::characterPaths = {
+	{CharacterType::Engineer,characters + "Engineer"},
+	{CharacterType::Mage, characters + "Mage"},
+	{CharacterType::Paladin, characters + "Paladin"},
+	{CharacterType::Rogue, characters + "Rogue"},
+	{CharacterType::Template, characters + "Template"},
+	{CharacterType::Warrior, characters + "Warrior"},
+};
 
 const string SpriteFactory::FLOOR = "Tiles/Floor";
 const string SpriteFactory::PIT = "Tiles/PIT";
 const string SpriteFactory::TREE = "Tiles/Tree";
-const string SpriteFactory::SLIME = "Monsters/Slime";
+const string SpriteFactory::SLIME = "Slime";
 const string SpriteFactory::MELEE_WEAPON = "Items/MedWep";
 const string SpriteFactory::GUI = "GUIs/GUI";
 
 const Size SpriteFactory::unitSize(SpriteFactory::iUnitSize, SpriteFactory::iUnitSize);
 
-Action* SpriteFactory::createAction(const string& path, int x, int y) {
-	auto anim = Animation::create();
-	anim->setDelayPerUnit(0.3f);
+Action* SpriteFactory::createAction(const string& path, int x, int y, const string& pList) {
+	Vector<SpriteFrame*> frames;
 	for (char i = '0'; i < '2'; ++i) {
-		auto frame = createFrame(path + i, x, y);
-		anim->addSpriteFrame(frame);
+		auto frame = createFrame(path + i, x, y, pList);
+		frames.pushBack(frame);
 	}
 
+	
+	auto anim = Animation::createWithSpriteFrames(frames, 0.3f);
 	auto ret = RepeatForever::create(Animate::create(anim));
-	ret->retain();
 	return ret;
 }
 
-void SpriteFactory::initCharacterPaths() {
-	string characters = "Characters/";
-	characterPaths[CharacterType::Engineer] = characters + "Engineer";
-	characterPaths[CharacterType::Mage] = characters + "Mage";
-	characterPaths[CharacterType::Paladin] = characters + "Paladin";
-	characterPaths[CharacterType::Rogue] = characters + "Rogue";
-	characterPaths[CharacterType::Template] = characters + "Template";
-	characterPaths[CharacterType::Warrior] = characters + "Warrior";
+const string SpriteFactory::getCharacterFileName(CharacterType type) {
+	return characterPaths.find(type)->second;
 }
 
 float SpriteFactory::getUnitScale(float sizeInPoints) {
@@ -76,18 +78,26 @@ const pair<int, int> getTileOffset(SpriteTileType type, SpriteTileTheme theme) {
 	return pair<int, int>(typeX * 7, typeY * 12 + themeY * 3);
 }
 
+bool flag = true;
 
-SpriteFrame* SpriteFactory::createFrame(const string& fileName, int x, int y) {
-	auto ret = SpriteFrame::create(fileName + EXT, CC_RECT_PIXELS_TO_POINTS(Rect(x * iUnitSize, y*iUnitSize, iUnitSize, iUnitSize)));
+SpriteFrame* SpriteFactory::createFrame(const string& fileName, int x, int y, const string& pList) {
+	string root = "Sprites/";
+	auto xOffset = x * iUnitSize, yOffset = y * iUnitSize;
+	if (pList != "") {
+		auto cache = SpriteFrameCache::getInstance();
+		if (flag) {
+		cache->addSpriteFramesWithFile(root + pList);
+		flag = false;
+		}
+		return cache->getSpriteFrameByName(fileName + EXT + "/" + to_string(0) + EXT);
+	}
+	auto ret = SpriteFrame::create(root + fileName + EXT, CC_RECT_PIXELS_TO_POINTS(Rect(x * iUnitSize, y*iUnitSize, iUnitSize, iUnitSize)));
 	ret->getTexture()->setAliasTexParameters();
 	return ret;
 }
 
 SpriteFrame* SpriteFactory::characterFrame(CharacterType characterType) {
-	if (characterPaths.empty()) {
-		initCharacterPaths();
-	}
-	return createFrame(characterPaths[characterType], 0, 0);
+	return createFrame(getCharacterFileName(characterType), 0, 0);
 }
 
 SpriteFrame* SpriteFactory::floorFrame(SpriteTileType type, SpriteTileTheme theme, SpriteTilePosition position) {
@@ -126,7 +136,7 @@ Action* SpriteFactory::pitAction(PitContentType content, PitWallType wall, PitPo
 	auto cv = static_cast<int>(content);
 	auto wv = static_cast<int>(wall);
 	auto pOffset = getPitPositionOffset(position);
-	return createAction(PIT , pOffset.first, pOffset.second + 2 + 6 * cv + 2 * wv);
+	return createAction(PIT, pOffset.first, pOffset.second + 2 + 6 * cv + 2 * wv);
 }
 
 Action* SpriteFactory::liquidPitAction(LiquidPitType liquid, PitPositionType position) {
@@ -148,7 +158,7 @@ const pair<int, int>getGUIPositionOffset(GUIFramePart position) {
 	if (position == GUIFramePart::Single) {
 		return make_pair(0, 0);
 	}
-	
+
 	auto val = static_cast<int>(position);
 	return make_pair(val % 3 + 1, val / 3);
 }
@@ -164,7 +174,17 @@ Action* SpriteFactory::tree() {
 }
 
 Action* SpriteFactory::slime() {
-	return createAction(SLIME, 0, 4);
+	Vector<SpriteFrame*> frames;
+	for (char i = '0'; i < '2'; ++i) {
+		auto frame = createFrame("Monsters", random(0, 5), random(0, 5), "");
+		frames.pushBack(frame);
+	}
+
+
+	auto anim = Animation::createWithSpriteFrames(frames, 0.3f);
+	auto ret = RepeatForever::create(Animate::create(anim));
+	return ret;
+	//return createAction(SLIME, 0, 0, "Monsters.pList");
 }
 
 SpriteFrame* SpriteFactory::sword() {
@@ -172,14 +192,10 @@ SpriteFrame* SpriteFactory::sword() {
 }
 
 Action* SpriteFactory::characterMoveAction(CharacterType characterType, CharacterDirection characterDirection) {
-	if (characterPaths.empty()) {
-		initCharacterPaths();
-	}
-
 	auto anim = Animation::create();
 	anim->setDelayPerUnit(0.3f);
 	for (int i = 0; i < 4; ++i) {
-		auto frame = createFrame(characterPaths[characterType], i, static_cast<int>(characterDirection));
+		auto frame = createFrame(getCharacterFileName(characterType), i, static_cast<int>(characterDirection));
 		anim->addSpriteFrame(frame);
 	}
 

@@ -42,7 +42,7 @@ bool Character::init() {
 	float width = size.width;
 	hpBar->setAnchorPoint(Vec2::ONE / 2.f);
 	hpBar->setPosition(Vec2(width / 2, 0));
-	addChild(hpBar, 1);
+	//addChild(hpBar, 1);
 
 	setName("character");
 

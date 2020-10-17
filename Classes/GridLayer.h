@@ -5,6 +5,7 @@
 #include "GridPosition.h"
 #include "Grid.h"
 #include <vector>
+#include "CCMap.h"
 
 using UINT = unsigned int;
 
@@ -20,6 +21,7 @@ class GridLayer : public cocos2d::LayerColor {
 
 	cocos2d::Size visibleArea;
 	cocos2d::Vec2 visibleAreaOffset;
+	cocos2d::Map<std::string, cocos2d::SpriteBatchNode*> batches;
 
 public:
 	static GridLayer* getInstance();

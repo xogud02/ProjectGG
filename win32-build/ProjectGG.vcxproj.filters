@@ -99,42 +99,6 @@
     <ClInclude Include="C:\ProjectGG\proj.win32\resource.h">
       <Filter>Source Files\proj.win32</Filter>
     </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Characters\Engineer.png">
-      <Filter>Resources\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Characters\Mage.png">
-      <Filter>Resources\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Characters\Paladin.png">
-      <Filter>Resources\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Characters\Rogue.png">
-      <Filter>Resources\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Characters\Template.png">
-      <Filter>Resources\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Characters\Warrior.png">
-      <Filter>Resources\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Items\MedWep.png">
-      <Filter>Resources\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Monsters\Slime0.png">
-      <Filter>Resources\Monsters</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Monsters\Slime1.png">
-      <Filter>Resources\Monsters</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Tiles\Floor.png">
-      <Filter>Resources\Tiles</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Tiles\Tree0.png">
-      <Filter>Resources\Tiles</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Resources\Tiles\Tree1.png">
-      <Filter>Resources\Tiles</Filter>
-    </ClInclude>
     <ClInclude Include="C:\ProjectGG\Resources\fonts\Marker Felt.ttf">
       <Filter>Resources\fonts</Filter>
     </ClInclude>
@@ -190,18 +154,6 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{0801F9F0-F225-33D2-B0A8-EDFE41C96B8F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\Characters">
-      <UniqueIdentifier>{94A97569-665B-3B21-9C36-FE7BD4727C3D}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Items">
-      <UniqueIdentifier>{DA1A35BE-BD1D-3CA4-A08D-4636181529D2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Monsters">
-      <UniqueIdentifier>{F7A457F0-C15D-3E84-9FE7-6A5B10554CA1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Tiles">
-      <UniqueIdentifier>{77375A59-E124-3F49-89E0-1128B0D80868}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\fonts">
       <UniqueIdentifier>{B1FE41F4-50EE-38E6-8991-04D9504955D1}</UniqueIdentifier>
     </Filter>
@@ -217,29 +169,21 @@
     <Filter Include="Source Files\proj.win32">
       <UniqueIdentifier>{FC3AC0D2-C433-338E-ADAC-A98522F0F4E2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\GUIs">
-      <UniqueIdentifier>{d41a7ed3-8c88-4ec1-be17-af3f3e1a866f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Classes\Scene">
       <UniqueIdentifier>{d5013f60-929f-4835-975e-0f70fca86e21}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Classes\Grid">
       <UniqueIdentifier>{608be3d9-4e9a-4414-9291-035ab1376678}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Resources\GUIs\GUI0.png">
-      <Filter>Resources\GUIs</Filter>
-    </Image>
-    <Image Include="..\Resources\GUIs\GUI1.png">
-      <Filter>Resources\GUIs</Filter>
-    </Image>
-    <Image Include="..\Resources\Tiles\Pit0.png">
-      <Filter>Resources\Tiles</Filter>
-    </Image>
-    <Image Include="..\Resources\Tiles\Pit1.png">
-      <Filter>Resources\Tiles</Filter>
-    </Image>
+    <Filter Include="Resources\Sprites">
+      <UniqueIdentifier>{9bc3a858-8f94-41e1-889f-ca1d5a1813ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Sprites\Character">
+      <UniqueIdentifier>{8ef1c289-19ea-4b70-b8e4-4bf4f04a8ba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Sprites\Tile">
+      <UniqueIdentifier>{afc60aeb-6b1e-47df-8cbc-20860e2f91e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\Resources\fonts\SDS_6x6.ttf">
@@ -248,5 +192,57 @@
     <Font Include="..\Resources\fonts\SDS_8x8.ttf">
       <Filter>Resources\fonts</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\Sprites\Monsters.plist">
+      <Filter>Resources\Sprites</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\Sprites\Monsters.png">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\GUIs\GUI0.png">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\GUIs\GUI1.png">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\MedWep.png">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Characters\Engineer.png">
+      <Filter>Resources\Sprites\Character</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Characters\Mage.png">
+      <Filter>Resources\Sprites\Character</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Characters\Paladin.png">
+      <Filter>Resources\Sprites\Character</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Characters\Rogue.png">
+      <Filter>Resources\Sprites\Character</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Characters\Template.png">
+      <Filter>Resources\Sprites\Character</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Characters\Warrior.png">
+      <Filter>Resources\Sprites\Character</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Pit0.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Pit1.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Tree0.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Tree1.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Floor.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
   </ItemGroup>
 </Project>
