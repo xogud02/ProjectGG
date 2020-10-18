@@ -1,5 +1,6 @@
 #include "TileBuilder.h"
 #include "SpriteFactory.h"
+#include "TileSpriteFactory.h"
 #include "GridObject.h"
 #include <unordered_set>
 #include <bitset>
@@ -66,9 +67,9 @@ Node* TileBuilder::randomFloor(int rows, int cols, SpriteTileTheme theme, float 
 			SpriteFrame* frame = nullptr;
 			auto itr = grassFloor.find(Pii(r, c));
 			if (itr == grassFloor.cend()) {
-				frame = SpriteFactory::floorFrame(SpriteTileType::Dirt, theme, SpriteTilePosition::Center);
+				frame = TileSpriteFactory::floorFrame(SpriteTileType::Dirt, theme, SpriteTilePosition::Center);
 			} else {
-				frame = SpriteFactory::floorFrame(SpriteTileType::Grass, theme, getSpriteTilePosition(grassFloor, r, c));
+				frame = TileSpriteFactory::floorFrame(SpriteTileType::Grass, theme, getSpriteTilePosition(grassFloor, r, c));
 			}
 			auto s = Sprite::createWithSpriteFrame(frame);
 			ret->addChild(s);
@@ -128,20 +129,20 @@ GridObject * createPit(int maxRows, int maxCols, function<void(Sprite*,PitPositi
 GridObject* TileBuilder::randomTestPit(int maxRows, int maxCols) {
 	return createPit(maxRows,maxCols,
 		[](Sprite* s, auto p) {
-		s->setSpriteFrame(SpriteFactory::testPitPosition(p));
+		s->setSpriteFrame(TileSpriteFactory::testPitPosition(p));
 	});
 }
 
 GridObject * TileBuilder::randomLiquidPit(int maxRows, int maxCols, LiquidPitType type) {
 	return createPit(maxRows, maxCols, 
 		[type](Sprite* s, auto position) {
-		s->runAction(SpriteFactory::liquidPitAction(type, position));
+		s->runAction(TileSpriteFactory::liquidPitAction(type, position));
 	});
 }
 
 GridObject* TileBuilder::randomPit(int maxRows, int maxCols, PitContentType content, PitWallType wall) {
 	return createPit(maxRows, maxCols, 
 		[content, wall](Sprite* s, auto position) {
-		s->runAction(SpriteFactory::pitAction(content, wall, position));
+		s->runAction(TileSpriteFactory::pitAction(content, wall, position));
 	});
 }

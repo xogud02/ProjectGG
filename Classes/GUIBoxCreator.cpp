@@ -1,5 +1,5 @@
 #include "GUIBoxCreator.h"
-#include "SpriteFactory.h"
+#include "GUISpriteFactory.h"
 
 USING_NS_CC;
 
@@ -19,7 +19,7 @@ float GUIBoxCreator::getTargetHeight() const {
 }
 
 void GUIBoxCreator::attachPart(GUIFramePart part, Vec2 position, Size targetSize) {
-	auto partSprite = Sprite::createWithSpriteFrame(SpriteFactory::GUIFrame(color, part, filled));
+	auto partSprite = Sprite::createWithSpriteFrame(GUISpriteFactory::GUIFrame(color, part, filled));
 	partSprite->setScaleX(targetSize.width / partSprite->getContentSize().width);
 	partSprite->setScaleY(targetSize.height / partSprite->getContentSize().height);
 	partSprite->setAnchorPoint(Vec2::ZERO);

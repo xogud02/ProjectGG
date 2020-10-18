@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "SpriteFactory.h"
 #include "FightScene.h"
+#include "CharacterSpriteFactory.h"
 
 USING_NS_CC;
 
@@ -23,7 +24,7 @@ CharacterSelectScene* CharacterSelectScene::create(SpriteTileTheme theme) {
 		int row = i / cols;
 		int col = i % cols;
 
-		auto sprite = Sprite::createWithSpriteFrame(SpriteFactory::characterFrame(static_cast<CharacterType>(i)));
+		auto sprite = Sprite::createWithSpriteFrame(CharacterSpriteFactory::characterFrame(static_cast<CharacterType>(i)));
 		sprite->getTexture()->setAliasTexParameters();
 
 		auto item = MenuItemSprite::create(sprite, sprite, [theme, i](auto ref) { Director::getInstance()->replaceScene(FightScene::create(theme, static_cast<CharacterType>(i))); });

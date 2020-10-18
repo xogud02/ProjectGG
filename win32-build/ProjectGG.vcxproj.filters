@@ -16,9 +16,6 @@
     <ClCompile Include="C:\ProjectGG\Classes\Player.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="C:\ProjectGG\Classes\SpriteFactory.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="C:\ProjectGG\Classes\Status.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
@@ -64,6 +61,24 @@
     <ClCompile Include="..\Classes\Grid.cpp">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CharacterSpriteFactory.cpp">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TileSpriteFactory.cpp">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MonsterSpriteFactory.cpp">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\SpriteFactory.cpp">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GUISpriteFactory.cpp">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\WeaponSpriteFactory.cpp">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\ProjectGG\Classes\AppDelegate.h">
@@ -79,9 +94,6 @@
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="C:\ProjectGG\Classes\Player.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Classes\SpriteFactory.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="C:\ProjectGG\Classes\Status.h">
@@ -141,6 +153,24 @@
     <ClInclude Include="..\Classes\Grid.h">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\CharacterSpriteFactory.h">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TileSpriteFactory.h">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MonsterSpriteFactory.h">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\SpriteFactory.h">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GUISpriteFactory.h">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\WeaponSpriteFactory.h">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\ProjectGG\CMakeLists.txt" />
@@ -183,6 +213,9 @@
     </Filter>
     <Filter Include="Resources\Sprites\Tile">
       <UniqueIdentifier>{afc60aeb-6b1e-47df-8cbc-20860e2f91e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Sprite">
+      <UniqueIdentifier>{9fd1c29b-f515-4652-94ed-c27bf75fd94a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

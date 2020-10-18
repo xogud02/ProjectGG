@@ -1,5 +1,5 @@
 #include "Weapon.h"
-#include "SpriteFactory.h"
+#include "WeaponSpriteFactory.h"
 #include "Character.h"
 #include <unordered_map>
 
@@ -23,7 +23,7 @@ Weapon * Weapon::create()
 }
 
 bool Weapon::init() {
-	if (!Sprite::initWithSpriteFrame(SpriteFactory::sword())) {
+	if (!Sprite::initWithSpriteFrame(WeaponSpriteFactory::sword())) {
 		return false;
 	}
 	unordered_map<CharacterDirection,Vec2> deltas;

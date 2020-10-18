@@ -1,7 +1,7 @@
 #include "StageSelectScene.h"
 #include "ui\CocosGUI.h"
 #include "CharacterSelectScene.h"
-#include "SpriteFactory.h"
+#include "GUISpriteFactory.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -103,7 +103,7 @@ public:
 };
 
 MenuItemSprite* createArrowItem(ArrowDirection direction, const ccMenuCallback& callback) {
-	auto sprite = Sprite::createWithSpriteFrame(SpriteFactory::GUIArrowFrame(direction));
+	auto sprite = Sprite::createWithSpriteFrame(GUISpriteFactory::GUIArrowFrame(direction));
 	auto ret = MenuItemSprite::create(sprite, sprite, callback);
 	ret->setScale(5);
 	return ret;
@@ -143,7 +143,7 @@ bool StageSelectScene::init() {
 	attatchArrows(menu, label, size.width / 8, -size.height / 8);
 
 
-	auto sSelect = Sprite::createWithSpriteFrame(SpriteFactory::GUIFrame(GUIFrameColor::Green, GUIFramePart::Single, true));
+	auto sSelect = Sprite::createWithSpriteFrame(GUISpriteFactory::GUIFrame(GUIFrameColor::Green, GUIFramePart::Single, true));
 	auto select = MenuItemSprite::create(sSelect, sSelect, [field, label](auto) {
 		auto value = stoi(field->getString());//TODO do something with this value
 		Director::getInstance()->replaceScene(CharacterSelectScene::create(label->getItem()));

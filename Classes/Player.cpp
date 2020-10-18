@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "SpriteFactory.h"
 #include "Weapon.h"
+#include "CharacterSpriteFactory.h"
 
 using namespace std;
 USING_NS_CC;
@@ -12,7 +13,7 @@ bool Player::init() {
 
 	for (int i = 0; i < 4; ++i) {
 		auto dir = static_cast<CharacterDirection>(i);
-		directions[dir] = SpriteFactory::characterMoveAction(characterType, dir);
+		directions[dir] = CharacterSpriteFactory::characterMoveAction(characterType, dir);
 	}
 
 	setName("player");

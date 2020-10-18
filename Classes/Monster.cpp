@@ -1,5 +1,5 @@
 #include "Monster.h"
-#include "SpriteFactory.h"
+#include "MonsterSpriteFactory.h"
 #include "GaugeBar.h"
 
 USING_NS_CC;
@@ -19,7 +19,7 @@ bool Monster::init() {
 	hpBar->setValue(status.getHP());
 
 
-	runAction(SpriteFactory::slime());
+	runAction(MonsterSpriteFactory::slime());
 	schedule([this](float) {
 		if (currentMoveType != MoveType::Hold && !target) {
 			tryToMove(currentGridPosition + GridPosition(random(-1, 1), random(-1, 1)));

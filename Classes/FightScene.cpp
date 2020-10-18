@@ -31,6 +31,8 @@
 #include "GridObject.h"
 #include "SpriteTileEnums.h"
 #include "GUIBoxCreator.h"
+#include "CharacterSpriteFactory.h"
+#include "TileSpriteFactory.h"
 
 USING_NS_CC;
 using namespace std;
@@ -55,7 +57,7 @@ void testTmps(FightScene* ret, GridLayer* grid, int rows, int cols) {
 	grid->addObject(tmpPit, GridPosition(rows / 3, cols * 7 / 12));
 
 	Sprite* tmpTree = Sprite::create();
-	tmpTree->runAction(SpriteFactory::tree());
+	tmpTree->runAction(TileSpriteFactory::tree());
 	grid->addChild(tmpTree, 1);
 	tmpTree->setAnchorPoint(Vec2::ZERO);
 	auto treeGPosition = GridPosition(rows / 2, cols / 2);
@@ -96,7 +98,7 @@ private:
 	}
 
 	Sprite* createThumbnail() {
-		auto thumbNail = Sprite::createWithSpriteFrame(SpriteFactory::characterFrame(character));
+		auto thumbNail = Sprite::createWithSpriteFrame(CharacterSpriteFactory::characterFrame(character));
 		thumbNail->setPosition(Vec2::ONE*leftSize / 2);
 		auto targetSize = leftSize - boxCreator.edgeThickness * 2;
 		thumbNail->setScale(targetSize / thumbNail->getContentSize().width);
