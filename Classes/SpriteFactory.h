@@ -19,6 +19,7 @@ class SpriteFactory {
 	static const std::unordered_map<CharacterType, std::string> characterPaths;
 public:
 	static const std::string EXT;
+	static const std::string pList;
 	static const std::string FLOOR;
 	static const std::string TREE;
 	static const std::string SLIME;
@@ -28,8 +29,10 @@ public:
 	static const cocos2d::Size unitSize;
 
 private:
-	static cocos2d::SpriteFrame* createFrame(const std::string& fileName, int x, int y, const std::string& pList = "");
-	static cocos2d::Action* createAction(const std::string& path, int x, int y, const std::string& pList = "");
+	static cocos2d::SpriteFrame* createFrame(const std::string& fileName, int x, int y);
+	static cocos2d::SpriteFrame* createMonsterFrame(const std::string& fileName);
+	static cocos2d::Action* createAction(const std::string& path, int x, int y);
+	static cocos2d::Action* createMonsterAction(const std::string& path, int index = 0);
 
 public:
 

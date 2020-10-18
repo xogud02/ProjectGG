@@ -4,6 +4,9 @@ using namespace std;
 USING_NS_CC;
 
 const string SpriteFactory::EXT = ".png";
+const string root = "Sprites/";
+
+const string SpriteFactory::pList = root + "Monsters.plist";
 
 namespace std {
 	size_t hash<CharacterType>::operator()(CharacterType characterType) const {
@@ -21,26 +24,33 @@ const unordered_map<CharacterType, string> SpriteFactory::characterPaths = {
 	{CharacterType::Warrior, characters + "Warrior"},
 };
 
-const string SpriteFactory::FLOOR = "Tiles/Floor";
-const string SpriteFactory::PIT = "Tiles/PIT";
-const string SpriteFactory::TREE = "Tiles/Tree";
+const string tiles = "Tiles/";
+
+const string SpriteFactory::FLOOR = tiles+"Floor";
+const string SpriteFactory::PIT = tiles+"PIT";
+const string SpriteFactory::TREE = tiles+"Tree";
 const string SpriteFactory::SLIME = "Slime";
 const string SpriteFactory::MELEE_WEAPON = "Items/MedWep";
 const string SpriteFactory::GUI = "GUIs/GUI";
 
 const Size SpriteFactory::unitSize(SpriteFactory::iUnitSize, SpriteFactory::iUnitSize);
 
-Action* SpriteFactory::createAction(const string& path, int x, int y, const string& pList) {
+Action* createAnim(function<SpriteFrame*(char)>createFrame) {
 	Vector<SpriteFrame*> frames;
-	for (char i = '0'; i < '2'; ++i) {
-		auto frame = createFrame(path + i, x, y, pList);
-		frames.pushBack(frame);
+	for (int i = 0; i < 2; ++i) {
+		frames.pushBack(createFrame(i));
 	}
+	auto animation = Animation::createWithSpriteFrames(frames, 0.3f);
+	auto singleLoop = Animate::create(animation);
+	return RepeatForever::create(singleLoop);
+}
 
-	
-	auto anim = Animation::createWithSpriteFrames(frames, 0.3f);
-	auto ret = RepeatForever::create(Animate::create(anim));
-	return ret;
+Action* SpriteFactory::createAction(const string& path, int x, int y) {
+	return createAnim([path, x, y](int i) {return createFrame(path + to_string(i), x, y); });
+}
+
+Action * SpriteFactory::createMonsterAction(const std::string & path, int index) {
+	return createAnim([path, index](int i) {return createMonsterFrame(path + to_string(i) + EXT + "/"+ to_string(index) + EXT); });
 }
 
 const string SpriteFactory::getCharacterFileName(CharacterType type) {
@@ -80,20 +90,22 @@ const pair<int, int> getTileOffset(SpriteTileType type, SpriteTileTheme theme) {
 
 bool flag = true;
 
-SpriteFrame* SpriteFactory::createFrame(const string& fileName, int x, int y, const string& pList) {
-	string root = "Sprites/";
+SpriteFrame* SpriteFactory::createFrame(const string& fileName, int x, int y) {
 	auto xOffset = x * iUnitSize, yOffset = y * iUnitSize;
-	if (pList != "") {
-		auto cache = SpriteFrameCache::getInstance();
-		if (flag) {
-		cache->addSpriteFramesWithFile(root + pList);
-		flag = false;
-		}
-		return cache->getSpriteFrameByName(fileName + EXT + "/" + to_string(0) + EXT);
-	}
 	auto ret = SpriteFrame::create(root + fileName + EXT, CC_RECT_PIXELS_TO_POINTS(Rect(x * iUnitSize, y*iUnitSize, iUnitSize, iUnitSize)));
 	ret->getTexture()->setAliasTexParameters();
 	return ret;
+}
+
+bool inited = false;
+SpriteFrame * SpriteFactory::createMonsterFrame(const std::string & fileName) {
+	auto cache = SpriteFrameCache::getInstance();
+	if (!inited) {
+		inited = true;
+		cache->addSpriteFramesWithFile(pList);
+		cache->getSpriteFrameByName(fileName)->getTexture()->setAliasTexParameters();
+	}
+	return cache->getSpriteFrameByName(fileName);
 }
 
 SpriteFrame* SpriteFactory::characterFrame(CharacterType characterType) {
@@ -174,17 +186,7 @@ Action* SpriteFactory::tree() {
 }
 
 Action* SpriteFactory::slime() {
-	Vector<SpriteFrame*> frames;
-	for (char i = '0'; i < '2'; ++i) {
-		auto frame = createFrame("Monsters", random(0, 5), random(0, 5), "");
-		frames.pushBack(frame);
-	}
-
-
-	auto anim = Animation::createWithSpriteFrames(frames, 0.3f);
-	auto ret = RepeatForever::create(Animate::create(anim));
-	return ret;
-	//return createAction(SLIME, 0, 0, "Monsters.pList");
+	return createMonsterAction(SLIME);
 }
 
 SpriteFrame* SpriteFactory::sword() {
