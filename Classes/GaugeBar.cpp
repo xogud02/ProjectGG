@@ -2,7 +2,7 @@
 
 USING_NS_CC;
 
-GaugeBar::GaugeBar(Size size, int value) :maxValue(value),value(value), size(size){
+GaugeBar::GaugeBar(int value) :maxValue(value),value(value){
 }
 
 void GaugeBar::setValue(int value) {
@@ -13,7 +13,7 @@ void GaugeBar::setMaxValue(int value) {
 	maxValue = value;
 }
 
-void GaugeBar::drawBar(DrawNode * canvas, Vec2 position) {
+void GaugeBar::drawBar(DrawNode * canvas, Vec2 position, Size size) {
 	float newWidth = size.width * clampf(static_cast<float>(value) / maxValue, 0, 1);
 	canvas->drawSolidRect(position, position + Vec2(newWidth, size.height), Color4F::GREEN);
 

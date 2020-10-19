@@ -41,13 +41,14 @@ bool GUILayer::init() {
 			auto owner = p.first;
 			auto pBar = p.second;
 			auto characterWorldPosition = owner->getParent()->convertToWorldSpace(owner->getPosition());
-			pBar->drawBar(canvas, convertToNodeSpace(characterWorldPosition));
+			auto drawPosition = convertToNodeSpace(characterWorldPosition);
+			auto cSize = owner->getBoundingBox().size;
+			drawPosition.y += cSize.height;
+			pBar->drawBar(canvas, drawPosition, Size(cSize.width, cSize.height / 6));
 		}
 	}, "positionBars");
 	return true;
 }
-
-
 
 void GUILayer::addGaugeBar(Character* owner, pBar newBar) {
 	if (characterBarMap.find(owner) == characterBarMap.cend()) {

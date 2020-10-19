@@ -30,9 +30,8 @@ bool Character::init() {
 	setAnchorPoint(Vec2::ZERO);
 	autorelease();
 
-	Size size(SpriteFactory::getUnitSizeInPoints());
 	setScale(SCALE);
-	hpBar = make_shared<GaugeBar>(Size(size.width, size.height / 6));
+	hpBar = make_shared<GaugeBar>();
 
 	status = Status();
 
@@ -40,7 +39,6 @@ bool Character::init() {
 	hpBar->setValue(status.getHP());
 
 
-	float width = size.width;
 	GUILayer::getInstance()->addGaugeBar(this, hpBar);
 
 	setName("character");

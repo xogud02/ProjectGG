@@ -55,9 +55,6 @@
     <ClCompile Include="..\Classes\GridObject.cpp">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GridLayer.cpp">
-      <Filter>Source Files\Classes\Grid</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Grid.cpp">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClCompile>
@@ -80,7 +77,10 @@
       <Filter>Source Files\Classes\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GUILayer.cpp">
-      <Filter>Source Files\Classes\Grid</Filter>
+      <Filter>Source Files\Classes\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GridLayer.cpp">
+      <Filter>Source Files\Classes\Layer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -150,9 +150,6 @@
     <ClInclude Include="..\Classes\GridObject.h">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GridLayer.h">
-      <Filter>Source Files\Classes\Grid</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Grid.h">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
@@ -175,7 +172,10 @@
       <Filter>Source Files\Classes\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GUILayer.h">
-      <Filter>Source Files\Classes\Grid</Filter>
+      <Filter>Source Files\Classes\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GridLayer.h">
+      <Filter>Source Files\Classes\Layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +222,9 @@
     </Filter>
     <Filter Include="Source Files\Classes\Sprite">
       <UniqueIdentifier>{9fd1c29b-f515-4652-94ed-c27bf75fd94a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Layer">
+      <UniqueIdentifier>{391c8e4b-f174-4e24-822e-0b32df7da374}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
