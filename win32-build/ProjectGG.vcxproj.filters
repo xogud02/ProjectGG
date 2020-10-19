@@ -79,6 +79,9 @@
     <ClCompile Include="..\Classes\WeaponSpriteFactory.cpp">
       <Filter>Source Files\Classes\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GUILayer.cpp">
+      <Filter>Source Files\Classes\Grid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\ProjectGG\Classes\AppDelegate.h">
@@ -170,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\WeaponSpriteFactory.h">
       <Filter>Source Files\Classes\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GUILayer.h">
+      <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -33,5 +33,5 @@ public:
 
 	void levelUp();
 	int getDamage();
-	ChracterCondition getCondition();
+	ChracterCondition getCondition() const;
 };

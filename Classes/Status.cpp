@@ -76,7 +76,7 @@ int Status::getDamage() {
 	return random(power * 0.5f, power * 1.5f);
 }
 
-ChracterCondition Status::getCondition() {
+ChracterCondition Status::getCondition() const {
 	if (hp <= 0) {
 		return ChracterCondition::Dead;
 	}

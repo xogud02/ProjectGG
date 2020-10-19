@@ -13,8 +13,8 @@ GridLayer* GridLayer::getInstance() {
 	return instance;
 }
 
+#include "CCMap.h"
 GridLayer* GridLayer::create(const int rows, const int cols) {
-	
 	auto gridUnitSize = Director::getInstance()->getOpenGLView()->getFrameSize().width / 32;
 	GridLayer* ret = new GridLayer(rows, cols, gridUnitSize);
 	ret->initWithColor(Color4B(255, 255, 255, 64));

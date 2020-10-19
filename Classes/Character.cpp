@@ -4,6 +4,7 @@
 #include "GridPathFinder.h"
 #include "SpriteFactory.h"
 #include "cocos-ext.h"
+#include "GUILayer.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -31,7 +32,7 @@ bool Character::init() {
 
 	Size size(SpriteFactory::getUnitSizeInPoints());
 	setScale(SCALE);
-	hpBar = GaugeBar::create(Size(size.width, size.height / 6));
+	hpBar = make_shared<GaugeBar>(Size(size.width, size.height / 6));
 
 	status = Status();
 
@@ -40,9 +41,7 @@ bool Character::init() {
 
 
 	float width = size.width;
-	hpBar->setAnchorPoint(Vec2::ONE / 2.f);
-	hpBar->setPosition(Vec2(width / 2, 0));
-	//addChild(hpBar, 1);
+	GUILayer::getInstance()->addGaugeBar(this, hpBar);
 
 	setName("character");
 
@@ -89,7 +88,7 @@ void Character::removeFromParentAndCleanup(bool cleanup) {
 	Node::removeFromParentAndCleanup(cleanup);
 }
 
-ChracterCondition Character::getCondition() {
+ChracterCondition Character::getCondition() const{
 	return status.getCondition();
 }
 

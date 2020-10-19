@@ -22,7 +22,7 @@ protected:
 	int team = 0;
 
 	Status status;
-	GaugeBar* hpBar;
+	std::shared_ptr<GaugeBar> hpBar;
 	cocos2d::Vec2 nextPos;
 	std::queue<GridPosition> path;
 	MoveType currentMoveType = MoveType::Stop;
@@ -48,7 +48,7 @@ public:
 	Character(int scale);
 
 	virtual void removeFromParentAndCleanup(bool) override;
-	ChracterCondition getCondition();
+	ChracterCondition getCondition() const;
 	CharacterDirection getCurrentDirection();
 	bool isEnemy(Character*);
 

@@ -33,6 +33,7 @@
 #include "GUIBoxCreator.h"
 #include "CharacterSpriteFactory.h"
 #include "TileSpriteFactory.h"
+#include "GUILayer.h"
 
 USING_NS_CC;
 using namespace std;
@@ -119,6 +120,8 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 		CC_SAFE_DELETE(ret);
 		return nullptr;
 	}
+
+	ret->addChild(GUILayer::create(),1234);
 
 	constexpr int rows = 30, cols = 30;
 	auto grid = GridLayer::create(rows, cols);
