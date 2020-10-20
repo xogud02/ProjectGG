@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "MonsterEnums.h"
 
 class MonsterSpriteFactory {
 
@@ -11,8 +12,13 @@ class MonsterSpriteFactory {
 
 	static cocos2d::SpriteFrame* createMonsterFrame(const std::string& fileName);
 	static cocos2d::Action* createMonsterAction(const std::string& path, int index = 0);
+	static cocos2d::Action* createMonsterAction(MonsterCategory, int index = 0);
 
 public:
 	static cocos2d::Action* slime();
 
+	template<typename MonsterEnum>
+	static cocos2d::Action* createMonsterAnimation(MonsterEnum type);
 };
+
+#include "MonsterSpriteFactory.hpp"

@@ -135,9 +135,6 @@
     <ClInclude Include="..\Classes\StageSelectScene.h">
       <Filter>Source Files\Classes\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\SpriteTileEnums.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="C:\ProjectGG\Classes\GridPathFinder.h">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
@@ -176,6 +173,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GridLayer.h">
       <Filter>Source Files\Classes\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MonsterEnums.h">
+      <Filter>Source Files\Classes\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MonsterSpriteFactory.hpp">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MonsterEnums.hpp">
+      <Filter>Source Files\Classes\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +231,9 @@
     </Filter>
     <Filter Include="Source Files\Classes\Layer">
       <UniqueIdentifier>{391c8e4b-f174-4e24-822e-0b32df7da374}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Enums">
+      <UniqueIdentifier>{0b0b02f4-ae02-4766-b2e3-0391066edf60}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

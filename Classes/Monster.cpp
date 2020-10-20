@@ -1,6 +1,7 @@
 #include "Monster.h"
 #include "MonsterSpriteFactory.h"
 #include "GaugeBar.h"
+#include "MonsterEnums.h"
 
 USING_NS_CC;
 
@@ -19,7 +20,7 @@ bool Monster::init() {
 	hpBar->setValue(status.getHP());
 
 
-	runAction(MonsterSpriteFactory::slime());
+	runAction(MonsterSpriteFactory::createMonsterAnimation(FishType::BrownWhale));
 	schedule([this](float) {
 		if (currentMoveType != MoveType::Hold && !target) {
 			tryToMove(currentGridPosition + GridPosition(random(-1, 1), random(-1, 1)));
