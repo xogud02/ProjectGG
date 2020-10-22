@@ -29,7 +29,7 @@ enum class MammalType;
 
 enum class ReptileType;
 
-enum class RotentType;
+enum class RodentType;
 
 enum class SlimeType;
 

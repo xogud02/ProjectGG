@@ -11,8 +11,8 @@ enum class MonsterCategory {
 	Misc,
 	Pest,
 	Plant,
-	Player,
-	Quadraped,
+	Human,
+	Mammal,
 	Reptile,
 	Rodent,
 	Slime,
@@ -254,7 +254,7 @@ enum class ReptileType {
 	Platino
 };
 
-enum class RotentType {
+enum class RodentType {
 	R0, R1, R2, R3, R4,
 	R5, R6, R7, R8,
 	R9, R10, R11,
@@ -306,5 +306,46 @@ template<>
 constexpr MonsterCategory MonsterEnums::categoryOf<FishType>(FishType) { return MonsterCategory::Aquatic; }
 
 template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<BirdType>(BirdType) { return MonsterCategory::Avian; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<CatType>(CatType) { return MonsterCategory::Cat; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<DemonType>(DemonType) { return MonsterCategory::Demon; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<DogType>(DogType) { return MonsterCategory::Dog; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<ElementalType>(ElementalType) { return MonsterCategory::Elemental; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<HumanoidType>(HumanoidType) { return MonsterCategory::Humanoid; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<MiscType>(MiscType) { return MonsterCategory::Misc; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<BugType>(BugType) { return MonsterCategory::Pest; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<PlantType>(PlantType) { return MonsterCategory::Plant; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<HumanType>(HumanType) { return MonsterCategory::Human; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<MammalType>(MammalType) { return MonsterCategory::Mammal; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<ReptileType>(ReptileType) { return MonsterCategory::Reptile; }
+
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<RodentType>(RodentType) { return MonsterCategory::Rodent; }
+
+template<>
 constexpr MonsterCategory MonsterEnums::categoryOf<SlimeType>(SlimeType) { return MonsterCategory::Slime; }
 
+template<>
+constexpr MonsterCategory MonsterEnums::categoryOf<UndeadType>(UndeadType) { return MonsterCategory::Undead; }
