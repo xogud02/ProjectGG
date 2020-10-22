@@ -19,9 +19,11 @@ enum class HumanoidType;
 
 enum class MiscType;
 
-enum class PestType;
+enum class BugType;
 
 enum class HumanType;
+
+enum class PlantType;
 
 enum class MammalType;
 
