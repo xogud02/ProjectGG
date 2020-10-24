@@ -106,20 +106,20 @@ enum class CatType {
 };
 
 enum class DemonType {
-	Lizard, Naga,Spider, Golem,Snale,Mare,FatBlue,Naga,Siren,
-	RedKid,Red0,Red1,DarkRedMuscle,RedMuscle,OrangeMuscle,BlueMuscle,RedBlueMuscle,
-	SquirrelMan,MantisMan, ArmorSquirrelMan,BlueSquirrel,TwinHead,FlyMan,Mino,
-	WhiteGoblin,BlueGoblin,RedGoblin,
-	TinyMan,TinyDevil,TinyDevilTail,
-	BlueImp,GoldImp,
-	LongBlond,ShortBlond,
-	Helmet,NakedHelmet,
-	Fly,Tod
+	Lizard, Naga, Spider, Golem, Snale, Mare, FatBlue, Naga2, Siren,
+	RedKid, Red0, Red1, DarkRedMuscle, RedMuscle, OrangeMuscle, BlueMuscle, RedBlueMuscle,
+	SquirrelMan, MantisMan, ArmorSquirrelMan, BlueSquirrel, TwinHead, FlyMan, Mino,
+	WhiteGoblin, BlueGoblin, RedGoblin,
+	TinyMan, TinyDevil, TinyDevilTail,
+	BlueImp, GoldImp,
+	LongBlond, ShortBlond,
+	Helmet, NakedHelmet,
+	Fly, Tod
 };
 
 enum class DogType {
-	White0,Crouch0,Crouch1,Dog,White1,Trainer0,
-	Dark0,Dark2,Ice0,Ice1,Dark1,Trainer1,
+	White0, Crouch0, Crouch1, Dog, White1, Trainer0,
+	Dark0, Dark2, Ice0, Ice1, Dark1, Trainer1,
 	Brown0, Brown1, Brown2,
 	Cobalt0, Cobalt1, Cobalt2,
 	Black0, Black1, Black2,
@@ -127,82 +127,82 @@ enum class DogType {
 };
 
 enum class ElementalType {
-	CastleMan,LightMan,Candle,StickMan,Brick,Leaf,Log,Chicken,
-	Octopus,Golem,Frost,Iron,Blizzard,Ice,
-	Clowd,RedStorm,YellowStorm,BlackStorm,IceStorm,FireStorm,
-	Iceman,BlizzardMan,FireMan,PoisonMan,FrostMan,
-	PoisonBall,IceBall,FireBall,ChaosBall,
-	LightEye,SauronEye,EvelEye,
-	BrownIcicle,CobaltIcicle,Icicle,
+	CastleMan, LightMan, Candle, StickMan, Brick, Leaf, Log, Chicken,
+	Octopus, Golem, Frost, Iron, Blizzard, Ice,
+	Clowd, RedStorm, YellowStorm, BlackStorm, IceStorm, FireStorm,
+	Iceman, BlizzardMan, FireMan, PoisonMan, FrostMan,
+	PoisonBall, IceBall, FireBall, ChaosBall,
+	LightEye, SauronEye, EvelEye,
+	BrownIcicle, CobaltIcicle, Icicle,
 	SnowKid0, SnowKid1, SnowKid2,
-	Mimic,MiniCastle,QuestionMark,
-	CeilingTrap,FloorTrap,
-	LightBlink,DarkBlink
+	Mimic, MiniCastle, QuestionMark,
+	CeilingTrap, FloorTrap,
+	LightBlink, DarkBlink
 };
 
 enum class HumanoidType {
 	Muscle0, MuscleGymball, Muscle1, MuscleFire0, MuscleJuto, MuscleSword, MuscleTwinDead, MuscleLongHair,
-	MuscleMask, MuscleCyclopse,MuscleFire1,
-	Which0, Which1, Which2, Which3,Citizen,Stick,Pistol,Prisoner,
-	Fairy0, Fairy1, Fairy2, Angel0, Angel1, Angel2,FairyWing,AngelWing,
-	Swordman0, Swordman1, Swordman2, SwordmanShield,SwordlessMan, Swordman3,DarkSwordMan,
-	Spear0,Spear1,Bag0,Bag1, BlueHat0, BlueHat1,Club,
-	Nightcap3, Nightcap0, Nightcap1, Nightcap2, Nightcap4,Crown,
-	Weird0, Weird1, Weird2, Weird3,Alien,
-	Green0, Green1, Green2, GreenKing,GreenStick,
-	BrownMan0,BrownWoman,Farmer0,Farmer1,Miner,
-	BrownTiny,TinyBlue0,TinyBlue1,TinyBlueKing,
-	BrownRobe,BlueRobe,WhiteRobe,TorchRobe,
-	Gentleman,Turban,TurbanBow,Weirdo,
+	MuscleMask, MuscleCyclopse, MuscleFire1,
+	Which0, Which1, Which2, Which3, Citizen, Stick, Pistol, Prisoner,
+	Fairy0, Fairy1, Fairy2, Angel0, Angel1, Angel2, FairyWing, AngelWing,
+	Swordman0, Swordman1, Swordman2, SwordmanShield, SwordlessMan, Swordman3, DarkSwordMan,
+	Spear0, Spear1, Bag0, Bag1, BlueHat0, BlueHat1, Club,
+	Nightcap3, Nightcap0, Nightcap1, Nightcap2, Nightcap4, Crown,
+	Weird0, Weird1, Weird2, Weird3, Alien,
+	Green0, Green1, Green2, GreenKing, GreenStick,
+	BrownMan0, BrownWoman, Farmer0, Farmer1, Miner,
+	BrownTiny, TinyBlue0, TinyBlue1, TinyBlueKing,
+	BrownRobe, BlueRobe, WhiteRobe, TorchRobe,
+	Gentleman, Turban, TurbanBow, Weirdo,
 	BrownMan1, Kentauros0, Kentauros1, Kentauros2,
-	Bald0,Bald1,Baldking,
-	Nerd,SFNurse0,Queen,
-	WhiteSoul,BlackSoul,Priest,
-	Gargoyle0, Gargoyle1,DarkAngel,
-	Jini,GreenAura,RedAura,
-	ClubTinyRed0, ClubTinyRed1,TinyRedKing,
+	Bald0, Bald1, Baldking,
+	Nerd, SFNurse0, Queen,
+	WhiteSoul, BlackSoul, Priest,
+	Gargoyle0, Gargoyle1, DarkAngel,
+	Jini, GreenAura, RedAura,
+	ClubTinyRed0, ClubTinyRed1, TinyRedKing,
 	HeadCrap0, HeadCrap1,
-	BrownWeird,ClubSnow,
-	Yoga,SFNurse1,
-	HammerHood0,HammerHood1,
-	Mermaid1,Mermaid0,
+	BrownWeird, ClubSnow,
+	Yoga, SFNurse1,
+	HammerHood0, HammerHood1,
+	Mermaid1, Mermaid0,
 	BlueMarimo, YellowMarimo,
 	Medusa
 };
 
 enum class MiscType {
-	BlackMouse,WhiteMouse, BostonTerrier,Unknown0, Unknown1,BlueSFDog,YellowSFDog,
-	Unknown2,MouseMan0,MouseMan1, Unknown3,
-	TinyBlue0,TinyBlue1,TinyBlueRed, TinyBlueYellow,
-	Monkey,Gorilla,RedGorilla,
-	RedCangaroo,GreenCangaroo,
-	DarkAilen,GrayAilen,SmallGrayAlien0,SmallGaryAlien1,
-	Parrot0,Parrot1,
+	BlackMouse, WhiteMouse, BostonTerrier, Unknown0, Unknown1, BlueSFDog, YellowSFDog,
+	Unknown2, MouseMan0, MouseMan1, Unknown3,
+	TinyBlue0, TinyBlue1, TinyBlueRed, TinyBlueYellow,
+	Monkey, Gorilla, RedGorilla,
+	RedCangaroo, GreenCangaroo,
+	DarkAilen, GrayAilen, SmallGrayAlien0, SmallGaryAlien1,
+	Parrot0, Parrot1,
 	Unknown4
 };
 
 enum class BugType {
 	TinyBug0, TinyBug1, TinyBug2, TinyBug3, TinyBug4, TinyBug5, TinyBug6, TinyBug7,
-	DragonFly0,DragonFly1,Caterpuller,Moth,TinyBug8,Fly,
+	DragonFly0, DragonFly1, Caterpuller, Moth, TinyBug8, Fly,
 	Spider0, Spider1, Spider2, Scorpion0, Scorpion1, Scorpion2,
-	Worm0,Worm1,Egg,RedWorm0,RedWorm1,
-	BrownAnt,BlackAnt,RedAnt,BlueAnt,
-	Cricket0, Cricket01,Mantis0,Mantis1,
-	Dragoon0, WingWorm,IceBug,
-	NakedSnale0, NakedSnale1,Snale0,Snale1,
-	Warsp0,Warsp1,
+	Worm0, Worm1, Egg, RedWorm0, RedWorm1,
+	BrownAnt, BlackAnt, RedAnt, BlueAnt,
+	Cricket0, Cricket01, Mantis0, Mantis1,
+	Dragoon0, WingWorm, IceBug,
+	NakedSnale0, NakedSnale1, Snale0, Snale1,
+	Warsp0, Warsp1,
 	Centipete0, Centipete01,
-	LadyBug,PlaneLadyBug
+	LadyBug, PlaneLadyBug
 };
 
 enum class PlantType {
-	Tree0, GreenTree1,GreenTree0,Tree1,SnowTree0,SnowTree1,IceTree0,IceTree1,
-	Pine0,GreenPine1, GreenPine0, Pine1,SnowPine0,SnowPine1,IcePine0,IcePine1,
+	Tree0, GreenTree1, GreenTree0, Tree1, SnowTree0, SnowTree1, IceTree0, IceTree1,
+	Pine0, GreenPine1, GreenPine0, Pine1, SnowPine0, SnowPine1, IcePine0, IcePine1,
 	Bracken1, Bracken0, BrackenSpary,
 	SnowBracken1, SnowBracken0, SnowBrackenSpary,
 	RedBracken1, RedBracken0, RedBrackenSpary,
 	BlackBracken1, BlackBracken0, BlackBrackenSpary,
-	DemonGrass,PlantMan1,Plantman0,
+	DemonGrass, PlantMan1, Plantman0,
 	Mushroom
 };
 
@@ -210,7 +210,7 @@ enum class HumanType {
 	Unknown0, Unknown1, Unknown2, Unknown3, Unknown4, Unknown5, Unknown6, Unknown7,
 	Unknown8, Unknown9, Unknown10, Unknown11, Unknown12, Unknown13, Unknown14, Unknown15,
 
-	Unknown16, Unknown17, Unknown18, Unknown10, Unknown20, Unknown21, Unknown22, Unknown23,
+	Unknown16, Unknown17, Unknown18, Unknown19, Unknown20, Unknown21, Unknown22, Unknown23,
 	Unknown24, Unknown25, Unknown26, Unknown27, Unknown28, Unknown29, Unknown30, Unknown31,
 	Unknown32, Unknown33, Unknown34,
 
