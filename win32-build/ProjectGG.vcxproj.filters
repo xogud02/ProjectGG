@@ -82,6 +82,9 @@
     <ClCompile Include="..\Classes\GridLayer.cpp">
       <Filter>Source Files\Classes\Layer</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\TTFLabelBuilder.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\ProjectGG\Classes\AppDelegate.h">
@@ -182,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MonsterEnums.hpp">
       <Filter>Source Files\Classes\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TTFLabelBuilder.h">
+      <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

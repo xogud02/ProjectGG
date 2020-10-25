@@ -5,6 +5,7 @@
 #include "SpriteFactory.h"
 #include "cocos-ext.h"
 #include "GUILayer.h"
+#include "TTFLabelBuilder.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -166,22 +167,28 @@ void Character::setPosition(const Vec2 & v) {
 }
 
 void Character::hit(Character* by, int damage) {
-	CCLOG("Character::hit() - %s hit by %s, damage %d", getName().c_str(), by->getName().c_str(), damage);
-	status.reduceHP(damage);
-	hpBar->setValue(status.getHP());
-	if (status.getHP() <= 0) {
-		removeFromParent();
-		return;
-	}
-	auto text = Label::create();
-	text->setString(to_string(damage));
-	addChild(text, 1);
+
+	auto text = TTFLabelBuilder()
+		.setTextSize(20)
+		.build(to_string(damage));
+	
+	auto guiLayer = GUILayer::getInstance();
+	auto wCharacterPosition = getParent()->convertToWorldSpace(getPosition() + getBoundingBox().size / 2);
+	auto textPosition = guiLayer->convertToNodeSpace(wCharacterPosition);
+	text->setPosition(textPosition);
+
+	guiLayer->addChild(text, 1);
 	text->runAction(Sequence::create(
 		MoveBy::create(0.5f, Vec2(0, 30)),
 		RemoveSelf::create(),
 		nullptr
 	));
 
+	status.reduceHP(damage);
+	hpBar->setValue(status.getHP());
+	if (getCondition() == ChracterCondition::Dead) {
+		removeFromParent();
+	}
 }
 
 Character::~Character() {

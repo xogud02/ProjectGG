@@ -1,5 +1,6 @@
 #include "TitleScene.h"
 #include "StageSelectScene.h"
+#include "TTFLabelBuilder.h"
 
 USING_NS_CC;
 
@@ -8,18 +9,19 @@ bool TitleScene::init() {
 		return false;
 	}
 
-	auto title = Label::create();
-	title->setString("ProjectGG");
 	const auto sceneSize = getContentSize();
-	auto scaler = (sceneSize.height * 1 / 5) / title->getContentSize().height;
-	title->setSystemFontSize(title->getSystemFontSize()*scaler);
+
+	auto title = TTFLabelBuilder()
+		.setBold(true)
+		.setTextSize((sceneSize.height * 1 / 6))
+		.build("ProjectGG");
 	title->setPosition(getContentSize() / 2);
 	addChild(title);
 	
-	auto tapToBegin = Label::create();
-	tapToBegin->setString("Tap to Begin");
+	auto tapToBegin = TTFLabelBuilder()
+		.setTextSize(title->getTTFConfig().fontSize / 5)
+		.build("Tap to Begin");
 	tapToBegin->runAction(RepeatForever::create(Blink::create(1, 1)));
-	tapToBegin->setSystemFontSize(title->getSystemFontSize() / 5);
 	tapToBegin->setPosition(Vec2(sceneSize.width / 2, sceneSize.height / 5));
 	addChild(tapToBegin);
 
