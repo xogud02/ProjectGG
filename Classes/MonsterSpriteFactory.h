@@ -15,7 +15,7 @@ class MonsterSpriteFactory {
 	static cocos2d::Action* createMonsterAction(MonsterCategory, int index = 0);
 
 public:
-	static cocos2d::Action* slime();
+	static void init();
 
 	template<typename MonsterEnum>
 	static cocos2d::Action* createMonsterAnimation(MonsterEnum type);

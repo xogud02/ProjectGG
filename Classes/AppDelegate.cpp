@@ -24,6 +24,7 @@
 
 #include "AppDelegate.h"
 #include "TitleScene.h"
+#include "MonsterSpriteFactory.h"
 
 // #define USE_AUDIO_ENGINE 1
 
@@ -112,6 +113,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     auto scene = TitleScene::create();
+
+	//init test
+	MonsterSpriteFactory::init();
 
     // run
     director->runWithScene(scene);

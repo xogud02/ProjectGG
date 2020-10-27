@@ -11,29 +11,27 @@ const string MonsterSpriteFactory::SLIME = "Slime";
 const unordered_map<MonsterCategory, string> map = {
 	{MonsterCategory::Aquatic, "Aquatic" },
 	{MonsterCategory::Slime, "Slime"}
-
 };
 
-Action * MonsterSpriteFactory::slime() {
-	return createMonsterAction(SLIME);
+string getFileName(const string& path, int animationIndex, int categoryIndex) {
+	return path + to_string(animationIndex) + SpriteFactory::EXT + "/" + to_string(categoryIndex) + SpriteFactory::EXT;
 }
 
-Action * MonsterSpriteFactory::createMonsterAction(const std::string & path, int index) {
-	return SpriteFactory::createAnim([path, index](int i) {return createMonsterFrame(path + to_string(i) + SpriteFactory::EXT + "/" + to_string(index) + SpriteFactory::EXT); });
+void MonsterSpriteFactory::init() {
+	auto cache = SpriteFrameCache::getInstance();
+	cache->addSpriteFramesWithFile(SpriteFactory::root + pList);
+	cache->getSpriteFrameByName(getFileName(::map.begin()->second, 0, 0))->getTexture()->setAliasTexParameters();
+}
+
+Action * MonsterSpriteFactory::createMonsterAction(const string & path, int index) {
+	return SpriteFactory::createAnim([path, index](int i) {return createMonsterFrame(getFileName(path, i, index)); });
 }
 
 Action * MonsterSpriteFactory::createMonsterAction(MonsterCategory catergory, int index) {
 	return createMonsterAction(::map.find(catergory)->second, index);
 }
 
-bool inited = false;
 SpriteFrame * MonsterSpriteFactory::createMonsterFrame(const std::string & fileName) {
-	auto cache = SpriteFrameCache::getInstance();
-	if (!inited) {
-		inited = true;
-		cache->addSpriteFramesWithFile(SpriteFactory::root + pList);
-		cache->getSpriteFrameByName(fileName)->getTexture()->setAliasTexParameters();
-	}
-	return cache->getSpriteFrameByName(fileName);
+	return SpriteFrameCache::getInstance()->getSpriteFrameByName(fileName);
 }
 
