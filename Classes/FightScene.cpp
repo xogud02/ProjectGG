@@ -25,7 +25,6 @@
 #include "FightScene.h"
 #include "Character.h"
 #include "GridLayer.h"
-#include "SpriteFactory.h"
 #include "Monster.h"
 #include "TileBuilder.h"
 #include "GridObject.h"
@@ -70,49 +69,7 @@ void testTmps(FightScene* ret, GridLayer* grid, int rows, int cols) {
 	}, 5.0f, "zen");
 }
 
-class BottomUICreator {
-	const Size size;
-	const float leftSize;
-	GUIBoxCreator boxCreator;
-	const CharacterType character;
-public:
-	BottomUICreator(Size size, CharacterType character) :
-		size(size),
-		leftSize(size.height),
-		boxCreator(GUIBoxCreator(GUIFrameColor::Blue, true, 30, size)),
-		character(character) {
-	}
 
-	Node* create() {
-		auto ret = Node::create();
-		ret->addChild(createLeftBox(), 1);
-		ret->addChild(createRightBox(), 1);
-		return ret;
-	}
-
-private:
-	Node* createLeftBox() {
-		boxCreator.size = Size(leftSize, leftSize);
-		auto left = boxCreator.create();
-		left->addChild(createThumbnail());
-		return left;
-	}
-
-	Sprite* createThumbnail() {
-		auto thumbNail = Sprite::createWithSpriteFrame(CharacterSpriteFactory::characterFrame(character));
-		thumbNail->setPosition(Vec2::ONE*leftSize / 2);
-		auto targetSize = leftSize - boxCreator.edgeThickness * 2;
-		thumbNail->setScale(targetSize / thumbNail->getContentSize().width);
-		return thumbNail;
-	}
-
-	Node* createRightBox() {
-		boxCreator.size = Size(size.width - leftSize, size.height);
-		auto right = boxCreator.create();
-		right->setPosition(Vec2(leftSize, 0));
-		return right;
-	}
-};
 
 FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) {
 	auto ret = new FightScene();
@@ -121,59 +78,27 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 		return nullptr;
 	}
 
-	ret->addChild(GUILayer::create(),1234);
+	auto guiLayer = GUILayer::create();
+	auto player = Player::create(character);
+
+	guiLayer->setPlayer(player);
+	ret->addChild(guiLayer,1234);
 
 	constexpr int rows = 30, cols = 30;
-	auto grid = GridLayer::create(rows, cols);
-	grid->addChild(TileBuilder::randomFloor(rows, cols, theme, 0.6f));
+	auto gridLayer = GridLayer::create(rows, cols);
+	gridLayer->addChild(TileBuilder::randomFloor(rows, cols, theme, 0.6f));
 
-	ret->addChild(grid);
-	auto player = Player::create(character);
-	grid->setPlayer(player);
+	ret->addChild(gridLayer);
+	gridLayer->setPlayer(player);
 
-
-	testTmps(ret, grid, rows, cols);
+	testTmps(ret, gridLayer, rows, cols);
 
 	auto size = ret->getContentSize();
 
 	auto bottomUISize = Size(size.width, size.height / 5);
-	ret->addChild(BottomUICreator(bottomUISize, character).create());
-
-	grid->setVisibleArea(Size(size.width, size.height - bottomUISize.height));
-	grid->setVisibleAreaOffset(Vec2(0, bottomUISize.height));
-
-	float targetUISize = size.height / 7;
-	Node* targetUI = GUIBoxCreator(GUIFrameColor::Blue, true, 30, Size(targetUISize, targetUISize)).create();
-	targetUI->setPosition(Vec2(0, size.height - targetUISize));
-	targetUI->setVisible(false);
-	ret->addChild(targetUI);
-	Sprite* thumbnail = Sprite::create();
-	targetUI->addChild(thumbnail);
-	ret->schedule([player, currentTarget = player->getTarget(), targetUI, thumbnail = thumbnail](float) mutable{
-		auto newTarget = player->getTarget();
-		if (newTarget == currentTarget) {
-			return;
-		}
-
-		currentTarget = newTarget;
-
-		if (!currentTarget) {
-			targetUI->setVisible(false);
-			return;
-		}
-
-		targetUI->setVisible(true);
-		targetUI->removeChild(thumbnail);
-		
-		thumbnail = Sprite::createWithSpriteFrame(newTarget->getSpriteFrame());
-
-		auto size = targetUI->getContentSize();
-
-		targetUI->addChild(thumbnail, 500);
-		thumbnail->setPosition(size / 2);
-		thumbnail->setScale(size.width * 0.9f / thumbnail->getContentSize().width);
-	}, "observePlayer");
-
+	guiLayer->createBottomUI(bottomUISize, character);
+	gridLayer->setVisibleArea(Size(size.width, size.height - bottomUISize.height));
+	gridLayer->setVisibleAreaOffset(Vec2(0, bottomUISize.height));
 
 	return ret;
 }

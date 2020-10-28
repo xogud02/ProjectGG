@@ -7,6 +7,7 @@
 
 using pBar = std::shared_ptr<GaugeBar>;
 using CharacterBarMap = std::unordered_map<Character*, pBar>;
+enum class CharacterType;
 
 class GUILayer : public cocos2d::Node {
 
@@ -25,4 +26,6 @@ protected:
 public:
 	CREATE_FUNC(GUILayer);
 	void addGaugeBar(Character* owner, pBar newBar);
+	void setPlayer(Character* player);
+	void createBottomUI(cocos2d::Size size, CharacterType characterType);
 };

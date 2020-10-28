@@ -1,5 +1,8 @@
 #include "GUILayer.h"
 #include <algorithm>
+#include "GUIBoxCreator.h"
+#include "Player.h"
+#include "CharacterSpriteFactory.h"
 
 USING_NS_CC;
 using namespace std;
@@ -55,4 +58,86 @@ void GUILayer::addGaugeBar(Character* owner, pBar newBar) {
 		owner->retain();
 	}
 	characterBarMap[owner] = newBar;
+}
+
+void GUILayer::setPlayer(Character * player) {
+	auto size = Director::getInstance()->getWinSize();
+	float targetUISize = size.height / 7;
+	Node* targetUI = GUIBoxCreator(GUIFrameColor::Blue, true, 30, Size(targetUISize, targetUISize)).create();
+	targetUI->setPosition(Vec2(0, size.height - targetUISize));
+	targetUI->setVisible(false);
+	addChild(targetUI);
+	Sprite* thumbnail = Sprite::create();
+	targetUI->addChild(thumbnail);
+	schedule([player, currentTarget = player->getTarget(), targetUI, thumbnail = thumbnail](float) mutable{
+		auto newTarget = player->getTarget();
+		if (newTarget == currentTarget) {
+			return;
+		}
+
+		currentTarget = newTarget;
+
+		if (!currentTarget) {
+			targetUI->setVisible(false);
+			return;
+		}
+
+		targetUI->setVisible(true);
+		targetUI->removeChild(thumbnail);
+
+		thumbnail = Sprite::createWithSpriteFrame(newTarget->getSpriteFrame());
+
+		auto size = targetUI->getContentSize();
+
+		targetUI->addChild(thumbnail, 500);
+		thumbnail->setPosition(size / 2);
+		thumbnail->setScale(size.width * 0.9f / thumbnail->getContentSize().width);
+	}, "observePlayer");
+}
+class BottomUICreator {
+	const Size size;
+	const float leftSize;
+	GUIBoxCreator boxCreator;
+	const CharacterType character;
+public:
+	BottomUICreator(Size size, CharacterType character) :
+		size(size),
+		leftSize(size.height),
+		boxCreator(GUIBoxCreator(GUIFrameColor::Blue, true, 30, size)),
+		character(character) {
+	}
+
+	Node* create() {
+		auto ret = Node::create();
+		ret->addChild(createLeftBox(), 1);
+		ret->addChild(createRightBox(), 1);
+		return ret;
+	}
+
+private:
+	Node* createLeftBox() {
+		boxCreator.size = Size(leftSize, leftSize);
+		auto left = boxCreator.create();
+		left->addChild(createThumbnail());
+		return left;
+	}
+
+	Sprite* createThumbnail() {
+		auto thumbNail = Sprite::createWithSpriteFrame(CharacterSpriteFactory::characterFrame(character));
+		thumbNail->setPosition(Vec2::ONE*leftSize / 2);
+		auto targetSize = leftSize - boxCreator.edgeThickness * 2;
+		thumbNail->setScale(targetSize / thumbNail->getContentSize().width);
+		return thumbNail;
+	}
+
+	Node* createRightBox() {
+		boxCreator.size = Size(size.width - leftSize, size.height);
+		auto right = boxCreator.create();
+		right->setPosition(Vec2(leftSize, 0));
+		return right;
+	}
+};
+
+void GUILayer::createBottomUI(Size size, CharacterType characterType) {
+	addChild(BottomUICreator(size, characterType).create());
 }
