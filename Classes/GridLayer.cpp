@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "SpriteFactory.h"
 #include "GridObject.h"
+#include <chrono>
 
 using namespace std;
 USING_NS_CC;
@@ -138,6 +139,9 @@ GridLayer::~GridLayer() {
 	}
 }
 
+GridPosition lastTouched(-1, -1);
+chrono::system_clock::time_point lastTouchedTimePoint;
+
 bool GridLayer::onTouch(const Touch * t, const Event * e) {
 	auto&& touchedPosition = t->getLocation();
 	if (!getBoundingBox().containsPoint(touchedPosition)) {
@@ -149,6 +153,17 @@ bool GridLayer::onTouch(const Touch * t, const Event * e) {
 	Vec2 leftBottomOffset = -Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
 	Vec2 vLeftBottom = touchedPosition + leftBottomOffset - getPosition();
 	auto gridPosition = vecToGrid(vLeftBottom);
+
+	if (lastTouched != gridPosition) {
+		lastTouched = gridPosition;
+		lastTouchedTimePoint = chrono::system_clock().now();
+	} else {
+		auto gap = chrono::duration_cast<chrono::milliseconds>(chrono::system_clock().now() - lastTouchedTimePoint);
+		if (gap.count() < 300) {
+			CCLOG("doubleClick detected");
+		}
+	}
+
 
 	player->setTarget(nullptr);
 	player->tryToMove(gridPosition);
