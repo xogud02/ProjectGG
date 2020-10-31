@@ -7,3 +7,5 @@ win32-build/*
 !/win32-build/*.filters
 !/TODOList.md
 !/CmakeLists.txt
+!/readme
+!README.md
