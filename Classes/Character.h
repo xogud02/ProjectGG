@@ -40,7 +40,7 @@ protected:
 	bool init() override;
 public:
 	void tryToMove(GridPosition);
-	void jump(GridPosition);
+	void tryToJump(GridPosition);
 
 	const int SCALE;
 

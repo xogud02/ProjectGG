@@ -256,6 +256,9 @@ CharacterDirection Character::getNextDirection(GridPosition nextPosition) {
 
 void Character::onMoveBegin(GridPosition nextPosition, CharacterDirection nextDirection) {}
 
+
+constexpr int movingActionTag = 1;
+
 void Character::movePath(float) {
 	if (path.empty()) {
 		return;
@@ -270,7 +273,6 @@ void Character::movePath(float) {
 		return;
 	}
 
-	const int movingActionTag = 1;
 	if (getActionByTag(movingActionTag)) {
 		return;
 	}
@@ -324,6 +326,7 @@ void Character::tryToJump(GridPosition position) {
 		return;
 	}
 
+	stopAction(getActionByTag(movingActionTag));
 	path.swap(queue<GridPosition>());
 
 	grid->occupyArea(currentGridPosition, SCALE, false);

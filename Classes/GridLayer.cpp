@@ -164,7 +164,7 @@ bool GridLayer::onTouch(const Touch * t, const Event * e) {
 			unschedule(key);
 		}
 		lastTouched = invalidPosition;
-		player->jump(gridPosition);
+		player->tryToJump(gridPosition);
 		return true;
 	}
 
