@@ -298,6 +298,10 @@ void Character::movePath(float) {
 }
 
 void Character::tryToMove(GridPosition position) {
+	if (position == currentGridPosition) {
+		return;
+	}
+
 	auto grid = Grid::getInstance();
 	grid->occupyArea(currentGridPosition, SCALE, false);
 	auto newPath = GridPathFinder().findPath(currentGridPosition, position, SCALE);
@@ -312,4 +316,17 @@ void Character::tryToMove(GridPosition position) {
 	if (!isScheduled(CC_SCHEDULE_SELECTOR(Character::movePath))) {
 		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
 	}
+}
+
+void Character::tryToJump(GridPosition position) {
+	auto grid = Grid::getInstance();
+	if (position == currentGridPosition || grid->isOccupied(position, SCALE)) {
+		return;
+	}
+
+	path.swap(queue<GridPosition>());
+
+	grid->occupyArea(currentGridPosition, SCALE, false);
+	setPosition(GridLayer::getInstance()->gridToPosition(position));
+	grid->occupyArea(position, SCALE);
 }

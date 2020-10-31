@@ -156,7 +156,7 @@ bool GridLayer::onTouch(const Touch * t, const Event * e) {
 	auto gridPosition = vecToGrid(vLeftBottom);
 
 	const auto key = "doubleTab interval";
-	if (lastTouched != gridPosition) {
+	if (lastTouched == invalidPosition || lastTouched.distance(gridPosition) > 1.5f) {
 		lastTouched = gridPosition;
 		scheduleOnce([](float)mutable {lastTouched = invalidPosition;}, 0.3f, "doubleTab interval");
 	} else {
@@ -164,7 +164,8 @@ bool GridLayer::onTouch(const Touch * t, const Event * e) {
 			unschedule(key);
 		}
 		lastTouched = invalidPosition;
-		CCLOG("doubletap");
+		player->jump(gridPosition);
+		return true;
 	}
 
 	player->setTarget(nullptr);
