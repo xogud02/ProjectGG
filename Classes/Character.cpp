@@ -320,11 +320,21 @@ void Character::tryToMove(GridPosition position) {
 	}
 }
 
+const string waitForJump = "wait for jump";
+
 void Character::tryToJump(GridPosition position) {
+
 	auto grid = Grid::getInstance();
+	if (isScheduled(waitForJump)) {
+		CCLOG("jump cooldown");
+		return;
+	}
+
 	if (position == currentGridPosition || grid->isOccupied(position, SCALE)) {
 		return;
 	}
+
+	scheduleOnce([](float) {}, 3, "wait for jump");
 
 	stopAction(getActionByTag(movingActionTag));
 	path.swap(queue<GridPosition>());
