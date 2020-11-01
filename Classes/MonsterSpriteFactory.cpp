@@ -10,7 +10,8 @@ const string MonsterSpriteFactory::pList = "Monsters.plist";
 const string MonsterSpriteFactory::SLIME = "Slime";
 const unordered_map<MonsterCategory, string> map = {
 	{MonsterCategory::Aquatic, "Aquatic" },
-	{MonsterCategory::Slime, "Slime"}
+	{MonsterCategory::Slime, "Slime"},
+	{MonsterCategory::Elemental,"Elemental"}
 };
 
 string getFileName(const string& path, int animationIndex, int categoryIndex) {
