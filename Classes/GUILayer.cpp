@@ -3,6 +3,7 @@
 #include "GUIBoxCreator.h"
 #include "Player.h"
 #include "CharacterSpriteFactory.h"
+#include "MonsterSpriteFactory.h"
 
 USING_NS_CC;
 using namespace std;
@@ -134,6 +135,13 @@ private:
 		boxCreator.size = Size(size.width - leftSize, size.height);
 		auto right = boxCreator.create();
 		right->setPosition(Vec2(leftSize, 0));
+		boxCreator.size = Size(size.height / 2, size.height / 2);
+		auto icon = boxCreator.create();
+		auto blink = Sprite::create();
+		blink->runAction(MonsterSpriteFactory::createMonsterAnimation(ElementalType::LightBlink));
+		icon->addChild(blink, 1);
+		right->addChild(icon);
+
 		return right;
 	}
 };
