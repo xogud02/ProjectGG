@@ -18,6 +18,7 @@ SkillIconBox * SkillIconBox::create(GUIBoxCreator preset, cocos2d::Node * icon) 
 	icon->setPosition(Vec2::ONE * iconSize / 2);
 	auto innerIconSize = iconSize - preset.edgeThickness * 2;
 	icon->setScale(SpriteFactory::getUnitScale(innerIconSize));
+	ret->addChild(icon, 1);
 
 	if (!ret->init()) {
 		CC_SAFE_DELETE(ret);
