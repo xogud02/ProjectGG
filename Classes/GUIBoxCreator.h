@@ -20,5 +20,5 @@ private:
 	void attachCorner(GUIFramePart part, cocos2d::Vec2 position);
 	void attachFill();
 public:
-	cocos2d::Node* create();
+	cocos2d::Node* create(cocos2d::Node* parent = nullptr);
 };

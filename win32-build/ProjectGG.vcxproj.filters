@@ -85,6 +85,7 @@
     <ClCompile Include="..\Classes\TTFLabelBuilder.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SkillIconBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\ProjectGG\Classes\AppDelegate.h">
@@ -187,6 +188,9 @@
       <Filter>Source Files\Classes\Enums</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\TTFLabelBuilder.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SkillIconBox.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>

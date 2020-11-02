@@ -43,8 +43,9 @@ void GUIBoxCreator::attachFill() {
 	attachPart(GUIFramePart::Center, Vec2(edgeThickness, edgeThickness), Size(getTergetWidth(), getTargetHeight()));
 }
 
-Node * GUIBoxCreator::create() {
-	ret = Node::create();
+Node * GUIBoxCreator::create(Node* parent) {
+
+	ret = parent ? parent : Node::create();
 	ret->setContentSize(size);
 
 	const float rightX = size.width - edgeThickness;
