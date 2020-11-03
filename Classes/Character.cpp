@@ -6,6 +6,7 @@
 #include "cocos-ext.h"
 #include "GUILayer.h"
 #include "TTFLabelBuilder.h"
+#include "SkillIconBox.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -323,9 +324,12 @@ void Character::tryToMove(GridPosition position) {
 const string waitForJump = "wait for jump";
 
 void Character::tryToJump(GridPosition position) {
+	auto blink = GUILayer::getInstance()->getBlinkIconBox();
+
+	blink->setCooldown(3);
 
 	auto grid = Grid::getInstance();
-	if (isScheduled(waitForJump)) {
+	if (blink->isCoolingDown()) {
 		CCLOG("jump cooldown");
 		return;
 	}
@@ -334,7 +338,7 @@ void Character::tryToJump(GridPosition position) {
 		return;
 	}
 
-	scheduleOnce([](float) {}, 3, "wait for jump");
+	blink->startCooldown();
 
 	stopAction(getActionByTag(movingActionTag));
 	path.swap(queue<GridPosition>());

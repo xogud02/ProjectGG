@@ -103,16 +103,18 @@ class BottomUICreator {
 	const float leftSize;
 	GUIBoxCreator boxCreator;
 	const CharacterType character;
+	Node* icon;
+	Node* ret;
 public:
-	BottomUICreator(Size size, CharacterType character) :
+	BottomUICreator(Size size,GUIBoxCreator boxCreator, CharacterType character) :
 		size(size),
 		leftSize(size.height),
-		boxCreator(GUIBoxCreator(GUIFrameColor::Blue, true, 30, size)),
-		character(character) {
-	}
+		boxCreator(boxCreator),
+		character(character)
+	{}
 
 	Node* create() {
-		auto ret = Node::create();
+		ret = Node::create();
 		ret->addChild(createLeftBox(), 1);
 		ret->addChild(createRightBox(), 1);
 		return ret;
@@ -137,20 +139,24 @@ private:
 	Node* createRightBox() {
 		boxCreator.size = Size(size.width - leftSize, size.height);
 		auto right = boxCreator.create();
+		right->setName("right");
 		right->setPosition(Vec2(leftSize, 0));
-
-		auto iconSize = size.height / 2;
-		boxCreator.size = Size(iconSize, iconSize);
-		auto blink = Sprite::create();
-		blink->runAction(MonsterSpriteFactory::createMonsterAnimation(ElementalType::LightBlink));
-		auto icon = SkillIconBox::create(boxCreator, blink);
-		right->addChild(icon);
-		icon->setCooldown(50);
-		icon->startCooldown();
 		return right;
 	}
 };
 
 void GUILayer::createBottomUI(Size size, CharacterType characterType) {
-	addChild(BottomUICreator(size, characterType).create());
+	auto theme = GUIBoxCreator(GUIFrameColor::Blue, true, 30, size);
+	auto bottomUI = BottomUICreator(size, theme, characterType).create();
+	addChild(bottomUI);
+		auto blink = Sprite::create();
+	blink->runAction(MonsterSpriteFactory::createMonsterAnimation(ElementalType::LightBlink));
+	auto iconSize = size.height / 2;
+	theme.size = Size(iconSize, iconSize);
+	blinkIconBox = SkillIconBox::create(theme, blink);
+	bottomUI->getChildByName("right")->addChild(blinkIconBox);
+}
+
+SkillIconBox* GUILayer::getBlinkIconBox() {
+	return blinkIconBox;
 }

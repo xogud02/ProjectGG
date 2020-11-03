@@ -8,6 +8,7 @@
 using pBar = std::shared_ptr<GaugeBar>;
 using CharacterBarMap = std::unordered_map<Character*, pBar>;
 enum class CharacterType;
+class SkillIconBox;
 
 class GUILayer : public cocos2d::Node {
 
@@ -20,6 +21,8 @@ private:
 	CharacterBarMap characterBarMap;
 	cocos2d::DrawNode* canvas = nullptr;
 
+	SkillIconBox* blinkIconBox = nullptr;
+
 	GUILayer() = default;
 protected:
 	virtual bool init() override;
@@ -28,4 +31,5 @@ public:
 	void addGaugeBar(Character* owner, pBar newBar);
 	void setPlayer(Character* player);
 	void createBottomUI(cocos2d::Size size, CharacterType characterType);
+	SkillIconBox* getBlinkIconBox();
 };

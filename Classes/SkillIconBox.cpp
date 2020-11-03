@@ -57,9 +57,10 @@ public:
 	}
 };
 
+
+string key = "drawCooldown";
 void SkillIconBox::startCooldown() {
-	string key = "drawCooldown";
-	draw->schedule([this, time = cooldown, remain = cooldown, size = getContentSize().width, key](float delta)mutable {
+	schedule([this, time = cooldown, remain = cooldown, size = getContentSize().width](float delta)mutable {
 		draw->clear();
 		auto degree = 360 - 360 * remain / time;
 		auto edgeDirectionAngle = 450 - degree;
@@ -88,8 +89,13 @@ void SkillIconBox::startCooldown() {
 		remain -= delta;
 		if (remain < 0) {
 			unschedule(key);
+			txt->setString("");
 			draw->clear();
 			return;
 		}
 	}, key);
+}
+
+bool SkillIconBox::isCoolingDown() {
+	return isScheduled(key);
 }

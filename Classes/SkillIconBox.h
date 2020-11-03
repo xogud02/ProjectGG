@@ -13,4 +13,5 @@ public:
 	virtual bool init() override;
 	void setCooldown(float cooldown);
 	void startCooldown();
+	bool isCoolingDown();
 };

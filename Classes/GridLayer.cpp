@@ -158,7 +158,7 @@ bool GridLayer::onTouch(const Touch * t, const Event * e) {
 	const auto key = "doubleTab interval";
 	if (lastTouched == invalidPosition || lastTouched.distance(gridPosition) > 1.5f) {
 		lastTouched = gridPosition;
-		scheduleOnce([](float)mutable {lastTouched = invalidPosition;}, 0.3f, "doubleTab interval");
+		scheduleOnce([](float)mutable {lastTouched = invalidPosition;}, 0.3f, key);
 	} else {
 		if (isScheduled(key)) {
 			unschedule(key);
