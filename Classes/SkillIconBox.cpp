@@ -43,8 +43,23 @@ void SkillIconBox::setCooldown(float newCooldown) {
 	cooldown = newCooldown;
 }
 
+class LinearEquation {
+	float dx, dy, slope;//y-dy = slope(x-dx)
+public:
+	LinearEquation(float dx, float dy, float slope):dx(dx),dy(dy),slope(slope){}
+
+	Vec2 SolveOnX(float x) {
+		return Vec2(x, slope * (x - dx) + dy);
+	}
+
+	Vec2 SolveOnY(float y) {
+		return Vec2((y - dy) / slope + dx, y);
+	}
+};
+
 void SkillIconBox::startCooldown() {
-	draw->schedule([this, time = cooldown, remain = cooldown, size = getContentSize().width](float delta)mutable {
+	string key = "drawCooldown";
+	draw->schedule([this, time = cooldown, remain = cooldown, size = getContentSize().width, key](float delta)mutable {
 		draw->clear();
 		auto degree = 360 - 360 * remain / time;
 		auto edgeDirectionAngle = 450 - degree;
@@ -53,45 +68,28 @@ void SkillIconBox::startCooldown() {
 		}
 		txt->setString(to_string((int)remain));
 		auto center = size / 2;
-		//y - c = tan(d)(x-c)
-		//y = tan(d)(x-c) + c
-		//x = (y-c)/tan(d) + c
 
 		vector<Vec2> points;
 		Vec2 c(center, center), t(center, size), tl(0, size), tr(size, size), bl(0, 0), br(size, 0);
-		auto tan = ::tan(CC_DEGREES_TO_RADIANS(edgeDirectionAngle));
-		if (45 < edgeDirectionAngle && edgeDirectionAngle < 90) {//topright
-			points = { c, Vec2(center / tan + center,size), tr, br, bl, tl, t };
-		} else if (edgeDirectionAngle == 90) {
-			points = { tl, tr, br, bl };
-		} else if (90 < edgeDirectionAngle && edgeDirectionAngle <= 135) {//topleft
-			points = { Vec2(center / tan + center,size) ,t,c };
+		auto eq = LinearEquation(center,center, tan(CC_DEGREES_TO_RADIANS(edgeDirectionAngle)));
+		if (45 < edgeDirectionAngle && edgeDirectionAngle <= 90) {//topright
+			points = { c, eq.SolveOnY(size), tr, br, bl, tl, t };
+		}else if (90 < edgeDirectionAngle && edgeDirectionAngle <= 135) {//topleft
+			points = { eq.SolveOnY(size), t, c };
 		} else if (135 < edgeDirectionAngle && edgeDirectionAngle <= 225) {//left
-			Vec2 v(0, center);
-			if (edgeDirectionAngle != 180) {
-				v.y = -tan * center + center;
-			}
-			points = { tl, t, c, v };
+			points = { tl, t, c, eq.SolveOnX(0) };
 		} else if (225 < edgeDirectionAngle && edgeDirectionAngle <= 315) {//bottom
-			Vec2 v(center, 0);
-			if (edgeDirectionAngle != 270) {
-				v.x = -center / tan + center;
-			}
-			points = { tl, t, c, v, bl };
+			points = { tl, t, c, eq.SolveOnY(0), bl };
 		} else {//right
-			Vec2 v(size, center);
-			if (edgeDirectionAngle != 0) {
-				v.y = tan * center + center;
-			}
-			points = { c, v, br, bl ,tl, t };
+			points = { c, eq.SolveOnX(size), br, bl ,tl, t };
 		}
 		draw->drawSolidPoly(points.data(), points.size(), Color4F(0, 0, 1, 0.5f));
 
 		remain -= delta;
 		if (remain < 0) {
-			unschedule("draw");
+			unschedule(key);
 			draw->clear();
 			return;
 		}
-	}, "draw");
+	}, key);
 }
