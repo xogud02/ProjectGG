@@ -31,9 +31,9 @@ bool Grid::isMovable(const GridPosition& gridPosition, const int size) const {
 	return true;
 }
 
-bool Grid::isValidPosition(const GridPosition& position) const {
+bool Grid::isValidPosition(const GridPosition& position, int size) const {
 	int row = position.row, col = position.col;
-	return 0 <= row && row < rows && 0 <= col && col < cols;
+	return 0 <= row && row + size -1 < rows && 0 <= col && col + size -1 < cols;
 }
 
 void Grid::addObject(GridObject * gridObject, GridPosition position) {
@@ -46,18 +46,23 @@ void Grid::occupyArea(const GridPosition& position, const int size, const bool o
 	const int row = position.row;
 	const int col = position.col;
 
+	if (!isValidPosition(position, size)) {
+		return;
+	}
+
 	for (int dr = 0; dr < size; ++dr) {
 		for (int dc = 0; dc < size; ++dc) {
 			int r = row + dr, c = col + dc;
-			if (!isValidPosition(GridPosition(r,c))) {
-				return;
-			}
 			occupiedGrid[r][c] = occupy;
 		}
 	}
 }
 
 bool Grid::isOccupied(const GridPosition& position, const int size) const{
+	if (!isValidPosition(position, size)) {
+		return false;
+	}
+
 	int r = position.row;
 	int c = position.col;
 	for (int dr = 0; dr < size; ++dr) {
