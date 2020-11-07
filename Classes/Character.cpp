@@ -101,7 +101,6 @@ bool Character::isEnemy(Character *c) {
 }
 
 
-
 void Character::setTarget(Character * newTarget) {
 	if (target == newTarget) {
 		return;
@@ -262,6 +261,7 @@ constexpr int movingActionTag = 1;
 
 void Character::movePath(float) {
 	if (path.empty()) {
+		setMoveType(MoveType::Stop);
 		return;
 	}
 	auto next = path.front();
@@ -304,6 +304,8 @@ void Character::tryToMove(GridPosition position) {
 	if (position == currentGridPosition) {
 		return;
 	}
+
+	setMoveType(MoveType::Move);
 
 	auto grid = Grid::getInstance();
 	grid->occupyArea(currentGridPosition, SCALE, false);
