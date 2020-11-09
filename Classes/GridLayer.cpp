@@ -120,7 +120,7 @@ void GridLayer::showGrid() {
 				if (!grid.isMovable(currentPosition)) {
 					auto&& rectOrigin = gridToPosition(currentPosition);
 					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED - Color4F(0, 0, 0, 0.5f));
-				} else if (grid.isOccupied(currentPosition)) {
+				} else if (!grid.isOccupiable(currentPosition)) {
 					auto&& rectOrigin = gridToPosition(currentPosition);
 					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::BLUE - Color4F(0, 0, 0, 0.5f));
 				}

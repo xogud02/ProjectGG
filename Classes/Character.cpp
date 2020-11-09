@@ -84,7 +84,7 @@ bool Character::init() {
 Character::Character(int scale) :SCALE(scale) {}
 
 void Character::removeFromParentAndCleanup(bool cleanup) {
-	Grid::getInstance()->occupyArea(currentGridPosition, SCALE, false);
+	Grid::getInstance()->unOccupyArea(this, currentGridPosition);
 	Node::removeFromParentAndCleanup(cleanup);
 }
 
@@ -192,7 +192,7 @@ void Character::hit(Character* by, int damage) {
 }
 
 Character::~Character() {
-	Grid::getInstance()->occupyArea(currentGridPosition, SCALE, false);
+	Grid::getInstance()->unOccupyArea(this, currentGridPosition);
 }
 
 void Character::releaseTarget() {
@@ -267,9 +267,9 @@ void Character::movePath(float) {
 	auto next = path.front();
 
 	auto grid = Grid::getInstance();
-	grid->occupyArea(currentGridPosition, SCALE, false);
-	if (grid->isOccupied(next, SCALE)) {
-		grid->occupyArea(currentGridPosition, SCALE);
+	grid->unOccupyArea(this, currentGridPosition);
+	if (!grid->isOccupiable(next, SCALE)) {
+		grid->occupyArea(this, currentGridPosition);
 		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 1);
 		return;
 	}
@@ -289,7 +289,7 @@ void Character::movePath(float) {
 	currentGridPosition = next;
 	currentDirection = nextDirection;
 
-	grid->occupyArea(currentGridPosition, SCALE);
+	grid->occupyArea(this, currentGridPosition);
 
 
 	runAction(Sequence::create(
@@ -308,13 +308,13 @@ void Character::tryToMove(GridPosition position) {
 	setMoveType(MoveType::Move);
 
 	auto grid = Grid::getInstance();
-	grid->occupyArea(currentGridPosition, SCALE, false);
+	grid->unOccupyArea(this, currentGridPosition);
 	auto newPath = GridPathFinder().findPath(currentGridPosition, position, SCALE);
 	if (!newPath.empty()) {
 		newPath.pop();//remove start position
 	} else {
 	}
-	grid->occupyArea(currentGridPosition, SCALE);
+	grid->occupyArea(this, currentGridPosition);
 	path.swap(newPath);
 
 
@@ -336,7 +336,7 @@ void Character::tryToJump(GridPosition position) {
 		return;
 	}
 
-	if (position == currentGridPosition || grid->isOccupied(position, SCALE)) {
+	if (position == currentGridPosition || !grid->isOccupiable(position, SCALE)) {
 		return;
 	}
 
@@ -345,7 +345,7 @@ void Character::tryToJump(GridPosition position) {
 	stopAction(getActionByTag(movingActionTag));
 	path.swap(queue<GridPosition>());
 
-	grid->occupyArea(currentGridPosition, SCALE, false);
+	grid->unOccupyArea(this, currentGridPosition);
 	setPosition(GridLayer::getInstance()->gridToPosition(position));
-	grid->occupyArea(position, SCALE);
+	grid->occupyArea(this, position);
 }

@@ -10,10 +10,11 @@ enum class TileType : std::uint8_t {
 };
 
 class GridObject;
+class Character;
 
 class Grid {
 	std::unordered_map<GridPosition, TileType> tiles;
-	std::vector<std::vector<bool>> occupiedGrid;
+	std::unordered_map<GridPosition, Character*> occupiedCharacter;
 	static Grid* instance;
 
 public:
@@ -26,6 +27,7 @@ public:
 	bool isValidPosition(const GridPosition& position, const int size = 1) const;
 	void addObject(GridObject* gridObject, GridPosition position);
 
-	void occupyArea(const GridPosition&, const int size = 1, const bool occupy = true);
-	bool isOccupied(const GridPosition&, const int size = 1) const;
+	void occupyArea(Character* by, const GridPosition&);
+	void unOccupyArea(Character* by, const GridPosition&);
+	bool isOccupiable(const GridPosition&, const int size = 1)const;
 };

@@ -1,5 +1,6 @@
 #include "Grid.h"
 #include "GridObject.h"
+#include "Character.h"
 
 using namespace std;
 
@@ -9,7 +10,7 @@ Grid * Grid::getInstance() {
 	return instance;
 }
 
-Grid::Grid(int rows, int cols) : rows(rows), cols(cols), occupiedGrid(rows, vector<bool>(cols, false)) {
+Grid::Grid(int rows, int cols) : rows(rows), cols(cols){
 	instance = this;
 }
 
@@ -42,35 +43,49 @@ void Grid::addObject(GridObject * gridObject, GridPosition position) {
 	}
 }
 
-void Grid::occupyArea(const GridPosition& position, const int size, const bool occupy) {
-	const int row = position.row;
-	const int col = position.col;
-
-	if (!isValidPosition(position, size)) {
+void Grid::occupyArea(Character * by, const GridPosition& position) {
+	auto size = by->SCALE;
+	if (!isOccupiable(position, size)) {
 		return;
 	}
-
+	by->retain();
 	for (int dr = 0; dr < size; ++dr) {
 		for (int dc = 0; dc < size; ++dc) {
-			int r = row + dr, c = col + dc;
-			occupiedGrid[r][c] = occupy;
+			auto next = GridPosition(position.row + dr, position.col + dc);
+			occupiedCharacter[next] = by;
 		}
 	}
 }
 
-bool Grid::isOccupied(const GridPosition& position, const int size) const{
+void Grid::unOccupyArea(Character * by, const GridPosition& position) {
+	auto size = by->SCALE;
+	auto itr = occupiedCharacter.find(position);
+	if (itr == occupiedCharacter.cend() || itr->second != by) {
+		return;
+	}
+	by->release();
+	for (int dr = 0; dr < size; ++dr) {
+		for (int dc = 0; dc < size; ++dc) {
+			auto next = GridPosition(position.row + dr, position.col + dc);
+			occupiedCharacter.erase(next);
+		}
+	}
+
+}
+
+bool Grid::isOccupiable(const GridPosition& position, const int size) const {
 	if (!isValidPosition(position, size)) {
 		return false;
 	}
 
-	int r = position.row;
-	int c = position.col;
 	for (int dr = 0; dr < size; ++dr) {
 		for (int dc = 0; dc < size; ++dc) {
-			if (occupiedGrid[r + dr][c + dc]) {
-				return true;
+			auto next = GridPosition(position.row + dr, position.col + dc);
+			if (occupiedCharacter.find(next) != occupiedCharacter.cend()) {
+				return false;
 			}
 		}
 	}
-	return false;
+
+	return true;
 }
