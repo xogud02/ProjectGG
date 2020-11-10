@@ -1,0 +1,965 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1A801E3C-E24F-3DD8-AEFA-7BF6762F16ED}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ProjectGG</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\ProjectGG\win32-build\bin\ProjectGG\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ProjectGG.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ProjectGG</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\ProjectGG\win32-build\bin\ProjectGG\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ProjectGG.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ProjectGG</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\ProjectGG\win32-build\bin\ProjectGG\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">ProjectGG.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">ProjectGG</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\ProjectGG\win32-build\bin\ProjectGG\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">ProjectGG.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">ProjectGG</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;COCOS2D_DEBUG=1;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;COCOS2D_DEBUG=1;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/libssl-1_1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/openssl/prebuilt/win32/libcrypto-1_1.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/libcrypto-1_1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/uv/prebuilt/win32/uv.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/uv.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/websockets/prebuilt/win32/websockets.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/websockets.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/curl/prebuilt/win32/libcurl.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/libcurl.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/gles/prebuilt/glew32.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/glew32.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/icon/prebuilt/iconv.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/iconv.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/MP3Decoder/prebuilt/libmpg123.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/libmpg123.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libogg.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/libogg.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbis.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/libvorbis.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbisfile.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/libvorbisfile.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OpenalSoft/prebuilt/OpenAL32.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/OpenAL32.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/zlib/../win32-specific/zlib/prebuilt/zlib1.dll C:/ProjectGG/win32-build/bin/ProjectGG/Debug/zlib1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>lib\Debug\cocos2d.lib;lib\Debug\external.lib;..\cocos2d\external\Box2D\prebuilt\win32\debug\libbox2d.lib;..\cocos2d\external\chipmunk\prebuilt\win32\debug-lib\libchipmunk.lib;..\cocos2d\external\freetype2\prebuilt\win32\freetype.lib;lib\Debug\ext_recast.lib;..\cocos2d\external\bullet\prebuilt\win32\debug\libbullet.lib;..\cocos2d\external\jpeg\prebuilt\win32\libjpeg.lib;..\cocos2d\external\webp\prebuilt\win32\libwebp.lib;..\cocos2d\external\websockets\prebuilt\win32\websockets.lib;..\cocos2d\external\openssl\prebuilt\win32\libssl.lib;..\cocos2d\external\openssl\prebuilt\win32\libcrypto.lib;..\cocos2d\external\uv\prebuilt\win32\uv_a.lib;lib\Debug\ext_tinyxml2.lib;lib\Debug\ext_xxhash.lib;lib\Debug\ext_xxtea.lib;lib\Debug\ext_clipper.lib;lib\Debug\ext_edtaa3func.lib;lib\Debug\ext_convertUTF.lib;lib\Debug\ext_poly2tri.lib;lib\Debug\ext_md5.lib;..\cocos2d\external\curl\prebuilt\win32\libcurl.lib;..\cocos2d\external\png\prebuilt\win32\libpng.lib;..\cocos2d\external\win32-specific\gles\prebuilt\glew32.lib;..\cocos2d\external\win32-specific\icon\prebuilt\libiconv.lib;..\cocos2d\external\win32-specific\MP3Decoder\prebuilt\libmpg123.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libogg.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbis.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbisfile.lib;..\cocos2d\external\win32-specific\OpenalSoft\prebuilt\OpenAL32.lib;..\cocos2d\external\glfw3\prebuilt\win32\glfw3.lib;..\cocos2d\external\zlib\..\win32-specific\zlib\prebuilt\libzlib.lib;lib\Debug\ext_unzip.lib;ws2_32.lib;userenv.lib;psapi.lib;winmm.lib;Version.lib;Iphlpapi.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/ProjectGG/win32-build/Debug/ProjectGG.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/ProjectGG/win32-build/bin/ProjectGG/Debug/ProjectGG.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/libssl-1_1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/openssl/prebuilt/win32/libcrypto-1_1.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/libcrypto-1_1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/uv/prebuilt/win32/uv.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/uv.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/websockets/prebuilt/win32/websockets.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/websockets.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/curl/prebuilt/win32/libcurl.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/libcurl.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/gles/prebuilt/glew32.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/glew32.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/icon/prebuilt/iconv.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/iconv.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/MP3Decoder/prebuilt/libmpg123.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/libmpg123.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libogg.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/libogg.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbis.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/libvorbis.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbisfile.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/libvorbisfile.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OpenalSoft/prebuilt/OpenAL32.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/OpenAL32.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/zlib/../win32-specific/zlib/prebuilt/zlib1.dll C:/ProjectGG/win32-build/bin/ProjectGG/Release/zlib1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>lib\Release\cocos2d.lib;lib\Release\external.lib;..\cocos2d\external\Box2D\prebuilt\win32\release\libbox2d.lib;..\cocos2d\external\chipmunk\prebuilt\win32\release-lib\libchipmunk.lib;..\cocos2d\external\freetype2\prebuilt\win32\freetype.lib;lib\Release\ext_recast.lib;..\cocos2d\external\bullet\prebuilt\win32\release\libbullet.lib;..\cocos2d\external\jpeg\prebuilt\win32\libjpeg.lib;..\cocos2d\external\webp\prebuilt\win32\libwebp.lib;..\cocos2d\external\websockets\prebuilt\win32\websockets.lib;..\cocos2d\external\openssl\prebuilt\win32\libssl.lib;..\cocos2d\external\openssl\prebuilt\win32\libcrypto.lib;..\cocos2d\external\uv\prebuilt\win32\uv_a.lib;lib\Release\ext_tinyxml2.lib;lib\Release\ext_xxhash.lib;lib\Release\ext_xxtea.lib;lib\Release\ext_clipper.lib;lib\Release\ext_edtaa3func.lib;lib\Release\ext_convertUTF.lib;lib\Release\ext_poly2tri.lib;lib\Release\ext_md5.lib;..\cocos2d\external\curl\prebuilt\win32\libcurl.lib;..\cocos2d\external\png\prebuilt\win32\libpng.lib;..\cocos2d\external\win32-specific\gles\prebuilt\glew32.lib;..\cocos2d\external\win32-specific\icon\prebuilt\libiconv.lib;..\cocos2d\external\win32-specific\MP3Decoder\prebuilt\libmpg123.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libogg.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbis.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbisfile.lib;..\cocos2d\external\win32-specific\OpenalSoft\prebuilt\OpenAL32.lib;..\cocos2d\external\glfw3\prebuilt\win32\glfw3.lib;..\cocos2d\external\zlib\..\win32-specific\zlib\prebuilt\libzlib.lib;lib\Release\ext_unzip.lib;ws2_32.lib;userenv.lib;psapi.lib;winmm.lib;Version.lib;Iphlpapi.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/ProjectGG/win32-build/Release/ProjectGG.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/ProjectGG/win32-build/bin/ProjectGG/Release/ProjectGG.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/libssl-1_1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/openssl/prebuilt/win32/libcrypto-1_1.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/libcrypto-1_1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/uv/prebuilt/win32/uv.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/uv.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/websockets/prebuilt/win32/websockets.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/websockets.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/curl/prebuilt/win32/libcurl.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/libcurl.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/gles/prebuilt/glew32.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/glew32.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/icon/prebuilt/iconv.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/iconv.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/MP3Decoder/prebuilt/libmpg123.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/libmpg123.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libogg.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/libogg.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbis.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/libvorbis.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbisfile.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/libvorbisfile.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OpenalSoft/prebuilt/OpenAL32.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/OpenAL32.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/zlib/../win32-specific/zlib/prebuilt/zlib1.dll C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/zlib1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>lib\MinSizeRel\cocos2d.lib;lib\MinSizeRel\external.lib;..\cocos2d\external\Box2D\prebuilt\win32\release\libbox2d.lib;..\cocos2d\external\chipmunk\prebuilt\win32\release-lib\libchipmunk.lib;..\cocos2d\external\freetype2\prebuilt\win32\freetype.lib;lib\MinSizeRel\ext_recast.lib;..\cocos2d\external\bullet\prebuilt\win32\release\libbullet.lib;..\cocos2d\external\jpeg\prebuilt\win32\libjpeg.lib;..\cocos2d\external\webp\prebuilt\win32\libwebp.lib;..\cocos2d\external\websockets\prebuilt\win32\websockets.lib;..\cocos2d\external\openssl\prebuilt\win32\libssl.lib;..\cocos2d\external\openssl\prebuilt\win32\libcrypto.lib;..\cocos2d\external\uv\prebuilt\win32\uv_a.lib;lib\MinSizeRel\ext_tinyxml2.lib;lib\MinSizeRel\ext_xxhash.lib;lib\MinSizeRel\ext_xxtea.lib;lib\MinSizeRel\ext_clipper.lib;lib\MinSizeRel\ext_edtaa3func.lib;lib\MinSizeRel\ext_convertUTF.lib;lib\MinSizeRel\ext_poly2tri.lib;lib\MinSizeRel\ext_md5.lib;..\cocos2d\external\curl\prebuilt\win32\libcurl.lib;..\cocos2d\external\png\prebuilt\win32\libpng.lib;..\cocos2d\external\win32-specific\gles\prebuilt\glew32.lib;..\cocos2d\external\win32-specific\icon\prebuilt\libiconv.lib;..\cocos2d\external\win32-specific\MP3Decoder\prebuilt\libmpg123.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libogg.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbis.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbisfile.lib;..\cocos2d\external\win32-specific\OpenalSoft\prebuilt\OpenAL32.lib;..\cocos2d\external\glfw3\prebuilt\win32\glfw3.lib;..\cocos2d\external\zlib\..\win32-specific\zlib\prebuilt\libzlib.lib;lib\MinSizeRel\ext_unzip.lib;ws2_32.lib;userenv.lib;psapi.lib;winmm.lib;Version.lib;Iphlpapi.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/ProjectGG/win32-build/MinSizeRel/ProjectGG.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/ProjectGG/win32-build/bin/ProjectGG/MinSizeRel/ProjectGG.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\ProjectGG\Classes;C:\ProjectGG\cocos2d\cocos\audio\include;C:\ProjectGG\cocos2d;C:\ProjectGG\cocos2d\cocos;C:\ProjectGG\cocos2d\extensions;C:\ProjectGG\cocos2d\cocos\platform;C:\ProjectGG\cocos2d\cocos\editor-support;C:\ProjectGG\cocos2d\cocos\base;C:\ProjectGG\cocos2d\cocos\platform\win32;C:\ProjectGG\cocos2d\external\recast\..;C:\ProjectGG\cocos2d\external\tinyxml2\.;C:\ProjectGG\cocos2d\external\xxhash\.;C:\ProjectGG\cocos2d\external\xxtea\.;C:\ProjectGG\cocos2d\external\clipper\.;C:\ProjectGG\cocos2d\external\edtaa3func\.;C:\ProjectGG\cocos2d\external\ConvertUTF\.;C:\ProjectGG\cocos2d\external\poly2tri\..;C:\ProjectGG\cocos2d\external\md5\..;C:\ProjectGG\cocos2d\external\unzip\.;C:\ProjectGG\cocos2d\external\Box2D\include;C:\ProjectGG\cocos2d\external\chipmunk\include;C:\ProjectGG\cocos2d\external\freetype2\include\win32\freetype2;C:\ProjectGG\cocos2d\external\bullet\include;C:\ProjectGG\cocos2d\external\bullet\include\bullet;C:\ProjectGG\cocos2d\external\jpeg\include\win32;C:\ProjectGG\cocos2d\external\openssl\include\win32;C:\ProjectGG\cocos2d\external\uv\include;C:\ProjectGG\cocos2d\external\webp\include\win32;C:\ProjectGG\cocos2d\external\websockets\include\win32;C:\ProjectGG\cocos2d\external\curl\include\win32;C:\ProjectGG\cocos2d\external\png\include\win32;C:\ProjectGG\cocos2d\external\win32-specific\gles\include\OGLES;C:\ProjectGG\cocos2d\external\win32-specific\icon\include;C:\ProjectGG\cocos2d\external\win32-specific\MP3Decoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OggDecoder\include;C:\ProjectGG\cocos2d\external\win32-specific\OpenalSoft\include;C:\ProjectGG\cocos2d\external\glfw3\include\win32;C:\ProjectGG\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/libssl-1_1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/openssl/prebuilt/win32/libcrypto-1_1.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/libcrypto-1_1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/uv/prebuilt/win32/uv.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/uv.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/websockets/prebuilt/win32/websockets.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/websockets.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/curl/prebuilt/win32/libcurl.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/libcurl.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/gles/prebuilt/glew32.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/glew32.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/icon/prebuilt/iconv.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/iconv.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/MP3Decoder/prebuilt/libmpg123.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/libmpg123.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libogg.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/libogg.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbis.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/libvorbis.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbisfile.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/libvorbisfile.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/win32-specific/OpenalSoft/prebuilt/OpenAL32.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/OpenAL32.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/ProjectGG/cocos2d/external/zlib/../win32-specific/zlib/prebuilt/zlib1.dll C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/zlib1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>lib\RelWithDebInfo\cocos2d.lib;lib\RelWithDebInfo\external.lib;..\cocos2d\external\Box2D\prebuilt\win32\release\libbox2d.lib;..\cocos2d\external\chipmunk\prebuilt\win32\release-lib\libchipmunk.lib;..\cocos2d\external\freetype2\prebuilt\win32\freetype.lib;lib\RelWithDebInfo\ext_recast.lib;..\cocos2d\external\bullet\prebuilt\win32\release\libbullet.lib;..\cocos2d\external\jpeg\prebuilt\win32\libjpeg.lib;..\cocos2d\external\webp\prebuilt\win32\libwebp.lib;..\cocos2d\external\websockets\prebuilt\win32\websockets.lib;..\cocos2d\external\openssl\prebuilt\win32\libssl.lib;..\cocos2d\external\openssl\prebuilt\win32\libcrypto.lib;..\cocos2d\external\uv\prebuilt\win32\uv_a.lib;lib\RelWithDebInfo\ext_tinyxml2.lib;lib\RelWithDebInfo\ext_xxhash.lib;lib\RelWithDebInfo\ext_xxtea.lib;lib\RelWithDebInfo\ext_clipper.lib;lib\RelWithDebInfo\ext_edtaa3func.lib;lib\RelWithDebInfo\ext_convertUTF.lib;lib\RelWithDebInfo\ext_poly2tri.lib;lib\RelWithDebInfo\ext_md5.lib;..\cocos2d\external\curl\prebuilt\win32\libcurl.lib;..\cocos2d\external\png\prebuilt\win32\libpng.lib;..\cocos2d\external\win32-specific\gles\prebuilt\glew32.lib;..\cocos2d\external\win32-specific\icon\prebuilt\libiconv.lib;..\cocos2d\external\win32-specific\MP3Decoder\prebuilt\libmpg123.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libogg.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbis.lib;..\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbisfile.lib;..\cocos2d\external\win32-specific\OpenalSoft\prebuilt\OpenAL32.lib;..\cocos2d\external\glfw3\prebuilt\win32\glfw3.lib;..\cocos2d\external\zlib\..\win32-specific\zlib\prebuilt\libzlib.lib;lib\RelWithDebInfo\ext_unzip.lib;ws2_32.lib;userenv.lib;psapi.lib;winmm.lib;Version.lib;Iphlpapi.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/ProjectGG/win32-build/RelWithDebInfo/ProjectGG.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/ProjectGG/win32-build/bin/ProjectGG/RelWithDebInfo/ProjectGG.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\ProjectGG\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/ProjectGG/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/ProjectGG -BC:/ProjectGG/win32-build --check-stamp-file C:/ProjectGG/win32-build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\WindowsPaths.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosBuildHelpers.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosBuildSet.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosConfigDefine.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosConfigDepend.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeCCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeCXXCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeRCCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\ProjectGG\win32-build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/ProjectGG/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/ProjectGG -BC:/ProjectGG/win32-build --check-stamp-file C:/ProjectGG/win32-build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\WindowsPaths.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosBuildHelpers.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosBuildSet.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosConfigDefine.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosConfigDepend.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeCCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeCXXCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeRCCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\ProjectGG\win32-build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/ProjectGG/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/ProjectGG -BC:/ProjectGG/win32-build --check-stamp-file C:/ProjectGG/win32-build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\WindowsPaths.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosBuildHelpers.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosBuildSet.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosConfigDefine.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosConfigDepend.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeCCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeCXXCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeRCCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\ProjectGG\win32-build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/ProjectGG/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/ProjectGG -BC:/ProjectGG/win32-build --check-stamp-file C:/ProjectGG/win32-build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\Platform\WindowsPaths.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosBuildHelpers.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosBuildSet.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosConfigDefine.cmake;C:\ProjectGG\cocos2d\cmake\Modules\CocosConfigDepend.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeCCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeCXXCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeRCCompiler.cmake;C:\ProjectGG\win32-build\CMakeFiles\3.17.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\ProjectGG\win32-build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Classes\CharacterSpriteFactory.h" />
+    <ClInclude Include="..\Classes\Grid.h" />
+    <ClInclude Include="..\Classes\GridObject.h" />
+    <ClInclude Include="..\Classes\GUIBoxCreator.h" />
+    <ClInclude Include="..\Classes\GUILayer.h" />
+    <ClInclude Include="..\Classes\GUISpriteFactory.h" />
+    <ClInclude Include="..\Classes\MonsterEnums.h" />
+    <ClInclude Include="..\Classes\MonsterEnums.hpp" />
+    <ClInclude Include="..\Classes\MonsterSpriteFactory.h" />
+    <ClInclude Include="..\Classes\MonsterSpriteFactory.hpp" />
+    <ClInclude Include="..\Classes\Skill.h" />
+    <ClInclude Include="..\Classes\SkillIconBox.h" />
+    <ClInclude Include="..\Classes\StageSelectScene.h" />
+    <ClInclude Include="..\Classes\TileSpriteFactory.h" />
+    <ClInclude Include="..\Classes\TTFLabelBuilder.h" />
+    <ClInclude Include="..\Classes\WeaponSpriteFactory.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\AppDelegate.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\Character.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\CharacterSelectScene.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\FightScene.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\GaugeBar.h" />
+    <ClInclude Include="..\Classes\GridLayer.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\GridPathFinder.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\GridPosition.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\Monster.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\Player.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\SpriteFactory.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\Status.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\TileBuilder.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\TitleScene.h" />
+    <ClInclude Include="C:\ProjectGG\Classes\Weapon.h" />
+    <ClInclude Include="C:\ProjectGG\proj.win32\main.h" />
+    <ClInclude Include="C:\ProjectGG\proj.win32\resource.h" />
+    <ClCompile Include="..\Classes\CharacterSpriteFactory.cpp" />
+    <ClCompile Include="..\Classes\Grid.cpp" />
+    <ClCompile Include="..\Classes\GridObject.cpp" />
+    <ClCompile Include="..\Classes\GUIBoxCreator.cpp" />
+    <ClCompile Include="..\Classes\GUILayer.cpp" />
+    <ClCompile Include="..\Classes\GUISpriteFactory.cpp" />
+    <ClCompile Include="..\Classes\MonsterSpriteFactory.cpp" />
+    <ClCompile Include="..\Classes\Skill.cpp" />
+    <ClCompile Include="..\Classes\SkillIconBox.cpp" />
+    <ClCompile Include="..\Classes\StageSelectScene.cpp" />
+    <ClCompile Include="..\Classes\TileSpriteFactory.cpp" />
+    <ClCompile Include="..\Classes\TTFLabelBuilder.cpp" />
+    <ClCompile Include="..\Classes\WeaponSpriteFactory.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\AppDelegate.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\Character.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\CharacterSelectScene.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\FightScene.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\GaugeBar.cpp" />
+    <ClCompile Include="..\Classes\GridLayer.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\GridPathFinder.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\GridPosition.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\Monster.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\Player.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\SpriteFactory.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\Status.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\TileBuilder.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\TitleScene.cpp" />
+    <ClCompile Include="C:\ProjectGG\Classes\Weapon.cpp" />
+    <ClCompile Include="C:\ProjectGG\proj.win32\main.cpp" />
+    <ResourceCompile Include="C:\ProjectGG\proj.win32\game.rc" />
+    <ClInclude Include="C:\ProjectGG\Resources\fonts\Marker Felt.ttf" />
+    <ClInclude Include="C:\ProjectGG\Resources\fonts\arial.ttf" />
+    <ClInclude Include="C:\ProjectGG\Resources\res\.gitkeep" />
+    <ClCompile Include="C:\ProjectGG\cocos2d\cocos\precheader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\ProjectGG\win32-build\ZERO_CHECK.vcxproj">
+      <Project>{DF24D51A-6770-39D5-AC3B-277CE098F96F}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\SYNC_RESOURCE-ProjectGG.vcxproj">
+      <Project>{F855B679-6764-31A6-98A5-81D1B6D88D4F}</Project>
+      <Name>SYNC_RESOURCE-ProjectGG</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\cocos\core\cocos2d.vcxproj">
+      <Project>{ACC8A59B-2141-369C-A2B4-70758591991E}</Project>
+      <Name>cocos2d</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\external\clipper\ext_clipper.vcxproj">
+      <Project>{7C2F27DE-B8F7-3807-9349-BF73DB7E0E55}</Project>
+      <Name>ext_clipper</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\external\ConvertUTF\ext_convertUTF.vcxproj">
+      <Project>{B8569FE2-F5DC-3159-A51A-51B699E438DB}</Project>
+      <Name>ext_convertUTF</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\external\edtaa3func\ext_edtaa3func.vcxproj">
+      <Project>{40CE43A6-4454-386A-AE12-A976171DC72A}</Project>
+      <Name>ext_edtaa3func</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\external\md5\ext_md5.vcxproj">
+      <Project>{A458ECE8-D204-3AD4-A795-D6E80EB7DB95}</Project>
+      <Name>ext_md5</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\external\poly2tri\ext_poly2tri.vcxproj">
+      <Project>{299974C0-802E-356F-8558-E2D68C9DCB90}</Project>
+      <Name>ext_poly2tri</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\external\recast\ext_recast.vcxproj">
+      <Project>{860A56AE-6A7C-322B-89EA-0A43DBE5B6A5}</Project>
+      <Name>ext_recast</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\external\tinyxml2\ext_tinyxml2.vcxproj">
+      <Project>{D4BEC0DD-81AD-37D2-B261-7DF14EC421FC}</Project>
+      <Name>ext_tinyxml2</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\external\unzip\ext_unzip.vcxproj">
+      <Project>{B97BA6DF-1B98-365C-A732-D2D858108002}</Project>
+      <Name>ext_unzip</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\external\xxhash\ext_xxhash.vcxproj">
+      <Project>{23FD4C9D-F3C7-3DCA-9AF6-44D5B1CB683E}</Project>
+      <Name>ext_xxhash</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\external\xxtea\ext_xxtea.vcxproj">
+      <Project>{3098A75C-D9B8-324E-9301-CE5D54841C1A}</Project>
+      <Name>ext_xxtea</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\ProjectGG\win32-build\engine\external\external.vcxproj">
+      <Project>{8FB85C74-8831-38C2-A1F7-9BC895FB958B}</Project>
+      <Name>external</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\Resources\fonts\SDS_6x6.ttf" />
+    <Font Include="..\Resources\fonts\SDS_8x8.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\Sprites\Monsters.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\Sprites\Characters\Engineer.png" />
+    <Image Include="..\Resources\Sprites\Characters\Mage.png" />
+    <Image Include="..\Resources\Sprites\Characters\Paladin.png" />
+    <Image Include="..\Resources\Sprites\Characters\Rogue.png" />
+    <Image Include="..\Resources\Sprites\Characters\Template.png" />
+    <Image Include="..\Resources\Sprites\Characters\Warrior.png" />
+    <Image Include="..\Resources\Sprites\GUIs\GUI0.png" />
+    <Image Include="..\Resources\Sprites\GUIs\GUI1.png" />
+    <Image Include="..\Resources\Sprites\Items\MedWep.png" />
+    <Image Include="..\Resources\Sprites\Monsters.png" />
+    <Image Include="..\Resources\Sprites\Tiles\Floor.png" />
+    <Image Include="..\Resources\Sprites\Tiles\Pit0.png" />
+    <Image Include="..\Resources\Sprites\Tiles\Pit1.png" />
+    <Image Include="..\Resources\Sprites\Tiles\Tree0.png" />
+    <Image Include="..\Resources\Sprites\Tiles\Tree1.png" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
