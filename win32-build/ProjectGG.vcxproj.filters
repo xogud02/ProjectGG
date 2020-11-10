@@ -7,9 +7,6 @@
     <ClCompile Include="C:\ProjectGG\Classes\Character.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="C:\ProjectGG\Classes\GaugeBar.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="C:\ProjectGG\Classes\Monster.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
@@ -49,9 +46,6 @@
     <ClCompile Include="C:\ProjectGG\Classes\GridPosition.cpp">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GUIBoxCreator.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GridObject.cpp">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClCompile>
@@ -82,12 +76,18 @@
     <ClCompile Include="..\Classes\GridLayer.cpp">
       <Filter>Source Files\Classes\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\TTFLabelBuilder.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\SkillIconBox.cpp" />
     <ClCompile Include="..\Classes\Skill.cpp">
       <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GUIBoxCreator.cpp">
+      <Filter>Source Files\Classes\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\GaugeBar.cpp">
+      <Filter>Source Files\Classes\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TTFLabelBuilder.cpp">
+      <Filter>Source Files\Classes\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,9 +95,6 @@
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="C:\ProjectGG\Classes\Character.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\ProjectGG\Classes\GaugeBar.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="C:\ProjectGG\Classes\Monster.h">
@@ -148,9 +145,6 @@
     <ClInclude Include="C:\ProjectGG\Classes\GridPosition.h">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GUIBoxCreator.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GridObject.h">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
@@ -190,14 +184,20 @@
     <ClInclude Include="..\Classes\MonsterEnums.hpp">
       <Filter>Source Files\Classes\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\TTFLabelBuilder.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SkillIconBox.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Skill.h">
       <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GUIBoxCreator.h">
+      <Filter>Source Files\Classes\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\GaugeBar.h">
+      <Filter>Source Files\Classes\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SkillIconBox.h">
+      <Filter>Source Files\Classes\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TTFLabelBuilder.h">
+      <Filter>Source Files\Classes\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +250,9 @@
     </Filter>
     <Filter Include="Source Files\Classes\Enums">
       <UniqueIdentifier>{0b0b02f4-ae02-4766-b2e3-0391066edf60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\GUI">
+      <UniqueIdentifier>{6f4df49b-09d1-465e-a604-f6146b6aa1bd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

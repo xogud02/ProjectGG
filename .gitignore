@@ -9,3 +9,4 @@ win32-build/*
 !/CmakeLists.txt
 !/readme
 !README.md
+!.editorconfig
