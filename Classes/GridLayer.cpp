@@ -147,7 +147,7 @@ bool GridLayer::onTouch(const Touch * t, const Event * e) {
 
 	Vec2 leftBottomOffset = -Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
 	Vec2 vLeftBottom = touchedPosition + leftBottomOffset - getPosition();
-	auto gridPosition = vecToGrid(vLeftBottom);
+	auto destGridPosition = vecToGrid(vLeftBottom);
 	auto touchedGridPosition = vecToGrid(convertTouchToNodeSpace(const_cast<Touch*>(t)));
 
 	auto touchedCharacter = Grid::getInstance()->getOccupiedCharacter(touchedGridPosition);
@@ -157,20 +157,20 @@ bool GridLayer::onTouch(const Touch * t, const Event * e) {
 	}
 
 	const auto key = "doubleTab interval";
-	if (lastTouched == invalidPosition || lastTouched.distance(gridPosition) > 1.5f) {
-		lastTouched = gridPosition;
+	if (lastTouched == invalidPosition || lastTouched.distance(destGridPosition) > 1.5f) {
+		lastTouched = destGridPosition;
 		scheduleOnce([](float)mutable {lastTouched = invalidPosition;}, 0.3f, key);
 	} else {
 		if (isScheduled(key)) {
 			unschedule(key);
 		}
 		lastTouched = invalidPosition;
-		player->tryToJump(gridPosition);
+		player->tryToJump(destGridPosition);
 		return true;
 	}
 
 	player->setTarget(nullptr);
-	player->tryToMove(gridPosition);
+	player->tryToMove(destGridPosition);
 
 	return true;
 }
