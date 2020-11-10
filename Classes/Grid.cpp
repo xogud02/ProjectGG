@@ -89,3 +89,12 @@ bool Grid::isOccupiable(const GridPosition& position, const int size) const {
 
 	return true;
 }
+
+Character * Grid::getOccupiedCharacter(const GridPosition &position) const {
+	auto itr = occupiedCharacter.find(position);
+	if (itr == occupiedCharacter.cend()) {
+		return nullptr;
+	}
+
+	return itr->second;
+}

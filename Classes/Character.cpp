@@ -45,21 +45,6 @@ bool Character::init() {
 
 	setName("character");
 
-	auto listener = EventListenerTouchOneByOne::create();
-	listener->setSwallowTouches(true);
-	listener->onTouchBegan = [this](Touch* e, auto) {
-
-		auto grid = GridLayer::getInstance();
-		if (!getBoundingBox().containsPoint(grid->convertToNodeSpace(e->getLocation()))) {
-			return false;
-		}
-
-		grid->touched(this);
-		return true;
-	};
-
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
 	schedule([this](float) {
 		if (isScheduled(chaseTarget)) {
 			return;

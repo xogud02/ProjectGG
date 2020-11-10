@@ -21,7 +21,6 @@ class GridLayer : public cocos2d::LayerColor {
 
 	cocos2d::Size visibleArea;
 	cocos2d::Vec2 visibleAreaOffset;
-	cocos2d::Map<std::string, cocos2d::SpriteBatchNode*> batches;
 
 public:
 	static GridLayer* getInstance();
@@ -42,7 +41,6 @@ public:
 
 	static GridLayer* create(const int rows, const int cols);
 
-	void touched(Character* who);
 	void setPlayer(Player* character);
 
 	void addObject(GridObject*, GridPosition);

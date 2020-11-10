@@ -32,12 +32,6 @@ GridLayer* GridLayer::create(const int rows, const int cols) {
 	return ret;
 }
 
-void GridLayer::touched(Character * who) {
-	if (who != player) {
-		player->setTarget(who);
-	}
-}
-
 void GridLayer::setPlayer(Player* newPlayer) {
 	if (player) {
 		player->release();
@@ -154,6 +148,13 @@ bool GridLayer::onTouch(const Touch * t, const Event * e) {
 	Vec2 leftBottomOffset = -Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
 	Vec2 vLeftBottom = touchedPosition + leftBottomOffset - getPosition();
 	auto gridPosition = vecToGrid(vLeftBottom);
+	auto touchedGridPosition = vecToGrid(convertTouchToNodeSpace(const_cast<Touch*>(t)));
+
+	auto touchedCharacter = Grid::getInstance()->getOccupiedCharacter(touchedGridPosition);
+	if (touchedCharacter && touchedCharacter != player) {
+		player->setTarget(touchedCharacter);
+		return true;
+	}
 
 	const auto key = "doubleTab interval";
 	if (lastTouched == invalidPosition || lastTouched.distance(gridPosition) > 1.5f) {

@@ -30,4 +30,6 @@ public:
 	void occupyArea(Character* by, const GridPosition&);
 	void unOccupyArea(Character* by, const GridPosition&);
 	bool isOccupiable(const GridPosition&, const int size = 1)const;
+
+	Character* getOccupiedCharacter(const GridPosition&) const;
 };
