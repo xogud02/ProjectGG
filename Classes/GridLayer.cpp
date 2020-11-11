@@ -23,6 +23,7 @@ GridLayer* GridLayer::create(const int rows, const int cols) {
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(GridLayer::onTouch, ret);
+	listener->onTouchEnded = [](auto, auto) {CCLOG("touch ended"); };
 	ret->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, ret);
 
 	if (COCOS2D_DEBUG) {
@@ -138,6 +139,7 @@ GridPosition lastTouched = invalidPosition;
 chrono::system_clock::time_point lastTouchedTimePoint;
 
 bool GridLayer::onTouch(const Touch * t, const Event * e) {
+	CCLOG("touch begin");
 	auto&& touchedPosition = t->getLocation();
 	if (!getBoundingBox().containsPoint(touchedPosition)) {
 		return false;
