@@ -23,7 +23,8 @@ GridLayer* GridLayer::create(const int rows, const int cols) {
 	ret->autorelease();
 
 	auto listener = GridTouchListener::create(ret);
-	listener->onSingleTouch = [](auto) {CCLOG("foo"); };
+	listener->onSingleTouch = CC_CALLBACK_1(GridLayer::onSingleTouch, ret);
+	listener->onDoubleTouch = CC_CALLBACK_1(GridLayer::onDoubleTouch, ret);
 
 	if (COCOS2D_DEBUG) {
 		ret->showGrid();
@@ -132,47 +133,25 @@ GridLayer::~GridLayer() {
 	}
 }
 
-
-const GridPosition invalidPosition(-1, -1);
-GridPosition lastTouched = invalidPosition;
-
-bool GridLayer::onTouch(const Touch * t, const Event * e) {
-	CCLOG("touch begin");
-	auto&& touchedPosition = t->getLocation();
-	if (!getBoundingBox().containsPoint(touchedPosition)) {
-		return false;
-	}
-
-	int scale = player->SCALE;
-
-	Vec2 leftBottomOffset = -Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
-	Vec2 vLeftBottom = touchedPosition + leftBottomOffset - getPosition();
-	auto destGridPosition = vecToGrid(vLeftBottom);
-	auto touchedGridPosition = vecToGrid(convertTouchToNodeSpace(const_cast<Touch*>(t)));
-
-	auto touchedCharacter = Grid::getInstance()->getOccupiedCharacter(touchedGridPosition);
+void GridLayer::onSingleTouch(const Vec2 & touched) {
+	auto touchedCharacter = Grid::getInstance()->getOccupiedCharacter(vecToGrid(touched));
 	if (touchedCharacter && touchedCharacter != player) {
 		player->setTarget(touchedCharacter);
-		return true;
+		return;
 	}
 
-	const auto key = "doubleTab interval";
-	if (lastTouched == invalidPosition || lastTouched.distance(destGridPosition) > 1.5f) {
-		lastTouched = destGridPosition;
-		scheduleOnce([](float)mutable {lastTouched = invalidPosition;}, 0.3f, key);
-	} else {
-		if (isScheduled(key)) {
-			unschedule(key);
-		}
-		lastTouched = invalidPosition;
-		player->tryToJump(destGridPosition);
-		return true;
-	}
-
+	auto scale = player->SCALE;
+	Vec2 leftBottomOffset = -Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
+	auto gridPosition = vecToGrid(touched + leftBottomOffset);
 	player->setTarget(nullptr);
-	player->tryToMove(destGridPosition);
+	player->tryToMove(gridPosition);
+}
 
-	return true;
+void GridLayer::onDoubleTouch(const Vec2 & touched) {
+	auto scale = player->SCALE;
+	Vec2 leftBottomOffset = -Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
+	auto gridPosition = vecToGrid(touched + leftBottomOffset);
+	player->tryToJump(gridPosition);
 }
 
 void GridLayer::setVisibleArea(Size area) {

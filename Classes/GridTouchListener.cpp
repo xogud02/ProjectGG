@@ -20,19 +20,32 @@ GridTouchListener * GridTouchListener::create(Node* owner) {
 }
 
 bool GridTouchListener::onTouchBegan(Touch* t, Event *) {
+	holdBeginPosition = owner->convertTouchToNodeSpace(t);
+	return true;
+}
+
+bool GridTouchListener::onTouchEnded(Touch* t, Event *) {
+	auto touchEnded = owner->convertTouchToNodeSpace(t);
+	if (holdBeginPosition.distance(touchEnded) > dragThreshold) {
+		if (onDragEnded) {
+			onDragEnded(holdBeginPosition, touchEnded);
+			holdBeginPosition = invalidPosition;
+			return true;
+		}
+	}
+
 	const auto key = "doubleTab interval";
-	auto currentTouched = t->getLocation();
-	if (lastTouched == invalidPosition || lastTouched.distance(currentTouched) > 1.5f) {
-		lastTouched = currentTouched;
+	if (lastTouched == invalidPosition || lastTouched.distance(touchEnded) > dragThreshold) {
+		lastTouched = touchEnded;
 		owner->scheduleOnce([this](float)mutable {lastTouched = invalidPosition; }, 0.3f, key);
 		if (onSingleTouch) {
-			onSingleTouch(currentTouched);
+			onSingleTouch(touchEnded);
 		}
 	} else {
 		if (owner->isScheduled(key)) {
 			owner->unschedule(key);
 			if (onDoubleTouch) {
-				onDoubleTouch(currentTouched);
+				onDoubleTouch(touchEnded);
 			}
 		}
 		lastTouched = invalidPosition;
@@ -41,10 +54,10 @@ bool GridTouchListener::onTouchBegan(Touch* t, Event *) {
 	return true;
 }
 
-bool GridTouchListener::onTouchEnded(Touch *, Event *) {
-	return false;
-}
+bool GridTouchListener::onTouchMoved(Touch* t, Event *) {
+	if (onDrag) {
+		onDrag(holdBeginPosition, owner->convertTouchToNodeSpace(t));
+	}
 
-bool GridTouchListener::onTouchMoved(Touch *, Event *) {
-	return false;
+	return true;
 }

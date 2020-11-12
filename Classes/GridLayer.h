@@ -30,7 +30,8 @@ public:
 	cocos2d::Vec2 gridToPosition(const GridPosition gridPosition) const;
 	GridLayer(const int rows, const int cols, const float unitSize);
 	void showGrid();
-	bool onTouch(const cocos2d::Touch* t, const cocos2d::Event* e);
+	void onSingleTouch(const cocos2d::Vec2& touched);
+	void onDoubleTouch(const cocos2d::Vec2& touched);
 
 	void setVisibleArea(cocos2d::Size area);
 	void setVisibleAreaOffset(cocos2d::Vec2 offset);
