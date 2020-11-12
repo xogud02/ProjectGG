@@ -17,13 +17,13 @@ class GridLayer : public cocos2d::LayerColor {
 	~GridLayer();
 	Grid grid;
 
-	Player* player = nullptr;
 
 	cocos2d::Size visibleArea;
 	cocos2d::Vec2 visibleAreaOffset;
 
 public:
 	static GridLayer* getInstance();
+	Player* player = nullptr;
 	const float UNIT_SIZE;
 
 	GridPosition vecToGrid(const cocos2d::Vec2 position) const;

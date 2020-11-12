@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "SpriteFactory.h"
 #include "GridObject.h"
+#include "GridTouchListener.h"
 
 using namespace std;
 USING_NS_CC;
@@ -21,10 +22,8 @@ GridLayer* GridLayer::create(const int rows, const int cols) {
 	ret->setContentSize(Size(gridUnitSize * cols, gridUnitSize * rows));
 	ret->autorelease();
 
-	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = CC_CALLBACK_2(GridLayer::onTouch, ret);
-	listener->onTouchEnded = [](auto, auto) {CCLOG("touch ended"); };
-	ret->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, ret);
+	auto listener = GridTouchListener::create(ret);
+	listener->onSingleTouch = [](auto) {CCLOG("foo"); };
 
 	if (COCOS2D_DEBUG) {
 		ret->showGrid();
@@ -136,7 +135,6 @@ GridLayer::~GridLayer() {
 
 const GridPosition invalidPosition(-1, -1);
 GridPosition lastTouched = invalidPosition;
-chrono::system_clock::time_point lastTouchedTimePoint;
 
 bool GridLayer::onTouch(const Touch * t, const Event * e) {
 	CCLOG("touch begin");

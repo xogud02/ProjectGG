@@ -76,7 +76,6 @@
     <ClCompile Include="..\Classes\GridLayer.cpp">
       <Filter>Source Files\Classes\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SkillIconBox.cpp" />
     <ClCompile Include="..\Classes\Skill.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
@@ -88,6 +87,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\TTFLabelBuilder.cpp">
       <Filter>Source Files\Classes\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SkillIconBox.cpp">
+      <Filter>Source Files\Classes\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GridTouchListener.cpp">
+      <Filter>Source Files\Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\TTFLabelBuilder.h">
       <Filter>Source Files\Classes\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GridTouchListener.h">
+      <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
