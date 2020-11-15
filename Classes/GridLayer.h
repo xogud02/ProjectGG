@@ -21,6 +21,9 @@ class GridLayer : public cocos2d::LayerColor {
 	cocos2d::Size visibleArea;
 	cocos2d::Vec2 visibleAreaOffset;
 
+	bool isDragging = false;
+	Character* draggingCharacter = nullptr;
+
 public:
 	static GridLayer* getInstance();
 	Player* player = nullptr;
@@ -30,8 +33,11 @@ public:
 	cocos2d::Vec2 gridToPosition(const GridPosition gridPosition) const;
 	GridLayer(const int rows, const int cols, const float unitSize);
 	void showGrid();
+	
 	void onSingleTouch(const cocos2d::Vec2& touched);
 	void onDoubleTouch(const cocos2d::Vec2& touched);
+	void onDrag(const cocos2d::Vec2& startPosition, const cocos2d::Vec2& currentPosition);
+	void onDragEnded(const cocos2d::Vec2& startPosition, const cocos2d::Vec2& endedPosition);
 
 	void setVisibleArea(cocos2d::Size area);
 	void setVisibleAreaOffset(cocos2d::Vec2 offset);

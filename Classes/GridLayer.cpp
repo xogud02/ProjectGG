@@ -25,6 +25,8 @@ GridLayer* GridLayer::create(const int rows, const int cols) {
 	auto listener = GridTouchListener::create(ret);
 	listener->onSingleTouch = CC_CALLBACK_1(GridLayer::onSingleTouch, ret);
 	listener->onDoubleTouch = CC_CALLBACK_1(GridLayer::onDoubleTouch, ret);
+	listener->onDrag = CC_CALLBACK_2(GridLayer::onDrag, ret);
+	listener->onDragEnded = CC_CALLBACK_2(GridLayer::onDragEnded, ret);
 
 	if (COCOS2D_DEBUG) {
 		ret->showGrid();
@@ -152,6 +154,37 @@ void GridLayer::onDoubleTouch(const Vec2 & touched) {
 	Vec2 leftBottomOffset = -Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
 	auto gridPosition = vecToGrid(touched + leftBottomOffset);
 	player->tryToJump(gridPosition);
+}
+
+void GridLayer::onDrag(const Vec2 & startPosition, const Vec2 & currentPosition) {
+	if (!isDragging) {
+		isDragging = true;
+		draggingCharacter = Grid::getInstance()->getOccupiedCharacter(vecToGrid(startPosition));
+	}
+
+	if (draggingCharacter == player) {
+		CCLOG("dragging player");
+	}
+}
+
+void GridLayer::onDragEnded(const Vec2 & startPosition, const Vec2 & endedPosition) {
+
+	if (draggingCharacter && draggingCharacter != player) {
+		auto playerToMonsterDirection = draggingCharacter->getPosition() - player->getPosition();
+		auto draggedDirection = endedPosition - startPosition;
+		auto betweenAngle = CC_RADIANS_TO_DEGREES(Vec2::angle(playerToMonsterDirection, draggedDirection));
+		float interActionAngleTolerance = 45 / 2.0f;
+		if (betweenAngle > 180 - interActionAngleTolerance) {
+			CCLOG("Monster pulled");
+		} else if (betweenAngle < interActionAngleTolerance) {
+			CCLOG("Monster pushed");
+		}
+	} else if (draggingCharacter && draggingCharacter == player) {
+		CCLOG("player dragged");
+	}
+
+	isDragging = false;
+	draggingCharacter = nullptr;
 }
 
 void GridLayer::setVisibleArea(Size area) {

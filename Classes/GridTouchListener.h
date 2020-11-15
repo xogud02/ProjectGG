@@ -3,7 +3,7 @@
 #include "cocos-ext.h"
 #include <functional>
 
-class GridTouchListener : public cocos2d::EventListenerTouchOneByOne {
+class GridTouchListener : protected cocos2d::EventListenerTouchOneByOne {
 public:
 	static GridTouchListener* create(cocos2d::Node* owner);
 private:
