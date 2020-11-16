@@ -94,6 +94,9 @@
     <ClCompile Include="..\Classes\GridTouchListener.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SkillCommand.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\ProjectGG\Classes\AppDelegate.h">
@@ -205,6 +208,9 @@
       <Filter>Source Files\Classes\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GridTouchListener.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SkillCommand.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>

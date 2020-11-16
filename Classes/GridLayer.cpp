@@ -163,7 +163,7 @@ void GridLayer::onDrag(const Vec2 & startPosition, const Vec2 & currentPosition)
 	}
 
 	if (draggingCharacter == player) {
-		CCLOG("dragging player");
+		player->getCommand()->draggingPlayer(currentPosition);
 	}
 }
 
@@ -175,12 +175,12 @@ void GridLayer::onDragEnded(const Vec2 & startPosition, const Vec2 & endedPositi
 		auto betweenAngle = CC_RADIANS_TO_DEGREES(Vec2::angle(playerToMonsterDirection, draggedDirection));
 		float interActionAngleTolerance = 45 / 2.0f;
 		if (betweenAngle > 180 - interActionAngleTolerance) {
-			CCLOG("Monster pulled");
+			player->getCommand()->pullCharacter(draggingCharacter);
 		} else if (betweenAngle < interActionAngleTolerance) {
-			CCLOG("Monster pushed");
+			player->getCommand()->pushCharacter(draggingCharacter);
 		}
 	} else if (draggingCharacter && draggingCharacter == player) {
-		CCLOG("player dragged");
+		player->getCommand()->draggedPlayer(endedPosition);
 	}
 
 	isDragging = false;

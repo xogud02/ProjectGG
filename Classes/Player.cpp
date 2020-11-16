@@ -50,7 +50,11 @@ void Player::setTarget(Character * target) {
 	weapon->setTarget(target);
 }
 
-Player::Player(CharacterType characterType, int scale) :Character(scale),characterType(characterType){}
+shared_ptr<SkillCommand> Player::getCommand() {
+	return command;
+}
+
+Player::Player(CharacterType characterType, int scale) :Character(scale),characterType(characterType),command(make_shared<SkillCommand>()){}
 
 Player::~Player() {
 	for (auto direction : directions) {

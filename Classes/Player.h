@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Character.h"
+#include "SkillCommand.h"
 #include <unordered_map>
 
 class Weapon;
@@ -20,6 +21,7 @@ class Player : public Character {
 	std::unordered_map<CharacterDirection, cocos2d::Action*> directions;
 	const CharacterType characterType;
 	Weapon* weapon;
+	std::shared_ptr<SkillCommand> command;
 protected:
 	bool init() override;
 	virtual void onAttackBegin() override;
@@ -27,6 +29,7 @@ protected:
 public:
 	static Player* create(CharacterType, const int scale = 2);
 	virtual void setTarget(Character* target) override;
+	std::shared_ptr<SkillCommand> getCommand();
 
 	Player(CharacterType, int);
 
