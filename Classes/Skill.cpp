@@ -6,6 +6,9 @@ Skill::Skill(float coolDown, OnSkill onSkill):
 	skillAction(onSkill)
 {}
 
-void Skill::useSkill(Character * by) {
-	skillAction(by);
+void Skill::onTarget(Character * to) {
 }
+
+void Skill::nonTarget(const cocos2d::Vec2 & to) {
+}
+
