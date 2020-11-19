@@ -33,6 +33,7 @@
 #include "CharacterSpriteFactory.h"
 #include "TileSpriteFactory.h"
 #include "GUILayer.h"
+#include "ThrowWeapon.h"
 
 USING_NS_CC;
 using namespace std;
@@ -80,6 +81,11 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 
 	auto guiLayer = GUILayer::create();
 	auto player = Player::create(character);
+
+	auto testSkill = make_shared<ThrowWeapon>();
+	testSkill->setOwner(player);
+	player->getCommand()->addSkill(CommandType::PushCharacter, testSkill);
+
 
 	guiLayer->setPlayer(player);
 	ret->addChild(guiLayer,1234);

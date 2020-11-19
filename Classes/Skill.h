@@ -4,13 +4,14 @@
 #include "cocos2d.h"
 class Character;
 
-using OnSkill = std::function<void(Character*)>;
 class Skill {
+protected:
 	float coolDown;
-	OnSkill skillAction;
 	Character* owner;
 public:
-	Skill(float coolDown, OnSkill onSkill);
-	void onTarget(Character* to);
-	void nonTarget(const cocos2d::Vec2& to);
+	Skill() = default;
+	Skill(float coolDown);
+	void setOwner(Character* owner);
+	virtual void onTarget(Character* to);
+	virtual void nonTarget(const cocos2d::Vec2& to);
 };

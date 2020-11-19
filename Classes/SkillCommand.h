@@ -13,7 +13,7 @@ enum class CommandType {
 class Character;
 
 class SkillCommand {
-	std::unordered_map<CommandType, Skill> skills;
+	std::unordered_map<CommandType, std::shared_ptr<Skill>> skills;
 public:
 	bool isMapped(CommandType) const;
 	void pullCharacter(Character*);
@@ -21,5 +21,5 @@ public:
 	void draggingPlayer(const cocos2d::Vec2&);
 	void draggedPlayer(const cocos2d::Vec2&);
 
-	void addSkill(CommandType, Skill);
+	void addSkill(CommandType, std::shared_ptr<Skill>);
 };

@@ -76,9 +76,6 @@
     <ClCompile Include="..\Classes\GridLayer.cpp">
       <Filter>Source Files\Classes\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GUIBoxCreator.cpp">
       <Filter>Source Files\Classes\GUI</Filter>
     </ClCompile>
@@ -94,8 +91,14 @@
     <ClCompile Include="..\Classes\GridTouchListener.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Skill.cpp">
+      <Filter>Source Files\Classes\Skill</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\SkillCommand.cpp">
-      <Filter>Source Files\Classes</Filter>
+      <Filter>Source Files\Classes\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ThrowWeapon.cpp">
+      <Filter>Source Files\Classes\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,9 +195,6 @@
     <ClInclude Include="..\Classes\MonsterEnums.hpp">
       <Filter>Source Files\Classes\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Skill.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GUIBoxCreator.h">
       <Filter>Source Files\Classes\GUI</Filter>
     </ClInclude>
@@ -210,8 +210,14 @@
     <ClInclude Include="..\Classes\GridTouchListener.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Skill.h">
+      <Filter>Source Files\Classes\Skill</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\SkillCommand.h">
-      <Filter>Source Files\Classes</Filter>
+      <Filter>Source Files\Classes\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ThrowWeapon.h">
+      <Filter>Source Files\Classes\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -267,6 +273,9 @@
     </Filter>
     <Filter Include="Source Files\Classes\GUI">
       <UniqueIdentifier>{6f4df49b-09d1-465e-a604-f6146b6aa1bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Skill">
+      <UniqueIdentifier>{b4787c8d-be75-4f39-b387-a51d79e96214}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

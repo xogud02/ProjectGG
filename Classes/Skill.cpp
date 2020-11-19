@@ -1,10 +1,13 @@
 #include "Skill.h"
 #include "Character.h"
 
-Skill::Skill(float coolDown, OnSkill onSkill):
-	coolDown(coolDown),
-	skillAction(onSkill)
+Skill::Skill(float coolDown):
+	coolDown(coolDown)
 {}
+
+void Skill::setOwner(Character * owner) {
+	this->owner = owner;
+}
 
 void Skill::onTarget(Character * to) {
 }

@@ -50,6 +50,10 @@ void Player::setTarget(Character * target) {
 	weapon->setTarget(target);
 }
 
+Weapon * Player::getWeapon() {
+	return weapon;
+}
+
 shared_ptr<SkillCommand> Player::getCommand() {
 	return command;
 }

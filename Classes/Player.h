@@ -29,6 +29,7 @@ protected:
 public:
 	static Player* create(CharacterType, const int scale = 2);
 	virtual void setTarget(Character* target) override;
+	Weapon* getWeapon();
 	std::shared_ptr<SkillCommand> getCommand();
 
 	Player(CharacterType, int);

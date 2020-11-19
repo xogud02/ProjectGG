@@ -11,7 +11,7 @@ void SkillCommand::pullCharacter(Character* to) {
 	if (!isMapped(CommandType::PullCharacter)) {
 		return;
 	}
-	skills[CommandType::PullCharacter].onTarget(to);
+	skills[CommandType::PullCharacter]->onTarget(to);
 	CCLOG("pull");
 }
 
@@ -19,7 +19,7 @@ void SkillCommand::pushCharacter(Character* to) {
 	if (!isMapped(CommandType::PushCharacter)) {
 		return;
 	}
-	skills[CommandType::DragPlayer].onTarget(to);
+	skills[CommandType::PushCharacter]->onTarget(to);
 	CCLOG("push");
 }
 
@@ -34,10 +34,10 @@ void SkillCommand::draggedPlayer(const Vec2 & to) {
 	if (!isMapped(CommandType::DragPlayer)) {
 		return;
 	}
-	skills[CommandType::DragPlayer].nonTarget(to);
+	skills[CommandType::DragPlayer]->nonTarget(to);
 	CCLOG("dragged");
 }
 
-void SkillCommand::addSkill(CommandType command, Skill skill) {
+void SkillCommand::addSkill(CommandType command, std::shared_ptr<Skill> skill) {
 	skills[command] = skill;
 }

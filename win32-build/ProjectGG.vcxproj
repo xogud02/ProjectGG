@@ -820,6 +820,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\SkillCommand.h" />
     <ClInclude Include="..\Classes\SkillIconBox.h" />
     <ClInclude Include="..\Classes\StageSelectScene.h" />
+    <ClInclude Include="..\Classes\ThrowWeapon.h" />
     <ClInclude Include="..\Classes\TileSpriteFactory.h" />
     <ClInclude Include="..\Classes\TTFLabelBuilder.h" />
     <ClInclude Include="..\Classes\WeaponSpriteFactory.h" />
@@ -852,6 +853,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\SkillCommand.cpp" />
     <ClCompile Include="..\Classes\SkillIconBox.cpp" />
     <ClCompile Include="..\Classes\StageSelectScene.cpp" />
+    <ClCompile Include="..\Classes\ThrowWeapon.cpp" />
     <ClCompile Include="..\Classes\TileSpriteFactory.cpp" />
     <ClCompile Include="..\Classes\TTFLabelBuilder.cpp" />
     <ClCompile Include="..\Classes\WeaponSpriteFactory.cpp" />
