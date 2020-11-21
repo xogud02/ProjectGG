@@ -182,7 +182,7 @@ void GridLayer::onDragEnded(const Vec2 & startPosition, const Vec2 & endedPositi
 	} else if (draggingCharacter && draggingCharacter == player) {
 		player->getCommand()->draggedPlayer(endedPosition);
 	}
-
+	
 	isDragging = false;
 	draggingCharacter = nullptr;
 }
@@ -198,14 +198,20 @@ void GridLayer::setVisibleAreaOffset(Vec2 offset) {
 void GridLayer::focusTo(Vec2 position) {
 
 	auto centerOffset = Vec2(visibleArea / 2) - position;
-	auto newPosition = getPosition() + centerOffset;
+	auto currentPosition = getPosition();
+	auto newPosition = currentPosition + centerOffset;
 	auto gridSize = getContentSize();
 
 	auto dw = visibleArea.width - gridSize.width;
 	newPosition.x = clampf(newPosition.x, min(0.f, dw), max(0.f, dw));
 	auto dh = visibleArea.height - gridSize.height;
 	newPosition.y = clampf(newPosition.y, min(0.f, dh), max(0.f, dh));
-	setPosition(newPosition + visibleAreaOffset);
+
+	newPosition += visibleAreaOffset;
+
+	auto lerped = currentPosition.lerp(newPosition, 0.1f);
+	
+	setPosition(lerped);
 }
 
 void GridLayer::addChild(Node* node) {
