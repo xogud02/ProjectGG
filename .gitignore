@@ -6,6 +6,7 @@
 win32-build/*
 !/win32-build/*.filters
 !/win32-build/*.vcxproj
+!/win32-build/*.sln
 !/TODOList.md
 !/CmakeLists.txt
 !/readme
