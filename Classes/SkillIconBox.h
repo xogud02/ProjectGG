@@ -6,7 +6,7 @@ class GUIBoxCreator;
 class SkillIconBox : public cocos2d::Node {
 	SkillIconBox() = default;
 	cocos2d::DrawNode* draw = nullptr;
-	cocos2d::Label* txt = nullptr;
+	cocos2d::Label* label = nullptr;
 	float cooldown = 3.f;
 public:
 	static SkillIconBox* create(GUIBoxCreator preset, cocos2d::Node* icon);
