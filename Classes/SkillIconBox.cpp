@@ -2,6 +2,7 @@
 #include "GUIBoxCreator.h"
 #include "TTFLabelBuilder.h"
 #include "SpriteFactory.h"
+#include <cmath>
 
 using namespace std;
 USING_NS_CC;
@@ -31,9 +32,9 @@ SkillIconBox * SkillIconBox::create(GUIBoxCreator preset, cocos2d::Node * icon) 
 bool SkillIconBox::init() {
 	auto iconSize = getContentSize().width;
 	draw = DrawNode::create();
-	txt = TTFLabelBuilder().setTextSize(30).build("");
-	addChild(txt, 3);
-	txt->setPosition(Vec2::ONE * iconSize / 2);
+	label = TTFLabelBuilder().setTextSize(30).build("");
+	addChild(label, 3);
+	label->setPosition(Vec2::ONE * iconSize / 2);
 	addChild(draw, 2);
 
 	return true;
@@ -60,36 +61,43 @@ public:
 
 string key = "drawCooldown";
 void SkillIconBox::startCooldown() {
-	schedule([this, time = cooldown, remain = cooldown, size = getContentSize().width](float delta)mutable {
+	schedule([this, time = cooldown, remain = cooldown, size = getContentSize().width](float delta)mutable 
+	{
 		draw->clear();
+
 		auto degree = 360 - 360 * remain / time;
 		auto edgeDirectionAngle = 450 - degree;
-		while (edgeDirectionAngle > 360) {
-			edgeDirectionAngle -= 360;
-		}
-		txt->setString(to_string((int)remain));
-		auto center = size / 2;
+		edgeDirectionAngle = std::fmod(edgeDirectionAngle, 360);
+
+		label->setString(to_string((int)remain));
+		auto mid = size / 2;
 
 		vector<Vec2> points;
-		Vec2 c(center, center), t(center, size), tl(0, size), tr(size, size), bl(0, 0), br(size, 0);
-		auto eq = LinearEquation(center,center, tan(CC_DEGREES_TO_RADIANS(edgeDirectionAngle)));
+		Vec2 center(mid, mid);
+		Vec2 topLeft(0, size);
+		Vec2 topMiddle(mid, size);
+		Vec2 topRight(size, size);
+		Vec2 bottomLeft(0, 0);
+		Vec2 bottomRight(size, 0);
+
+		auto eq = LinearEquation(mid, mid, tan(CC_DEGREES_TO_RADIANS(edgeDirectionAngle)));
 		if (45 < edgeDirectionAngle && edgeDirectionAngle <= 90) {//topright
-			points = { c, eq.SolveOnY(size), tr, br, bl, tl, t };
-		}else if (90 < edgeDirectionAngle && edgeDirectionAngle <= 135) {//topleft
-			points = { eq.SolveOnY(size), t, c };
+			points = { center, eq.SolveOnY(size), topRight, bottomRight, bottomLeft, topLeft, topMiddle };
+		} else if (90 < edgeDirectionAngle && edgeDirectionAngle <= 135) {//topleft
+			points = { eq.SolveOnY(size), topMiddle, center };
 		} else if (135 < edgeDirectionAngle && edgeDirectionAngle <= 225) {//left
-			points = { tl, t, c, eq.SolveOnX(0) };
+			points = { topLeft, topMiddle, center, eq.SolveOnX(0) };
 		} else if (225 < edgeDirectionAngle && edgeDirectionAngle <= 315) {//bottom
-			points = { tl, t, c, eq.SolveOnY(0), bl };
+			points = { topLeft, topMiddle, center, eq.SolveOnY(0), bottomLeft };
 		} else {//right
-			points = { c, eq.SolveOnX(size), br, bl ,tl, t };
+			points = { center, eq.SolveOnX(size), bottomRight, bottomLeft ,topLeft, topMiddle };
 		}
 		draw->drawSolidPoly(points.data(), points.size(), Color4F(0, 0, 1, 0.5f));
 
 		remain -= delta;
 		if (remain < 0) {
 			unschedule(key);
-			txt->setString("");
+			label->setString("");
 			draw->clear();
 			return;
 		}
