@@ -11,6 +11,7 @@ GridTouchListener * GridTouchListener::create(Node* owner) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
 	}
+	ret->dragThreshold = GridLayer::getInstance()->UNIT_SIZE;
 	ret->owner = owner;
 	ret->EventListenerTouchOneByOne::onTouchBegan = CC_CALLBACK_2(GridTouchListener::onTouchBegan, ret);
 	ret->EventListenerTouchOneByOne::onTouchEnded = CC_CALLBACK_2(GridTouchListener::onTouchEnded, ret);

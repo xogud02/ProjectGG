@@ -18,7 +18,7 @@ private:
 	bool onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
 	
 public:
-	float dragThreshold = 1.5f;
+	float dragThreshold;
 	std::function<void(cocos2d::Vec2)> onSingleTouch = nullptr;
 	std::function<void(cocos2d::Vec2)> onDoubleTouch = nullptr;
 	std::function<void(cocos2d::Vec2, cocos2d::Vec2)> onDrag = nullptr;
