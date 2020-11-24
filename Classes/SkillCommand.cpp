@@ -15,14 +15,6 @@ void SkillCommand::pullCharacter(Character* to) {
 	CCLOG("pull");
 }
 
-void SkillCommand::pushCharacter(Character* to) {
-	if (!isMapped(CommandType::PushCharacter)) {
-		return;
-	}
-	skills[CommandType::PushCharacter]->onTarget(to);
-	CCLOG("push");
-}
-
 void SkillCommand::draggingPlayer(const Vec2 &) {
 	if (!isMapped(CommandType::DragPlayer)) {
 		return;
@@ -36,6 +28,14 @@ void SkillCommand::draggedPlayer(const Vec2 & to) {
 	}
 	skills[CommandType::DragPlayer]->nonTarget(to);
 	CCLOG("dragged");
+}
+
+void SkillCommand::doubleTapTarget(Character * target) {
+	if (!isMapped(CommandType::DoubleTabTarget)) {
+		return;
+	}
+	skills[CommandType::DoubleTabTarget]->onTarget(target);
+	CCLOG("double tap target");
 }
 
 void SkillCommand::addSkill(CommandType command, std::shared_ptr<Skill> skill) {

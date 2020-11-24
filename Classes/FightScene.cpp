@@ -84,7 +84,7 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 
 	auto testSkill = make_shared<ThrowWeapon>();
 	testSkill->setOwner(player);
-	player->getCommand()->addSkill(CommandType::PushCharacter, testSkill);
+	player->getCommand()->addSkill(CommandType::DoubleTabTarget, testSkill);
 
 
 	guiLayer->setPlayer(player);

@@ -38,10 +38,14 @@ bool GridTouchListener::onTouchEnded(Touch* t, Event *) {
 	const auto key = "doubleTab interval";
 	if (lastTouched == invalidPosition || lastTouched.distance(touchEnded) > dragThreshold) {
 		lastTouched = touchEnded;
-		owner->scheduleOnce([this](float)mutable {lastTouched = invalidPosition; }, 0.3f, key);
-		if (onSingleTouch) {
-			onSingleTouch(touchEnded);
-		}
+		owner->scheduleOnce(
+			[this, touchEnded](float)mutable {
+			lastTouched = invalidPosition;
+			if (onSingleTouch) {
+				onSingleTouch(touchEnded);
+			}
+		}, 0.15f, key);
+		
 	} else {
 		if (owner->isScheduled(key)) {
 			owner->unschedule(key);

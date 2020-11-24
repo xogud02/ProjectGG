@@ -150,6 +150,12 @@ void GridLayer::onSingleTouch(const Vec2 & touched) {
 }
 
 void GridLayer::onDoubleTouch(const Vec2 & touched) {
+	auto touchedCharacter = grid.getOccupiedCharacter(vecToGrid(touched));
+	if (touchedCharacter) {
+		player->getCommand()->doubleTapTarget(touchedCharacter);
+		return;
+	}
+
 	auto scale = player->SCALE;
 	Vec2 leftBottomOffset = -Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
 	auto gridPosition = vecToGrid(touched + leftBottomOffset);
@@ -176,8 +182,6 @@ void GridLayer::onDragEnded(const Vec2 & startPosition, const Vec2 & endedPositi
 		float interActionAngleTolerance = 45 / 2.0f;
 		if (betweenAngle > 180 - interActionAngleTolerance) {
 			player->getCommand()->pullCharacter(draggingCharacter);
-		} else if (betweenAngle < interActionAngleTolerance) {
-			player->getCommand()->pushCharacter(draggingCharacter);
 		}
 	} else if (draggingCharacter && draggingCharacter == player) {
 		player->getCommand()->draggedPlayer(endedPosition);

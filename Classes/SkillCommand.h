@@ -6,8 +6,8 @@
 
 enum class CommandType {
 	PullCharacter,
-	PushCharacter,
-	DragPlayer
+	DragPlayer,
+	DoubleTabTarget
 };
 
 class Character;
@@ -17,9 +17,9 @@ class SkillCommand {
 public:
 	bool isMapped(CommandType) const;
 	void pullCharacter(Character*);
-	void pushCharacter(Character*);
 	void draggingPlayer(const cocos2d::Vec2&);
 	void draggedPlayer(const cocos2d::Vec2&);
+	void doubleTapTarget(Character*);
 
 	void addSkill(CommandType, std::shared_ptr<Skill>);
 };
