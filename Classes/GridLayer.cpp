@@ -51,11 +51,11 @@ void GridLayer::setPlayer(Player* newPlayer) {
 	schedule(
 		[this, lastPos = Vec2(-1,-1)]
 	(float) mutable {
-		auto currentPos = player->getPosition();// +player->SCALE * UNIT_SIZE * Vec2::ONE / 2;
+		auto currentPos = player->getPosition();
 		if (currentPos == lastPos) {
 			return;
 		}
-		lastPos = currentPos;
+		lastPos = lastPos.lerp(currentPos, 0.1f);
 		focusTo(convertToWorldSpace(lastPos));
 	},0, tracePlayer);
 	addChild(player, 1);
@@ -213,9 +213,8 @@ void GridLayer::focusTo(Vec2 position) {
 
 	newPosition += visibleAreaOffset;
 
-	auto lerped = currentPosition.lerp(newPosition, 0.1f);
 	
-	setPosition(lerped);
+	setPosition(newPosition);
 }
 
 void GridLayer::addChild(Node* node) {
