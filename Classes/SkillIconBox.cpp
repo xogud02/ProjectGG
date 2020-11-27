@@ -7,20 +7,17 @@
 using namespace std;
 USING_NS_CC;
 
-SkillIconBox * SkillIconBox::create(GUIBoxCreator preset, cocos2d::Node * icon) {
+SkillIconBox * SkillIconBox::create(GUIBoxCreator preset) {
 	auto ret = new SkillIconBox();
 	if (!ret) {
 		return nullptr;
 	}
 
 	preset.create(ret);
+	ret->iconSize = preset.size.width;
+	ret->innerIconSize = ret->iconSize - preset.edgeThickness * 2;
 
-	auto iconSize = preset.size.width;
-	icon->setPosition(Vec2::ONE * iconSize / 2);
-	auto innerIconSize = iconSize - preset.edgeThickness * 2;
-	icon->setScale(SpriteFactory::getUnitScale(innerIconSize));
-	ret->addChild(icon, 1);
-
+	
 	if (!ret->init()) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
@@ -38,6 +35,16 @@ bool SkillIconBox::init() {
 	addChild(draw, 2);
 
 	return true;
+}
+
+void SkillIconBox::attachIcon(Node * newIcon) {
+	if (icon) {
+		icon->removeFromParent();
+	}
+	icon = newIcon;
+	newIcon->setPosition(Vec2::ONE * iconSize / 2);
+	newIcon->setScale(SpriteFactory::getUnitScale(innerIconSize));
+	addChild(newIcon, 1);
 }
 
 void SkillIconBox::setCooldown(float newCooldown) {

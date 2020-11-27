@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cocos2d.h";
+#include "cocos2d.h"
 #include "Skill.h"
 #include <unordered_map>
 

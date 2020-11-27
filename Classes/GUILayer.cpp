@@ -103,7 +103,6 @@ class BottomUICreator {
 	const float leftSize;
 	GUIBoxCreator boxCreator;
 	const CharacterType character;
-	Node* icon;
 	Node* ret;
 public:
 	BottomUICreator(Size size,GUIBoxCreator boxCreator, CharacterType character) :
@@ -149,14 +148,31 @@ void GUILayer::createBottomUI(Size size, CharacterType characterType) {
 	auto theme = GUIBoxCreator(GUIFrameColor::Blue, true, 30, size);
 	auto bottomUI = BottomUICreator(size, theme, characterType).create();
 	addChild(bottomUI);
-		auto blink = Sprite::create();
+	
+	auto blink = Sprite::create();
 	blink->runAction(MonsterSpriteFactory::createMonsterAnimation(ElementalType::LightBlink));
 	auto iconSize = size.height / 2;
 	theme.size = Size(iconSize, iconSize);
-	blinkIconBox = SkillIconBox::create(theme, blink);
-	bottomUI->getChildByName("right")->addChild(blinkIconBox);
+	blinkIconBox = SkillIconBox::create(theme);
+	auto rightBox = bottomUI->getChildByName("right");
+	blinkIconBox->attachIcon(blink);
+	rightBox->addChild(blinkIconBox);
+	for (int i = 0; i < 4; ++i) {
+		auto skillIconBox = SkillIconBox::create(theme);
+		skillIconBoxes.pushBack(skillIconBox);
+		rightBox->addChild(skillIconBox);
+		skillIconBox->setPosition(Vec2(2 + i, 1) * skillIconBox->getContentSize().width);
+	}
+}
+
+void GUILayer::addSkill(std::shared_ptr<Skill> skill) {
+	if (skillIconBoxes.size() == 4) {
+		CCLOG("icon full");
+		return;
+	}
 }
 
 SkillIconBox* GUILayer::getBlinkIconBox() {
 	return blinkIconBox;
 }
+
