@@ -14,6 +14,7 @@ class Character;
 
 class SkillCommand {
 	std::unordered_map<CommandType, std::shared_ptr<Skill>> skills;
+	std::unordered_map<std::shared_ptr<Skill>, int> indice;
 public:
 	bool isMapped(CommandType) const;
 	void pullCharacter(Character*);

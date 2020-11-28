@@ -165,11 +165,8 @@ void GUILayer::createBottomUI(Size size, CharacterType characterType) {
 	}
 }
 
-void GUILayer::addSkill(std::shared_ptr<Skill> skill) {
-	if (skillIconBoxes.size() == 4) {
-		CCLOG("icon full");
-		return;
-	}
+SkillIconBox * GUILayer::getSkillIconBox(int i) {
+	return skillIconBoxes.at(i);
 }
 
 SkillIconBox* GUILayer::getBlinkIconBox() {

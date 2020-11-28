@@ -84,8 +84,6 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 
 	auto testSkill = make_shared<ThrowWeapon>();
 	testSkill->setOwner(player);
-	player->getCommand()->addSkill(CommandType::DoubleTabTarget, testSkill);
-
 
 	guiLayer->setPlayer(player);
 	ret->addChild(guiLayer,1234);
@@ -105,6 +103,8 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 	guiLayer->createBottomUI(bottomUISize, character);
 	gridLayer->setVisibleArea(Size(size.width, size.height - bottomUISize.height));
 	gridLayer->setVisibleAreaOffset(Vec2(0, bottomUISize.height));
+
+	player->getCommand()->addSkill(CommandType::DoubleTabTarget, testSkill);
 
 	return ret;
 }

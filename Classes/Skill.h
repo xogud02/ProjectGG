@@ -8,10 +8,13 @@ class Skill {
 protected:
 	float coolDown;
 	Character* owner;
+
 public:
 	Skill() = default;
 	Skill(float coolDown);
 	void setOwner(Character* owner);
 	virtual void onTarget(Character* to);
 	virtual void nonTarget(const cocos2d::Vec2& to);
+	float getCooldown();
+	virtual cocos2d::Node* getIcon();
 };

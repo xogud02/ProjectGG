@@ -33,6 +33,6 @@ public:
 	void addGaugeBar(Character* owner, pBar newBar);
 	void setPlayer(Character* player);
 	void createBottomUI(cocos2d::Size size, CharacterType characterType);
-	void addSkill(std::shared_ptr<Skill> skill);
+	SkillIconBox* getSkillIconBox(int);
 	SkillIconBox* getBlinkIconBox();
 };
