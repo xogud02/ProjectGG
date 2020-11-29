@@ -14,7 +14,6 @@ GridLayer* GridLayer::getInstance() {
 	return instance;
 }
 
-#include "CCMap.h"
 GridLayer* GridLayer::create(const int rows, const int cols) {
 	auto gridUnitSize = Director::getInstance()->getOpenGLView()->getFrameSize().width / 32;
 	GridLayer* ret = new GridLayer(rows, cols, gridUnitSize);
@@ -158,8 +157,7 @@ void GridLayer::onDoubleTouch(const Vec2 & touched) {
 
 	auto scale = player->SCALE;
 	Vec2 leftBottomOffset = -Vec2::ONE * (scale / 2.f - 0.5f) * UNIT_SIZE;
-	auto gridPosition = vecToGrid(touched + leftBottomOffset);
-	player->tryToJump(gridPosition);
+	player->getCommand()->doubleTapGround(touched + leftBottomOffset);
 }
 
 void GridLayer::onDrag(const Vec2 & startPosition, const Vec2 & currentPosition) {

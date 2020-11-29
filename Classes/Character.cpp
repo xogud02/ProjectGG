@@ -2,11 +2,9 @@
 #include "GaugeBar.h"
 #include "GridLayer.h"
 #include "GridPathFinder.h"
-#include "SpriteFactory.h"
 #include "cocos-ext.h"
 #include "GUILayer.h"
 #include "TTFLabelBuilder.h"
-#include "SkillIconBox.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -311,21 +309,11 @@ void Character::tryToMove(GridPosition position) {
 const string waitForJump = "wait for jump";
 
 void Character::tryToJump(GridPosition position) {
-	auto blink = GUILayer::getInstance()->getBlinkIconBox();
-
-	blink->setCooldown(3);
-
 	auto grid = Grid::getInstance();
-	if (blink->isCoolingDown()) {
-		CCLOG("jump cooldown");
-		return;
-	}
 
 	if (position == currentGridPosition || !grid->isOccupiable(position, SCALE)) {
 		return;
 	}
-
-	blink->startCooldown();
 
 	stopAction(getActionByTag(movingActionTag));
 	path.swap(queue<GridPosition>());

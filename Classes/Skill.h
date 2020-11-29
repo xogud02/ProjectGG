@@ -6,7 +6,7 @@ class Character;
 
 class Skill {
 protected:
-	float coolDown;
+	float coolDown = 3.0f;
 	Character* owner;
 
 public:

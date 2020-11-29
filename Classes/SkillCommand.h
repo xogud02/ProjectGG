@@ -7,7 +7,8 @@
 enum class CommandType {
 	PullCharacter,
 	DragPlayer,
-	DoubleTabTarget
+	DoubleTabTarget,
+	DoubleTabGround
 };
 
 class Character;
@@ -21,6 +22,7 @@ public:
 	void draggingPlayer(const cocos2d::Vec2&);
 	void draggedPlayer(const cocos2d::Vec2&);
 	void doubleTapTarget(Character*);
+	void doubleTapGround(const cocos2d::Vec2&);
 
 	void addSkill(CommandType, std::shared_ptr<Skill>);
 };

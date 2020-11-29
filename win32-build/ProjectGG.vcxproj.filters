@@ -1,50 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Character.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Monster.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Player.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Status.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\TileBuilder.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Weapon.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\proj.win32\main.cpp">
-      <Filter>Source Files\proj.win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d\cocos\precheader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\FightScene.cpp">
-      <Filter>Source Files\Classes\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\CharacterSelectScene.cpp">
-      <Filter>Source Files\Classes\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\TitleScene.cpp">
-      <Filter>Source Files\Classes\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\StageSelectScene.cpp">
       <Filter>Source Files\Classes\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GridPathFinder.cpp">
-      <Filter>Source Files\Classes\Grid</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GridPosition.cpp">
-      <Filter>Source Files\Classes\Grid</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GridObject.cpp">
       <Filter>Source Files\Classes\Grid</Filter>
@@ -61,9 +19,6 @@
     <ClCompile Include="..\Classes\MonsterSpriteFactory.cpp">
       <Filter>Source Files\Classes\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SpriteFactory.cpp">
-      <Filter>Source Files\Classes\Sprite</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GUISpriteFactory.cpp">
       <Filter>Source Files\Classes\Sprite</Filter>
     </ClCompile>
@@ -77,9 +32,6 @@
       <Filter>Source Files\Classes\Layer</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GUIBoxCreator.cpp">
-      <Filter>Source Files\Classes\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GaugeBar.cpp">
       <Filter>Source Files\Classes\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\TTFLabelBuilder.cpp">
@@ -100,61 +52,58 @@
     <ClCompile Include="..\Classes\ThrowWeapon.cpp">
       <Filter>Source Files\Classes\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\AppDelegate.cpp">
+      <Filter>Source Files\proj.win32</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\Character.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\Monster.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\Player.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\Status.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\TileBuilder.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\Weapon.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\FightScene.cpp">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\CharacterSelectScene.cpp">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\GaugeBar.cpp">
+      <Filter>Source Files\Classes\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\GridPathFinder.cpp">
+      <Filter>Source Files\Classes\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\GridPosition.cpp">
+      <Filter>Source Files\Classes\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\proj.win32\main.cpp">
+      <Filter>Source Files\proj.win32</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\TitleScene.cpp">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\ProjectGG\Classes\SpriteFactory.cpp">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Blink.cpp">
+      <Filter>Source Files\Classes\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Character.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Monster.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Player.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Status.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\TileBuilder.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Weapon.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\proj.win32\main.h">
-      <Filter>Source Files\proj.win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\proj.win32\resource.h">
-      <Filter>Source Files\proj.win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Resources\fonts\Marker Felt.ttf">
-      <Filter>Resources\fonts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Resources\fonts\arial.ttf">
-      <Filter>Resources\fonts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Resources\res\.gitkeep">
-      <Filter>Resources\res</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\FightScene.h">
-      <Filter>Source Files\Classes\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\CharacterSelectScene.h">
-      <Filter>Source Files\Classes\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\TitleScene.h">
-      <Filter>Source Files\Classes\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\StageSelectScene.h">
       <Filter>Source Files\Classes\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GridPathFinder.h">
-      <Filter>Source Files\Classes\Grid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GridPosition.h">
-      <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GridObject.h">
       <Filter>Source Files\Classes\Grid</Filter>
@@ -169,9 +118,6 @@
       <Filter>Source Files\Classes\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MonsterSpriteFactory.h">
-      <Filter>Source Files\Classes\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SpriteFactory.h">
       <Filter>Source Files\Classes\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GUISpriteFactory.h">
@@ -198,9 +144,6 @@
     <ClInclude Include="..\Classes\GUIBoxCreator.h">
       <Filter>Source Files\Classes\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GaugeBar.h">
-      <Filter>Source Files\Classes\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\SkillIconBox.h">
       <Filter>Source Files\Classes\GUI</Filter>
     </ClInclude>
@@ -219,14 +162,63 @@
     <ClInclude Include="..\Classes\ThrowWeapon.h">
       <Filter>Source Files\Classes\Skill</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="..\CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\proj.win32\game.rc">
+    <ClInclude Include="..\Classes\Blink.h">
+      <Filter>Source Files\Classes\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Resources\fonts\arial.ttf">
+      <Filter>Resources\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Resources\fonts\Marker Felt.ttf">
+      <Filter>Resources\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\AppDelegate.h">
       <Filter>Source Files\proj.win32</Filter>
-    </ResourceCompile>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\Character.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\Monster.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\Player.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\Status.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\TileBuilder.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\Weapon.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\FightScene.h">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\CharacterSelectScene.h">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\GaugeBar.h">
+      <Filter>Source Files\Classes\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\GridPathFinder.h">
+      <Filter>Source Files\Classes\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\GridPosition.h">
+      <Filter>Source Files\Classes\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\proj.win32\main.h">
+      <Filter>Source Files\proj.win32</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\proj.win32\resource.h">
+      <Filter>Source Files\proj.win32</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\TitleScene.h">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\ProjectGG\Classes\SpriteFactory.h">
+      <Filter>Source Files\Classes\Sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

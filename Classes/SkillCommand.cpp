@@ -45,6 +45,20 @@ void SkillCommand::doubleTapTarget(Character * target) {
 	CCLOG("double tap target");
 }
 
+void SkillCommand::doubleTapGround(const cocos2d::Vec2 & to) {
+	if (!isMapped(CommandType::DoubleTabGround)) {
+		return;
+	}
+	auto skill = skills[CommandType::DoubleTabGround];
+	auto box = GUILayer::getInstance()->getBlinkIconBox();
+	if (box->isCoolingDown()) {
+		return;
+	}
+	skill->nonTarget(to);
+	box->startCooldown();
+	CCLOG("double tap ground");
+}
+
 void SkillCommand::addSkill(CommandType command, std::shared_ptr<Skill> skill) {
 	if (isMapped(command)) {
 		CCLOG("already mapped");
@@ -52,8 +66,15 @@ void SkillCommand::addSkill(CommandType command, std::shared_ptr<Skill> skill) {
 	}
 	int index = skills.size();
 	skills[command] = skill;
-	indice[skill] = index;
-	auto box = GUILayer::getInstance()->getSkillIconBox(index);
+	
+	bool isBlink = command == CommandType::DoubleTabGround;
+	
+	if (!isBlink) {
+		indice[skill] = index;
+	}
+	
+	auto guiLayer = GUILayer::getInstance();
+	auto box = isBlink ? guiLayer->getBlinkIconBox(): guiLayer->getSkillIconBox(index);
 	box->attachIcon(skill->getIcon());
 	box->setCooldown(skill->getCooldown());
 }

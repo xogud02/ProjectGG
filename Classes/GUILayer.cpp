@@ -149,13 +149,10 @@ void GUILayer::createBottomUI(Size size, CharacterType characterType) {
 	auto bottomUI = BottomUICreator(size, theme, characterType).create();
 	addChild(bottomUI);
 	
-	auto blink = Sprite::create();
-	blink->runAction(MonsterSpriteFactory::createMonsterAnimation(ElementalType::LightBlink));
 	auto iconSize = size.height / 2;
 	theme.size = Size(iconSize, iconSize);
 	blinkIconBox = SkillIconBox::create(theme);
 	auto rightBox = bottomUI->getChildByName("right");
-	blinkIconBox->attachIcon(blink);
 	rightBox->addChild(blinkIconBox);
 	for (int i = 0; i < 4; ++i) {
 		auto skillIconBox = SkillIconBox::create(theme);

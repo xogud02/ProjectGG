@@ -34,6 +34,7 @@
 #include "TileSpriteFactory.h"
 #include "GUILayer.h"
 #include "ThrowWeapon.h"
+#include "Blink.h"
 
 USING_NS_CC;
 using namespace std;
@@ -82,9 +83,6 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 	auto guiLayer = GUILayer::create();
 	auto player = Player::create(character);
 
-	auto testSkill = make_shared<ThrowWeapon>();
-	testSkill->setOwner(player);
-
 	guiLayer->setPlayer(player);
 	ret->addChild(guiLayer,1234);
 
@@ -104,7 +102,14 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 	gridLayer->setVisibleArea(Size(size.width, size.height - bottomUISize.height));
 	gridLayer->setVisibleAreaOffset(Vec2(0, bottomUISize.height));
 
+
+
+	auto testSkill = make_shared<ThrowWeapon>();
+	testSkill->setOwner(player);
 	player->getCommand()->addSkill(CommandType::DoubleTabTarget, testSkill);
+	auto blink = make_shared <::Blink>();
+	blink->setOwner(player);
+	player->getCommand()->addSkill(CommandType::DoubleTabGround, blink);
 
 	return ret;
 }
