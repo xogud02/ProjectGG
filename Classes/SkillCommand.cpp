@@ -4,16 +4,27 @@
 USING_NS_CC;
 using namespace std;
 
+void SkillCommand::tryToUseSkill(CommandType command, function<void(sptrSkill)> onUse) {
+	if (!isMapped(command)) {
+		return;
+	}
+	bool isBlink = command == CommandType::DoubleTabGround;
+	auto gui = GUILayer::getInstance();
+	auto skill = skills[command];
+	auto box = isBlink ? gui->getBlinkIconBox() : gui->getSkillIconBox(indice[skill]);
+	if (box->isCoolingDown()) {
+		return;
+	}
+	box->startCooldown();
+	onUse(skill);
+}
+
 bool SkillCommand::isMapped(CommandType command) const {
 	return skills.find(command) != skills.cend();
 }
 
 void SkillCommand::pullCharacter(Character* to) {
-	if (!isMapped(CommandType::PullCharacter)) {
-		return;
-	}
-	skills[CommandType::PullCharacter]->onTarget(to);
-	CCLOG("pull");
+	tryToUseSkill(CommandType::PullCharacter, [to](auto skill) {skill->onTarget(to); });
 }
 
 void SkillCommand::draggingPlayer(const Vec2 &) {
@@ -24,39 +35,15 @@ void SkillCommand::draggingPlayer(const Vec2 &) {
 }
 
 void SkillCommand::draggedPlayer(const Vec2 & to) {
-	if (!isMapped(CommandType::DragPlayer)) {
-		return;
-	}
-	skills[CommandType::DragPlayer]->nonTarget(to);
-	CCLOG("dragged");
+	tryToUseSkill(CommandType::DragPlayer, [to](auto skill) {skill->nonTarget(to); });
 }
 
 void SkillCommand::doubleTapTarget(Character * target) {
-	if (!isMapped(CommandType::DoubleTabTarget)) {
-		return;
-	}
-	auto skill = skills[CommandType::DoubleTabTarget];
-	auto box = GUILayer::getInstance()->getSkillIconBox(indice[skill]);
-	if (box->isCoolingDown()) {
-		return;
-	}
-	skill->onTarget(target);
-	box->startCooldown();
-	CCLOG("double tap target");
+	tryToUseSkill(CommandType::DoubleTabTarget, [target](auto skill) {skill->onTarget(target); });
 }
 
 void SkillCommand::doubleTapGround(const cocos2d::Vec2 & to) {
-	if (!isMapped(CommandType::DoubleTabGround)) {
-		return;
-	}
-	auto skill = skills[CommandType::DoubleTabGround];
-	auto box = GUILayer::getInstance()->getBlinkIconBox();
-	if (box->isCoolingDown()) {
-		return;
-	}
-	skill->nonTarget(to);
-	box->startCooldown();
-	CCLOG("double tap ground");
+	tryToUseSkill(CommandType::DoubleTabGround, [to](auto skill) {skill->nonTarget(to); });
 }
 
 void SkillCommand::addSkill(CommandType command, std::shared_ptr<Skill> skill) {
