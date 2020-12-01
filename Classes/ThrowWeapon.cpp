@@ -9,7 +9,7 @@ USING_NS_CC;
 ThrowWeapon::ThrowWeapon(float coolDown):Skill(coolDown) {
 }
 
-void ThrowWeapon::onTarget(Character * to) {
+bool ThrowWeapon::onTarget(Character * to) {
 	auto player = dynamic_cast<Player*>(owner);
 	auto weapon = WeaponSpriteFactory::sword();
 
@@ -33,4 +33,6 @@ void ThrowWeapon::onTarget(Character * to) {
 		throwed->setRotation(-CC_RADIANS_TO_DEGREES(delta.getAngle()) + 135);//TODO move angle logic
 		throwed->setPosition(start.lerp(dest, 1 - remain / time));
 	},key);
+
+	return true;
 }

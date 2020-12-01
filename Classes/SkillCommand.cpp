@@ -4,19 +4,23 @@
 USING_NS_CC;
 using namespace std;
 
-void SkillCommand::tryToUseSkill(CommandType command, function<void(sptrSkill)> onUse) {
+bool SkillCommand::tryToUseSkill(CommandType command, function<bool(sptrSkill)> onUse) {
 	if (!isMapped(command)) {
-		return;
+		return false;
 	}
 	bool isBlink = command == CommandType::DoubleTabGround;
 	auto gui = GUILayer::getInstance();
 	auto skill = skills[command];
 	auto box = isBlink ? gui->getBlinkIconBox() : gui->getSkillIconBox(indice[skill]);
 	if (box->isCoolingDown()) {
-		return;
+		return false;
 	}
-	box->startCooldown();
-	onUse(skill);
+
+	if (onUse(skill)) {
+		box->startCooldown();
+		return true;
+	}
+	return false;
 }
 
 bool SkillCommand::isMapped(CommandType command) const {
@@ -24,7 +28,7 @@ bool SkillCommand::isMapped(CommandType command) const {
 }
 
 void SkillCommand::pullCharacter(Character* to) {
-	tryToUseSkill(CommandType::PullCharacter, [to](auto skill) {skill->onTarget(to); });
+	tryToUseSkill(CommandType::PullCharacter, [to](auto skill) {return skill->onTarget(to); });
 }
 
 void SkillCommand::draggingPlayer(const Vec2 &) {
@@ -35,15 +39,15 @@ void SkillCommand::draggingPlayer(const Vec2 &) {
 }
 
 void SkillCommand::draggedPlayer(const Vec2 & to) {
-	tryToUseSkill(CommandType::DragPlayer, [to](auto skill) {skill->nonTarget(to); });
+	tryToUseSkill(CommandType::DragPlayer, [to](auto skill) {return skill->nonTarget(to); });
 }
 
 void SkillCommand::doubleTapTarget(Character * target) {
-	tryToUseSkill(CommandType::DoubleTabTarget, [target](auto skill) {skill->onTarget(target); });
+	tryToUseSkill(CommandType::DoubleTabTarget, [target](auto skill) {return skill->onTarget(target); });
 }
 
 void SkillCommand::doubleTapGround(const cocos2d::Vec2 & to) {
-	tryToUseSkill(CommandType::DoubleTabGround, [to](auto skill) {skill->nonTarget(to); });
+	tryToUseSkill(CommandType::DoubleTabGround, [to](auto skill) {return skill->nonTarget(to); });
 }
 
 void SkillCommand::addSkill(CommandType command, std::shared_ptr<Skill> skill) {

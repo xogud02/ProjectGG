@@ -5,5 +5,5 @@
 class Blink : public Skill {
 public:
 	cocos2d::Node* getIcon();
-	void nonTarget(const cocos2d::Vec2&) override;
+	bool nonTarget(const cocos2d::Vec2&) override;
 };
