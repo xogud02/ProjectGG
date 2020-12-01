@@ -14,7 +14,7 @@ Grid::Grid(int rows, int cols) : rows(rows), cols(cols){
 	instance = this;
 }
 
-bool Grid::isMovable(const GridPosition& gridPosition, const int size) const {
+bool Grid::isMovableTile(const GridPosition& gridPosition, const int size) const {
 	int row = gridPosition.row, col = gridPosition.col;
 	for (int dr = 0; dr < size; ++dr) {
 		for (int dc = 0; dc < size; ++dc) {
@@ -70,7 +70,6 @@ void Grid::unOccupyArea(Character * by, const GridPosition& position) {
 			occupiedCharacter.erase(next);
 		}
 	}
-
 }
 
 bool Grid::isOccupiable(const GridPosition& position, const int size) const {

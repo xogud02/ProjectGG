@@ -23,7 +23,7 @@ public:
 	const int rows, cols;
 
 	Grid(int rows, int cols);
-	bool isMovable(const GridPosition& gridPosition, const int size = 1) const;
+	bool isMovableTile(const GridPosition& gridPosition, const int size = 1) const;
 	bool isValidPosition(const GridPosition& position, const int size = 1) const;
 	void addObject(GridObject* gridObject, GridPosition position);
 

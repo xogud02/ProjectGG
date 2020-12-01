@@ -56,7 +56,7 @@ queue<GridPosition> GridPathFinder::findPath(GridPosition from, GridPosition to,
 		for (int i = 0; i < 8; ++i) {
 			GridPosition adjPosition = currentPosition + GridPosition(dr[i], dc[i]);
 			
-			if (!Grid::getInstance()->isMovable(adjPosition, size)) {
+			if (!Grid::getInstance()->isMovableTile(adjPosition, size)) {
 				continue;
 			}
 

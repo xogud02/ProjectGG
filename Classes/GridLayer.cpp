@@ -113,7 +113,7 @@ void GridLayer::showGrid() {
 		for (int r = 0; r < grid.rows; ++r) {
 			for (int c = 0; c < grid.cols; ++c) {
 				auto currentPosition = GridPosition(r, c);
-				if (!grid.isMovable(currentPosition)) {
+				if (!grid.isMovableTile(currentPosition)) {
 					auto&& rectOrigin = gridToPosition(currentPosition);
 					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED - Color4F(0, 0, 0, 0.5f));
 				} else if (!grid.isOccupiable(currentPosition)) {

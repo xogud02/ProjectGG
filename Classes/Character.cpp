@@ -311,7 +311,7 @@ const string waitForJump = "wait for jump";
 void Character::tryToJump(GridPosition position) {
 	auto grid = Grid::getInstance();
 
-	if (position == currentGridPosition || !grid->isOccupiable(position, SCALE)) {
+	if (position == currentGridPosition || !grid->isOccupiable(position, SCALE) || !grid->isMovableTile(position, SCALE)) {
 		return;
 	}
 
