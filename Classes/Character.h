@@ -41,6 +41,7 @@ protected:
 public:
 	void tryToMove(GridPosition);
 	void tryToJump(GridPosition);
+	void stopMove();
 
 	const int SCALE;
 

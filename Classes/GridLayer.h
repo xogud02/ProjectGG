@@ -35,6 +35,7 @@ public:
 	void showGrid();
 	
 	void onSingleTouch(const cocos2d::Vec2& touched);
+	void onSingleTouchCanceled();
 	void onDoubleTouch(const cocos2d::Vec2& touched);
 	void onDrag(const cocos2d::Vec2& startPosition, const cocos2d::Vec2& currentPosition);
 	void onDragEnded(const cocos2d::Vec2& startPosition, const cocos2d::Vec2& endedPosition);

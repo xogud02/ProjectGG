@@ -20,6 +20,7 @@ private:
 public:
 	float dragThreshold;
 	std::function<void(cocos2d::Vec2)> onSingleTouch = nullptr;
+	std::function<void()> onSingleTouchCanceled = nullptr;
 	std::function<void(cocos2d::Vec2)> onDoubleTouch = nullptr;
 	std::function<void(cocos2d::Vec2, cocos2d::Vec2)> onDrag = nullptr;
 	std::function<void(cocos2d::Vec2, cocos2d::Vec2)> onDragEnded = nullptr;

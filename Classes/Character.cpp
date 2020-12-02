@@ -315,10 +315,14 @@ void Character::tryToJump(GridPosition position) {
 		return;
 	}
 
+	stopMove();
 	stopAction(getActionByTag(movingActionTag));
-	path.swap(queue<GridPosition>());
 
 	grid->unOccupyArea(this, currentGridPosition);
 	setPosition(GridLayer::getInstance()->gridToPosition(position));
 	grid->occupyArea(this, position);
+}
+
+void Character::stopMove() {
+	path.swap(queue<GridPosition>());
 }

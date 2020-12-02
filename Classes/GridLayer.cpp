@@ -23,6 +23,7 @@ GridLayer* GridLayer::create(const int rows, const int cols) {
 
 	auto listener = GridTouchListener::create(ret);
 	listener->onSingleTouch = CC_CALLBACK_1(GridLayer::onSingleTouch, ret);
+	listener->onSingleTouchCanceled = CC_CALLBACK_0(GridLayer::onSingleTouchCanceled, ret);
 	listener->onDoubleTouch = CC_CALLBACK_1(GridLayer::onDoubleTouch, ret);
 	listener->onDrag = CC_CALLBACK_2(GridLayer::onDrag, ret);
 	listener->onDragEnded = CC_CALLBACK_2(GridLayer::onDragEnded, ret);
@@ -146,6 +147,11 @@ void GridLayer::onSingleTouch(const Vec2 & touched) {
 	auto gridPosition = vecToGrid(touched + leftBottomOffset);
 	player->setTarget(nullptr);
 	player->tryToMove(gridPosition);
+}
+
+void GridLayer::onSingleTouchCanceled() {
+	player->setTarget(nullptr);
+	player->stopMove();
 }
 
 void GridLayer::onDoubleTouch(const Vec2 & touched) {
