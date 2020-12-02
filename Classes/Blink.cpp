@@ -11,6 +11,6 @@ Node* ::Blink::getIcon() {
 	return blink;
 }
 
-void ::Blink::nonTarget(const Vec2& to) {
-	owner->tryToJump(GridLayer::getInstance()->vecToGrid(to));
+bool ::Blink::nonTarget(const Vec2& to) {
+	return owner->tryToJump(GridLayer::getInstance()->vecToGrid(to));
 }

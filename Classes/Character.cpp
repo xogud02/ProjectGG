@@ -308,11 +308,11 @@ void Character::tryToMove(GridPosition position) {
 
 const string waitForJump = "wait for jump";
 
-void Character::tryToJump(GridPosition position) {
+bool Character::tryToJump(GridPosition position) {
 	auto grid = Grid::getInstance();
 
 	if (position == currentGridPosition || !grid->isOccupiable(position, SCALE) || !grid->isMovableTile(position, SCALE)) {
-		return;
+		return false;
 	}
 
 	stopMove();
@@ -321,6 +321,7 @@ void Character::tryToJump(GridPosition position) {
 	grid->unOccupyArea(this, currentGridPosition);
 	setPosition(GridLayer::getInstance()->gridToPosition(position));
 	grid->occupyArea(this, position);
+	return true;
 }
 
 void Character::stopMove() {

@@ -12,10 +12,14 @@ void Skill::setOwner(Character * owner) {
 	this->owner = owner;
 }
 
-void Skill::onTarget(Character * to) {
+bool Skill::onTarget(Character * to) {
+	CCLOG("unemplemented onTarget Called");
+	return false;
 }
 
-void Skill::nonTarget(const cocos2d::Vec2 & to) {
+bool Skill::nonTarget(const cocos2d::Vec2 & to) {
+	CCLOG("unemplemented nonTarget Called");
+	return false;
 }
 
 cocos2d::Node * Skill::getIcon() {

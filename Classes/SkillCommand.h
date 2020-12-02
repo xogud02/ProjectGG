@@ -18,7 +18,7 @@ using sptrSkill = std::shared_ptr<Skill>;
 class SkillCommand {
 	std::unordered_map<CommandType, sptrSkill > skills;
 	std::unordered_map<sptrSkill, int> indice;
-	void tryToUseSkill(CommandType, std::function<void(sptrSkill)>);
+	bool tryToUseSkill(CommandType, std::function<bool(sptrSkill)>);
 public:
 	bool isMapped(CommandType) const;
 	void pullCharacter(Character*);

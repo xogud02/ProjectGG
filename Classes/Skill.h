@@ -13,8 +13,8 @@ public:
 	Skill() = default;
 	Skill(float coolDown);
 	void setOwner(Character* owner);
-	virtual void onTarget(Character* to);
-	virtual void nonTarget(const cocos2d::Vec2& to);
+	virtual bool onTarget(Character* to);
+	virtual bool nonTarget(const cocos2d::Vec2& to);
 	float getCooldown();
 	virtual cocos2d::Node* getIcon();
 };
