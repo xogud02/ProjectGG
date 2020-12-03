@@ -100,6 +100,7 @@
     <ClCompile Include="..\Classes\Blink.cpp">
       <Filter>Source Files\Classes\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\FireBall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\StageSelectScene.h">
@@ -218,6 +219,9 @@
     </ClInclude>
     <ClInclude Include="C:\ProjectGG\Classes\SpriteFactory.h">
       <Filter>Source Files\Classes\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FireBall.h">
+      <Filter>Source Files\Classes\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

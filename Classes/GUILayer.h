@@ -25,6 +25,8 @@ private:
 	SkillIconBox* blinkIconBox = nullptr;
 	cocos2d::Vector<SkillIconBox*> skillIconBoxes;
 
+	cocos2d::Sprite* arrow = nullptr;
+
 	GUILayer() = default;
 protected:
 	virtual bool init() override;
@@ -33,6 +35,8 @@ public:
 	void addGaugeBar(Character* owner, pBar newBar);
 	void setPlayer(Character* player);
 	void createBottomUI(cocos2d::Size size, CharacterType characterType);
+	void setArrowPosition(const cocos2d::Vec2& from, const cocos2d::Vec2& to);
+	void setArrowVisible(bool);
 	SkillIconBox* getSkillIconBox(int);
 	SkillIconBox* getBlinkIconBox();
 };

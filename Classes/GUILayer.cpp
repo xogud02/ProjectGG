@@ -7,6 +7,7 @@
 #include "SpriteFactory.h"
 #include "TTFLabelBuilder.h"
 #include "SkillIconBox.h"
+#include "GUISpriteFactory.h"
 
 USING_NS_CC;
 using namespace std;
@@ -32,11 +33,15 @@ bool GUILayer::init() {
 		return false;
 	}
 
+	arrow = Sprite::createWithSpriteFrame(GUISpriteFactory::GUIArrowFrame(ArrowDirection::Up));
+	arrow->setAnchorPoint(Vec2(0.5f, 0));
+	addChild(arrow, 1);
+	setArrowVisible(false);
 	canvas = DrawNode::create();
 	if (!canvas) {
 		return false;
 	}
-	addChild(canvas);
+	addChild(canvas, 2);
 
 	instance = this;
 
@@ -147,7 +152,7 @@ private:
 void GUILayer::createBottomUI(Size size, CharacterType characterType) {
 	auto theme = GUIBoxCreator(GUIFrameColor::Blue, true, 30, size);
 	auto bottomUI = BottomUICreator(size, theme, characterType).create();
-	addChild(bottomUI);
+	addChild(bottomUI, 3);
 	
 	auto iconSize = size.height / 2;
 	theme.size = Size(iconSize, iconSize);
@@ -160,6 +165,23 @@ void GUILayer::createBottomUI(Size size, CharacterType characterType) {
 		rightBox->addChild(skillIconBox);
 		skillIconBox->setPosition(Vec2(2 + i, 1) * skillIconBox->getContentSize().width);
 	}
+}
+
+void GUILayer::setArrowPosition(const Vec2& from, const Vec2& to) {
+
+	arrow->setPosition(from);
+	auto delta = to - from;
+	arrow->setScaleY(delta.getLength() / arrow->getContentSize().height);
+	auto angle = CC_RADIANS_TO_DEGREES(Vec2::angle(delta, Vec2(0, 1)));
+	if (delta.x < 0) {
+		angle *= -1;
+	}
+	arrow->setRotation(angle);
+	
+}
+
+void GUILayer::setArrowVisible(bool visible) {
+	arrow->setVisible(visible);
 }
 
 SkillIconBox * GUILayer::getSkillIconBox(int i) {

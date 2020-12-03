@@ -35,6 +35,7 @@
 #include "GUILayer.h"
 #include "ThrowWeapon.h"
 #include "Blink.h"
+#include "FireBall.h"
 
 USING_NS_CC;
 using namespace std;
@@ -110,6 +111,8 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 	auto blink = make_shared <::Blink>();
 	blink->setOwner(player);
 	player->getCommand()->addSkill(CommandType::DoubleTabGround, blink);
+	auto fireBall = make_shared <FireBall>();
+	player->getCommand()->addSkill(CommandType::DragPlayer, fireBall);
 
 	return ret;
 }

@@ -31,15 +31,18 @@ void SkillCommand::pullCharacter(Character* to) {
 	tryToUseSkill(CommandType::PullCharacter, [to](auto skill) {return skill->onTarget(to); });
 }
 
-void SkillCommand::draggingPlayer(const Vec2 &) {
+void SkillCommand::draggingPlayer(const Vec2& from, const Vec2& to) {
 	if (!isMapped(CommandType::DragPlayer)) {
 		return;
 	}
-	CCLOG("dragging");
+	auto guiLayer = GUILayer::getInstance();
+	guiLayer->setArrowVisible(true);
+	guiLayer->setArrowPosition(from, to);
 }
 
 void SkillCommand::draggedPlayer(const Vec2 & to) {
 	tryToUseSkill(CommandType::DragPlayer, [to](auto skill) {return skill->nonTarget(to); });
+	GUILayer::getInstance()->setArrowVisible(false);
 }
 
 void SkillCommand::doubleTapTarget(Character * target) {
@@ -50,12 +53,12 @@ void SkillCommand::doubleTapGround(const cocos2d::Vec2 & to) {
 	tryToUseSkill(CommandType::DoubleTabGround, [to](auto skill) {return skill->nonTarget(to); });
 }
 
-void SkillCommand::addSkill(CommandType command, std::shared_ptr<Skill> skill) {
+void SkillCommand::addSkill(CommandType command, sptrSkill skill) {
 	if (isMapped(command)) {
 		CCLOG("already mapped");
 		return;
 	}
-	int index = skills.size();
+	int index = indice.size();
 	skills[command] = skill;
 	
 	bool isBlink = command == CommandType::DoubleTabGround;
