@@ -8,6 +8,7 @@
 #include "TTFLabelBuilder.h"
 #include "SkillIconBox.h"
 #include "GUISpriteFactory.h"
+#include "GridLayer.h"
 
 USING_NS_CC;
 using namespace std;
@@ -168,8 +169,9 @@ void GUILayer::createBottomUI(Size size, CharacterType characterType) {
 }
 
 void GUILayer::setArrowPosition(const Vec2& from, const Vec2& to) {
-
-	arrow->setPosition(from);
+	auto gridLayer = GridLayer::getInstance();
+	auto world = gridLayer->convertToWorldSpace(from);
+	arrow->setPosition(convertToNodeSpace(world));
 	auto delta = to - from;
 	arrow->setScaleY(delta.getLength() / arrow->getContentSize().height);
 	auto angle = CC_RADIANS_TO_DEGREES(Vec2::angle(delta, Vec2(0, 1)));
@@ -177,7 +179,6 @@ void GUILayer::setArrowPosition(const Vec2& from, const Vec2& to) {
 		angle *= -1;
 	}
 	arrow->setRotation(angle);
-	
 }
 
 void GUILayer::setArrowVisible(bool visible) {
