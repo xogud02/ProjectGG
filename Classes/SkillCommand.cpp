@@ -1,5 +1,6 @@
 #include "SkillCommand.h"
 #include "GUILayer.h"
+#include "GridLayer.h"
 
 USING_NS_CC;
 using namespace std;
@@ -36,8 +37,9 @@ void SkillCommand::draggingPlayer(const Vec2& from, const Vec2& to) {
 		return;
 	}
 	auto guiLayer = GUILayer::getInstance();
+	auto gridLayer = GridLayer::getInstance();//bad smell
 	guiLayer->setArrowVisible(true);
-	guiLayer->setArrowPosition(from, to);
+	guiLayer->setArrowPosition(gridLayer->convertToWorldSpace(from), gridLayer->convertToWorldSpace(to));
 }
 
 void SkillCommand::draggedPlayer(const Vec2 & to) {

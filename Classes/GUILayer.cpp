@@ -168,11 +168,10 @@ void GUILayer::createBottomUI(Size size, CharacterType characterType) {
 	}
 }
 
-void GUILayer::setArrowPosition(const Vec2& from, const Vec2& to) {
+void GUILayer::setArrowPosition(const Vec2& wFrom, const Vec2& wTo) {
 	auto gridLayer = GridLayer::getInstance();
-	auto world = gridLayer->convertToWorldSpace(from);
-	arrow->setPosition(convertToNodeSpace(world));
-	auto delta = to - from;
+	arrow->setPosition(convertToNodeSpace(wFrom));
+	auto delta = wTo - wFrom;
 	arrow->setScaleY(delta.getLength() / arrow->getContentSize().height);
 	auto angle = CC_RADIANS_TO_DEGREES(Vec2::angle(delta, Vec2(0, 1)));
 	if (delta.x < 0) {
