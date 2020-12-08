@@ -37,6 +37,7 @@ public:
 	void createBottomUI(cocos2d::Size size, CharacterType characterType);
 	void setArrowPosition(const cocos2d::Vec2& from, const cocos2d::Vec2& to);
 	void setArrowVisible(bool);
+	void setArrowTransParent(bool);
 	SkillIconBox* getSkillIconBox(int);
 	SkillIconBox* getBlinkIconBox();
 };

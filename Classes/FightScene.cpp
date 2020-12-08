@@ -113,6 +113,7 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 	player->getCommand()->addSkill(CommandType::DoubleTabGround, blink);
 	auto fireBall = make_shared <FireBall>();
 	player->getCommand()->addSkill(CommandType::DragPlayer, fireBall);
+	fireBall->setOwner(player);
 
 	return ret;
 }

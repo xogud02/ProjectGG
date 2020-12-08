@@ -39,6 +39,8 @@ void SkillCommand::draggingPlayer(const Vec2& from, const Vec2& to) {
 	auto guiLayer = GUILayer::getInstance();
 	auto gridLayer = GridLayer::getInstance();//bad smell
 	guiLayer->setArrowVisible(true);
+	auto box = guiLayer->getSkillIconBox(indice[skills[CommandType::DragPlayer]]);
+	guiLayer->setArrowTransParent(box->isCoolingDown());
 	guiLayer->setArrowPosition(gridLayer->convertToWorldSpace(from), gridLayer->convertToWorldSpace(to));
 }
 

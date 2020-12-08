@@ -184,6 +184,10 @@ void GUILayer::setArrowVisible(bool visible) {
 	arrow->setVisible(visible);
 }
 
+void GUILayer::setArrowTransParent(bool transParent) {
+	arrow->setOpacity(transParent ? 128 : 255);
+}
+
 SkillIconBox * GUILayer::getSkillIconBox(int i) {
 	return skillIconBoxes.at(i);
 }
