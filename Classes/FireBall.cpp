@@ -3,8 +3,10 @@
 #include "Character.h"
 #include "GridLayer.h"
 #include "Grid.h"
+#include <unordered_set>
 
 USING_NS_CC;
+using namespace std;
 
 Sprite* createFireBall() {
 	auto ret = Sprite::create();
@@ -33,12 +35,17 @@ bool FireBall::nonTarget(const Vec2 & to) {
 
 	auto grid = Grid::getInstance();
 	auto key = "fireBall";
-	layer->schedule([fireBall, delta = direction * layer->UNIT_SIZE * 0.5f, layer, grid, key](float) mutable {
+	layer->schedule([fireBall, delta = direction * layer->UNIT_SIZE * 0.5f, layer, grid, key, owner = owner, hitted = unordered_set<Character*>()](float) mutable {
 		auto currentPosition = fireBall->getPosition();
-		if (!grid->isValidPosition(layer->vecToGrid(currentPosition))) {
+		auto currentGridPosition = layer->vecToGrid(currentPosition);
+		if (!grid->isValidPosition(currentGridPosition)) {
 			layer->unschedule(key);
 			CCLOG("fireBall done");
 			return;
+		}
+		auto test = grid->getOccupiedCharacter(currentGridPosition);
+		if (test && test != owner && hitted.insert(test).second) {
+			test->hit(owner, 1);
 		}
 		auto newPos = fireBall->getPosition() + delta;
 		fireBall->setPosition(newPos);
