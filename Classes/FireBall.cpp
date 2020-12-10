@@ -19,12 +19,12 @@ Node * FireBall::getIcon() {
 }
 
 bool FireBall::nonTarget(const Vec2 & to) {
-	auto from = owner->getPosition();
+	auto from = owner->getCenturalPosition();
 	auto direction = (to - from).getNormalized();
 	auto layer = GridLayer::getInstance();
 	auto fireBall = createFireBall();
 	layer->addChild(fireBall, 1);
-	fireBall->setPosition(owner->getPosition());
+	fireBall->setPosition(from);
 	
 	auto degree = CC_RADIANS_TO_DEGREES(Vec2::angle(Vec2(0, 1), direction));
 	if (direction.x < 0) {

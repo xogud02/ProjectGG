@@ -12,6 +12,10 @@ using namespace std;
 
 const string chaseTarget = "chaseTarget";
 
+Vec2 Character::getCenturalPosition() {
+	return getPosition() + getBoundingBox().size / 2;
+}
+
 Character* Character::create(int scale) {
 	Character* ret = new Character(scale);
 	if (!ret || !ret->init()) {

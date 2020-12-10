@@ -173,7 +173,7 @@ void GridLayer::onDrag(const Vec2 & startPosition, const Vec2 & currentPosition)
 	}
 
 	if (draggingCharacter == player) {
-		player->getCommand()->draggingPlayer(startPosition, currentPosition);
+		player->getCommand()->draggingPlayer(player->getCenturalPosition(), currentPosition);
 	}
 }
 

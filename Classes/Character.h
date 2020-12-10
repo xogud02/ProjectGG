@@ -45,6 +45,8 @@ public:
 
 	const int SCALE;
 
+	cocos2d::Vec2 getCenturalPosition();
+
 	static Character* create(int scale = 1);
 
 	Character(int scale);
