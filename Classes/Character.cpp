@@ -310,8 +310,6 @@ void Character::tryToMove(GridPosition position) {
 	}
 }
 
-const string waitForJump = "wait for jump";
-
 bool Character::tryToJump(GridPosition position) {
 	auto grid = Grid::getInstance();
 
