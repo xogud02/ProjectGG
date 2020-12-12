@@ -182,6 +182,20 @@ Character::~Character() {
 	Grid::getInstance()->unOccupyArea(this, currentGridPosition);
 }
 
+
+void Character::buff(int power, float time) {
+	++buffCount;
+	status.addMorePower(power);
+	CCLOG("power up");
+	scheduleOnce(
+		[power, this]
+	(float) {
+		status.addMorePower(-power);
+		--buffCount;
+		CCLOG("power up done");
+	}, time, "buff" + to_string(buffCount));
+}
+
 void Character::releaseTarget() {
 	if (!target) {
 		return;

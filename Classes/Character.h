@@ -64,4 +64,9 @@ public:
 
 	virtual void hit(Character* by, int damage);
 	virtual ~Character();
+
+private:
+	int buffCount = 0;
+public:
+	void buff(int power, float time);
 };

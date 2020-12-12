@@ -36,6 +36,7 @@
 #include "ThrowWeapon.h"
 #include "Blink.h"
 #include "FireBall.h"
+#include "PowerUp.h"
 
 USING_NS_CC;
 using namespace std;
@@ -107,13 +108,19 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 
 	auto testSkill = make_shared<ThrowWeapon>();
 	testSkill->setOwner(player);
-	player->getCommand()->addSkill(CommandType::DoubleTabTarget, testSkill);
+	player->getCommand()->addSkill(CommandType::PullCharacter, testSkill);
+	
 	auto blink = make_shared <::Blink>();
 	blink->setOwner(player);
 	player->getCommand()->addSkill(CommandType::DoubleTabGround, blink);
+	
 	auto fireBall = make_shared <FireBall>();
 	player->getCommand()->addSkill(CommandType::DragPlayer, fireBall);
 	fireBall->setOwner(player);
+
+	auto powerUp = make_shared<PowerUp>();
+	powerUp->setOwner(player);
+	player->getCommand()->addSkill(CommandType::DoubleTabTarget, powerUp);
 
 	return ret;
 }

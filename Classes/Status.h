@@ -18,6 +18,7 @@ private:
 	int maxHP = 100;
 	int hp = maxHP;
 	int power = 10;
+	int morePower = 0;
 public:
 	Status() = default;
 	Status(int hp, int maxHp, int level, int power);
@@ -30,6 +31,8 @@ public:
 	float getAttackInterval() const;
 	bool isAttackReady() const;
 	void waitForAttack(cocos2d::Node* caller, std::function<void()> onReady = nullptr);
+
+	void addMorePower(int delta);
 
 	void levelUp();
 	int getDamage();

@@ -1,4 +1,5 @@
 #include "Status.h"
+#include "math\CCMath.h"
 
 USING_NS_CC;
 using namespace std;
@@ -55,6 +56,10 @@ void Status::waitForAttack(Node* caller, function<void()> onReady) {
 	}, attackInterval, "waiting");
 }
 
+void Status::addMorePower(int delta) {
+	morePower += delta;
+}
+
 int upgrade(int value, float ratio) {
 	auto newValue = static_cast<int>(value * ratio);
 	if (newValue == value) {
@@ -72,8 +77,20 @@ void Status::levelUp() {
 	power = upgrade(power, 1.05f);
 }
 
+int clamp(int value, int minIn, int maxEx) {
+	if (value < minIn) {
+		return minIn;
+	}
+
+	if (value >= maxEx) {
+		return maxEx - 1;
+	}
+
+	return value;
+}
+
 int Status::getDamage() {
-	return random(power * 0.5f, power * 1.5f);
+	return clamp(random(power * 0.5f, power * 1.5f) + morePower, 1, INT_MAX);
 }
 
 ChracterCondition Status::getCondition() const {
