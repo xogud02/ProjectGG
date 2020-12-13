@@ -6,6 +6,7 @@
 #include "Character.h"
 #include "Skill.h"
 #include "SkillIconBox.h"
+#include "GUIBoxCreator.h"
 
 using pBar = std::shared_ptr<GaugeBar>;
 using CharacterBarMap = std::unordered_map<Character*, pBar>;
@@ -16,8 +17,12 @@ class GUILayer : public cocos2d::Node {
 	static GUILayer* instance;
 public:
 	static GUILayer* getInstance();
+	CREATE_FUNC(GUILayer);
 
 private:
+
+	GUILayer();
+	GUIBoxCreator theme;
 
 	CharacterBarMap characterBarMap;
 	cocos2d::DrawNode* canvas = nullptr;
@@ -25,13 +30,16 @@ private:
 	SkillIconBox* blinkIconBox = nullptr;
 	cocos2d::Vector<SkillIconBox*> skillIconBoxes;
 
+	//std::queue<SkillIconBox*> buffs;
+
 	cocos2d::Sprite* arrow = nullptr;
 
-	GUILayer() = default;
+
 protected:
 	virtual bool init() override;
 public:
-	CREATE_FUNC(GUILayer);
+
+
 	void addGaugeBar(Character* owner, pBar newBar);
 	void setPlayer(Character* player);
 	void createBottomUI(cocos2d::Size size, CharacterType characterType);
@@ -40,4 +48,6 @@ public:
 	void setArrowTransParent(bool);
 	SkillIconBox* getSkillIconBox(int);
 	SkillIconBox* getBlinkIconBox();
+
+	void addBuff(cocos2d::Node* icon, float duration);
 };
