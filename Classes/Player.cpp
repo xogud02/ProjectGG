@@ -2,6 +2,7 @@
 #include "SpriteFactory.h"
 #include "Weapon.h"
 #include "CharacterSpriteFactory.h"
+#include "GUILayer.h"
 
 using namespace std;
 USING_NS_CC;
@@ -56,6 +57,11 @@ Weapon * Player::getWeapon() {
 
 shared_ptr<SkillCommand> Player::getCommand() {
 	return command;
+}
+
+void Player::buff(int power, float time, cocos2d::Node * icon) {
+	Character::buff(power, time, icon);
+	GUILayer::getInstance()->addBuff(icon, time);
 }
 
 Player::Player(CharacterType characterType, int scale) :Character(scale),characterType(characterType),command(make_shared<SkillCommand>()){}

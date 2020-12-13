@@ -183,7 +183,7 @@ Character::~Character() {
 }
 
 
-void Character::buff(int power, float time) {
+void Character::buff(int power, float time, Node* icon) {
 	++buffCount;
 	status.addMorePower(power);
 	CCLOG("power up");

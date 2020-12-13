@@ -68,5 +68,5 @@ public:
 private:
 	int buffCount = 0;
 public:
-	void buff(int power, float time);
+	virtual void buff(int power, float time, cocos2d::Node* icon);
 };

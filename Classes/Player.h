@@ -32,6 +32,8 @@ public:
 	Weapon* getWeapon();
 	std::shared_ptr<SkillCommand> getCommand();
 
+	void buff(int, float, cocos2d::Node*) override;
+
 	Player(CharacterType, int);
 
 	~Player();
