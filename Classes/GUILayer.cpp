@@ -1,6 +1,5 @@
 #include "GUILayer.h"
 #include <algorithm>
-#include "GUIBoxCreator.h"
 #include "Player.h"
 #include "CharacterSpriteFactory.h"
 #include "MonsterSpriteFactory.h"
@@ -17,6 +16,10 @@ GUILayer* GUILayer::instance = nullptr;
 
 GUILayer * GUILayer::getInstance() {
 	return instance;
+}
+
+GUILayer::GUILayer() : theme(GUIBoxCreator(GUIFrameColor::Blue, true, 30, Size())){
+
 }
 
 void removeDied(CharacterBarMap& cb) {
@@ -73,7 +76,8 @@ void GUILayer::addGaugeBar(Character* owner, pBar newBar) {
 void GUILayer::setPlayer(Character * player) {
 	auto size = Director::getInstance()->getWinSize();
 	float targetUISize = size.height / 7;
-	Node* targetUI = GUIBoxCreator(GUIFrameColor::Blue, true, 30, Size(targetUISize, targetUISize)).create();
+	theme.size = Size(targetUISize, targetUISize);
+	Node* targetUI = theme.create();
 	targetUI->setPosition(Vec2(0, size.height - targetUISize));
 	targetUI->setVisible(false);
 	addChild(targetUI);
@@ -151,7 +155,7 @@ private:
 };
 
 void GUILayer::createBottomUI(Size size, CharacterType characterType) {
-	auto theme = GUIBoxCreator(GUIFrameColor::Blue, true, 30, size);
+	theme.size = size;
 	auto bottomUI = BottomUICreator(size, theme, characterType).create();
 	addChild(bottomUI, 3);
 	
@@ -194,5 +198,14 @@ SkillIconBox * GUILayer::getSkillIconBox(int i) {
 
 SkillIconBox* GUILayer::getBlinkIconBox() {
 	return blinkIconBox;
+}
+
+void GUILayer::addBuff(cocos2d::Node *icon, float duration) {
+	auto buffIcon = SkillIconBox::create(theme);
+	buffIcon->attachIcon(icon);
+	addChild(buffIcon, 5);
+	buffIcon->setCooldown(duration);
+	buffIcon->startCooldown();
+	buffIcon->scheduleOnce([buffIcon](float) {buffIcon->removeFromParent(); }, duration, "buff");
 }
 
