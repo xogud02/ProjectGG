@@ -39,6 +39,8 @@ bool GUILayer::init() {
 
 	arrow = Sprite::createWithSpriteFrame(GUISpriteFactory::GUIArrowFrame(ArrowDirection::Up));
 	arrow->setAnchorPoint(Vec2(0.5f, 0));
+	arrow->setScaleX(7.5f);
+	arrow->setScaleY(30);
 	addChild(arrow, 1);
 	setArrowVisible(false);
 	canvas = DrawNode::create();
@@ -176,7 +178,6 @@ void GUILayer::setArrowPosition(const Vec2& wFrom, const Vec2& wTo) {
 	auto gridLayer = GridLayer::getInstance();
 	arrow->setPosition(convertToNodeSpace(wFrom));
 	auto delta = wTo - wFrom;
-	arrow->setScaleY(delta.getLength() / arrow->getContentSize().height);
 	auto angle = CC_RADIANS_TO_DEGREES(Vec2::angle(delta, Vec2(0, 1)));
 	if (delta.x < 0) {
 		angle *= -1;
@@ -189,7 +190,7 @@ void GUILayer::setArrowVisible(bool visible) {
 }
 
 void GUILayer::setArrowTransParent(bool transParent) {
-	arrow->setOpacity(transParent ? 128 : 255);
+	arrow->setOpacity(transParent ? 64 : 128);
 }
 
 SkillIconBox * GUILayer::getSkillIconBox(int i) {
