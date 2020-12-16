@@ -15,6 +15,8 @@
   - theme select
 - performance
   - reduce gl call
+    - damage label - TTF -> BM
+
 - design
   - GridLayer, Character class seems ambiguous(too big??)
 
@@ -27,4 +29,4 @@
 # etc
 
 - create vs init method
-- write readme.md
+- keep update readme.md
