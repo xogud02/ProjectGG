@@ -281,6 +281,9 @@
     <Filter Include="Source Files\Classes\Skill">
       <UniqueIdentifier>{b4787c8d-be75-4f39-b387-a51d79e96214}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Sprites\Item">
+      <UniqueIdentifier>{674100ac-4642-43b1-aecd-a2ce931e8736}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\Resources\fonts\SDS_6x6.ttf">
@@ -303,9 +306,6 @@
       <Filter>Resources\Sprites</Filter>
     </Image>
     <Image Include="..\Resources\Sprites\GUIs\GUI1.png">
-      <Filter>Resources\Sprites</Filter>
-    </Image>
-    <Image Include="..\Resources\Sprites\Items\MedWep.png">
       <Filter>Resources\Sprites</Filter>
     </Image>
     <Image Include="..\Resources\Sprites\Characters\Engineer.png">
@@ -340,6 +340,81 @@
     </Image>
     <Image Include="..\Resources\Sprites\Tiles\Floor.png">
       <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\MedWep.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Ammo.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Amulet.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Armor.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Book.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Boot.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Chest0.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Chest1.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Flesh.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Food.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Glove.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Hat.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Key.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Light.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\LongWep.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Money.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Music.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Potion.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Ring.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Rock.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Scroll.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Shield.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\ShortWep.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Tool.png">
+      <Filter>Resources\Sprites\Item</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Items\Wand.png">
+      <Filter>Resources\Sprites\Item</Filter>
     </Image>
   </ItemGroup>
 </Project>
