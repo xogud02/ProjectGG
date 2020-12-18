@@ -21,6 +21,7 @@ class Player : public Character {
 	std::unordered_map<CharacterDirection, cocos2d::Action*> directions;
 	const CharacterType characterType;
 	Weapon* weapon;
+	Character* focused;
 	std::shared_ptr<SkillCommand> command;
 protected:
 	bool init() override;
@@ -28,6 +29,8 @@ protected:
 	virtual void onMoveBegin(GridPosition next, CharacterDirection nextDirection) override;
 public:
 	static Player* create(CharacterType, const int scale = 2);
+	void setFocused(Character* focused);
+	Character* getFocused() const;
 	virtual void setTarget(Character* target) override;
 	Weapon* getWeapon();
 	std::shared_ptr<SkillCommand> getCommand();

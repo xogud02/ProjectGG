@@ -75,7 +75,7 @@ void GUILayer::addGaugeBar(Character* owner, pBar newBar) {
 	characterBarMap[owner] = newBar;
 }
 
-void GUILayer::setPlayer(Character * player) {
+void GUILayer::setPlayer(Player* player) {
 	auto size = Director::getInstance()->getWinSize();
 	float targetUISize = size.height / 7;
 	theme.size = Size(targetUISize, targetUISize);
@@ -85,15 +85,15 @@ void GUILayer::setPlayer(Character * player) {
 	addChild(targetUI);
 	Sprite* thumbnail = Sprite::create();
 	targetUI->addChild(thumbnail);
-	schedule([player, currentTarget = player->getTarget(), targetUI, thumbnail = thumbnail](float) mutable{
-		auto newTarget = player->getTarget();
-		if (newTarget == currentTarget) {
+	schedule([player, currentFocused = player->getFocused(), targetUI, thumbnail = thumbnail](float) mutable{
+		auto newFocused = player->getFocused();
+		if (newFocused == currentFocused) {
 			return;
 		}
 
-		currentTarget = newTarget;
+		currentFocused = newFocused;
 
-		if (!currentTarget) {
+		if (!currentFocused) {
 			targetUI->setVisible(false);
 			return;
 		}
@@ -101,7 +101,7 @@ void GUILayer::setPlayer(Character * player) {
 		targetUI->setVisible(true);
 		targetUI->removeChild(thumbnail);
 
-		thumbnail = Sprite::createWithSpriteFrame(newTarget->getSpriteFrame());
+		thumbnail = Sprite::createWithSpriteFrame(newFocused->getSpriteFrame());
 
 		auto size = targetUI->getContentSize();
 

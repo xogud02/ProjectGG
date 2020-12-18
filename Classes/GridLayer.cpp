@@ -137,8 +137,8 @@ GridLayer::~GridLayer() {
 
 void GridLayer::onSingleTouch(const Vec2 & touched) {
 	auto touchedCharacter = Grid::getInstance()->getOccupiedCharacter(vecToGrid(touched));
-	if (touchedCharacter && touchedCharacter != player) {
-		player->setTarget(touchedCharacter);
+	if (touchedCharacter) {
+		player->setFocused(touchedCharacter);
 		return;
 	}
 

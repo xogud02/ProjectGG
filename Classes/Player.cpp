@@ -46,6 +46,19 @@ Player * Player::create(CharacterType characterType, int scale) {
 	return ret;
 }
 
+void Player::setFocused(Character* newFocused) {
+	if (newFocused == focused && focused != dynamic_cast<Character*>(this)) {
+		setTarget(focused);
+		return;
+	}
+	focused = newFocused;
+	setTarget(nullptr);
+}
+
+Character * Player::getFocused() const {
+	return focused;
+}
+
 void Player::setTarget(Character * target) {
 	Character::setTarget(target);
 	weapon->setTarget(target);

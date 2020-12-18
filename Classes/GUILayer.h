@@ -3,7 +3,7 @@
 #include "cocos2d.h"
 #include "GaugeBar.h"
 #include <unordered_map>
-#include "Character.h"
+#include "Player.h"
 #include "Skill.h"
 #include "SkillIconBox.h"
 #include "GUIBoxCreator.h"
@@ -41,7 +41,7 @@ public:
 
 
 	void addGaugeBar(Character* owner, pBar newBar);
-	void setPlayer(Character* player);
+	void setPlayer(Player* player);
 	void createBottomUI(cocos2d::Size size, CharacterType characterType);
 	void setArrowPosition(const cocos2d::Vec2& from, const cocos2d::Vec2& to);
 	void setArrowVisible(bool);
