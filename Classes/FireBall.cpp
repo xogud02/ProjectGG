@@ -40,6 +40,7 @@ bool FireBall::nonTarget(const Vec2 & to) {
 		auto currentGridPosition = layer->vecToGrid(currentPosition);
 		if (!grid->isValidPosition(currentGridPosition)) {
 			layer->unschedule(key);
+			fireBall->removeFromParent();
 			return;
 		}
 		auto test = grid->getOccupiedCharacter(currentGridPosition);
