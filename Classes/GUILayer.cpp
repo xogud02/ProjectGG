@@ -157,12 +157,14 @@ private:
 };
 
 void GUILayer::createBottomUI(Size size, CharacterType characterType) {
-	theme.size = size;
+	bottomUISize = size;
+	theme.size = bottomUISize;
 	auto bottomUI = BottomUICreator(size, theme, characterType).create();
 	addChild(bottomUI, 3);
 	
-	auto iconSize = size.height / 2;
-	theme.size = Size(iconSize, iconSize);
+	auto halfHeight = size.height / 2;
+	iconSize = Size(halfHeight, halfHeight);
+	theme.size = iconSize;
 	blinkIconBox = SkillIconBox::create(theme);
 	auto rightBox = bottomUI->getChildByName("right");
 	rightBox->addChild(blinkIconBox);
@@ -201,9 +203,12 @@ SkillIconBox* GUILayer::getBlinkIconBox() {
 	return blinkIconBox;
 }
 
-void GUILayer::addBuff(cocos2d::Node *icon, float duration) {
+void GUILayer::addBuff(Node *icon, float duration) {
 	auto buffIcon = SkillIconBox::create(theme);
 	buffIcon->attachIcon(icon);
+	Vec2 newPos = bottomUISize;
+	newPos.x /= 2;
+	buffIcon->setPosition(newPos);
 	addChild(buffIcon, 5);
 	buffIcon->setCooldown(duration);
 	buffIcon->startCooldown();

@@ -23,6 +23,8 @@ private:
 
 	GUILayer();
 	GUIBoxCreator theme;
+	cocos2d::Size bottomUISize;
+	cocos2d::Size iconSize;
 
 	CharacterBarMap characterBarMap;
 	cocos2d::DrawNode* canvas = nullptr;
@@ -38,7 +40,6 @@ private:
 protected:
 	virtual bool init() override;
 public:
-
 
 	void addGaugeBar(Character* owner, pBar newBar);
 	void setPlayer(Player* player);
