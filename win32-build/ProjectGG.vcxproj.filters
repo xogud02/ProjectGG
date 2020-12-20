@@ -416,5 +416,56 @@
     <Image Include="..\Resources\Sprites\Items\Wand.png">
       <Filter>Resources\Sprites\Item</Filter>
     </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Decor0.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Decor1.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Door0.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Door1.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Effect0.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Effect1.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Fence.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Hill0.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Hill1.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Map0.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Map1.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Ore0.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Ore1.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Tile.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Trap0.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Trap1.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprites\Tiles\Wall.png">
+      <Filter>Resources\Sprites\Tile</Filter>
+    </Image>
   </ItemGroup>
 </Project>
