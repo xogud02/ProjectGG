@@ -1,5 +1,5 @@
 #include "TitleScene.h"
-#include "StageSelectScene.h"
+#include "MenuScene.h"
 #include "TTFLabelBuilder.h"
 
 USING_NS_CC;
@@ -27,7 +27,7 @@ bool TitleScene::init() {
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = [](auto, auto) {
-		Director::getInstance()->replaceScene(StageSelectScene::create());
+		Director::getInstance()->replaceScene(MenuScene::create());
 		return true; 
 	};
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);

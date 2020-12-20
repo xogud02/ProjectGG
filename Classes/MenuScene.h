@@ -2,8 +2,8 @@
 
 #include "cocos2d.h"
 
-class StageSelectScene : public cocos2d::Scene {
+class MenuScene : public cocos2d::Scene {
 public:
-	CREATE_FUNC(StageSelectScene);
+	CREATE_FUNC(MenuScene);
 	virtual bool init() override;
 };
