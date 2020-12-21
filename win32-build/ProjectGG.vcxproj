@@ -762,6 +762,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\MonsterEnums.hpp" />
     <ClInclude Include="..\Classes\MonsterSpriteFactory.h" />
     <ClInclude Include="..\Classes\MonsterSpriteFactory.hpp" />
+    <ClInclude Include="..\Classes\ObjectSpriteFactory.h" />
     <ClInclude Include="..\Classes\PowerUp.h" />
     <ClInclude Include="..\Classes\Skill.h" />
     <ClInclude Include="..\Classes\SkillCommand.h" />
@@ -798,6 +799,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\GUILayer.cpp" />
     <ClCompile Include="..\Classes\GUISpriteFactory.cpp" />
     <ClCompile Include="..\Classes\MonsterSpriteFactory.cpp" />
+    <ClCompile Include="..\Classes\ObjectSpriteFactory.cpp" />
     <ClCompile Include="..\Classes\PowerUp.cpp" />
     <ClCompile Include="..\Classes\Skill.cpp" />
     <ClCompile Include="..\Classes\SkillCommand.cpp" />
