@@ -23,8 +23,8 @@ bool Grid::isMovableTile(const GridPosition& gridPosition, const int size) const
 				return false;
 			}
 
-			const auto tileItr = tiles.find(current);
-			if (tileItr != tiles.cend() && tileItr->second != TileType::Floor) {
+			const auto tileItr = tileTypes.find(current);
+			if (tileItr != tileTypes.cend() && tileItr->second != TileType::Floor) {
 				return false;
 			}
 		}
@@ -38,8 +38,8 @@ bool Grid::isValidPosition(const GridPosition& position, int size) const {
 }
 
 void Grid::addObject(GridObject * gridObject, GridPosition position) {
-	for (auto p : gridObject->getTiles()) {
-		tiles[position + p.first] = TileType::Block;
+	for (auto p : gridObject->getTileTypes()) {
+		tileTypes[position + p.first] = p.second;
 	}
 }
 

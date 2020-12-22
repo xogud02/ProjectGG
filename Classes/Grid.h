@@ -2,18 +2,13 @@
 
 #include "GridPosition.h"
 #include <unordered_map>
-
-enum class TileType : std::uint8_t {
-	Floor = 0,
-	Water,
-	Block
-};
+#include "TileType.h"
 
 class GridObject;
 class Character;
 
 class Grid {
-	std::unordered_map<GridPosition, TileType> tiles;
+	std::unordered_map<GridPosition, TileType> tileTypes;
 	std::unordered_map<GridPosition, Character*> occupiedCharacter;
 	static Grid* instance;
 

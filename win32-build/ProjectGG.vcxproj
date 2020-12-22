@@ -769,6 +769,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\SkillIconBox.h" />
     <ClInclude Include="..\Classes\MenuScene.h" />
     <ClInclude Include="..\Classes\ThrowWeapon.h" />
+    <ClInclude Include="..\Classes\TileType.h" />
     <ClInclude Include="..\Classes\TileSpriteFactory.h" />
     <ClInclude Include="..\Classes\TTFLabelBuilder.h" />
     <ClInclude Include="..\Classes\WeaponSpriteFactory.h" />

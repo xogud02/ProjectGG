@@ -7,7 +7,11 @@ const TileMap& GridObject::getTiles() const{
 	return tiles;
 }
 
-void GridObject::addTile(cocos2d::Sprite * tile, GridPosition position) {
+const TileTypeMap & GridObject::getTileTypes() const {
+	return tileTypes;
+}
+
+void GridObject::addTile(GridPosition position, TileType tileType, Sprite* tile) {
 	addChild(tile);
 	auto size = SpriteFactory::unitSize.width;
 	tile->setPosition(size * position.col, size * position.row);
@@ -18,4 +22,5 @@ void GridObject::addTile(cocos2d::Sprite * tile, GridPosition position) {
 	}
 	tile->setAnchorPoint(Vec2::ZERO);
 	tiles[position] = tile;
+	tileTypes[position] = tileType;
 }

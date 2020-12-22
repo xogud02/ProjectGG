@@ -121,7 +121,7 @@ GridObject * createPit(int maxRows, int maxCols, function<void(Sprite*,PitPositi
 		int r = pii.first, c = pii.second;
 		auto s = Sprite::create();
 		setSprite(s, getPitPosition(pit, r, c));
-		ret->addTile(s, GridPosition(r, c));
+		ret->addTile(GridPosition(r, c), TileType::Block, s);
 	}
 	return ret;
 }

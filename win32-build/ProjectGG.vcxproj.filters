@@ -237,6 +237,9 @@
     <ClInclude Include="..\Classes\ObjectSpriteFactory.h">
       <Filter>Source Files\Classes\Sprite</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\TileType.h">
+      <Filter>Source Files\Classes\Grid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">
