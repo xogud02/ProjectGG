@@ -6,6 +6,7 @@
 #include "GUILayer.h"
 #include "TileBuilder.h"
 #include "ObjectSpriteFactory.h"
+#include "GridObject.h"
 
 USING_NS_CC;
 using namespace std;
@@ -30,7 +31,11 @@ bool MenuScene::init() {
 	auto door = Sprite::create();
 	door->runAction(ObjectSpriteFactory::portal());
 	door->setAnchorPoint(Vec2::ZERO);
-	grid->addChild(door, 1);
+
+	auto portal = GridObject::create();
+	portal->addTile(GridPosition(), TileType::EventTrigger, door);
+	portal->triggerEvent = []() {Director::getInstance()->replaceScene(CharacterSelectScene::create(SpriteTileTheme::Bright)); };
+	grid->addObject(portal, GridPosition(rows / 3, cols / 2));
 
 	player->tryToJump(GridPosition(rows / 2, cols / 2));
 

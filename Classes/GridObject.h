@@ -12,6 +12,8 @@ class GridObject :public cocos2d::Node{
 	TileMap tiles;
 	TileTypeMap tileTypes;
 public:
+	std::function<void()> triggerEvent;
+
 	CREATE_FUNC(GridObject);
 	const TileMap& getTiles() const;
 	const TileTypeMap& getTileTypes() const;
