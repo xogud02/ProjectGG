@@ -14,22 +14,40 @@ Grid::Grid(int rows, int cols) : rows(rows), cols(cols){
 	instance = this;
 }
 
-bool Grid::isMovableTile(const GridPosition& gridPosition, const int size) const {
-	int row = gridPosition.row, col = gridPosition.col;
+void gridLoop(const GridPosition& gridPosition, const int size, function<bool(const GridPosition&)> keepLoop) {
 	for (int dr = 0; dr < size; ++dr) {
 		for (int dc = 0; dc < size; ++dc) {
-			auto current = GridPosition(row + dr, col + dc);
-			if (!isValidPosition(current)) {
-				return false;
-			}
-
-			const auto tileItr = tileTypes.find(current);
-			if (tileItr != tileTypes.cend() && tileItr->second != TileType::Floor) {
-				return false;
+			if (!keepLoop(GridPosition(gridPosition.row + dr, gridPosition.col + dc))) {
+				return;
 			}
 		}
 	}
-	return true;
+}
+
+bool Grid::isTriggerTile(const GridPosition & gridPosition, const int size) const {
+	return false;
+}
+
+bool Grid::isMovableTile(const GridPosition& gridPosition, const int size) const {
+	if (!isValidPosition(gridPosition, size)) {
+		return false;
+	}
+
+	bool ret = true;
+	gridLoop(gridPosition, size, [&ret, this](const GridPosition& current) mutable{
+		auto tileTir = tileTypes.find(current);
+		if (tileTir == tileTypes.cend()) {
+			return true;
+		}
+
+		auto currentTile = tileTir->second;
+		if (currentTile != TileType::EventTrigger && currentTile != TileType::Floor) {
+			ret = false;
+			return false;
+		}
+		return true;
+	});
+	return ret;
 }
 
 bool Grid::isValidPosition(const GridPosition& position, int size) const {
@@ -49,12 +67,10 @@ void Grid::occupyArea(Character * by, const GridPosition& position) {
 		return;
 	}
 	by->retain();
-	for (int dr = 0; dr < size; ++dr) {
-		for (int dc = 0; dc < size; ++dc) {
-			auto next = GridPosition(position.row + dr, position.col + dc);
-			occupiedCharacter[next] = by;
-		}
-	}
+	gridLoop(position, size, [this, by](const auto& pos) mutable {
+		occupiedCharacter[pos] = by;
+		return true;
+	});
 }
 
 void Grid::unOccupyArea(Character * by, const GridPosition& position) {
@@ -64,12 +80,10 @@ void Grid::unOccupyArea(Character * by, const GridPosition& position) {
 		return;
 	}
 	by->release();
-	for (int dr = 0; dr < size; ++dr) {
-		for (int dc = 0; dc < size; ++dc) {
-			auto next = GridPosition(position.row + dr, position.col + dc);
-			occupiedCharacter.erase(next);
-		}
-	}
+	gridLoop(position, size, [this, by](const auto& pos) mutable {
+		occupiedCharacter.erase(pos);
+		return true;
+	});
 }
 
 bool Grid::isOccupiable(const GridPosition& position, const int size) const {
@@ -77,19 +91,19 @@ bool Grid::isOccupiable(const GridPosition& position, const int size) const {
 		return false;
 	}
 
-	for (int dr = 0; dr < size; ++dr) {
-		for (int dc = 0; dc < size; ++dc) {
-			auto next = GridPosition(position.row + dr, position.col + dc);
-			if (occupiedCharacter.find(next) != occupiedCharacter.cend()) {
-				return false;
-			}
+	bool ret = true;
+	gridLoop(position, size, [this, &ret](const auto& pos) mutable {
+		if (occupiedCharacter.find(pos) != occupiedCharacter.cend()) {
+			ret = false;
+			return false;
 		}
-	}
+		return true;
+	});
 
-	return true;
+	return ret;
 }
 
-Character * Grid::getOccupiedCharacter(const GridPosition &position) const {
+Character* Grid::getOccupiedCharacter(const GridPosition &position) const {
 	auto itr = occupiedCharacter.find(position);
 	if (itr == occupiedCharacter.cend()) {
 		return nullptr;
