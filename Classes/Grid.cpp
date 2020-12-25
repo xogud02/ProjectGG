@@ -24,8 +24,31 @@ void gridLoop(const GridPosition& gridPosition, const int size, function<bool(co
 	}
 }
 
-bool Grid::isTriggerTile(const GridPosition & gridPosition, const int size) const {
-	return false;
+bool Grid::isTriggered(const GridPosition & gridPosition, const int size) const {
+	if (!isValidPosition(gridPosition, size)) {
+		return false;
+	}
+
+	bool ret = false;
+	gridLoop(gridPosition, size, [this, &ret] (const auto& pos){
+		auto itr = tileTypes.find(pos);
+		
+		if (itr != tileTypes.cend() && itr->second == TileType::EventTrigger) {
+			ret = true;
+			return false;
+		}
+
+		return true;
+	});
+	return ret;
+}
+
+void Grid::trigger(const GridPosition & gridPosition) {
+	auto test = triggerObjects.find(gridPosition);
+	if (test == triggerObjects.cend()) {
+		return;
+	}
+	test->second->triggerEvent();
 }
 
 bool Grid::isMovableTile(const GridPosition& gridPosition, const int size) const {
@@ -35,12 +58,12 @@ bool Grid::isMovableTile(const GridPosition& gridPosition, const int size) const
 
 	bool ret = true;
 	gridLoop(gridPosition, size, [&ret, this](const GridPosition& current) mutable{
-		auto tileTir = tileTypes.find(current);
-		if (tileTir == tileTypes.cend()) {
+		auto tileItr = tileTypes.find(current);
+		if (tileItr == tileTypes.cend()) {
 			return true;
 		}
 
-		auto currentTile = tileTir->second;
+		auto currentTile = tileItr->second;
 		if (currentTile != TileType::EventTrigger && currentTile != TileType::Floor) {
 			ret = false;
 			return false;
@@ -57,7 +80,12 @@ bool Grid::isValidPosition(const GridPosition& position, int size) const {
 
 void Grid::addObject(GridObject * gridObject, GridPosition position) {
 	for (auto p : gridObject->getTileTypes()) {
-		tileTypes[position + p.first] = p.second;
+		auto currentPosition = position + p.first;
+		auto currentTile = p.second;
+		tileTypes[currentPosition] = currentTile;
+		if (currentTile == TileType::EventTrigger) {
+			triggerObjects[currentPosition] = gridObject;
+		}
 	}
 }
 

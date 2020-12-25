@@ -9,6 +9,7 @@ class Character;
 
 class Grid {
 	std::unordered_map<GridPosition, TileType> tileTypes;
+	std::unordered_map<GridPosition, GridObject*> triggerObjects;
 	std::unordered_map<GridPosition, Character*> occupiedCharacter;
 	static Grid* instance;
 
@@ -18,7 +19,8 @@ public:
 	const int rows, cols;
 
 	Grid(int rows, int cols);
-	bool isTriggerTile(const GridPosition& gridPosition, const int size = 1) const;
+	bool isTriggered(const GridPosition& gridPosition, const int size = 1) const;
+	void trigger(const GridPosition& gridPosition);
 	bool isMovableTile(const GridPosition& gridPosition, const int size = 1) const;
 	bool isValidPosition(const GridPosition& position, const int size = 1) const;
 	void addObject(GridObject* gridObject, GridPosition position);
