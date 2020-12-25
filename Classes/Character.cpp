@@ -292,13 +292,19 @@ void Character::movePath(float) {
 
 	grid->occupyArea(this, currentGridPosition);
 
+	auto afterMove = [this]() {
+		setPosition(GridLayer::getInstance()->gridToPosition(currentGridPosition));
+		auto grid = Grid::getInstance();
+		if (grid->isTriggered(currentGridPosition, SCALE)) {
+			grid->trigger(currentGridPosition);
+		}
+		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
+	};
 
 	runAction(Sequence::create(
 		moveTo,
-		CallFunc::create([this]() {
-		setPosition(GridLayer::getInstance()->gridToPosition(currentGridPosition));
-		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
-	}), nullptr))->setTag(movingActionTag);
+		CallFunc::create(afterMove),
+		nullptr))->setTag(movingActionTag);
 }
 
 void Character::tryToMove(GridPosition position) {
