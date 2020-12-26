@@ -24,20 +24,20 @@ void gridLoop(const GridPosition& gridPosition, const int size, function<bool(co
 	}
 }
 
-bool Grid::isTriggered(const GridPosition & gridPosition, const int size) const {
+bool Grid::testTrigger(const GridPosition & gridPosition, const int size){
 	if (!isValidPosition(gridPosition, size)) {
 		return false;
 	}
 
 	bool ret = false;
-	gridLoop(gridPosition, size, [this, &ret] (const auto& pos){
+	gridLoop(gridPosition, size, [this, &ret] (const auto& pos) mutable{
 		auto itr = tileTypes.find(pos);
 		
 		if (itr != tileTypes.cend() && itr->second == TileType::EventTrigger) {
 			ret = true;
+			trigger(pos);
 			return false;
 		}
-
 		return true;
 	});
 	return ret;
