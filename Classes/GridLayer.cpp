@@ -105,7 +105,13 @@ void GridLayer::showGrid() {
 	}
 	const string debug = "debug";
 	debugGrid->addChild(gridLines, 1);
-	schedule([debugGrid, this, &debug](float) {
+
+	auto drawSingleRect = [this, debugGrid](GridPosition pos, Color4F color) {
+		auto&& rectOrigin = gridToPosition(pos);
+		debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, color - Color4F(0, 0, 0, 0.5f));
+	};
+
+	schedule([debugGrid, this, &debug, drawSingleRect](float) {
 		if (!player) {
 			unschedule(debug);
 		}
@@ -115,11 +121,11 @@ void GridLayer::showGrid() {
 			for (int c = 0; c < grid.cols; ++c) {
 				auto currentPosition = GridPosition(r, c);
 				if (!grid.isMovableTile(currentPosition)) {
-					auto&& rectOrigin = gridToPosition(currentPosition);
-					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::RED - Color4F(0, 0, 0, 0.5f));
+					drawSingleRect(currentPosition, Color4F::RED);
 				} else if (!grid.isOccupiable(currentPosition)) {
-					auto&& rectOrigin = gridToPosition(currentPosition);
-					debugGrid->drawSolidRect(rectOrigin, rectOrigin + Vec2::ONE * UNIT_SIZE, Color4F::BLUE - Color4F(0, 0, 0, 0.5f));
+					drawSingleRect(currentPosition, Color4F::BLUE);
+				} else if (grid.isTrigger(currentPosition)) {
+					drawSingleRect(currentPosition, Color4F::GREEN);
 				}
 			}
 		}
