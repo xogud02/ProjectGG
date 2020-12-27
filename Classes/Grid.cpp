@@ -14,6 +14,11 @@ Grid::Grid(int rows, int cols) : rows(rows), cols(cols){
 	instance = this;
 }
 
+bool Grid::isTrigger(const GridPosition & gridPosition) const {
+	auto itr = tileTypes.find(gridPosition);
+	return itr != tileTypes.cend() && itr->second == TileType::EventTrigger;
+}
+
 void gridLoop(const GridPosition& gridPosition, const int size, function<bool(const GridPosition&)> keepLoop) {
 	for (int dr = 0; dr < size; ++dr) {
 		for (int dc = 0; dc < size; ++dc) {
@@ -33,7 +38,7 @@ bool Grid::testTrigger(const GridPosition & gridPosition, const int size){
 	gridLoop(gridPosition, size, [this, &ret] (const auto& pos) mutable{
 		auto itr = tileTypes.find(pos);
 		
-		if (itr != tileTypes.cend() && itr->second == TileType::EventTrigger) {
+		if (isTrigger(pos)) {
 			ret = true;
 			trigger(pos);
 			return false;

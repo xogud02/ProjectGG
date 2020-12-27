@@ -19,6 +19,7 @@ public:
 	const int rows, cols;
 
 	Grid(int rows, int cols);
+	bool isTrigger(const GridPosition& gridPosition) const;
 	bool testTrigger(const GridPosition& gridPosition, const int size = 1);
 	void trigger(const GridPosition& gridPosition);
 	bool isMovableTile(const GridPosition& gridPosition, const int size = 1) const;
