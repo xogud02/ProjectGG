@@ -11,6 +11,7 @@
   - item
 - objects
   - spawning building
+  - trigger interact objects(portal, chest, collection, else...)
 - scene
   - theme select
 - performance
