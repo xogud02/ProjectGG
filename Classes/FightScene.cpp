@@ -90,7 +90,7 @@ FightScene * FightScene::create(SpriteTileTheme theme, CharacterType character) 
 
 	constexpr int rows = 30, cols = 30;
 	auto gridLayer = GridLayer::create(rows, cols);
-	gridLayer->addChild(TileBuilder::randomFloor(rows, cols, theme, 0.6f));
+	gridLayer->addChild(TileBuilder::randomGround(rows, cols, theme, 0.6f));
 
 	ret->addChild(gridLayer);
 	gridLayer->setPlayer(player);

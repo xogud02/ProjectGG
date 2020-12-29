@@ -31,7 +31,7 @@ SpriteTilePosition getSpriteTilePosition(const PSet& grassFloor, int r, int c) {
 		STP::Top,				STP::TopRight,			STP::TopLeft,		STP::VirticalTop,	//10__ : t
 		STP::HorizontalCenter,	STP::HorizontalRight,	STP::HorizontalLeft,STP::Single			//11__ : tb
 	};
-	return typeArr[getPositionArrIndex(grassFloor,r,c)];
+	return typeArr[getPositionArrIndex(grassFloor, r, c)];
 }
 
 PitPositionType getPitPosition(const PSet& liquidPit, int r, int c) {
@@ -51,7 +51,7 @@ void initSingleTile(Sprite* s, int r, int c) {
 	s->setAnchorPoint(Vec2::ZERO);
 }
 
-Node* TileBuilder::randomFloor(int rows, int cols, SpriteTileTheme theme, float grassRatio) {
+Node* TileBuilder::randomGround(int rows, int cols, SpriteTileTheme theme, float grassRatio) {
 	auto ret = Node::create();
 	auto grassFloor = PSet();
 	for (int r = 0; r < rows; ++r) {
@@ -74,6 +74,37 @@ Node* TileBuilder::randomFloor(int rows, int cols, SpriteTileTheme theme, float 
 			auto s = Sprite::createWithSpriteFrame(frame);
 			ret->addChild(s);
 			initSingleTile(s, r, c);
+		}
+	}
+	return ret;
+}
+
+GridObject* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
+	auto ret = GridObject::create();
+	auto tileSpriteType = SpriteTileType::WoodFloor;
+	auto floor = TileType::Floor;
+
+	auto addFloor = [tileSpriteType = SpriteTileType::WoodFloor, theme, floor = TileType::Floor, ret](int r, int c, SpriteTilePosition pos){
+		auto sprite = Sprite::createWithSpriteFrame(TileSpriteFactory::floorFrame(tileSpriteType, theme, pos));
+		ret->addTile(GridPosition(r, c), floor, sprite);
+	};
+
+	addFloor(rows - 2, 1, SpriteTilePosition::TopLeft);
+	addFloor(rows - 2, cols - 2, SpriteTilePosition::TopRight);
+	addFloor(1, 1, SpriteTilePosition::BottomLeft);
+	addFloor(1, cols - 2, SpriteTilePosition::BottomRight);
+
+	for (int c = 2; c < cols - 2; ++c) {
+		addFloor(rows - 2, c, SpriteTilePosition::Top);
+		addFloor(1, c, SpriteTilePosition::Bottom);
+	}
+	for (int r = 2; r < rows - 2; ++r) {
+		addFloor(r, 1, SpriteTilePosition::Left);
+		addFloor(r, cols - 2, SpriteTilePosition::Right);
+	}
+	for (int r = 2; r < rows - 2; ++r) {
+		for (int c = 2; c < cols - 2; ++c) {
+			addFloor(r, c, SpriteTilePosition::Center);
 		}
 	}
 	return ret;
@@ -113,7 +144,7 @@ PSet buildPit(int maxRows, int maxCols) {
 	return ret;
 }
 
-GridObject * createPit(int maxRows, int maxCols, function<void(Sprite*,PitPositionType)> setSprite) {
+GridObject * createPit(int maxRows, int maxCols, function<void(Sprite*, PitPositionType)> setSprite) {
 	PSet pit = buildPit(maxRows, maxCols);
 
 	auto ret = GridObject::create();
@@ -127,21 +158,21 @@ GridObject * createPit(int maxRows, int maxCols, function<void(Sprite*,PitPositi
 }
 
 GridObject* TileBuilder::randomTestPit(int maxRows, int maxCols) {
-	return createPit(maxRows,maxCols,
+	return createPit(maxRows, maxCols,
 		[](Sprite* s, auto p) {
 		s->setSpriteFrame(TileSpriteFactory::testPitPosition(p));
 	});
 }
 
 GridObject * TileBuilder::randomLiquidPit(int maxRows, int maxCols, LiquidPitType type) {
-	return createPit(maxRows, maxCols, 
+	return createPit(maxRows, maxCols,
 		[type](Sprite* s, auto position) {
 		s->runAction(TileSpriteFactory::liquidPitAction(type, position));
 	});
 }
 
 GridObject* TileBuilder::randomPit(int maxRows, int maxCols, PitContentType content, PitWallType wall) {
-	return createPit(maxRows, maxCols, 
+	return createPit(maxRows, maxCols,
 		[content, wall](Sprite* s, auto position) {
 		s->runAction(TileSpriteFactory::pitAction(content, wall, position));
 	});
