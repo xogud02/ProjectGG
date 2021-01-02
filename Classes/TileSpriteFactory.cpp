@@ -12,16 +12,7 @@ const string TileSpriteFactory::TREE = tiles + "Tree";
 
 const pair<int, int> getTileOffset(SpriteTilePosition position) {
 	auto typeVal = static_cast<int>(position);
-	if (SpriteTilePosition::TopLeft <= position && position <= SpriteTilePosition::BottomRight) {
-		return pair<int, int>(typeVal % 3, typeVal / 3);
-	}
-	if (SpriteTilePosition::VirticalTop <= position && position <= SpriteTilePosition::VirticalBottom) {
-		return pair<int, int>(3, typeVal % 3);
-	}
-	if (SpriteTilePosition::HorizontalLeft <= position && position <= SpriteTilePosition::HorizontalRight) {
-		return pair<int, int>(4 + typeVal % 3, 1);
-	}
-	return pair<int, int>(5, 0);
+	return pair<int, int>(typeVal % 7, typeVal / 7);
 }
 
 const pair<int, int> getTileOffset(SpriteTileType type, SpriteTileTheme theme) {
@@ -31,6 +22,28 @@ const pair<int, int> getTileOffset(SpriteTileType type, SpriteTileTheme theme) {
 	auto themeY = static_cast<int>(theme);
 
 	return pair<int, int>(typeX * 7, typeY * 12 + themeY * 3);
+}
+
+const pair<int, int> getWallTypeOffset(WallType wt, SpriteTileTheme theme) {
+	auto typeVal = static_cast<int>(wt);
+	int typeX = typeVal % 3;
+	int typeY = typeVal / 3;
+	auto themeY = static_cast<int>(theme);
+
+	return pair<int, int>(typeX * 7, typeY * 12 + themeY * 3);
+}
+
+const pair<int, int> getWallPositionOffset(WallPosition pos) {
+	auto val = static_cast<int>(pos);
+	return pair<int, int>(val % 7, val / 7);
+}
+
+SpriteFrame * TileSpriteFactory::testWallFrame(WallPosition pos) {
+	return nullptr;
+}
+
+SpriteFrame * TileSpriteFactory::wallFrame(WallType wt, WallPosition pos, SpriteTileTheme theme) {
+	return nullptr;
 }
 
 SpriteFrame * TileSpriteFactory::floorFrame(SpriteTileType type, SpriteTileTheme theme, SpriteTilePosition position) {

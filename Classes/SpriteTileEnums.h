@@ -2,13 +2,13 @@
 
 enum class SpriteTilePosition {
 	TopLeft, Top, TopRight,
-	Left, Center, Right,
-	BottomLeft, Bottom, BottomRight,
 	VirticalTop,
-	VirticalCenter,
-	VirticalBottom,
+	Single = VirticalTop + 2,
+	Left = Single + 2, Center, Right, 
+	VirticalCenter, 
 	HorizontalLeft, HorizontalCenter, HorizontalRight,
-	Single,
+	BottomLeft, Bottom, BottomRight, 
+	VirticalBottom
 };
 
 enum class SpriteTileTheme {
@@ -36,6 +36,19 @@ enum class ArrowDirection {
 	Right,
 	Down,
 	Left
+};
+
+enum class WallType {
+	Brick, Wood, Mine,
+	YellowOre, GrayOre, RedOre,
+	BlueLine, YellowLine, GreenLine,
+	BrownPlane, GrayPlane, Ice
+};
+
+enum class WallPosition {
+	TopLeft, Horizontal, TopRight, Plane, TopEmpty,
+	Virtical = TopEmpty + 2, BottomCorner, LeftEmpty = BottomCorner + 2, Cross, RightEmpty,
+	BottomLeft, BottomRight = BottomLeft + 2, BottomEmpty = BottomRight + 2
 };
 
 enum class PitContentType {
