@@ -6,6 +6,7 @@
 class TileSpriteFactory {
 	TileSpriteFactory() = default;
 	static const std::string FLOOR;
+	static const std::string WALL;
 	static const std::string TREE;
 	static const std::string PIT;
 public:
