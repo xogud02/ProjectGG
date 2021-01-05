@@ -107,6 +107,28 @@ GridObject* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
 			addFloor(r, c, SpriteTilePosition::Center);
 		}
 	}
+
+	auto addWall = [wt = WallType::Wood, theme, block = TileType::Block, ret](int r, int c, WallPosition pos) {
+		auto sprite = Sprite::createWithSpriteFrame(TileSpriteFactory::wallFrame(wt, pos, theme));
+		ret->addTile(GridPosition(r, c), block, sprite);
+	};
+
+	addWall(rows - 1, 0, WallPosition::TopLeft);
+	addWall(rows - 1, cols-1, WallPosition::TopRight);
+	addWall(0, 0, WallPosition::BottomLeft);
+	addWall(0, cols-1, WallPosition::BottomRight);
+
+	for (int c = 1; c < cols - 1; ++c) {
+		addWall(0, c, WallPosition::Horizontal);
+		addWall(rows - 1, c, WallPosition::Horizontal);
+	}
+	for (int r = 1; r < rows - 1; ++r) {
+		addWall(r, 0, WallPosition::Virtical);
+		addWall(r, cols - 1, WallPosition::Virtical);
+	}
+
+
+
 	return ret;
 }
 

@@ -31,12 +31,12 @@ const pair<int, int> getWallTypeOffset(WallType wt, SpriteTileTheme theme) {
 	int typeY = typeVal / 3;
 	auto themeY = static_cast<int>(theme);
 
-	return pair<int, int>(typeX * 7, typeY * 12 + themeY * 3);
+	return pair<int, int>(typeX * 7, typeY * 12 + themeY * 3 + 3);
 }
 
 const pair<int, int> getWallPositionOffset(WallPosition pos) {
 	auto val = static_cast<int>(pos);
-	return pair<int, int>(val % 7, val / 7);
+	return pair<int, int>(val % 6, val / 6);
 }
 
 SpriteFrame * TileSpriteFactory::testWallFrame(WallPosition pos) {
