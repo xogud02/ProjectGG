@@ -84,50 +84,46 @@ GridObject* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
 	auto tileSpriteType = SpriteTileType::WoodFloor;
 	auto floor = TileType::Floor;
 
-	auto addFloor = [tileSpriteType = SpriteTileType::WoodFloor, theme, floor = TileType::Floor, ret](int r, int c, SpriteTilePosition pos){
-		auto sprite = Sprite::createWithSpriteFrame(TileSpriteFactory::floorFrame(tileSpriteType, theme, pos));
-		ret->addTile(GridPosition(r, c), floor, sprite);
+	using FF = function<SpriteFrame*(void)>;
+	auto addEdgeTiles = [ret](TileType tt, int rFrom, int rTo, int cFrom, int cTo, FF tl, FF tr, FF bl, FF br, FF t, FF b, FF l, FF right){
+		auto add = [ret, tt](int r, int c, FF f) {
+			auto sprite = Sprite::createWithSpriteFrame(f());
+			ret->addTile(GridPosition(r, c), tt, sprite);
+		};
+
+		add(rTo, cFrom, tl);
+		add(rTo, cTo, tr);
+		add(rFrom, cFrom, bl);
+		add(rFrom, cTo, br);
+
+		for (int c = cFrom + 1; c < cTo; ++c) {
+			add(rFrom, c, b);
+			add(rTo, c, t);
+		}
+		for (int r = rFrom + 1; r < rTo; ++r) {
+			add(r, cFrom, l);
+			add(r, cTo, right);
+		}
 	};
 
-	addFloor(rows - 2, 1, SpriteTilePosition::TopLeft);
-	addFloor(rows - 2, cols - 2, SpriteTilePosition::TopRight);
-	addFloor(1, 1, SpriteTilePosition::BottomLeft);
-	addFloor(1, cols - 2, SpriteTilePosition::BottomRight);
+	auto fLambda = [ft = SpriteTileType::WoodFloor, theme](SpriteTilePosition pos){return [ft, pos, theme]() {return TileSpriteFactory::floorFrame(ft, theme, pos); }; };
+	addEdgeTiles(TileType::Floor,
+		1, rows - 2, 1, cols - 2,
+		fLambda(SpriteTilePosition::TopLeft), fLambda(SpriteTilePosition::TopRight), fLambda(SpriteTilePosition::BottomLeft), fLambda(SpriteTilePosition::BottomRight),
+		fLambda(SpriteTilePosition::Top), fLambda(SpriteTilePosition::Bottom), fLambda(SpriteTilePosition::Left), fLambda(SpriteTilePosition::Right));
 
-	for (int c = 2; c < cols - 2; ++c) {
-		addFloor(rows - 2, c, SpriteTilePosition::Top);
-		addFloor(1, c, SpriteTilePosition::Bottom);
-	}
-	for (int r = 2; r < rows - 2; ++r) {
-		addFloor(r, 1, SpriteTilePosition::Left);
-		addFloor(r, cols - 2, SpriteTilePosition::Right);
-	}
 	for (int r = 2; r < rows - 2; ++r) {
 		for (int c = 2; c < cols - 2; ++c) {
-			addFloor(r, c, SpriteTilePosition::Center);
+			auto sprite = Sprite::createWithSpriteFrame(TileSpriteFactory::floorFrame(tileSpriteType, theme, SpriteTilePosition::Center));
+			ret->addTile(GridPosition(r, c), floor, sprite);
 		}
 	}
 
-	auto addWall = [wt = WallType::Wood, theme, block = TileType::Block, ret](int r, int c, WallPosition pos) {
-		auto sprite = Sprite::createWithSpriteFrame(TileSpriteFactory::wallFrame(wt, pos, theme));
-		ret->addTile(GridPosition(r, c), block, sprite);
-	};
-
-	addWall(rows - 1, 0, WallPosition::TopLeft);
-	addWall(rows - 1, cols-1, WallPosition::TopRight);
-	addWall(0, 0, WallPosition::BottomLeft);
-	addWall(0, cols-1, WallPosition::BottomRight);
-
-	for (int c = 1; c < cols - 1; ++c) {
-		addWall(0, c, WallPosition::Horizontal);
-		addWall(rows - 1, c, WallPosition::Horizontal);
-	}
-	for (int r = 1; r < rows - 1; ++r) {
-		addWall(r, 0, WallPosition::Virtical);
-		addWall(r, cols - 1, WallPosition::Virtical);
-	}
-
-
+	auto wLambda = [wt = WallType::Wood, theme](WallPosition pos){return [wt, pos, theme]() {return TileSpriteFactory::wallFrame(wt, pos, theme); }; };
+	addEdgeTiles(TileType::Block,
+		0, rows - 1, 0, cols - 1,
+		wLambda(WallPosition::TopLeft), wLambda(WallPosition::TopRight), wLambda(WallPosition::BottomLeft), wLambda(WallPosition::BottomRight),
+		wLambda(WallPosition::Horizontal), wLambda(WallPosition::Horizontal), wLambda(WallPosition::Virtical), wLambda(WallPosition::Virtical));
 
 	return ret;
 }
