@@ -85,8 +85,10 @@ GridObject* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
 	auto floor = TileType::Floor;
 
 	using FF = function<SpriteFrame*(void)>;
-	auto addEdgeTiles = [ret](TileType tt, int rFrom, int rTo, int cFrom, int cTo, FF tl, FF tr, FF bl, FF br, FF t, FF b, FF l, FF right){
-		auto add = [ret, tt](int r, int c, FF f) {
+	auto addEdgeTiles = [ret](TileType tt, int rFrom, int rTo, int cFrom, int cTo, FF tl, FF tr, FF bl, FF br, FF t, FF b, FF l, FF right, unordered_set<GridPosition>* exception = nullptr){
+		auto add = [ret, tt, &exception](int r, int c, FF f) {
+			auto newPos = GridPosition(r, c);
+			if (exception && exception->find(newPos) != exception->cend()) { return; }
 			auto sprite = Sprite::createWithSpriteFrame(f());
 			ret->addTile(GridPosition(r, c), tt, sprite);
 		};
@@ -120,11 +122,17 @@ GridObject* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
 	}
 
 	auto wLambda = [wt = WallType::Wood, theme](WallPosition pos){return [wt, pos, theme]() {return TileSpriteFactory::wallFrame(wt, pos, theme); }; };
+	auto doorPos = GridPosition(0, (cols - 1) / 2);
+	unordered_set<GridPosition> doorPositions;
+	doorPositions.insert(doorPos);
+	++doorPos.col;
+	doorPositions.insert(doorPos);
 	addEdgeTiles(TileType::Block,
 		0, rows - 1, 0, cols - 1,
 		wLambda(WallPosition::TopLeft), wLambda(WallPosition::TopRight), wLambda(WallPosition::BottomLeft), wLambda(WallPosition::BottomRight),
-		wLambda(WallPosition::Horizontal), wLambda(WallPosition::Horizontal), wLambda(WallPosition::Virtical), wLambda(WallPosition::Virtical));
-
+		wLambda(WallPosition::Horizontal), wLambda(WallPosition::Horizontal), wLambda(WallPosition::Virtical), wLambda(WallPosition::Virtical),
+		&doorPositions);
+		
 	return ret;
 }
 
