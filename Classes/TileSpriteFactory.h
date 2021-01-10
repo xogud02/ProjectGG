@@ -11,6 +11,7 @@ class TileSpriteFactory {
 	static const std::string PIT;
 public:
 
+	static cocos2d::SpriteFrame* doorFrame(DoorType, DoorPosition);
 
 	static cocos2d::SpriteFrame* testWallFrame(WallPosition);
 	static cocos2d::SpriteFrame* wallFrame(WallType, WallPosition, SpriteTileTheme);

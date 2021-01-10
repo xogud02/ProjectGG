@@ -38,6 +38,14 @@ enum class ArrowDirection {
 	Left
 };
 
+enum class DoorType {
+
+};
+
+enum class DoorPosition {
+
+};
+
 enum class WallType {
 	Brick, Wood, Mine,
 	YellowOre, GrayOre, RedOre,
