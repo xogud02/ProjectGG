@@ -39,11 +39,15 @@ enum class ArrowDirection {
 };
 
 enum class DoorType {
+	Wood, Iron, IronJail, GoldJail
+};
 
+enum class DoorLockType {
+	None, SilverLock, GoldLock
 };
 
 enum class DoorPosition {
-
+	Horizontal, Virtical
 };
 
 enum class WallType {

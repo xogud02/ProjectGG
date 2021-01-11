@@ -7,11 +7,12 @@ class TileSpriteFactory {
 	TileSpriteFactory() = default;
 	static const std::string FLOOR;
 	static const std::string WALL;
+	static const std::string DOOR;
 	static const std::string TREE;
 	static const std::string PIT;
 public:
 
-	static cocos2d::SpriteFrame* doorFrame(DoorType, DoorPosition);
+	static cocos2d::SpriteFrame* doorFrame(DoorType dt = DoorType::Wood, DoorPosition dp = DoorPosition::Horizontal, DoorLockType dl = DoorLockType::None);
 
 	static cocos2d::SpriteFrame* testWallFrame(WallPosition);
 	static cocos2d::SpriteFrame* wallFrame(WallType, WallPosition, SpriteTileTheme);

@@ -10,6 +10,7 @@ const string TileSpriteFactory::FLOOR = tiles + "Floor";
 const string TileSpriteFactory::PIT = tiles + "PIT";
 const string TileSpriteFactory::TREE = tiles + "Tree";
 const string TileSpriteFactory::WALL = tiles + "Wall";
+const string TileSpriteFactory::DOOR = tiles + "Door";
 
 const pair<int, int> getTileOffset(SpriteTilePosition position) {
 	auto typeVal = static_cast<int>(position);
@@ -37,6 +38,14 @@ const pair<int, int> getWallTypeOffset(WallType wt, SpriteTileTheme theme) {
 const pair<int, int> getWallPositionOffset(WallPosition pos) {
 	auto val = static_cast<int>(pos);
 	return pair<int, int>(val % 6, val / 6);
+}
+
+SpriteFrame * TileSpriteFactory::doorFrame(DoorType dt, DoorPosition dp, DoorLockType dl) {
+	auto dpVal = static_cast<int>(dp);
+	auto dlVal = static_cast<int>(dl);
+	auto x = dpVal + dlVal * 2;
+	auto y = static_cast<int>(dt);
+	return SpriteFactory::createFrame(DOOR + '0', x, y);
 }
 
 SpriteFrame * TileSpriteFactory::testWallFrame(WallPosition pos) {
