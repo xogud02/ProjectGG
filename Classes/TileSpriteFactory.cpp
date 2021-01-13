@@ -40,12 +40,12 @@ const pair<int, int> getWallPositionOffset(WallPosition pos) {
 	return pair<int, int>(val % 6, val / 6);
 }
 
-SpriteFrame * TileSpriteFactory::doorFrame(DoorType dt, DoorPosition dp, DoorLockType dl) {
+SpriteFrame * TileSpriteFactory::doorFrame(DoorType dt, DoorPosition dp, DoorLockType dl, bool closed) {
 	auto dpVal = static_cast<int>(dp);
 	auto dlVal = static_cast<int>(dl);
 	auto x = dpVal + dlVal * 2;
 	auto y = static_cast<int>(dt);
-	return SpriteFactory::createFrame(DOOR + '0', x, y);
+	return SpriteFactory::createFrame(DOOR + (closed ? '0' : '1'), x, y);
 }
 
 SpriteFrame * TileSpriteFactory::testWallFrame(WallPosition pos) {
