@@ -124,7 +124,21 @@ GridObject* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
 	auto wLambda = [wt = WallType::Wood, theme](WallPosition pos){return [wt, pos, theme]() {return TileSpriteFactory::wallFrame(wt, pos, theme); }; };
 	auto doorPos = GridPosition(0, (cols - 1) / 2);
 	
-	ret->addTile(doorPos, TileType::Floor, Sprite::createWithSpriteFrame(TileSpriteFactory::doorFrame(DoorType::Wood, DoorPosition::Horizontal, DoorLockType::SilverLock, false)));
+	auto opened = TileSpriteFactory::doorFrame(DoorType::Wood, DoorPosition::Horizontal, DoorLockType::SilverLock, false);
+	auto closed = TileSpriteFactory::doorFrame();
+	auto door = Sprite::createWithSpriteFrame(closed);
+	closed->retain();
+	opened->retain();
+	auto doorTrigger = [door, opened]() mutable {//TODO Trigger out
+		door->setSpriteFrame(opened);
+	};
+	ret->triggerEvent = doorTrigger;//TODO need door object
+	auto triggerPos = doorPos;
+	--triggerPos.row;
+
+	ret->addTile(doorPos, TileType::Floor, door);
+	ret->addTile(triggerPos, TileType::EventTrigger);
+	
 
 	unordered_set<GridPosition> doorPositions;
 	doorPositions.insert(doorPos);

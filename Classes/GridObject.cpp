@@ -12,6 +12,11 @@ const TileTypeMap & GridObject::getTileTypes() const {
 }
 
 void GridObject::addTile(GridPosition position, TileType tileType, Sprite* tile) {
+	tileTypes[position] = tileType;
+	if (!tile) {
+		return;
+	}
+
 	addChild(tile);
 	auto size = SpriteFactory::unitSize.width;
 	tile->setPosition(size * position.col, size * position.row);
@@ -22,5 +27,4 @@ void GridObject::addTile(GridPosition position, TileType tileType, Sprite* tile)
 	}
 	tile->setAnchorPoint(Vec2::ZERO);
 	tiles[position] = tile;
-	tileTypes[position] = tileType;
 }
