@@ -751,6 +751,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClInclude Include="..\Classes\Blink.h" />
     <ClInclude Include="..\Classes\CharacterSpriteFactory.h" />
+    <ClInclude Include="..\Classes\Door.h" />
     <ClInclude Include="..\Classes\FireBall.h" />
     <ClInclude Include="..\Classes\Grid.h" />
     <ClInclude Include="..\Classes\GridObject.h" />
@@ -792,6 +793,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\ProjectGG\proj.win32\resource.h" />
     <ClCompile Include="..\Classes\Blink.cpp" />
     <ClCompile Include="..\Classes\CharacterSpriteFactory.cpp" />
+    <ClCompile Include="..\Classes\Door.cpp" />
     <ClCompile Include="..\Classes\FireBall.cpp" />
     <ClCompile Include="..\Classes\Grid.cpp" />
     <ClCompile Include="..\Classes\GridObject.cpp" />

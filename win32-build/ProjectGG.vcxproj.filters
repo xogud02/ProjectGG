@@ -109,6 +109,9 @@
     <ClCompile Include="..\Classes\ObjectSpriteFactory.cpp">
       <Filter>Source Files\Classes\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Door.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\GridObject.h">
@@ -239,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\TileType.h">
       <Filter>Source Files\Classes\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Door.h">
+      <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
