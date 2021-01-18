@@ -5,9 +5,14 @@
 #include "SpriteTileEnums.h"
 
 class Door : public GridObject {
-	DoorLockType doorLockType = DoorLockType::None;
-	DoorPosition doorPosition = DoorPosition::Horizontal;
 	DoorType doorType = DoorType::Wood;
-	cocos2d::Sprite* opened = nullptr;
-	cocos2d::Sprite* closed = nullptr;
+	DoorPosition doorPosition = DoorPosition::Horizontal;
+	DoorLockType doorLockType;
+	cocos2d::SpriteFrame* opened = nullptr;
+	cocos2d::SpriteFrame* closed = nullptr;
+
+	Door(DoorType doorType, DoorPosition doorPosition, DoorLockType doorLockType);
+
+public:
+	static Door* create(DoorPosition doorPosition = DoorPosition::Horizontal, DoorType doorType = DoorType::Wood, DoorLockType doorLockType = DoorLockType::None);
 };
