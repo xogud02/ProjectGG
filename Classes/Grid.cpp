@@ -53,7 +53,7 @@ void Grid::trigger(const GridPosition & gridPosition) {
 	if (test == triggerObjects.cend()) {
 		return;
 	}
-	test->second->triggerEvent();
+	test->second->onTriggerIn();
 }
 
 bool Grid::isMovableTile(const GridPosition& gridPosition, const int size) const {

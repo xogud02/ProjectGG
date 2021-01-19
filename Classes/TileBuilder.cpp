@@ -132,7 +132,7 @@ GridObject* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
 	auto doorTrigger = [door, opened]() mutable {//TODO Trigger out
 		door->setSpriteFrame(opened);
 	};
-	ret->triggerEvent = doorTrigger;//TODO need door object
+	ret->onTriggerIn = doorTrigger;//TODO need door object
 	auto triggerPos = doorPos;
 	--triggerPos.row;
 
