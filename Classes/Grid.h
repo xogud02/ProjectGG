@@ -2,6 +2,7 @@
 
 #include "GridPosition.h"
 #include <unordered_map>
+#include <unordered_set>
 #include "TileType.h"
 
 class GridObject;
@@ -9,7 +10,7 @@ class Character;
 
 class Grid {
 	std::unordered_map<GridPosition, TileType> tileTypes;
-	std::unordered_map<GridPosition, GridObject*> triggerObjects;
+	std::unordered_map<GridPosition, std::unordered_set<GridObject*>> triggerObjects;
 	std::unordered_map<GridPosition, Character*> occupiedCharacter;
 	static Grid* instance;
 

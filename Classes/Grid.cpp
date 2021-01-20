@@ -53,7 +53,8 @@ void Grid::trigger(const GridPosition & gridPosition) {
 	if (test == triggerObjects.cend()) {
 		return;
 	}
-	test->second->onTriggerIn();
+	CCASSERT(false, "not implemented");
+	//test->second->onTriggerIn();
 }
 
 bool Grid::isMovableTile(const GridPosition& gridPosition, const int size) const {
@@ -89,7 +90,7 @@ void Grid::addObject(GridObject * gridObject, GridPosition position) {
 		auto currentTile = p.second;
 		tileTypes[currentPosition] = currentTile;
 		if (currentTile == TileType::EventTrigger) {
-			triggerObjects[currentPosition] = gridObject;
+			triggerObjects[currentPosition].insert(gridObject);
 		}
 	}
 }
