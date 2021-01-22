@@ -3,6 +3,10 @@
 
 USING_NS_CC;
 
+void GridObject::testTrigger() {
+	CCAssert(false, "not implemented");
+}
+
 const TileMap& GridObject::getTiles() const{
 	return tiles;
 }
@@ -27,4 +31,8 @@ void GridObject::addTile(GridPosition position, TileType tileType, Sprite* tile)
 	}
 	tile->setAnchorPoint(Vec2::ZERO);
 	tiles[position] = tile;
+}
+
+void GridObject::setGridPosition(GridPosition newGridPosition) {
+	CCAssert(false, "not implemented");
 }
