@@ -18,7 +18,7 @@ class GridObject :public cocos2d::Node{
 public:
 	std::function<void(Character*)> onTriggerIn;
 	std::function<void(Character*)> onTriggerOut;
-	void testTrigger();
+	bool testTrigger(const Character* who) const;
 
 	CREATE_FUNC(GridObject);
 	const TileMap& getTiles() const;

@@ -23,8 +23,8 @@ Door* Door::create(DoorPosition doorPosition, DoorType doorType, DoorLockType do
 	ret->opened = createDoorFrame(false);
 	ret->closed = createDoorFrame(true);
 	ret->door = Sprite::createWithSpriteFrame(ret->closed);
-	ret->onTriggerIn = [ret]() {ret->door->setSpriteFrame(ret->opened); };
-	ret->onTriggerOut = [ret]() {ret->door->setSpriteFrame(ret->closed); };
+	ret->onTriggerIn = [ret](auto c) {ret->door->setSpriteFrame(ret->opened); };
+	ret->onTriggerOut = [ret](auto c) {ret->door->setSpriteFrame(ret->closed); };
 
 	return ret;
 }

@@ -295,7 +295,7 @@ void Character::movePath(float) {
 	auto afterMove = [this]() {
 		setPosition(GridLayer::getInstance()->gridToPosition(currentGridPosition));
 		auto grid = Grid::getInstance();
-		grid->testTrigger(currentGridPosition, SCALE);
+		grid->testTrigger(this);
 		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
 	};
 

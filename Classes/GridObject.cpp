@@ -3,8 +3,10 @@
 
 USING_NS_CC;
 
-void GridObject::testTrigger() {
+
+bool GridObject::testTrigger(const Character* who) const{
 	CCAssert(false, "not implemented");
+	return false;
 }
 
 const TileMap& GridObject::getTiles() const{

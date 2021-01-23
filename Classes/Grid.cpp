@@ -1,6 +1,7 @@
 #include "Grid.h"
 #include "GridObject.h"
 #include "Character.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -19,6 +20,10 @@ bool Grid::isTrigger(const GridPosition & gridPosition) const {
 	return itr != tileTypes.cend() && itr->second == TileType::EventTrigger;
 }
 
+bool Grid::testTrigger(const Character* who) const {
+	return any_of(gridObjects.begin(), gridObjects.end(), [who](auto gridObject) {return gridObject->testTrigger(who); });
+}
+
 void gridLoop(const GridPosition& gridPosition, const int size, function<bool(const GridPosition&)> keepLoop) {
 	for (int dr = 0; dr < size; ++dr) {
 		for (int dc = 0; dc < size; ++dc) {
@@ -27,25 +32,6 @@ void gridLoop(const GridPosition& gridPosition, const int size, function<bool(co
 			}
 		}
 	}
-}
-
-bool Grid::testTrigger(const GridPosition & gridPosition, const int size){
-	if (!isValidPosition(gridPosition, size)) {
-		return false;
-	}
-
-	bool ret = false;
-	gridLoop(gridPosition, size, [this, &ret] (const auto& pos) mutable{
-		auto itr = tileTypes.find(pos);
-		
-		if (isTrigger(pos)) {
-			ret = true;
-			trigger(pos);
-			return false;
-		}
-		return true;
-	});
-	return ret;
 }
 
 void Grid::trigger(const GridPosition & gridPosition) {
@@ -85,13 +71,12 @@ bool Grid::isValidPosition(const GridPosition& position, int size) const {
 }
 
 void Grid::addObject(GridObject * gridObject, GridPosition position) {
+	gridObjects.insert(gridObject);
+	gridObject->setGridPosition(position);
 	for (auto p : gridObject->getTileTypes()) {
 		auto currentPosition = position + p.first;
 		auto currentTile = p.second;
 		tileTypes[currentPosition] = currentTile;
-		if (currentTile == TileType::EventTrigger) {
-			triggerObjects[currentPosition].insert(gridObject);
-		}
 	}
 }
 
