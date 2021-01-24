@@ -15,10 +15,11 @@ class GridObject :public cocos2d::Node{
 	TileTypeMap tileTypes;
 	std::unordered_set<Character*> triggering;
 	GridPosition currentGridPosition;
+	bool isInTrigger(Character* who) const;
 public:
 	std::function<void(Character*)> onTriggerIn;
 	std::function<void(Character*)> onTriggerOut;
-	bool testTrigger(const Character* who) const;
+	bool testTrigger(Character* who) const;
 
 	CREATE_FUNC(GridObject);
 	const TileMap& getTiles() const;

@@ -12,6 +12,10 @@ using namespace std;
 
 const string chaseTarget = "chaseTarget";
 
+GridPosition Character::getCurrentGridPosition() const {
+	return currentGridPosition;
+}
+
 Vec2 Character::getCenturalPosition() {
 	return getPosition() + getBoundingBox().size / 2;
 }

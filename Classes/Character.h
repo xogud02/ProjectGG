@@ -44,6 +44,7 @@ public:
 	void stopMove();
 
 	const int SCALE;
+	GridPosition getCurrentGridPosition() const;
 
 	cocos2d::Vec2 getCenturalPosition();
 
