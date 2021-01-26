@@ -17,6 +17,8 @@ class GridObject :public cocos2d::Node{
 	GridPosition currentGridPosition;
 	bool isInTrigger(Character* who) const;
 public:
+	GridObject();
+
 	std::function<void(Character*)> onTriggerIn;
 	std::function<void(Character*)> onTriggerOut;
 	bool testTrigger(Character* who) const;
@@ -26,5 +28,4 @@ public:
 	const TileTypeMap& getTileTypes() const;
 	void addTile(GridPosition, TileType type = TileType::Block, cocos2d::Sprite* tile = nullptr);
 	void setGridPosition(GridPosition newGridPosition);
-	virtual void addChild(cocos2d::Node* child) override;
 };

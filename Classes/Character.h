@@ -9,6 +9,7 @@
 
 class GridLayer;
 class GaugeBar;
+class GridObject;
 
 enum class MoveType{
 	Stop,
@@ -19,6 +20,7 @@ enum class MoveType{
 
 class Character : public cocos2d::Sprite {
 protected:
+	static std::unordered_map<GridObject*, std::function<void(Character*)>> onMove;
 	int team = 0;
 
 	Status status;
@@ -39,6 +41,8 @@ protected:
 	void movePath(float);
 	bool init() override;
 public:
+	static void addMoveListener(GridObject*, std::function<void(Character*)>);
+
 	void tryToMove(GridPosition);
 	bool tryToJump(GridPosition);
 	void stopMove();

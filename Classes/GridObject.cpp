@@ -21,6 +21,10 @@ bool GridObject::isInTrigger(Character * who) const {
 	return false;
 }
 
+GridObject::GridObject() {
+	Character::addMoveListener(this, [this](auto c) {testTrigger(c); });
+}
+
 bool GridObject::testTrigger(Character* who) const{
 	bool isTriggering = isInTrigger(who);
 	bool wasTriggering = triggering.find(who) != triggering.cend();
@@ -65,13 +69,4 @@ void GridObject::addTile(GridPosition position, TileType tileType, Sprite* tile)
 
 void GridObject::setGridPosition(GridPosition newGridPosition) {
 	currentGridPosition = newGridPosition;
-}
-
-void GridObject::addChild(Node * child) {
-	Node::addChild(child);
-	auto childObject = dynamic_cast<GridObject*>(child);
-	if (!childObject) {
-		return;
-	}
-	CC_ASSERT(false, "not implemented");
 }

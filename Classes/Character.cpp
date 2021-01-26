@@ -71,6 +71,10 @@ bool Character::init() {
 	return true;
 }
 
+void Character::addMoveListener(GridObject* object, std::function<void(Character*)> newListener) {
+	onMove[object] = newListener;
+}
+
 
 Character::Character(int scale) :SCALE(scale) {}
 
