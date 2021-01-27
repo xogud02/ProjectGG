@@ -22,7 +22,6 @@ public:
 
 	Grid(int rows, int cols);
 	bool isTrigger(const GridPosition& gridPosition) const;
-	bool testTrigger(const Character* who) const;
 	void trigger(const GridPosition& gridPosition);
 	bool isMovableTile(const GridPosition& gridPosition, const int size = 1) const;
 	bool isValidPosition(const GridPosition& position, const int size = 1) const;

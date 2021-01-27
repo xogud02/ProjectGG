@@ -11,6 +11,7 @@ USING_NS_CC_EXT;
 using namespace std;
 
 const string chaseTarget = "chaseTarget";
+unordered_map<GridObject*, function<void(Character*)>> Character::onMove = unordered_map<GridObject*, function<void(Character*)>>();
 
 GridPosition Character::getCurrentGridPosition() const {
 	return currentGridPosition;
@@ -302,8 +303,10 @@ void Character::movePath(float) {
 
 	auto afterMove = [this]() {
 		setPosition(GridLayer::getInstance()->gridToPosition(currentGridPosition));
-		auto grid = Grid::getInstance();
-		grid->testTrigger(this);
+
+		for (auto p : Character::onMove) {
+			p.first->testTrigger(this);
+		}
 		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
 	};
 

@@ -6,10 +6,10 @@
 #include <vector>
 #include <functional>
 #include "SpriteTileEnums.h"
+#include "GridObject.h"
 
 class GridLayer;
 class GaugeBar;
-class GridObject;
 
 enum class MoveType{
 	Stop,

@@ -20,10 +20,6 @@ bool Grid::isTrigger(const GridPosition & gridPosition) const {
 	return itr != tileTypes.cend() && itr->second == TileType::EventTrigger;
 }
 
-bool Grid::testTrigger(const Character* who) const {
-	return any_of(gridObjects.begin(), gridObjects.end(), [who](auto gridObject) {return gridObject->testTrigger(who); });
-}
-
 void gridLoop(const GridPosition& gridPosition, const int size, function<bool(const GridPosition&)> keepLoop) {
 	for (int dr = 0; dr < size; ++dr) {
 		for (int dc = 0; dc < size; ++dc) {
