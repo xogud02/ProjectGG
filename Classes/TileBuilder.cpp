@@ -2,6 +2,7 @@
 #include "SpriteFactory.h"
 #include "TileSpriteFactory.h"
 #include "GridObject.h"
+#include "Door.h"
 #include <unordered_set>
 #include <bitset>
 
@@ -124,20 +125,8 @@ GridObject* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
 	auto wLambda = [wt = WallType::Wood, theme](WallPosition pos){return [wt, pos, theme]() {return TileSpriteFactory::wallFrame(wt, pos, theme); }; };
 	auto doorPos = GridPosition(0, (cols - 1) / 2);
 	
-	auto opened = TileSpriteFactory::doorFrame(DoorType::Wood, DoorPosition::Horizontal, DoorLockType::SilverLock, false);
-	auto closed = TileSpriteFactory::doorFrame();
-	auto door = Sprite::createWithSpriteFrame(closed);
-	closed->retain();
-	opened->retain();
-	auto doorTrigger = [door, opened](auto c) mutable {//TODO Trigger out
-		door->setSpriteFrame(opened);
-	};
-	ret->onTriggerIn = doorTrigger;//TODO need door object
-	auto triggerPos = doorPos;
-	--triggerPos.row;
-
-	ret->addTile(doorPos, TileType::Floor, door);
-	ret->addTile(triggerPos, TileType::EventTrigger);
+	auto door = Door::create();//TODO implement door
+	ret->addChild(door);
 	
 
 	unordered_set<GridPosition> doorPositions;
