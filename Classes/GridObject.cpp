@@ -70,3 +70,13 @@ void GridObject::addTile(GridPosition position, TileType tileType, Sprite* tile)
 void GridObject::setGridPosition(GridPosition newGridPosition) {
 	currentGridPosition = newGridPosition;
 }
+
+void GridObject::addChild(cocos2d::Node * child) {
+	auto object = dynamic_cast<GridObject*>(child);
+	if (!object) {
+		Node::addChild(child);
+		return;
+	}
+	addChild(object);
+	//TODO implement object logic
+}
