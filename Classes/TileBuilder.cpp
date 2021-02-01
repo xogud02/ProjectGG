@@ -126,6 +126,7 @@ GridObject* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
 	auto doorPos = GridPosition(0, (cols - 1) / 2);
 	
 	auto door = Door::create();//TODO implement door
+	door->setGridPosition(doorPos);
 	ret->addChild(door);
 	
 

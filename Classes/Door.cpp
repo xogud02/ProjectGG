@@ -25,6 +25,7 @@ Door* Door::create(DoorPosition doorPosition, DoorType doorType, DoorLockType do
 	ret->door = Sprite::createWithSpriteFrame(ret->closed);
 	ret->onTriggerIn = [ret](auto c) {ret->door->setSpriteFrame(ret->opened); };
 	ret->onTriggerOut = [ret](auto c) {ret->door->setSpriteFrame(ret->closed); };
+	ret->addTile(GridPosition(), TileType::Floor, ret->door);
 
 	return ret;
 }

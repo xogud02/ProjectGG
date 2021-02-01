@@ -72,11 +72,12 @@ void GridObject::setGridPosition(GridPosition newGridPosition) {
 }
 
 void GridObject::addChild(cocos2d::Node * child) {
+	Node::addChild(child);
 	auto object = dynamic_cast<GridObject*>(child);
 	if (!object) {
-		Node::addChild(child);
 		return;
 	}
-	addChild(object);
-	//TODO implement object logic
+	auto size = SpriteFactory::unitSize.width;
+	auto cPos = object->currentGridPosition + currentGridPosition;
+	object->setPosition(size * cPos.col, size * cPos.row);
 }
