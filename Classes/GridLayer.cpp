@@ -49,7 +49,7 @@ void GridLayer::setPlayer(Player* newPlayer) {
 		unschedule(tracePlayer);
 	}
 	schedule(
-		[this, lastPos = Vec2(-1,-1)]
+		[this, lastPos = Vec2(-1, -1)]
 	(float) mutable {
 		auto currentPos = player->getPosition();
 		if (currentPos == lastPos) {
@@ -57,17 +57,9 @@ void GridLayer::setPlayer(Player* newPlayer) {
 		}
 		lastPos = lastPos.lerp(currentPos, 0.1f);
 		focusTo(convertToWorldSpace(lastPos));
-	},0, tracePlayer);
+	}, 0, tracePlayer);
 	addChild(player, 1);
 }
-
-
-void GridLayer::addObject(GridObject * gridObject, GridPosition position) {
-	addChild(gridObject);
-	gridObject->setPosition(gridToPosition(position));
-	grid.addObject(gridObject, position);
-}
-
 
 GridPosition GridLayer::vecToGrid(Vec2 position) const {
 	auto iunitSize = static_cast<int>(UNIT_SIZE);
@@ -82,14 +74,14 @@ Vec2 GridLayer::gridToPosition(const GridPosition rowCol) const {
 	return Vec2(x, y);
 }
 
-GridLayer::GridLayer(const int rows, const int cols, const float unitSize) : grid(rows,cols), UNIT_SIZE(unitSize){
+GridLayer::GridLayer(const int rows, const int cols, const float unitSize) : grid(rows, cols), UNIT_SIZE(unitSize) {
 	instance = this;
 	visibleArea = Director::getInstance()->getWinSize();
 	visibleAreaOffset = Vec2::ZERO;
 }
 
 void GridLayer::showGrid() {
-	
+
 	auto debugGrid = DrawNode::create();
 	auto gridLines = DrawNode::create();
 	LayerColor::addChild(debugGrid, 1);
@@ -196,7 +188,7 @@ void GridLayer::onDragEnded(const Vec2 & startPosition, const Vec2 & endedPositi
 	} else if (draggingCharacter && draggingCharacter == player) {
 		player->getCommand()->draggedPlayer(endedPosition);
 	}
-	
+
 	isDragging = false;
 	draggingCharacter = nullptr;
 }
@@ -223,11 +215,11 @@ void GridLayer::focusTo(Vec2 position) {
 
 	newPosition += visibleAreaOffset;
 
-	
+
 	setPosition(newPosition);
 }
 
-void GridLayer::addChild(Node* node) {
+void GridLayer::addChild(Node* node) {//TODO imple object
 	addChild(node, 0);
 }
 

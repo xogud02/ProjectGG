@@ -66,16 +66,6 @@ bool Grid::isValidPosition(const GridPosition& position, int size) const {
 	return 0 <= row && row + size -1 < rows && 0 <= col && col + size -1 < cols;
 }
 
-void Grid::addObject(GridObject * gridObject, GridPosition position) {
-	gridObjects.insert(gridObject);
-	gridObject->setGridPosition(position);
-	for (auto p : gridObject->getTileTypes()) {
-		auto currentPosition = position + p.first;
-		auto currentTile = p.second;
-		tileTypes[currentPosition] = currentTile;
-	}
-}
-
 void Grid::occupyArea(Character * by, const GridPosition& position) {
 	auto size = by->SCALE;
 	if (!isOccupiable(position, size)) {

@@ -24,8 +24,6 @@ public:
 	bool testTrigger(Character* who) const;
 
 	CREATE_FUNC(GridObject);
-	const TileMap& getTiles() const;
-	const TileTypeMap& getTileTypes() const;
 	void addTile(GridPosition, TileType type = TileType::Block, cocos2d::Sprite* tile = nullptr);
 	void setGridPosition(GridPosition newGridPosition);
 	virtual void addChild(cocos2d::Node* child) override;

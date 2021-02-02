@@ -55,10 +55,10 @@ bool FightScene::init() {
 void testTmps(FightScene* ret, GridLayer* grid, int rows, int cols) {
 	auto tmpLava = TileBuilder::randomLiquidPit(rows / 3, cols / 3, LiquidPitType::Lava);
 	//auto tmpLava = TileBuilder::randomTestPit(rows / 3, cols / 3);
-	grid->addObject(tmpLava, GridPosition(rows / 3, cols / 12));
+	//grid->addObject(tmpLava, GridPosition(rows / 3, cols / 12));
 
 	auto tmpPit = TileBuilder::randomPit(rows / 3, cols / 3, PitContentType::Green, PitWallType::Dirt);
-	grid->addObject(tmpPit, GridPosition(rows / 3, cols * 7 / 12));
+	//grid->addObject(tmpPit, GridPosition(rows / 3, cols * 7 / 12));
 
 	Sprite* tmpTree = Sprite::create();
 	tmpTree->runAction(TileSpriteFactory::tree());

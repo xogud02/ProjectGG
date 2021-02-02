@@ -26,6 +26,16 @@ Door* Door::create(DoorPosition doorPosition, DoorType doorType, DoorLockType do
 	ret->onTriggerIn = [ret](auto c) {ret->door->setSpriteFrame(ret->opened); };
 	ret->onTriggerOut = [ret](auto c) {ret->door->setSpriteFrame(ret->closed); };
 	ret->addTile(GridPosition(), TileType::Floor, ret->door);
+	GridPosition triggerPositions[2];
+	int deltas[] =  { -1, 1 };
+	for (int i = 0; i < 2; ++i) {
+		if (doorPosition == DoorPosition::Horizontal) {
+			triggerPositions[i].row = deltas[i];
+		} else {
+			triggerPositions[i].col = deltas[i];
+		}
+		ret->addTile(triggerPositions[i], TileType::EventTrigger);
+	}
 
 	return ret;
 }

@@ -11,7 +11,6 @@ bool GridObject::isInTrigger(Character * who) const {
 	for (int dr = 0; dr < size; ++dr) {
 		for (int dc = 0; dc < size; ++dc) {
 			auto test = GridPosition(pos.row + dr, pos.col + dc) - currentGridPosition;
-			auto tileTypes = getTileTypes();
 			auto itr = tileTypes.find(test);
 			if (itr != tileTypes.cend() && itr->second == TileType::EventTrigger) {
 				return true;
@@ -39,14 +38,6 @@ bool GridObject::testTrigger(Character* who) const{
 	}
 
 	return true;
-}
-
-const TileMap& GridObject::getTiles() const{
-	return tiles;
-}
-
-const TileTypeMap & GridObject::getTileTypes() const {
-	return tileTypes;
 }
 
 void GridObject::addTile(GridPosition position, TileType tileType, Sprite* tile) {

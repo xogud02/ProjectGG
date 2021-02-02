@@ -33,7 +33,7 @@ public:
 	cocos2d::Vec2 gridToPosition(const GridPosition gridPosition) const;
 	GridLayer(const int rows, const int cols, const float unitSize);
 	void showGrid();
-	
+
 	void onSingleTouch(const cocos2d::Vec2& touched);
 	void onSingleTouchCanceled();
 	void onDoubleTouch(const cocos2d::Vec2& touched);
@@ -50,6 +50,4 @@ public:
 	static GridLayer* create(const int rows, const int cols);
 
 	void setPlayer(Player* character);
-
-	void addObject(GridObject*, GridPosition);
 };
