@@ -219,11 +219,17 @@ void GridLayer::focusTo(Vec2 position) {
 	setPosition(newPosition);
 }
 
-void GridLayer::addChild(Node* node) {//TODO imple object
+void GridLayer::addChild(Node* node) {
 	addChild(node, 0);
 }
 
 void GridLayer::addChild(Node* node, int zOrder) {
-	LayerColor::addChild(node, zOrder);
+	Node::addChild(node, zOrder);
 	node->setScale(node->getScale() * SpriteFactory::getUnitScale(UNIT_SIZE));
+	auto object = dynamic_cast<GridObject*>(node);
+	if (!object) {
+		return;
+	}
+	auto cPos = object->getGridPosition();
+	object->setPosition(UNIT_SIZE * cPos.col, UNIT_SIZE * cPos.row);
 }

@@ -10,7 +10,7 @@ bool GridObject::isInTrigger(Character * who) const {
 	auto pos = who->getCurrentGridPosition();
 	for (int dr = 0; dr < size; ++dr) {
 		for (int dc = 0; dc < size; ++dc) {
-			auto test = GridPosition(pos.row + dr, pos.col + dc) - currentGridPosition;
+			auto test = GridPosition(pos.row + dr, pos.col + dc) - getGridPosition();
 			auto itr = tileTypes.find(test);
 			if (itr != tileTypes.cend() && itr->second == TileType::EventTrigger) {
 				return true;
@@ -21,7 +21,7 @@ bool GridObject::isInTrigger(Character * who) const {
 }
 
 GridObject::GridObject() {
-	Character::addMoveListener(this, [this](auto c) {testTrigger(c); });
+	Character::addMoveListener(this, [this](auto c) {testTrigger(c); });//FIXME something wrong with this pointer!!
 }
 
 bool GridObject::testTrigger(Character* who) const{
@@ -60,6 +60,10 @@ void GridObject::addTile(GridPosition position, TileType tileType, Sprite* tile)
 
 void GridObject::setGridPosition(GridPosition newGridPosition) {
 	currentGridPosition = newGridPosition;
+}
+
+GridPosition GridObject::getGridPosition() const{
+	return currentGridPosition;
 }
 
 void GridObject::addChild(cocos2d::Node * child) {

@@ -38,7 +38,7 @@ bool MenuScene::init() {
 	//grid->addObject(portal, GridPosition(rows / 3, cols / 2));
 
 	auto building = TileBuilder::building(rows / 4, cols / 4, SpriteTileTheme::Brighter);
-	//grid->addObject(building, GridPosition(2, 2));
+	grid->addChild(building);
 
 	player->tryToJump(GridPosition(rows / 2, cols / 2));
 

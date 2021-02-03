@@ -26,5 +26,6 @@ public:
 	CREATE_FUNC(GridObject);
 	void addTile(GridPosition, TileType type = TileType::Block, cocos2d::Sprite* tile = nullptr);
 	void setGridPosition(GridPosition newGridPosition);
+	GridPosition getGridPosition() const;
 	virtual void addChild(cocos2d::Node* child) override;
 };
