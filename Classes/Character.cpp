@@ -11,7 +11,7 @@ USING_NS_CC_EXT;
 using namespace std;
 
 const string chaseTarget = "chaseTarget";
-unordered_map<GridObject*, function<void(Character*)>> Character::onMove = unordered_map<GridObject*, function<void(Character*)>>();
+unordered_set<GridObject*> Character::onMove;
 
 GridPosition Character::getCurrentGridPosition() const {
 	return currentGridPosition;
@@ -72,8 +72,12 @@ bool Character::init() {
 	return true;
 }
 
-void Character::addMoveListener(GridObject* object, std::function<void(Character*)> newListener) {
-	onMove[object] = newListener;
+void Character::addMoveListener(GridObject* object) {
+	onMove.insert(object);
+}
+
+void Character::removeMoveListener(GridObject* object) {
+	onMove.erase(object);
 }
 
 
@@ -304,8 +308,8 @@ void Character::movePath(float) {
 	auto afterMove = [this]() {
 		setPosition(GridLayer::getInstance()->gridToPosition(currentGridPosition));
 
-		for (auto p : Character::onMove) {
-			p.first->testTrigger(this);
+		for (const auto& p : Character::onMove) {
+			p->testTrigger(this);
 		}
 		scheduleOnce(CC_SCHEDULE_SELECTOR(Character::movePath), 0);
 	};

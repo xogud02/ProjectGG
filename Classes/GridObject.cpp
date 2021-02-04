@@ -21,7 +21,11 @@ bool GridObject::isInTrigger(Character * who) const {
 }
 
 GridObject::GridObject() {
-	Character::addMoveListener(this, [this](auto c) {testTrigger(c); });//FIXME something wrong with this pointer!!
+	Character::addMoveListener(this);
+}
+
+GridObject::~GridObject() {
+	Character::removeMoveListener(this);
 }
 
 bool GridObject::testTrigger(Character* who) const{
@@ -60,6 +64,8 @@ void GridObject::addTile(GridPosition position, TileType tileType, Sprite* tile)
 
 void GridObject::setGridPosition(GridPosition newGridPosition) {
 	currentGridPosition = newGridPosition;
+	auto size = SpriteFactory::unitSize.width;
+	setPosition(size * currentGridPosition.col, size * currentGridPosition.row);
 }
 
 GridPosition GridObject::getGridPosition() const{

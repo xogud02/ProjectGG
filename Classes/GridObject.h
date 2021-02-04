@@ -18,6 +18,7 @@ class GridObject :public cocos2d::Node{
 	bool isInTrigger(Character* who) const;
 public:
 	GridObject();
+	virtual ~GridObject();
 
 	std::function<void(Character*)> onTriggerIn;
 	std::function<void(Character*)> onTriggerOut;
