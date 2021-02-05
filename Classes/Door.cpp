@@ -8,7 +8,7 @@ Door::Door(DoorType doorType, DoorPosition doorPosition, DoorLockType doorLockTy
 	doorPosition(doorPosition),
 	doorLockType(doorLockType){}
 
-Door* Door::create(DoorPosition doorPosition, DoorType doorType, DoorLockType doorLockType) {
+Door* Door::create(DoorPosition doorPosition, DoorType doorType, DoorLockType doorLockType) {//FIXME trigger wrong
 	auto ret = new Door(doorType, doorPosition, doorLockType);
 	if (!ret->init()) {
 		CC_SAFE_DELETE(ret);

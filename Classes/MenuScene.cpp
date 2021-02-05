@@ -28,19 +28,19 @@ bool MenuScene::init() {
 	auto player = Player::create(CharacterType::Engineer);
 	grid->setPlayer(player);
 
-	auto door = Sprite::create();
-	door->runAction(ObjectSpriteFactory::portal());
-	door->setAnchorPoint(Vec2::ZERO);
+	auto portalSprite = Sprite::create();
+	portalSprite->runAction(ObjectSpriteFactory::portal());
+	portalSprite->setAnchorPoint(Vec2::ZERO);
 
 	auto portal = GridObject::create();
-	portal->addTile(GridPosition(), TileType::EventTrigger, door);
+	portal->addTile(GridPosition(), TileType::EventTrigger, portalSprite);
 	portal->onTriggerIn = [](auto c) {Director::getInstance()->replaceScene(CharacterSelectScene::create(SpriteTileTheme::Bright)); };
 	portal->setGridPosition(GridPosition(rows / 3, cols / 2));
 	grid->addChild(portal);
 
 	auto building = TileBuilder::building(rows / 4, cols / 4, SpriteTileTheme::Brighter);
 	grid->addChild(building);
-	building->setGridPosition(GridPosition(3, 3));
+	building->setGridPosition(GridPosition(rows / 4, cols / 4));
 
 	player->tryToJump(GridPosition(rows / 2, cols / 2));
 

@@ -22,7 +22,7 @@ public:
 
 	std::function<void(Character*)> onTriggerIn;
 	std::function<void(Character*)> onTriggerOut;
-	bool testTrigger(Character* who) const;
+	void testTrigger(Character* who) const;
 
 	CREATE_FUNC(GridObject);
 	void addTile(GridPosition, TileType type = TileType::Block, cocos2d::Sprite* tile = nullptr);
