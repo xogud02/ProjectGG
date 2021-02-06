@@ -34,7 +34,7 @@ bool MenuScene::init() {
 
 	auto portal = GridObject::create();
 	portal->addTile(GridPosition(), TileType::EventTrigger, portalSprite);
-	portal->onTriggerIn = [](auto c) {Director::getInstance()->replaceScene(CharacterSelectScene::create(SpriteTileTheme::Bright)); };
+	//portal->onTriggerIn = [](auto c) {Director::getInstance()->replaceScene(CharacterSelectScene::create(SpriteTileTheme::Bright)); };
 	portal->setGridPosition(GridPosition(rows / 3, cols / 2));
 	grid->addChild(portal);
 

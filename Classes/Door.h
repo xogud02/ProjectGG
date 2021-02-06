@@ -17,4 +17,6 @@ class Door : public GridObject {
 	
 public:
 	static Door* create(DoorPosition doorPosition = DoorPosition::Horizontal, DoorType doorType = DoorType::Wood, DoorLockType doorLockType = DoorLockType::None);
+	virtual void onTriggerIn(Character* who) override;
+	virtual void onTriggerOut(Character* who) override;
 };

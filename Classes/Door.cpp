@@ -23,8 +23,6 @@ Door* Door::create(DoorPosition doorPosition, DoorType doorType, DoorLockType do
 	ret->opened = createDoorFrame(false);
 	ret->closed = createDoorFrame(true);
 	ret->door = Sprite::createWithSpriteFrame(ret->closed);
-	ret->onTriggerIn = [ret](auto c) {ret->door->setSpriteFrame(ret->opened); };
-	ret->onTriggerOut = [ret](auto c) {ret->door->setSpriteFrame(ret->closed); };
 	ret->addTile(GridPosition(), TileType::Floor, ret->door);
 	GridPosition triggerPositions[2];
 	int deltas[] =  { -1, 1 };
@@ -38,4 +36,12 @@ Door* Door::create(DoorPosition doorPosition, DoorType doorType, DoorLockType do
 	}
 
 	return ret;
+}
+
+void Door::onTriggerIn(Character*) {
+	door->setSpriteFrame(opened);
+}
+
+void Door::onTriggerOut(Character*) {
+	door->setSpriteFrame(closed);
 }

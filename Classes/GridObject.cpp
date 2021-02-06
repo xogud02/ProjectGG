@@ -30,7 +30,7 @@ GridObject::~GridObject() {
 	Character::removeMoveListener(this);
 }
 
-void GridObject::testTrigger(Character* who) const{
+void GridObject::testTrigger(Character* who) {
 	bool isTriggering = isInTrigger(who);
 	bool wasTriggering = triggering.find(who) != triggering.cend();
 	if (isTriggering == wasTriggering) {
@@ -55,7 +55,7 @@ void GridObject::addTile(GridPosition position, TileType tileType, Sprite* tile)
 	addChild(tile);
 	auto size = SpriteFactory::unitSize.width;
 	tile->setPosition(size * position.col, size * position.row);
-	
+
 	auto before = tiles[position];
 	if (before) {
 		before->removeFromParentAndCleanup(true);
@@ -70,7 +70,7 @@ void GridObject::setGridPosition(GridPosition newGridPosition) {
 	setPosition(size * currentGridPosition.col, size * currentGridPosition.row);
 }
 
-GridPosition GridObject::getGridPosition() const{
+GridPosition GridObject::getGridPosition() const {
 	auto parent = dynamic_cast<const GridObject*>(getParent());
 	if (parent) {
 		return currentGridPosition + parent->getGridPosition();

@@ -10,7 +10,7 @@ using TileMap = std::unordered_map<GridPosition, cocos2d::Sprite*>;
 using TileTypeMap = std::unordered_map<GridPosition, TileType>;
 class Character;
 
-class GridObject :public cocos2d::Node{
+class GridObject :public cocos2d::Node {
 	TileMap tiles;
 	TileTypeMap tileTypes;
 	std::unordered_set<Character*> triggering;
@@ -20,9 +20,9 @@ public:
 	GridObject();
 	virtual ~GridObject();
 
-	std::function<void(Character*)> onTriggerIn;
-	std::function<void(Character*)> onTriggerOut;
-	void testTrigger(Character* who) const;
+	void testTrigger(Character* who);
+	virtual void onTriggerIn(Character* who) {}
+	virtual void onTriggerOut(Character* who) {}
 
 	CREATE_FUNC(GridObject);
 	void addTile(GridPosition, TileType type = TileType::Block, cocos2d::Sprite* tile = nullptr);
