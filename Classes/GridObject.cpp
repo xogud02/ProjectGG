@@ -33,17 +33,17 @@ GridObject::~GridObject() {
 void GridObject::testTrigger(Character* who) {
 	bool isTriggering = isInTrigger(who);
 	bool wasTriggering = triggering.find(who) != triggering.cend();
-	if (isTriggering == wasTriggering) {
-		return;
+
+	if (isTriggering && !wasTriggering) {
+		triggering.insert(who);
+		onTriggerIn(who);
 	}
 
-	if (isTriggering) {
-		onTriggerIn(who);
-	} else {
+	if (!isTriggering && wasTriggering) {
+		triggering.erase(who);
 		onTriggerOut(who);
 	}
 
-	return;
 }
 
 void GridObject::addTile(GridPosition position, TileType tileType, Sprite* tile) {
