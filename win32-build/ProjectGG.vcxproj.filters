@@ -110,7 +110,7 @@
       <Filter>Source Files\Classes\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Door.cpp">
-      <Filter>Source Files\Classes</Filter>
+      <Filter>Source Files\Classes\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -243,8 +243,11 @@
     <ClInclude Include="..\Classes\TileType.h">
       <Filter>Source Files\Classes\Grid</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Portal.h">
+      <Filter>Source Files\Classes\Object</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\Door.h">
-      <Filter>Source Files\Classes</Filter>
+      <Filter>Source Files\Classes\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +301,9 @@
     </Filter>
     <Filter Include="Resources\Sprites\Item">
       <UniqueIdentifier>{674100ac-4642-43b1-aecd-a2ce931e8736}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Object">
+      <UniqueIdentifier>{7d3d7de8-6e07-42cf-a5c3-ca3ea8abc952}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
