@@ -764,6 +764,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\MonsterSpriteFactory.h" />
     <ClInclude Include="..\Classes\MonsterSpriteFactory.hpp" />
     <ClInclude Include="..\Classes\ObjectSpriteFactory.h" />
+    <ClInclude Include="..\Classes\Portal.h" />
     <ClInclude Include="..\Classes\PowerUp.h" />
     <ClInclude Include="..\Classes\Skill.h" />
     <ClInclude Include="..\Classes\SkillCommand.h" />
