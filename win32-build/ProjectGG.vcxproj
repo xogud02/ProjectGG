@@ -804,6 +804,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\GUISpriteFactory.cpp" />
     <ClCompile Include="..\Classes\MonsterSpriteFactory.cpp" />
     <ClCompile Include="..\Classes\ObjectSpriteFactory.cpp" />
+    <ClCompile Include="..\Classes\Portal.cpp" />
     <ClCompile Include="..\Classes\PowerUp.cpp" />
     <ClCompile Include="..\Classes\Skill.cpp" />
     <ClCompile Include="..\Classes\SkillCommand.cpp" />

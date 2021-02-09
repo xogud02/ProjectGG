@@ -112,6 +112,9 @@
     <ClCompile Include="..\Classes\Door.cpp">
       <Filter>Source Files\Classes\Object</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Portal.cpp">
+      <Filter>Source Files\Classes\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\GridObject.h">

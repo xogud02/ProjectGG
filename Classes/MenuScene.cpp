@@ -7,6 +7,7 @@
 #include "TileBuilder.h"
 #include "ObjectSpriteFactory.h"
 #include "GridObject.h"
+#include "Portal.h"
 
 USING_NS_CC;
 using namespace std;
@@ -32,9 +33,7 @@ bool MenuScene::init() {
 	portalSprite->runAction(ObjectSpriteFactory::portal());
 	portalSprite->setAnchorPoint(Vec2::ZERO);
 
-	auto portal = GridObject::create();
-	portal->addTile(GridPosition(), TileType::EventTrigger, portalSprite);
-	//portal->onTriggerIn = [](auto c) {Director::getInstance()->replaceScene(CharacterSelectScene::create(SpriteTileTheme::Bright)); };
+	auto portal = Portal::create();
 	portal->setGridPosition(GridPosition(rows / 3, cols / 2));
 	grid->addChild(portal);
 
