@@ -73,20 +73,20 @@ void Grid::occupyArea(Character * by, const GridPosition& position) {
 	}
 	by->retain();
 	gridLoop(position, size, [this, by](const auto& pos) mutable {
-		occupiedCharacter[pos] = by;
+		occupied[pos] = by;
 		return true;
 	});
 }
 
 void Grid::unOccupyArea(Character * by, const GridPosition& position) {
 	auto size = by->SCALE;
-	auto itr = occupiedCharacter.find(position);
-	if (itr == occupiedCharacter.cend() || itr->second != by) {
+	auto itr = occupied.find(position);
+	if (itr == occupied.cend() || itr->second != by) {
 		return;
 	}
 	by->release();
 	gridLoop(position, size, [this, by](const auto& pos) mutable {
-		occupiedCharacter.erase(pos);
+		occupied.erase(pos);
 		return true;
 	});
 }
@@ -98,7 +98,7 @@ bool Grid::isOccupiable(const GridPosition& position, const int size) const {
 
 	bool ret = true;
 	gridLoop(position, size, [this, &ret](const auto& pos) mutable {
-		if (occupiedCharacter.find(pos) != occupiedCharacter.cend()) {
+		if (occupied.find(pos) != occupied.cend()) {
 			ret = false;
 			return false;
 		}
@@ -109,10 +109,10 @@ bool Grid::isOccupiable(const GridPosition& position, const int size) const {
 }
 
 Character* Grid::getOccupiedCharacter(const GridPosition &position) const {
-	auto itr = occupiedCharacter.find(position);
-	if (itr == occupiedCharacter.cend()) {
+	auto itr = occupied.find(position);
+	if (itr == occupied.cend()) {
 		return nullptr;
 	}
 
-	return itr->second;
+	return dynamic_cast<Character*>(itr->second);
 }

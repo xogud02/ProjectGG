@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include "TileType.h"
+#include "cocos2d.h"
 
 class GridObject;
 class Character;
@@ -11,7 +12,7 @@ class Character;
 class Grid {
 	std::unordered_map<GridPosition, TileType> tileTypes;
 	std::unordered_map<GridPosition, std::unordered_set<GridObject*>> triggerObjects;
-	std::unordered_map<GridPosition, Character*> occupiedCharacter;
+	std::unordered_map<GridPosition, cocos2d::Node*> occupied;//TODO maybe needs root object class
 	static Grid* instance;
 
 public:
