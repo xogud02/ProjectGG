@@ -18,7 +18,7 @@ enum class MoveType{
 	Move
 };
 
-class Character : public cocos2d::Sprite {
+class Character : public GridObject {
 protected:
 	static std::unordered_set<GridObject*> onMove;
 	int team = 0;

@@ -10,7 +10,7 @@ using TileMap = std::unordered_map<GridPosition, cocos2d::Sprite*>;
 using TileTypeMap = std::unordered_map<GridPosition, TileType>;
 class Character;
 
-class GridObject :public cocos2d::Node {
+class GridObject :public cocos2d::Sprite {
 	TileMap tiles;
 	TileTypeMap tileTypes;
 	std::unordered_set<Character*> triggering;
@@ -29,4 +29,5 @@ public:
 	void setGridPosition(GridPosition newGridPosition);
 	GridPosition getGridPosition() const;
 	virtual void addChild(cocos2d::Node* child) override;
+	virtual void addChild(cocos2d::Node* child, int z) override;
 };

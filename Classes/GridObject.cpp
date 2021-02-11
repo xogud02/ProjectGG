@@ -79,7 +79,11 @@ GridPosition GridObject::getGridPosition() const {
 }
 
 void GridObject::addChild(Node * child) {
-	Node::addChild(child);
+	addChild(child, 0);
+}
+
+void GridObject::addChild(cocos2d::Node * child, int z) {
+	Node::addChild(child, z);
 	auto object = dynamic_cast<GridObject*>(child);
 	if (!object) {
 		return;
