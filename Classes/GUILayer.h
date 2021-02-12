@@ -9,7 +9,7 @@
 #include "GUIBoxCreator.h"
 
 using pBar = std::shared_ptr<GaugeBar>;
-using CharacterBarMap = std::unordered_map<Character*, pBar>;
+using CharacterBarMap = std::unordered_map<Unit*, pBar>;
 enum class CharacterType;
 
 class GUILayer : public cocos2d::Node {
@@ -41,7 +41,7 @@ protected:
 	virtual bool init() override;
 public:
 
-	void addGaugeBar(Character* owner, pBar newBar);
+	void addGaugeBar(Unit* owner, pBar newBar);
 	void setPlayer(Player* player);
 	void createBottomUI(cocos2d::Size size, CharacterType characterType);
 	void setArrowPosition(const cocos2d::Vec2& from, const cocos2d::Vec2& to);

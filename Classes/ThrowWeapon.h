@@ -5,5 +5,5 @@
 class ThrowWeapon : public Skill {
 public:
 	ThrowWeapon(float coolDown = 5);
-	bool onTarget(Character* to) override;
+	bool onTarget(Unit* to) override;
 };

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cocos2d.h";
+#include "cocos2d.h"
 
 class WeaponSpriteFactory {
 	static const std::string MELEE_WEAPON;

@@ -1,7 +1,6 @@
 #include "TileBuilder.h"
 #include "SpriteFactory.h"
 #include "TileSpriteFactory.h"
-#include "GridObject.h"
 #include "Door.h"
 #include <unordered_set>
 #include <bitset>
@@ -80,8 +79,8 @@ Node* TileBuilder::randomGround(int rows, int cols, SpriteTileTheme theme, float
 	return ret;
 }
 
-GridObject* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
-	auto ret = GridObject::create();
+Unit* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
+	auto ret = Unit::create();
 	auto tileSpriteType = SpriteTileType::WoodFloor;
 	auto floor = TileType::Floor;
 
@@ -177,10 +176,10 @@ PSet buildPit(int maxRows, int maxCols) {
 	return ret;
 }
 
-GridObject * createPit(int maxRows, int maxCols, function<void(Sprite*, PitPositionType)> setSprite) {
+Unit * createPit(int maxRows, int maxCols, function<void(Sprite*, PitPositionType)> setSprite) {
 	PSet pit = buildPit(maxRows, maxCols);
 
-	auto ret = GridObject::create();
+	auto ret = Unit::create();
 	for (auto pii : pit) {
 		int r = pii.first, c = pii.second;
 		auto s = Sprite::create();
@@ -190,21 +189,21 @@ GridObject * createPit(int maxRows, int maxCols, function<void(Sprite*, PitPosit
 	return ret;
 }
 
-GridObject* TileBuilder::randomTestPit(int maxRows, int maxCols) {
+Unit* TileBuilder::randomTestPit(int maxRows, int maxCols) {
 	return createPit(maxRows, maxCols,
 		[](Sprite* s, auto p) {
 		s->setSpriteFrame(TileSpriteFactory::testPitPosition(p));
 	});
 }
 
-GridObject * TileBuilder::randomLiquidPit(int maxRows, int maxCols, LiquidPitType type) {
+Unit * TileBuilder::randomLiquidPit(int maxRows, int maxCols, LiquidPitType type) {
 	return createPit(maxRows, maxCols,
 		[type](Sprite* s, auto position) {
 		s->runAction(TileSpriteFactory::liquidPitAction(type, position));
 	});
 }
 
-GridObject* TileBuilder::randomPit(int maxRows, int maxCols, PitContentType content, PitWallType wall) {
+Unit* TileBuilder::randomPit(int maxRows, int maxCols, PitContentType content, PitWallType wall) {
 	return createPit(maxRows, maxCols,
 		[content, wall](Sprite* s, auto position) {
 		s->runAction(TileSpriteFactory::pitAction(content, wall, position));

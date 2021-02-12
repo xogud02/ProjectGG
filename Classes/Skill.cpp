@@ -1,5 +1,5 @@
 #include "Skill.h"
-#include "Character.h"
+#include "Unit.h"
 #include "WeaponSpriteFactory.h"
 
 USING_NS_CC;
@@ -8,11 +8,11 @@ Skill::Skill(float coolDown):
 	coolDown(coolDown)
 {}
 
-void Skill::setOwner(Character * owner) {
+void Skill::setOwner(Unit * owner) {
 	this->owner = owner;
 }
 
-bool Skill::onTarget(Character * to) {
+bool Skill::onTarget(Unit * to) {
 	CCLOG("unemplemented onTarget Called");
 	return false;
 }

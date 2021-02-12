@@ -100,6 +100,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;COCOS2D_DEBUG=1;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;COCOS2D_DEBUG=1;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -754,7 +755,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\Door.h" />
     <ClInclude Include="..\Classes\FireBall.h" />
     <ClInclude Include="..\Classes\Grid.h" />
-    <ClInclude Include="..\Classes\GridObject.h" />
     <ClInclude Include="..\Classes\GridTouchListener.h" />
     <ClInclude Include="..\Classes\GUIBoxCreator.h" />
     <ClInclude Include="..\Classes\GUILayer.h" />
@@ -776,7 +776,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\TTFLabelBuilder.h" />
     <ClInclude Include="..\Classes\WeaponSpriteFactory.h" />
     <ClInclude Include="C:\ProjectGG\Classes\AppDelegate.h" />
-    <ClInclude Include="C:\ProjectGG\Classes\Character.h" />
+    <ClInclude Include="..\Classes\Unit.h" />
     <ClInclude Include="C:\ProjectGG\Classes\CharacterSelectScene.h" />
     <ClInclude Include="C:\ProjectGG\Classes\FightScene.h" />
     <ClInclude Include="C:\ProjectGG\Classes\GaugeBar.h" />
@@ -797,7 +797,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\Door.cpp" />
     <ClCompile Include="..\Classes\FireBall.cpp" />
     <ClCompile Include="..\Classes\Grid.cpp" />
-    <ClCompile Include="..\Classes\GridObject.cpp" />
     <ClCompile Include="..\Classes\GridTouchListener.cpp" />
     <ClCompile Include="..\Classes\GUIBoxCreator.cpp" />
     <ClCompile Include="..\Classes\GUILayer.cpp" />
@@ -815,7 +814,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\TTFLabelBuilder.cpp" />
     <ClCompile Include="..\Classes\WeaponSpriteFactory.cpp" />
     <ClCompile Include="C:\ProjectGG\Classes\AppDelegate.cpp" />
-    <ClCompile Include="C:\ProjectGG\Classes\Character.cpp" />
+    <ClCompile Include="..\Classes\Unit.cpp" />
     <ClCompile Include="C:\ProjectGG\Classes\CharacterSelectScene.cpp" />
     <ClCompile Include="C:\ProjectGG\Classes\FightScene.cpp" />
     <ClCompile Include="C:\ProjectGG\Classes\GaugeBar.cpp" />

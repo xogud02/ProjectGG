@@ -8,7 +8,7 @@ using namespace std;
 USING_NS_CC;
 
 bool Player::init() {
-	if (!Character::init()) {
+	if (!Unit::init()) {
 		return false;
 	}
 
@@ -46,8 +46,8 @@ Player * Player::create(CharacterType characterType, int scale) {
 	return ret;
 }
 
-void Player::setFocused(Character* newFocused) {
-	if (newFocused == focused && focused != dynamic_cast<Character*>(this)) {
+void Player::setFocused(Unit* newFocused) {
+	if (newFocused == focused && focused != dynamic_cast<Unit*>(this)) {
 		setTarget(focused);
 		return;
 	}
@@ -55,12 +55,12 @@ void Player::setFocused(Character* newFocused) {
 	setTarget(nullptr);
 }
 
-Character * Player::getFocused() const {
+Unit * Player::getFocused() const {
 	return focused;
 }
 
-void Player::setTarget(Character * target) {
-	Character::setTarget(target);
+void Player::setTarget(Unit * target) {
+	Unit::setTarget(target);
 	weapon->setTarget(target);
 }
 
@@ -73,11 +73,11 @@ shared_ptr<SkillCommand> Player::getCommand() {
 }
 
 void Player::buff(int power, float time, cocos2d::Node * icon) {
-	Character::buff(power, time, icon);
+	Unit::buff(power, time, icon);
 	GUILayer::getInstance()->addBuff(icon, time);
 }
 
-Player::Player(CharacterType characterType, int scale) :Character(scale),characterType(characterType),command(make_shared<SkillCommand>()){}
+Player::Player(CharacterType characterType, int scale) :Unit(scale),characterType(characterType),command(make_shared<SkillCommand>()){}
 
 Player::~Player() {
 	for (auto direction : directions) {

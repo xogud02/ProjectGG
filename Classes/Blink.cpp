@@ -1,6 +1,6 @@
 #include "Blink.h"
 #include "GridLayer.h"
-#include "Character.h"
+#include "Unit.h"
 #include "MonsterSpriteFactory.h"
 
 USING_NS_CC;

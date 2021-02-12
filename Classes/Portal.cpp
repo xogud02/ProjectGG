@@ -14,10 +14,10 @@ Portal* Portal::create() {
 	auto portalSprite = Sprite::create();
 	portalSprite->runAction(ObjectSpriteFactory::portal());
 	portalSprite->setAnchorPoint(Vec2::ZERO);
-	ret->addTile(GridPosition(), TileType::EventTrigger, portalSprite);
+	//ret->addTile(GridPosition(), TileType::EventTrigger, portalSprite);
 	return ret;
 }
 
-void Portal::onTriggerIn(Character * who) {
+void Portal::onTriggerIn(Unit * who) {
 	Director::getInstance()->replaceScene(CharacterSelectScene::create(SpriteTileTheme::Bright));//TODO implement various portal
 }

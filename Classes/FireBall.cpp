@@ -1,6 +1,6 @@
 #include "FireBall.h"
 #include "MonsterSpriteFactory.h"
-#include "Character.h"
+#include "Unit.h"
 #include "GridLayer.h"
 #include "Grid.h"
 #include <unordered_set>
@@ -35,7 +35,7 @@ bool FireBall::nonTarget(const Vec2 & to) {
 
 	auto grid = Grid::getInstance();
 	auto key = "fireBall";
-	layer->schedule([fireBall, delta = direction * layer->UNIT_SIZE * 0.5f, layer, grid, key, owner = owner, hitted = unordered_set<Character*>()](float) mutable {
+	layer->schedule([fireBall, delta = direction * layer->UNIT_SIZE * 0.5f, layer, grid, key, owner = owner, hitted = unordered_set<Unit*>()](float) mutable {
 		auto currentPosition = fireBall->getPosition();
 		auto currentGridPosition = layer->vecToGrid(currentPosition);
 		if (!grid->isValidPosition(currentGridPosition)) {

@@ -12,7 +12,7 @@ enum class CommandType {
 	DoubleTabGround
 };
 
-class Character;
+class Unit;
 
 using sptrSkill = std::shared_ptr<Skill>;
 class SkillCommand {
@@ -21,10 +21,10 @@ class SkillCommand {
 	bool tryToUseSkill(CommandType, std::function<bool(sptrSkill)>);
 public:
 	bool isMapped(CommandType) const;
-	void pullCharacter(Character*);
+	void pullCharacter(Unit*);
 	void draggingPlayer(const cocos2d::Vec2&, const cocos2d::Vec2&);
 	void draggedPlayer(const cocos2d::Vec2&);
-	void doubleTapTarget(Character*);
+	void doubleTapTarget(Unit*);
 	void doubleTapGround(const cocos2d::Vec2&);
 
 	void addSkill(CommandType, sptrSkill);

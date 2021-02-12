@@ -5,11 +5,11 @@
 
 USING_NS_CC;
 
-Monster::Monster(int scale) : Character(scale) {
+Monster::Monster(int scale) : Unit(scale) {
 }
 
 bool Monster::init() {
-	if (!Character::init()) {
+	if (!Unit::init()) {
 		return false;
 	}
 	setName("monster");

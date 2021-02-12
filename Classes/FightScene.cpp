@@ -23,11 +23,10 @@
  ****************************************************************************/
 
 #include "FightScene.h"
-#include "Character.h"
+#include "Unit.h"
 #include "GridLayer.h"
 #include "Monster.h"
 #include "TileBuilder.h"
-#include "GridObject.h"
 #include "SpriteTileEnums.h"
 #include "GUIBoxCreator.h"
 #include "CharacterSpriteFactory.h"

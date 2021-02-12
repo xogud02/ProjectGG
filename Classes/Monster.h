@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Character.h"
+#include "Unit.h"
 
-class Monster : public Character {
+class Monster : public Unit {
 
 	Monster(int scale);
 protected:

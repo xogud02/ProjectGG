@@ -6,7 +6,7 @@
 #include "GUILayer.h"
 #include "TileBuilder.h"
 #include "ObjectSpriteFactory.h"
-#include "GridObject.h"
+#include "Unit.h"
 #include "Portal.h"
 
 USING_NS_CC;
