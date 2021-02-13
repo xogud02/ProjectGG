@@ -14,23 +14,7 @@ using namespace std;
 const string chaseTarget = "chaseTarget";
 unordered_set<Unit*> Unit::onMove;
 
-GridPosition Unit::getCurrentGridPosition() const {
-	auto parent = dynamic_cast<const Unit*>(getParent());
-	if (parent) {
-		return currentGridPosition + parent->getCurrentGridPosition();
-	}
-	return currentGridPosition;
-}
-
-void Unit::setGridPosition(GridPosition newGridPosition) {
-	currentGridPosition = newGridPosition;
-	auto size = GridLayer::getInstance()->UNIT_SIZE;
-	Node::setPosition(size * currentGridPosition.col, size * currentGridPosition.row);
-}
-
-Vec2 Unit::getCenturalPosition() {
-	return getPosition() + getBoundingBox().size / 2;
-}
+#pragma region Class
 
 Unit* Unit::create(int scale) {
 	Unit* ret = new Unit(scale);
@@ -40,7 +24,6 @@ Unit* Unit::create(int scale) {
 	}
 	return ret;
 }
-
 
 bool Unit::init() {
 	if (!Sprite::init()) {
@@ -83,7 +66,38 @@ bool Unit::init() {
 	return true;
 }
 
-Unit::Unit():SCALE(1) {
+Unit::Unit(int scale) :SCALE(scale) {}
+
+Unit::~Unit() {
+	Grid::getInstance()->unOccupyArea(this, currentGridPosition);
+}
+
+#pragma endregion
+
+#pragma region Grid
+
+GridPosition Unit::getCurrentGridPosition() const {
+	auto parent = dynamic_cast<const Unit*>(getParent());
+	if (parent) {
+		return currentGridPosition + parent->getCurrentGridPosition();
+	}
+	return currentGridPosition;
+}
+
+void Unit::setGridPosition(GridPosition newGridPosition) {
+	currentGridPosition = newGridPosition;
+	auto size = GridLayer::getInstance()->UNIT_SIZE;
+	Node::setPosition(size * currentGridPosition.col, size * currentGridPosition.row);
+}
+
+void Unit::setPosition(const Vec2 & v) {
+	auto grid = GridLayer::getInstance();
+	currentGridPosition = grid->vecToGrid(v);
+	Sprite::setPosition(grid->gridToPosition(currentGridPosition));
+}
+
+Vec2 Unit::getCenturalPosition() {
+	return getPosition() + getBoundingBox().size / 2;
 }
 
 bool Unit::isInTrigger(Unit * who) const {
@@ -158,26 +172,26 @@ void Unit::removeMoveListener(Unit* object) {
 	onMove.erase(object);
 }
 
-
-Unit::Unit(int scale) :SCALE(scale) {}
-
 void Unit::removeFromParentAndCleanup(bool cleanup) {
 	Grid::getInstance()->unOccupyArea(this, currentGridPosition);
 	Node::removeFromParentAndCleanup(cleanup);
-}
-
-ChracterCondition Unit::getCondition() const{
-	return status.getCondition();
 }
 
 CharacterDirection Unit::getCurrentDirection() {
 	return currentDirection;
 }
 
+#pragma endregion
+
+#pragma region Unit
+
+ChracterCondition Unit::getCondition() const{
+	return status.getCondition();
+}
+
 bool Unit::isEnemy(Unit *c) {
 	return team != c->team;
 }
-
 
 void Unit::setTarget(Unit * newTarget) {
 	if (target == newTarget) {
@@ -238,12 +252,6 @@ bool Unit::isInAttackRange(Unit * who) const {
 	return minR <= targetRow && targetRow <= maxR && minC <= targetCol && targetCol <= maxC;
 }
 
-void Unit::setPosition(const Vec2 & v) {
-	auto grid = GridLayer::getInstance();
-	currentGridPosition = grid->vecToGrid(v);
-	Sprite::setPosition(grid->gridToPosition(currentGridPosition));
-}
-
 void Unit::hit(Unit* by, int damage) {
 
 	auto text = TTFLabelBuilder()
@@ -268,11 +276,6 @@ void Unit::hit(Unit* by, int damage) {
 		removeFromParent();
 	}
 }
-
-Unit::~Unit() {
-	Grid::getInstance()->unOccupyArea(this, currentGridPosition);
-}
-
 
 void Unit::buff(int power, float time, Node* icon) {
 	++buffCount;
@@ -347,7 +350,6 @@ CharacterDirection Unit::getNextDirection(GridPosition nextPosition) {
 }
 
 void Unit::onMoveBegin(GridPosition nextPosition, CharacterDirection nextDirection) {}
-
 
 constexpr int movingActionTag = 1;
 
@@ -440,3 +442,5 @@ bool Unit::tryToJump(GridPosition position) {
 void Unit::stopMove() {
 	path.swap(queue<GridPosition>());
 }
+
+#pragma endregion

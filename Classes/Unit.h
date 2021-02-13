@@ -24,6 +24,8 @@ using TileMap = std::unordered_map<GridPosition, cocos2d::Sprite*>;
 using TileTypeMap = std::unordered_map<GridPosition, TileType>;
 
 class Unit : public cocos2d::Sprite {
+private:
+	int buffCount = 0;
 protected:
 	static std::unordered_set<Unit*> onMove;
 	int team = 0;
@@ -37,27 +39,31 @@ protected:
 	GridPosition currentGridPosition;
 
 	Unit* target = nullptr;
-	void releaseTarget();
 
-	virtual void onAttackBegin();
-
-	CharacterDirection getNextDirection(GridPosition nextPosition);
-	virtual void onMoveBegin(GridPosition nextPosition, CharacterDirection nextDirection);
-	void movePath(float);
-	bool init() override;
 public:
-
-	Unit();
-
+	const int SCALE;
 	TileMap tiles;
 	TileTypeMap tileTypes;
 	std::unordered_set<Unit*> triggering;
+
+protected:
+	void releaseTarget();
+	CharacterDirection getNextDirection(GridPosition nextPosition);
+	virtual void onMoveBegin(GridPosition nextPosition, CharacterDirection nextDirection);
+	virtual void onAttackBegin();
+	void movePath(float);
+	bool init() override;
+public:
+	static Unit* create(int scale = 1);
+
+	Unit(int scale = 1);
+	virtual ~Unit();
+
 	bool isInTrigger(Unit* who) const;
-	
 	void testTrigger(Unit* who);
 	virtual void onTriggerIn(Unit* who) {}
 	virtual void onTriggerOut(Unit* who) {}
-
+	
 	void addTile(GridPosition, TileType type = TileType::Block, cocos2d::Sprite* tile = nullptr);
 	virtual void addChild(cocos2d::Node* child) override;
 	virtual void addChild(cocos2d::Node* child, int z) override;
@@ -68,33 +74,22 @@ public:
 	bool tryToJump(GridPosition);
 	void stopMove();
 
-	const int SCALE;
 	GridPosition getCurrentGridPosition() const;
 	void setGridPosition(GridPosition newGridPosition);
-
+	virtual void setPosition(const cocos2d::Vec2& v) override;
 
 	cocos2d::Vec2 getCenturalPosition();
 
-	static Unit* create(int scale = 1);
-
-	Unit(int scale);
-
 	virtual void removeFromParentAndCleanup(bool) override;
+
+	void setMoveType(MoveType moveType);
 	ChracterCondition getCondition() const;
 	CharacterDirection getCurrentDirection();
 	bool isEnemy(Unit*);
 
-	virtual void setTarget(Unit* target);
 	Unit* getTarget();
-	void setMoveType(MoveType moveType);
+	virtual void setTarget(Unit* target);
 	virtual bool isInAttackRange(Unit* who) const;
-	virtual void setPosition(const cocos2d::Vec2& v) override;
-
 	virtual void hit(Unit* by, int damage);
-	virtual ~Unit();
-
-private:
-	int buffCount = 0;
-public:
 	virtual void buff(int power, float time, cocos2d::Node* icon);
 };
