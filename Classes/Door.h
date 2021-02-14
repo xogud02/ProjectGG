@@ -1,10 +1,10 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "Unit.h"
+#include "GridUnit.h"
 #include "SpriteTileEnums.h"
 
-class Door : public Unit {
+class Door : public GridUnit {
 	DoorType doorType = DoorType::Wood;
 	DoorPosition doorPosition = DoorPosition::Horizontal;
 	DoorLockType doorLockType;
@@ -17,6 +17,6 @@ class Door : public Unit {
 	
 public:
 	static Door* create(DoorPosition doorPosition = DoorPosition::Horizontal, DoorType doorType = DoorType::Wood, DoorLockType doorLockType = DoorLockType::None);
-	virtual void onTriggerIn(Unit* who) override;
-	virtual void onTriggerOut(Unit* who) override;
+	virtual void onTriggerIn(GridUnit* who) override;
+	virtual void onTriggerOut(GridUnit* who) override;
 };

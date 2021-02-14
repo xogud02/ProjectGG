@@ -3,5 +3,5 @@
 
 class PowerUp : public Skill {
 public:
-	bool onTarget(Unit*) override;
+	bool onTarget(GridUnit*) override;
 };

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Unit.h"
+#include "GridUnit.h"
 #include "SkillCommand.h"
 #include <unordered_map>
 
@@ -17,11 +17,11 @@ enum class CharacterType {
 
 constexpr int CharacterTypeCount = static_cast<int>(CharacterType::Warrior) + 1;
 
-class Player : public Unit {
+class Player : public GridUnit {
 	std::unordered_map<CharacterDirection, cocos2d::Action*> directions;
 	const CharacterType characterType;
 	Weapon* weapon;
-	Unit* focused;
+	GridUnit* focused;
 	std::shared_ptr<SkillCommand> command;
 protected:
 	bool init() override;
@@ -29,9 +29,9 @@ protected:
 	virtual void onMoveBegin(GridPosition next, CharacterDirection nextDirection) override;
 public:
 	static Player* create(CharacterType, const int scale = 2);
-	void setFocused(Unit* focused);
-	Unit* getFocused() const;
-	virtual void setTarget(Unit* target) override;
+	void setFocused(GridUnit* focused);
+	GridUnit* getFocused() const;
+	virtual void setTarget(GridUnit* target) override;
 	Weapon* getWeapon();
 	std::shared_ptr<SkillCommand> getCommand();
 

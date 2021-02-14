@@ -9,8 +9,8 @@
 
 using UINT = unsigned int;
 
-class Unit;
-class Unit;
+class GridUnit;
+class GridUnit;
 class Player;
 class GridLayer : public cocos2d::LayerColor {
 	static GridLayer* instance;
@@ -22,7 +22,7 @@ class GridLayer : public cocos2d::LayerColor {
 	cocos2d::Vec2 visibleAreaOffset;
 
 	bool isDragging = false;
-	Unit* draggingCharacter = nullptr;
+	GridUnit* draggingCharacter = nullptr;
 
 public:
 	static GridLayer* getInstance();

@@ -1,9 +1,9 @@
 #pragma once
-#include "Unit.h"
+#include "GridUnit.h"
 
-class Portal : public Unit {
+class Portal : public GridUnit {
 
 public:
 	static Portal* create();
-	virtual void onTriggerIn(Unit* who) override;
+	virtual void onTriggerIn(GridUnit* who) override;
 };

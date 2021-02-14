@@ -5,11 +5,11 @@
 
 USING_NS_CC;
 
-Monster::Monster(int scale) : Unit(scale) {
+Monster::Monster(int scale) : GridUnit(scale) {
 }
 
 bool Monster::init() {
-	if (!Unit::init()) {
+	if (!GridUnit::init()) {
 		return false;
 	}
 	setName("monster");

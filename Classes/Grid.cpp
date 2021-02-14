@@ -1,5 +1,5 @@
 #include "Grid.h"
-#include "Unit.h"
+#include "GridUnit.h"
 #include <algorithm>
 
 using namespace std;
@@ -65,7 +65,7 @@ bool Grid::isValidPosition(const GridPosition& position, int size) const {
 	return 0 <= row && row + size -1 < rows && 0 <= col && col + size -1 < cols;
 }
 
-void Grid::occupyArea(Unit * by, const GridPosition& position) {
+void Grid::occupyArea(GridUnit * by, const GridPosition& position) {
 	auto size = by->SCALE;
 	if (!isOccupiable(position, size)) {
 		return;
@@ -77,7 +77,7 @@ void Grid::occupyArea(Unit * by, const GridPosition& position) {
 	});
 }
 
-void Grid::unOccupyArea(Unit * by, const GridPosition& position) {
+void Grid::unOccupyArea(GridUnit * by, const GridPosition& position) {
 	auto size = by->SCALE;
 	auto itr = occupied.find(position);
 	if (itr == occupied.cend() || itr->second != by) {
@@ -107,11 +107,11 @@ bool Grid::isOccupiable(const GridPosition& position, const int size) const {
 	return ret;
 }
 
-Unit* Grid::getOccupiedCharacter(const GridPosition &position) const {
+GridUnit* Grid::getOccupiedCharacter(const GridPosition &position) const {
 	auto itr = occupied.find(position);
 	if (itr == occupied.cend()) {
 		return nullptr;
 	}
 
-	return dynamic_cast<Unit*>(itr->second);
+	return dynamic_cast<GridUnit*>(itr->second);
 }

@@ -1,6 +1,6 @@
 #include "Weapon.h"
 #include "WeaponSpriteFactory.h"
-#include "Unit.h"
+#include "GridUnit.h"
 #include <unordered_map>
 
 USING_NS_CC;
@@ -43,7 +43,7 @@ bool Weapon::init() {
 
 		Vec2 delta;
 		if (!target) {
-			auto owner = dynamic_cast<Unit*>(getParent());
+			auto owner = dynamic_cast<GridUnit*>(getParent());
 			auto direction = owner->getCurrentDirection();
 			delta = deltas.find(direction)->second;
 		} else {
@@ -56,7 +56,7 @@ bool Weapon::init() {
 	}, "followTarget");
 }
 
-void Weapon::setTarget(Unit* newTarget) {
+void Weapon::setTarget(GridUnit* newTarget) {
 	if (target) {
 		target->release();
 	}

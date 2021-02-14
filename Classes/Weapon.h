@@ -2,12 +2,12 @@
 
 #include "cocos2d.h"
 
-class Unit;
+class GridUnit;
 class Weapon : public cocos2d::Sprite {
-	Unit* target = nullptr;
+	GridUnit* target = nullptr;
 public:
 	static Weapon* create();
 	virtual bool init() override;
-	void setTarget(Unit* c);
+	void setTarget(GridUnit* c);
 	void swing(float duration);
 };

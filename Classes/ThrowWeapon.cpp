@@ -9,7 +9,7 @@ USING_NS_CC;
 ThrowWeapon::ThrowWeapon(float coolDown):Skill(coolDown) {
 }
 
-bool ThrowWeapon::onTarget(Unit * to) {
+bool ThrowWeapon::onTarget(GridUnit * to) {
 	auto player = dynamic_cast<Player*>(owner);
 	auto weapon = WeaponSpriteFactory::sword();
 

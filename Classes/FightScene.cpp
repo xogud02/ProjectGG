@@ -23,7 +23,7 @@
  ****************************************************************************/
 
 #include "FightScene.h"
-#include "Unit.h"
+#include "GridUnit.h"
 #include "GridLayer.h"
 #include "Monster.h"
 #include "TileBuilder.h"

@@ -109,7 +109,7 @@
     <ClCompile Include="..\Classes\Portal.cpp">
       <Filter>Source Files\Classes\Object</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Unit.cpp">
+    <ClCompile Include="..\Classes\GridUnit.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -243,7 +243,7 @@
     <ClInclude Include="..\Classes\Door.h">
       <Filter>Source Files\Classes\Object</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Unit.h">
+    <ClInclude Include="..\Classes\GridUnit.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>

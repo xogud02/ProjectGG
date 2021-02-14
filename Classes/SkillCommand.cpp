@@ -28,7 +28,7 @@ bool SkillCommand::isMapped(CommandType command) const {
 	return skills.find(command) != skills.cend();
 }
 
-void SkillCommand::pullCharacter(Unit* to) {
+void SkillCommand::pullCharacter(GridUnit* to) {
 	tryToUseSkill(CommandType::PullCharacter, [to](auto skill) {return skill->onTarget(to); });
 }
 
@@ -49,7 +49,7 @@ void SkillCommand::draggedPlayer(const Vec2 & to) {
 	GUILayer::getInstance()->setArrowVisible(false);
 }
 
-void SkillCommand::doubleTapTarget(Unit * target) {
+void SkillCommand::doubleTapTarget(GridUnit * target) {
 	tryToUseSkill(CommandType::DoubleTabTarget, [target](auto skill) {return skill->onTarget(target); });
 }
 

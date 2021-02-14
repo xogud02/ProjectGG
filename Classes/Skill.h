@@ -2,18 +2,18 @@
 
 #include <functional>
 #include "cocos2d.h"
-class Unit;
+class GridUnit;
 
 class Skill {
 protected:
 	float coolDown = 3.0f;
-	Unit* owner;
+	GridUnit* owner;
 
 public:
 	Skill() = default;
 	Skill(float coolDown);
-	void setOwner(Unit* owner);
-	virtual bool onTarget(Unit* to);
+	void setOwner(GridUnit* owner);
+	virtual bool onTarget(GridUnit* to);
 	virtual bool nonTarget(const cocos2d::Vec2& to);
 	float getCooldown();
 	virtual cocos2d::Node* getIcon();

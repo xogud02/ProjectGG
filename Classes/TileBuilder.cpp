@@ -79,8 +79,8 @@ Node* TileBuilder::randomGround(int rows, int cols, SpriteTileTheme theme, float
 	return ret;
 }
 
-Unit* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
-	auto ret = Unit::create();
+GridUnit* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
+	auto ret = GridUnit::create();
 	auto tileSpriteType = SpriteTileType::WoodFloor;
 	auto floor = TileType::Floor;
 
@@ -176,10 +176,10 @@ PSet buildPit(int maxRows, int maxCols) {
 	return ret;
 }
 
-Unit * createPit(int maxRows, int maxCols, function<void(Sprite*, PitPositionType)> setSprite) {
+GridUnit * createPit(int maxRows, int maxCols, function<void(Sprite*, PitPositionType)> setSprite) {
 	PSet pit = buildPit(maxRows, maxCols);
 
-	auto ret = Unit::create();
+	auto ret = GridUnit::create();
 	for (auto pii : pit) {
 		int r = pii.first, c = pii.second;
 		auto s = Sprite::create();
@@ -189,21 +189,21 @@ Unit * createPit(int maxRows, int maxCols, function<void(Sprite*, PitPositionTyp
 	return ret;
 }
 
-Unit* TileBuilder::randomTestPit(int maxRows, int maxCols) {
+GridUnit* TileBuilder::randomTestPit(int maxRows, int maxCols) {
 	return createPit(maxRows, maxCols,
 		[](Sprite* s, auto p) {
 		s->setSpriteFrame(TileSpriteFactory::testPitPosition(p));
 	});
 }
 
-Unit * TileBuilder::randomLiquidPit(int maxRows, int maxCols, LiquidPitType type) {
+GridUnit * TileBuilder::randomLiquidPit(int maxRows, int maxCols, LiquidPitType type) {
 	return createPit(maxRows, maxCols,
 		[type](Sprite* s, auto position) {
 		s->runAction(TileSpriteFactory::liquidPitAction(type, position));
 	});
 }
 
-Unit* TileBuilder::randomPit(int maxRows, int maxCols, PitContentType content, PitWallType wall) {
+GridUnit* TileBuilder::randomPit(int maxRows, int maxCols, PitContentType content, PitWallType wall) {
 	return createPit(maxRows, maxCols,
 		[content, wall](Sprite* s, auto position) {
 		s->runAction(TileSpriteFactory::pitAction(content, wall, position));

@@ -776,7 +776,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\TTFLabelBuilder.h" />
     <ClInclude Include="..\Classes\WeaponSpriteFactory.h" />
     <ClInclude Include="C:\ProjectGG\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\Unit.h" />
+    <ClInclude Include="..\Classes\GridUnit.h" />
     <ClInclude Include="C:\ProjectGG\Classes\CharacterSelectScene.h" />
     <ClInclude Include="C:\ProjectGG\Classes\FightScene.h" />
     <ClInclude Include="C:\ProjectGG\Classes\GaugeBar.h" />
@@ -814,7 +814,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\TTFLabelBuilder.cpp" />
     <ClCompile Include="..\Classes\WeaponSpriteFactory.cpp" />
     <ClCompile Include="C:\ProjectGG\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\Unit.cpp" />
+    <ClCompile Include="..\Classes\GridUnit.cpp" />
     <ClCompile Include="C:\ProjectGG\Classes\CharacterSelectScene.cpp" />
     <ClCompile Include="C:\ProjectGG\Classes\FightScene.cpp" />
     <ClCompile Include="C:\ProjectGG\Classes\GaugeBar.cpp" />

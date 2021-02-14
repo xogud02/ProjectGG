@@ -18,6 +18,6 @@ Portal* Portal::create() {
 	return ret;
 }
 
-void Portal::onTriggerIn(Unit * who) {
+void Portal::onTriggerIn(GridUnit * who) {
 	Director::getInstance()->replaceScene(CharacterSelectScene::create(SpriteTileTheme::Bright));//TODO implement various portal
 }

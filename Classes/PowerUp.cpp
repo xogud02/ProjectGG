@@ -1,8 +1,8 @@
 #include "PowerUp.h"
-#include "Unit.h"
+#include "GridUnit.h"
 #include "GUILayer.h"
 
-bool PowerUp::onTarget(Unit* to) {
+bool PowerUp::onTarget(GridUnit* to) {
 	to->buff(10, 3, getIcon());
 	return true;
 }

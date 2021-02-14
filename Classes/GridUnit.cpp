@@ -1,4 +1,4 @@
-#include "Unit.h"
+#include "GridUnit.h"
 #include "GaugeBar.h"
 #include "GridLayer.h"
 #include "GridPathFinder.h"
@@ -12,12 +12,12 @@ USING_NS_CC_EXT;
 using namespace std;
 
 const string chaseTarget = "chaseTarget";
-unordered_set<Unit*> Unit::onMove;
+unordered_set<GridUnit*> GridUnit::onMove;
 
 #pragma region Class
 
-Unit* Unit::create(int scale) {
-	Unit* ret = new Unit(scale);
+GridUnit* GridUnit::create(int scale) {
+	GridUnit* ret = new GridUnit(scale);
 	if (!ret || !ret->init()) {
 		CC_SAFE_DELETE(ret);
 		return nullptr;
@@ -25,7 +25,7 @@ Unit* Unit::create(int scale) {
 	return ret;
 }
 
-bool Unit::init() {
+bool GridUnit::init() {
 	if (!Sprite::init()) {
 		return false;
 	}
@@ -56,7 +56,7 @@ bool Unit::init() {
 		}
 
 		for (auto* n : getParent()->getChildren()) {
-			auto* c = dynamic_cast<Unit*>(n);
+			auto* c = dynamic_cast<GridUnit*>(n);
 			if (c && c != this && isEnemy(c) && c->currentGridPosition.distance(currentGridPosition) <= status.getNoticeRange()) {
 				setTarget(c);
 			}
@@ -66,9 +66,9 @@ bool Unit::init() {
 	return true;
 }
 
-Unit::Unit(int scale) :SCALE(scale) {}
+GridUnit::GridUnit(int scale) :SCALE(scale) {}
 
-Unit::~Unit() {
+GridUnit::~GridUnit() {
 	Grid::getInstance()->unOccupyArea(this, currentGridPosition);
 }
 
@@ -76,31 +76,31 @@ Unit::~Unit() {
 
 #pragma region Grid
 
-GridPosition Unit::getCurrentGridPosition() const {
-	auto parent = dynamic_cast<const Unit*>(getParent());
+GridPosition GridUnit::getCurrentGridPosition() const {
+	auto parent = dynamic_cast<const GridUnit*>(getParent());
 	if (parent) {
 		return currentGridPosition + parent->getCurrentGridPosition();
 	}
 	return currentGridPosition;
 }
 
-void Unit::setGridPosition(GridPosition newGridPosition) {
+void GridUnit::setGridPosition(GridPosition newGridPosition) {
 	currentGridPosition = newGridPosition;
 	auto size = GridLayer::getInstance()->UNIT_SIZE;
 	Node::setPosition(size * currentGridPosition.col, size * currentGridPosition.row);
 }
 
-void Unit::setPosition(const Vec2 & v) {
+void GridUnit::setPosition(const Vec2 & v) {
 	auto grid = GridLayer::getInstance();
 	currentGridPosition = grid->vecToGrid(v);
 	Sprite::setPosition(grid->gridToPosition(currentGridPosition));
 }
 
-Vec2 Unit::getCenturalPosition() {
+Vec2 GridUnit::getCenturalPosition() {
 	return getPosition() + getBoundingBox().size / 2;
 }
 
-bool Unit::isInTrigger(Unit * who) const {
+bool GridUnit::isInTrigger(GridUnit * who) const {
 	auto size = who->SCALE;
 	auto pos = who->getCurrentGridPosition();
 	for (int dr = 0; dr < size; ++dr) {
@@ -116,7 +116,7 @@ bool Unit::isInTrigger(Unit * who) const {
 	return false;
 }
 
-void Unit::testTrigger(Unit * who) {
+void GridUnit::testTrigger(GridUnit * who) {
 	bool isTriggering = isInTrigger(who);
 	bool wasTriggering = triggering.find(who) != triggering.cend();
 
@@ -131,7 +131,7 @@ void Unit::testTrigger(Unit * who) {
 	}
 }
 
-void Unit::addTile(GridPosition position, TileType tileType, cocos2d::Sprite * tile) {
+void GridUnit::addTile(GridPosition position, TileType tileType, cocos2d::Sprite * tile) {
 	tileTypes[position] = tileType;
 	if (!tile) {
 		return;
@@ -149,13 +149,13 @@ void Unit::addTile(GridPosition position, TileType tileType, cocos2d::Sprite * t
 	tiles[position] = tile;
 }
 
-void Unit::addChild(cocos2d::Node * child) {
+void GridUnit::addChild(cocos2d::Node * child) {
 	addChild(child, 0);
 }
 
-void Unit::addChild(cocos2d::Node * child, int z) {
+void GridUnit::addChild(cocos2d::Node * child, int z) {
 	Node::addChild(child, z);
-	auto object = dynamic_cast<Unit*>(child);
+	auto object = dynamic_cast<GridUnit*>(child);
 	if (!object) {
 		return;
 	}
@@ -164,20 +164,24 @@ void Unit::addChild(cocos2d::Node * child, int z) {
 	object->Sprite::setPosition(size * cPos.col, size * cPos.row);
 }
 
-void Unit::addMoveListener(Unit* object) {
+void GridUnit::addMoveListener(GridUnit* object) {
 	onMove.insert(object);
 }
 
-void Unit::removeMoveListener(Unit* object) {
+void GridUnit::removeMoveListener(GridUnit* object) {
 	onMove.erase(object);
 }
 
-void Unit::removeFromParentAndCleanup(bool cleanup) {
+TileTypeMap GridUnit::getTileTypes() const {
+	return tileTypes;
+}
+
+void GridUnit::removeFromParentAndCleanup(bool cleanup) {
 	Grid::getInstance()->unOccupyArea(this, currentGridPosition);
 	Node::removeFromParentAndCleanup(cleanup);
 }
 
-CharacterDirection Unit::getCurrentDirection() {
+CharacterDirection GridUnit::getCurrentDirection() {
 	return currentDirection;
 }
 
@@ -185,15 +189,15 @@ CharacterDirection Unit::getCurrentDirection() {
 
 #pragma region Unit
 
-ChracterCondition Unit::getCondition() const{
+ChracterCondition GridUnit::getCondition() const{
 	return status.getCondition();
 }
 
-bool Unit::isEnemy(Unit *c) {
+bool GridUnit::isEnemy(GridUnit *c) {
 	return team != c->team;
 }
 
-void Unit::setTarget(Unit * newTarget) {
+void GridUnit::setTarget(GridUnit * newTarget) {
 	if (target == newTarget) {
 		return;
 	}
@@ -231,15 +235,15 @@ void Unit::setTarget(Unit * newTarget) {
 	}, 0, chaseTarget);
 }
 
-Unit * Unit::getTarget() {
+GridUnit * GridUnit::getTarget() {
 	return target;
 }
 
-void Unit::setMoveType(MoveType moveType) {
+void GridUnit::setMoveType(MoveType moveType) {
 	currentMoveType = moveType;
 }
 
-bool Unit::isInAttackRange(Unit * who) const {
+bool GridUnit::isInAttackRange(GridUnit * who) const {
 	if (!who) {
 		return false;
 	}
@@ -252,7 +256,7 @@ bool Unit::isInAttackRange(Unit * who) const {
 	return minR <= targetRow && targetRow <= maxR && minC <= targetCol && targetCol <= maxC;
 }
 
-void Unit::hit(Unit* by, int damage) {
+void GridUnit::hit(GridUnit* by, int damage) {
 
 	auto text = TTFLabelBuilder()
 		.setTextSize(20)
@@ -277,7 +281,7 @@ void Unit::hit(Unit* by, int damage) {
 	}
 }
 
-void Unit::buff(int power, float time, Node* icon) {
+void GridUnit::buff(int power, float time, Node* icon) {
 	++buffCount;
 	status.addMorePower(power);
 	CCLOG("power up");
@@ -290,7 +294,7 @@ void Unit::buff(int power, float time, Node* icon) {
 	}, time, "buff" + to_string(buffCount));
 }
 
-void Unit::releaseTarget() {
+void GridUnit::releaseTarget() {
 	if (!target) {
 		return;
 	}
@@ -301,9 +305,9 @@ void Unit::releaseTarget() {
 	}
 }
 
-void Unit::onAttackBegin() {}
+void GridUnit::onAttackBegin() {}
 
-CharacterDirection Unit::getNextDirection(GridPosition nextPosition) {
+CharacterDirection GridUnit::getNextDirection(GridPosition nextPosition) {
 	CCAssert(currentGridPosition != nextPosition, "invalid parameter");
 	auto delta = nextPosition - currentGridPosition;
 
@@ -349,11 +353,11 @@ CharacterDirection Unit::getNextDirection(GridPosition nextPosition) {
 	return CharacterDirection::DOWN;
 }
 
-void Unit::onMoveBegin(GridPosition nextPosition, CharacterDirection nextDirection) {}
+void GridUnit::onMoveBegin(GridPosition nextPosition, CharacterDirection nextDirection) {}
 
 constexpr int movingActionTag = 1;
 
-void Unit::movePath(float) {
+void GridUnit::movePath(float) {
 	if (path.empty()) {
 		setMoveType(MoveType::Stop);
 		return;
@@ -364,7 +368,7 @@ void Unit::movePath(float) {
 	grid->unOccupyArea(this, currentGridPosition);
 	if (!grid->isOccupiable(next, SCALE)) {
 		grid->occupyArea(this, currentGridPosition);
-		scheduleOnce(CC_SCHEDULE_SELECTOR(Unit::movePath), 1);
+		scheduleOnce(CC_SCHEDULE_SELECTOR(GridUnit::movePath), 1);
 		return;
 	}
 
@@ -388,10 +392,10 @@ void Unit::movePath(float) {
 	auto afterMove = [this]() {
 		setPosition(GridLayer::getInstance()->gridToPosition(currentGridPosition));
 
-		for (const auto& p : Unit::onMove) {
+		for (const auto& p : GridUnit::onMove) {
 			p->testTrigger(this);
 		}
-		scheduleOnce(CC_SCHEDULE_SELECTOR(Unit::movePath), 0);
+		scheduleOnce(CC_SCHEDULE_SELECTOR(GridUnit::movePath), 0);
 	};
 
 	runAction(Sequence::create(
@@ -400,7 +404,7 @@ void Unit::movePath(float) {
 		nullptr))->setTag(movingActionTag);
 }
 
-void Unit::tryToMove(GridPosition position) {
+void GridUnit::tryToMove(GridPosition position) {
 	if (position == currentGridPosition) {
 		return;
 	}
@@ -418,12 +422,12 @@ void Unit::tryToMove(GridPosition position) {
 	path.swap(newPath);
 
 
-	if (!isScheduled(CC_SCHEDULE_SELECTOR(Unit::movePath))) {
-		scheduleOnce(CC_SCHEDULE_SELECTOR(Unit::movePath), 0);
+	if (!isScheduled(CC_SCHEDULE_SELECTOR(GridUnit::movePath))) {
+		scheduleOnce(CC_SCHEDULE_SELECTOR(GridUnit::movePath), 0);
 	}
 }
 
-bool Unit::tryToJump(GridPosition position) {
+bool GridUnit::tryToJump(GridPosition position) {
 	auto grid = Grid::getInstance();
 
 	if (position == currentGridPosition || !grid->isOccupiable(position, SCALE) || !grid->isMovableTile(position, SCALE)) {
@@ -439,7 +443,7 @@ bool Unit::tryToJump(GridPosition position) {
 	return true;
 }
 
-void Unit::stopMove() {
+void GridUnit::stopMove() {
 	path.swap(queue<GridPosition>());
 }
 

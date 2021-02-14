@@ -23,11 +23,11 @@ enum class MoveType{
 using TileMap = std::unordered_map<GridPosition, cocos2d::Sprite*>;
 using TileTypeMap = std::unordered_map<GridPosition, TileType>;
 
-class Unit : public cocos2d::Sprite {
+class GridUnit : public cocos2d::Sprite {
 private:
 	int buffCount = 0;
 protected:
-	static std::unordered_set<Unit*> onMove;
+	static std::unordered_set<GridUnit*> onMove;
 	int team = 0;
 
 	Status status;
@@ -38,13 +38,13 @@ protected:
 	CharacterDirection currentDirection = CharacterDirection::DOWN;
 	GridPosition currentGridPosition;
 
-	Unit* target = nullptr;
+	GridUnit* target = nullptr;
 
 public:
 	const int SCALE;
 	TileMap tiles;
 	TileTypeMap tileTypes;
-	std::unordered_set<Unit*> triggering;
+	std::unordered_set<GridUnit*> triggering;
 
 protected:
 	void releaseTarget();
@@ -54,21 +54,22 @@ protected:
 	void movePath(float);
 	bool init() override;
 public:
-	static Unit* create(int scale = 1);
+	static GridUnit* create(int scale = 1);
 
-	Unit(int scale = 1);
-	virtual ~Unit();
+	GridUnit(int scale = 1);
+	virtual ~GridUnit();
 
-	bool isInTrigger(Unit* who) const;
-	void testTrigger(Unit* who);
-	virtual void onTriggerIn(Unit* who) {}
-	virtual void onTriggerOut(Unit* who) {}
+	bool isInTrigger(GridUnit* who) const;
+	void testTrigger(GridUnit* who);
+	virtual void onTriggerIn(GridUnit* who) {}
+	virtual void onTriggerOut(GridUnit* who) {}
 	
 	void addTile(GridPosition, TileType type = TileType::Block, cocos2d::Sprite* tile = nullptr);
 	virtual void addChild(cocos2d::Node* child) override;
 	virtual void addChild(cocos2d::Node* child, int z) override;
-	static void addMoveListener(Unit*);
-	static void removeMoveListener(Unit*);
+	static void addMoveListener(GridUnit*);
+	static void removeMoveListener(GridUnit*);
+	TileTypeMap getTileTypes() const;
 
 	void tryToMove(GridPosition);
 	bool tryToJump(GridPosition);
@@ -85,11 +86,11 @@ public:
 	void setMoveType(MoveType moveType);
 	ChracterCondition getCondition() const;
 	CharacterDirection getCurrentDirection();
-	bool isEnemy(Unit*);
+	bool isEnemy(GridUnit*);
 
-	Unit* getTarget();
-	virtual void setTarget(Unit* target);
-	virtual bool isInAttackRange(Unit* who) const;
-	virtual void hit(Unit* by, int damage);
+	GridUnit* getTarget();
+	virtual void setTarget(GridUnit* target);
+	virtual bool isInAttackRange(GridUnit* who) const;
+	virtual void hit(GridUnit* by, int damage);
 	virtual void buff(int power, float time, cocos2d::Node* icon);
 };

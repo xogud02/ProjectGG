@@ -2,7 +2,7 @@
 #include "FightScene.h"
 #include "Player.h"
 #include "SpriteFactory.h"
-#include "Unit.h"
+#include "GridUnit.h"
 #include "GridTouchListener.h"
 
 using namespace std;
@@ -226,7 +226,7 @@ void GridLayer::addChild(Node* node) {
 void GridLayer::addChild(Node* node, int zOrder) {
 	Node::addChild(node, zOrder);
 	node->setScale(node->getScale() * SpriteFactory::getUnitScale(UNIT_SIZE));
-	auto object = dynamic_cast<Unit*>(node);
+	auto object = dynamic_cast<GridUnit*>(node);
 	if (!object) {
 		return;
 	}

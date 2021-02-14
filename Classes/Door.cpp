@@ -39,10 +39,10 @@ Door* Door::create(DoorPosition doorPosition, DoorType doorType, DoorLockType do
 	return ret;
 }
 
-void Door::onTriggerIn(Unit*) {
+void Door::onTriggerIn(GridUnit*) {
 	door->setSpriteFrame(opened);
 }
 
-void Door::onTriggerOut(Unit*) {
+void Door::onTriggerOut(GridUnit*) {
 	door->setSpriteFrame(closed);
 }

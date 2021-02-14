@@ -6,12 +6,12 @@
 #include "TileType.h"
 #include "cocos2d.h"
 
-class Unit;
-class Unit;
+class GridUnit;
+class GridUnit;
 
 class Grid {
 	std::unordered_map<GridPosition, TileType> tileTypes;
-	std::unordered_map<GridPosition, std::unordered_set<Unit*>> triggerObjects;
+	std::unordered_map<GridPosition, std::unordered_set<GridUnit*>> triggerObjects;
 	std::unordered_map<GridPosition, cocos2d::Node*> occupied;//TODO maybe needs root object class
 	static Grid* instance;
 
@@ -26,9 +26,9 @@ public:
 	bool isMovableTile(const GridPosition& gridPosition, const int size = 1) const;
 	bool isValidPosition(const GridPosition& position, const int size = 1) const;
 
-	void occupyArea(Unit* by, const GridPosition&);
-	void unOccupyArea(Unit* by, const GridPosition&);
+	void occupyArea(GridUnit* by, const GridPosition&);
+	void unOccupyArea(GridUnit* by, const GridPosition&);
 	bool isOccupiable(const GridPosition&, const int size = 1)const;
 
-	Unit* getOccupiedCharacter(const GridPosition&) const;
+	GridUnit* getOccupiedCharacter(const GridPosition&) const;
 };

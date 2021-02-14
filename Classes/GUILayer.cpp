@@ -68,7 +68,7 @@ bool GUILayer::init() {
 	return true;
 }
 
-void GUILayer::addGaugeBar(Unit* owner, pBar newBar) {
+void GUILayer::addGaugeBar(GridUnit* owner, pBar newBar) {
 	if (characterBarMap.find(owner) == characterBarMap.cend()) {
 		owner->retain();
 	}
