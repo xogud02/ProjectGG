@@ -112,6 +112,9 @@
     <ClCompile Include="..\Classes\GridUnit.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GridUnits.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\Grid.h">
@@ -244,6 +247,9 @@
       <Filter>Source Files\Classes\Object</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GridUnit.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GridUnits.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>

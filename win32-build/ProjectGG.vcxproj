@@ -756,6 +756,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\FireBall.h" />
     <ClInclude Include="..\Classes\Grid.h" />
     <ClInclude Include="..\Classes\GridTouchListener.h" />
+    <ClInclude Include="..\Classes\GridUnits.h" />
     <ClInclude Include="..\Classes\GUIBoxCreator.h" />
     <ClInclude Include="..\Classes\GUILayer.h" />
     <ClInclude Include="..\Classes\GUISpriteFactory.h" />
@@ -798,6 +799,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\FireBall.cpp" />
     <ClCompile Include="..\Classes\Grid.cpp" />
     <ClCompile Include="..\Classes\GridTouchListener.cpp" />
+    <ClCompile Include="..\Classes\GridUnits.cpp" />
     <ClCompile Include="..\Classes\GUIBoxCreator.cpp" />
     <ClCompile Include="..\Classes\GUILayer.cpp" />
     <ClCompile Include="..\Classes\GUISpriteFactory.cpp" />
