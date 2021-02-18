@@ -2,6 +2,7 @@
 #include "SpriteFactory.h"
 #include "TileSpriteFactory.h"
 #include "Door.h"
+#include "GridUnits.h"
 #include <unordered_set>
 #include <bitset>
 
@@ -79,8 +80,8 @@ Node* TileBuilder::randomGround(int rows, int cols, SpriteTileTheme theme, float
 	return ret;
 }
 
-GridUnit* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
-	auto ret = GridUnit::create();
+GridUnits* TileBuilder::building(int rows, int cols, SpriteTileTheme theme) {
+	auto ret = GridUnits::create();
 	auto tileSpriteType = SpriteTileType::WoodFloor;
 	auto floor = TileType::Floor;
 
@@ -176,7 +177,7 @@ PSet buildPit(int maxRows, int maxCols) {
 	return ret;
 }
 
-GridUnit * createPit(int maxRows, int maxCols, function<void(Sprite*, PitPositionType)> setSprite) {
+GridUnits * createPit(int maxRows, int maxCols, function<void(Sprite*, PitPositionType)> setSprite) {
 	PSet pit = buildPit(maxRows, maxCols);
 
 	auto ret = GridUnit::create();
@@ -189,21 +190,21 @@ GridUnit * createPit(int maxRows, int maxCols, function<void(Sprite*, PitPositio
 	return ret;
 }
 
-GridUnit* TileBuilder::randomTestPit(int maxRows, int maxCols) {
-	return createPit(maxRows, maxCols,
+GridUnits* TileBuilder::randomTestPit(int rows, int cols) {
+	return createPit(rows, cols,
 		[](Sprite* s, auto p) {
 		s->setSpriteFrame(TileSpriteFactory::testPitPosition(p));
 	});
 }
 
-GridUnit * TileBuilder::randomLiquidPit(int maxRows, int maxCols, LiquidPitType type) {
+GridUnits * TileBuilder::randomLiquidPit(int maxRows, int maxCols, LiquidPitType type) {
 	return createPit(maxRows, maxCols,
 		[type](Sprite* s, auto position) {
 		s->runAction(TileSpriteFactory::liquidPitAction(type, position));
 	});
 }
 
-GridUnit* TileBuilder::randomPit(int maxRows, int maxCols, PitContentType content, PitWallType wall) {
+GridUnits* TileBuilder::randomPit(int maxRows, int maxCols, PitContentType content, PitWallType wall) {
 	return createPit(maxRows, maxCols,
 		[content, wall](Sprite* s, auto position) {
 		s->runAction(TileSpriteFactory::pitAction(content, wall, position));
