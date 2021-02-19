@@ -180,7 +180,7 @@ PSet buildPit(int maxRows, int maxCols) {
 GridUnits * createPit(int maxRows, int maxCols, function<void(Sprite*, PitPositionType)> setSprite) {
 	PSet pit = buildPit(maxRows, maxCols);
 
-	auto ret = GridUnit::create();
+	auto ret = GridUnits::create();
 	for (auto pii : pit) {
 		int r = pii.first, c = pii.second;
 		auto s = Sprite::create();

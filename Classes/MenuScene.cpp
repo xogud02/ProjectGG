@@ -8,6 +8,7 @@
 #include "ObjectSpriteFactory.h"
 #include "GridUnit.h"
 #include "Portal.h"
+#include "GridUnits.h"
 
 USING_NS_CC;
 using namespace std;
